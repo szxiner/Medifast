@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cb0e12a9-c8c5-4d64-8a36-8951bcf059fd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/login/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Medifast/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Medifast/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Medifast/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Medifast/urls.py" afterDir="false" />
-    </list>
+    <list default="true" id="cb0e12a9-c8c5-4d64-8a36-8951bcf059fd" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +144,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="734" />
     <option name="y" value="15" />
     <option name="width" value="614" />
@@ -243,7 +238,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="734" y="15" width="614" height="743" extended-state="0" />
+    <frame x="734" y="15" width="614" height="743" extended-state="1" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29602888" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
