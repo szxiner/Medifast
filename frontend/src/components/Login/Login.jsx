@@ -1,11 +1,10 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
+import TextInput from "../../common/TextInput";
 // import { BrowserRouter as Redirect } from "react-router-dom";
 
 const styles = StyleSheet.create({
-  text: {
-    color: "blue"
-  }
+  text: {}
 });
 
 const fakeAuth = {
@@ -66,17 +65,17 @@ export default class Login extends React.Component {
 
     return (
       <div className={css(styles.text)}>
-        Username:
-        <input
+        <TextInput
           type="text"
           name="username"
+          label="Username"
           value={this.state.username}
           onChange={this.onChange}
         />
-        Password:
-        <input
+        <TextInput
           type="password"
           name="password"
+          label="Password"
           value={this.state.password}
           onChange={this.onChange}
         />
