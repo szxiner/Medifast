@@ -5,3 +5,13 @@ body {
   line-height: 22px;
   font-size: 19;
 }
+
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
+h1 {
+  font-family: "Pacifico", cursive;
+  size: 40;
+}
