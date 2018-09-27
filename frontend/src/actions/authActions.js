@@ -11,10 +11,6 @@ export const authenticateUser = userData => dispatch => {
 
 export const createUser = userData => dispatch => {
   console.log("action called" + JSON.stringify(userData));
-  // dispatch({
-  //   type: NEW_USER,
-  //   payload: userData
-  // });
   axios
     .post("http://127.0.0.1:8000/users/", userData)
     .then(res => console.log(res))
