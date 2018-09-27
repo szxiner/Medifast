@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 
-import { authenticateUser } from "../../actions/authActions";
+import { createUser } from "../../actions/authActions";
 
 const styles = StyleSheet.create({});
 
-class Login extends React.Component {
+class Register extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -28,7 +28,7 @@ class Login extends React.Component {
       password: this.state.password
     };
 
-    this.props.authenticateUser(user);
+    this.props.createUser(user);
   };
 
   onChange = e => {
@@ -55,16 +55,16 @@ class Login extends React.Component {
             value={this.state.password}
             onChange={this.onChange}
           />
-          <button type="submit">Log in</button>
+          <button type="submit">Sign up</button>
         </form>
       </div>
     );
   }
 }
 
-Login.propTypes = { authenticateUser: PropTypes.func.isRequired };
+Register.propTypes = { createUser: PropTypes.func.isRequired };
 
 export default connect(
   null,
-  { authenticateUser }
-)(Login);
+  { createUser }
+)(Register);
