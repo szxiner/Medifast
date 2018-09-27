@@ -13,7 +13,8 @@ class Register extends React.Component {
     super();
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      typeOfUser: "patient"
     };
 
     this.onChange = this.onChange.bind(this);
@@ -25,7 +26,8 @@ class Register extends React.Component {
 
     const user = {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      typeOfUser: "patient"
     };
 
     this.props.createUser(user);
