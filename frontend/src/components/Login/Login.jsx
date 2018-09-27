@@ -6,19 +6,24 @@ import { connect } from "react-redux";
 
 import { authenticateUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
-import { Button, FormGroup, FormControl } from "react-bootstrap";
+import Button from "../../common/Button";
+import { FormGroup, FormControl } from "react-bootstrap";
 
 const styles = StyleSheet.create({
   box: {
     margin: "auto",
-    width: "50%",
-    height: "50%",
-    padding: 12,
-    borderColor: themeColor.grey3
+    marginTop: "8%",
+    width: "60%",
+    height: "70%",
+    padding: 50,
+    backgroundColor: themeColor.white,
+    color: themeColor.aegean2,
+    borderColor: themeColor.grey3,
+    borderRadius: 8
   },
-  inputBox: {},
-  // TODO: Change button style
-  loginButton: { width: 80 }
+  logo: {
+    textAlign: "center"
+  }
 });
 
 class Login extends React.Component {
@@ -51,7 +56,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className={css(styles.box)}>
-        <h1>Medifast</h1>
+        <h1 className={css(styles.logo)}>Medifast</h1>
         <br />
         <form onSubmit={this.onSubmit}>
           <FormGroup>
@@ -75,13 +80,8 @@ class Login extends React.Component {
               onChange={this.onChange}
             />
             <br />
-            <Button
-              className={css(styles.loginButton)}
-              bsStyle="primary"
-              type="submit"
-            >
-              Log in
-            </Button>
+            <br />
+            <Button name="Log in" type="submit" />
           </FormGroup>
         </form>
       </div>
