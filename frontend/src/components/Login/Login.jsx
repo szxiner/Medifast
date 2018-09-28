@@ -19,7 +19,10 @@ const styles = StyleSheet.create({
     backgroundColor: themeColor.white,
     color: themeColor.aegean2,
     borderColor: themeColor.grey3,
-    borderRadius: 8
+    borderRadius: 8,
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
   },
   logo: {
     textAlign: "center"
@@ -66,6 +69,7 @@ class Login extends React.Component {
               type="text"
               name="username"
               label="Username"
+              placeholder="Username"
               value={this.state.username}
               onChange={this.onChange}
             />
@@ -76,6 +80,7 @@ class Login extends React.Component {
               type="password"
               name="password"
               label="Password"
+              placeholder="Password"
               value={this.state.password}
               onChange={this.onChange}
             />

@@ -25,7 +25,8 @@ export const themeColor = {
 
   yellow: "#E2C044",
 
-  red: "#AD0808",
+  red0: "#C34B4B",
+  red1: "#AD0808",
 
   green0: "#00B200",
   green1: "#1B891B",

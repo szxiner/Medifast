@@ -10,11 +10,11 @@ import LandingNavbar from "./components/Layout/LandingNavbar";
 import store from "./store";
 import { StyleSheet, css } from "aphrodite";
 
-const styles = StyleSheet.create({
-  app: {
-    height: "100%"
-  }
-});
+// const styles = StyleSheet.create({
+//   app: {
+//     height: "100%"
+//   }
+// });
 
 class App extends React.Component {
   render() {
@@ -22,7 +22,7 @@ class App extends React.Component {
       // Provider glues react and redux together
       <Provider store={store}>
         <Router>
-          <div className={css(styles.app)}>
+          <div className="App">
             <LandingNavbar />
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />

@@ -7,6 +7,7 @@ import { themeColor } from "../../theme/colors";
 const styles = StyleSheet.create({
   landingNavbar: {
     margin: 0,
+    position: "float",
     background: themeColor.white,
     borderBottom: themeColor.grey3
   }
@@ -21,7 +22,7 @@ export default class LandingNavbar extends React.Component {
             <Link to="/">Home</Link>
           </Navbar.Brand>
         </Navbar.Header>
-        <Nav>
+        <Nav pullRight>
           <NavItem eventKey={1} href="#">
             <Link to="/login">Log in</Link>
           </NavItem>
