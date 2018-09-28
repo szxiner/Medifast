@@ -29,58 +29,79 @@ class AccountView(viewsets.ModelViewSet):
 
 class AccountList(APIView):
 
-    #def get(self, request, format=None):
-    #    accounts = Account.objects.all()
-    #    serializer = AccountSerializer(accounts, many=True)
-    #    return Response(serializer.data)
+    def get(self, request, format=None):
+        accounts = Account.objects.all()
+        serializer = AccountSerializer(accounts, many=True)
+        return Response(serializer.data)
 
     def post(self, request, format=None):
-        #serializer = AccountSerializer(data=request.data)
-        if self.verifiedInDB(request.data):
+        serializer = AccountSerializer(data=request.data)
+        if not self.verifiedInDB(request.data):
             #It was not in database
-            #if serializer.is_valid():
-            #    serializer.save()
-            #return Response(True, serializer.data,status=status.HTTP_201_CREATED)
-            return Response(True, status=status.HTTP_201_CREATED)
-        #if serializer.is_valid():
-        #    pass
-        return Response(False, status=status.HTTP_400_BAD_REQUEST)
-        
+            if serializer.is_valid():
+                serializer.save()
+                #Return True if post was successful
+                return Response(True, status=status.HTTP_201_CREATED)
+            return Response(False, status=status.HTTP_400_BAD_REQUEST)
+        return Response(False)
+
+    #Checks if the user is already in the database
+    #Returns True if they are found
     def verifiedInDB(self, user):
-        username = user['username']
-        a = Account.objects.raw('select username from users_account %s', [username])
-        if a == username:
+        name = user['username']
+        a = Account.objects.filter(username=name).exists()
+        if a == True:
             return True
         return False
-        #try:
-        #    a = Account.objects.get(username='username')
-        #    return False
-        #except Account.DoesNotExist:
-        #    return True
+
+'''
+class AccountView(generics.RetrieveDestroyAPIView):
+
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
+'''
+'''
+    def delete(self,request):
+        user = request.data
+        name = user['username']
+        password = user['password']
+        type = user['typeOfUser']
+        a = Account.objects.filter(username=name,password=password,type=type).exists()
+        if a == True:
+            #a.delete()
+            return Response(True)
+        return Response(False)
+'''
 
 '''
 class AccountDetails(APIView):
 
-    def get_object(self, pk):
-        try:
-            return Account.objects.get(pk=pk)
-        except Account.DoesNotExist:
-            raise Http404
+    def get_object(self, user):
+        name = user['username']
+        password = user['password']
+        type = user['typeOfUser']
+        a = Account.objects.filter(username=name,password=password,typeOfUser=type).exists()
+        b = Account.objects.filter(username=name,password=password,typeOfUser=type)
+        if a:
+            return b
+        raise Http404
 
-    def get(self, request, pk, format=None):
-        account = self.get_object(pk)
+    def get(self, user, format=None):
+        account = self.get_object(user)
         serializer = AccountSerializer(account)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        account = self.get_object(pk)
+    def put(self, request, format=None):
+        user = request.data
+        account = self.get_object(user)
         serializer = AccountSerializer(account, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
-        account = self.get_object(pk)
+    def delete(self, request, format=None):
+        user = request.data
+        account = self.get_object(user)
         account.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)'''

@@ -6,6 +6,6 @@ class AccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ('url' ,'id', 'username', 'password', 'typeOfUser')
+        fields = ('id', 'username', 'password', 'typeOfUser')
         #fields = '__all__'
 
