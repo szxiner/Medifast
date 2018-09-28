@@ -19,7 +19,10 @@ const styles = StyleSheet.create({
     backgroundColor: themeColor.white,
     color: themeColor.aegean2,
     borderColor: themeColor.grey3,
-    borderRadius: 8
+    borderRadius: 8,
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
   },
   inputBox: {},
   // TODO: Change button style
@@ -62,6 +65,7 @@ class Register extends React.Component {
       <div className={css(styles.box)}>
         <h1 className={css(styles.logo)}>Medifast</h1>
         <br />
+        {/*TODO: Create global form*/}
         <form onSubmit={this.onSubmit}>
           <FormGroup>
             <ControlLabel>Username:</ControlLabel>

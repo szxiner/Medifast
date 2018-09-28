@@ -6,7 +6,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #ececec;
+  background-color: #f4f5f5;
 }
 
 a {
@@ -16,5 +16,5 @@ a {
 
 h1 {
   font-family: "Pacifico", cursive;
-  size: 40;
+  size: 48;
 }
