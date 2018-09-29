@@ -27,23 +27,13 @@ class AccountView(viewsets.ModelViewSet):
             return False
 '''
 
-class AccountList(APIView):
-
-    def get(self, request, format=None):
-        accounts = Account.objects.all()
-        serializer = AccountSerializer(accounts, many=True)
-        return Response(serializer.data)
-
+# API to authorize user when logging in
+class AuthAccount(APIView):
     def post(self, request, format=None):
         serializer = AccountSerializer(data=request.data)
-        if not self.verifiedInDB(request.data):
-            #It was not in database
-            if serializer.is_valid():
-                serializer.save()
-                #Return True if post was successful
-                return Response(True, status=status.HTTP_201_CREATED)
-            return Response(False, status=status.HTTP_400_BAD_REQUEST)
-        return Response(False)
+        if self.verifiedInDB(request.data):
+            return Response(True, status=status.HTTP_200_OK)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
     #Checks if the user is already in the database
     #Returns True if they are found
@@ -53,6 +43,22 @@ class AccountList(APIView):
         if a == True:
             return True
         return False
+
+# API to register new user to the database
+class AccountList(APIView):
+    def get(self, request, format=None):
+        accounts = Account.objects.all()
+        serializer = AccountSerializer(accounts, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = AccountSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            #Return True if post was successful
+            return Response(True, status=status.HTTP_201_CREATED)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
+
 
 '''
 class AccountView(generics.RetrieveDestroyAPIView):

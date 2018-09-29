@@ -10,6 +10,7 @@ from rest_framework import routers
 
 urlpatterns = [
     #path('', include(router.urls)),
-    path('', views.AccountList.as_view()),
+    path('users', views.AccountList.as_view()),
+    path('auth', views.AuthAccount.as_view()),
     #path('(P<pk>[0-9]+)', views.AccountView.as_view()),
 ]
