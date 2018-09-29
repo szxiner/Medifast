@@ -40,7 +40,6 @@ class AuthAccount(APIView):
     def verifiedInDB(self, user):
         name = user['username']
         a = Account.objects.filter(username=name).exists()
-        print(Account.objects.filter(username=name))
         if a == True:
             return True
         return False
