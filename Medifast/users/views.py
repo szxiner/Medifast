@@ -27,8 +27,26 @@ class AccountView(viewsets.ModelViewSet):
             return False
 '''
 
-class AccountList(APIView):
+# API to authorize user when logging in
+class AuthAccount(APIView):
+    def post(self, request, format=None):
+        serializer = AccountSerializer(data=request.data)
+        if self.verifiedInDB(request.data):
+            return Response(True, status=status.HTTP_200_OK)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
+    #Checks if the user is already in the database
+    #Returns True if they are found
+    def verifiedInDB(self, user):
+        name = user['username']
+        a = Account.objects.filter(username=name).exists()
+        print(Account.objects.filter(username=name))
+        if a == True:
+            return True
+        return False
+
+# API to register new user to the database
+class AccountList(APIView):
     def get(self, request, format=None):
         accounts = Account.objects.all()
         serializer = AccountSerializer(accounts, many=True)
@@ -36,23 +54,12 @@ class AccountList(APIView):
 
     def post(self, request, format=None):
         serializer = AccountSerializer(data=request.data)
-        if not self.verifiedInDB(request.data):
-            #It was not in database
-            if serializer.is_valid():
-                serializer.save()
-                #Return True if post was successful
-                return Response(True, status=status.HTTP_201_CREATED)
-            return Response(False, status=status.HTTP_400_BAD_REQUEST)
-        return Response(False)
+        if serializer.is_valid():
+            serializer.save()
+            #Return True if post was successful
+            return Response(True, status=status.HTTP_201_CREATED)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
-    #Checks if the user is already in the database
-    #Returns True if they are found
-    def verifiedInDB(self, user):
-        name = user['username']
-        a = Account.objects.filter(username=name).exists()
-        if a == True:
-            return True
-        return False
 
 '''
 class AccountView(generics.RetrieveDestroyAPIView):
