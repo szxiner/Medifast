@@ -37,11 +37,10 @@ class AuthAccount(APIView):
     #Checks if the user is already in the database
     #Returns True if they are found
     def verifiedInDB(self, user):
-        print(user['password'].encode('utf-8'))
         name = user['username']
         a = Account.objects.filter(username=name)
         for instance in a:
-            if checkpw(user["password"].encode('utf-8'), instance.password.encode('utf-8')):
+            if checkpw(user["password"].encode('utf-8'), instance.password):
                 return True
             return False
 
