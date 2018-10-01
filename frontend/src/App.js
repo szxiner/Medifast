@@ -6,7 +6,7 @@ import Landing from "./components/Landing/Landing";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import LandingNavbar from "./components/Layout/LandingNavbar";
-// import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import store from "./store";
 
 class App extends React.Component {
@@ -20,6 +20,7 @@ class App extends React.Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/dashboard" component={Dashboard} />
           </div>
         </Router>
       </Provider>

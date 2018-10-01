@@ -8,6 +8,7 @@ import { authenticateUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import Button from "../../common/Button";
 import { FormGroup, FormControl } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 
 const styles = StyleSheet.create({
   box: {
@@ -39,6 +40,18 @@ export class Login extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  // componentDidMount() {
+  //   if (this.props.auth.isAuth) {
+  //     <Redirect to="/dashboard" />;
+  //   }
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuth) {
+      <Redirect to="/dashboard" />;
+    }
   }
 
   onSubmit = e => {
@@ -94,9 +107,16 @@ export class Login extends React.Component {
   }
 }
 
-Login.propTypes = { authenticateUser: PropTypes.func.isRequired };
+Login.propTypes = {
+  auth: PropTypes.object.isRequired,
+  authenticateUser: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   { authenticateUser }
 )(Login);
