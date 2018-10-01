@@ -136,7 +136,7 @@ export class Register extends React.Component {
             </FormControl>
             <br />
             <br />
-            <Button name="Log in" type="submit" />
+            <Button name="Sign Up" type="submit" />
           </FormGroup>
         </form>
         <div className={css(styles.error)}>{this.state.errorMsg}</div>

@@ -9,7 +9,8 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework import generics
 from django.http import Http404
-from bcrypt import checkpw
+# from bcrypt import checkpw
+from django.contrib.auth.hashers import check_password
 
 # Lists all accounts
 # /users
@@ -40,7 +41,8 @@ class AuthAccount(APIView):
         name = user['username']
         a = Account.objects.filter(username=name)
         for instance in a:
-            if checkpw(user["password"].encode('utf-8'), instance.password):
+            print(user["password"])
+            if check_password(user["password"], instance.password):
                 return True
             return False
 
@@ -54,7 +56,8 @@ class AccountList(APIView):
     def post(self, request, format=None):
         data = request.data
         serializer = AccountSerializer(data=request.data)
-        if serializer.is_valid():
+        a = Account.objects.filter(username=request.data['username'])
+        if serializer.is_valid() & len(a)==0:
             serializer.save()
             return Response(True, status=status.HTTP_201_CREATED)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
