@@ -9,7 +9,6 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework import generics
 from django.http import Http404
-# from bcrypt import checkpw
 from django.contrib.auth.hashers import check_password
 
 # Lists all accounts
@@ -35,8 +34,8 @@ class AuthAccount(APIView):
             return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
-    #Checks if the user is already in the database
-    #Returns True if they are found
+    # Check if there is an username matches in the database
+    # if true check if the password matches
     def verifiedInDB(self, user):
         name = user['username']
         a = Account.objects.filter(username=name)

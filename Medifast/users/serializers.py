@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Account
-# from bcrypt import gensalt, hashpw
 from django.contrib.auth.hashers import make_password
 
 class AccountSerializer(serializers.ModelSerializer):

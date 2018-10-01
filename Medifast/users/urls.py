@@ -13,6 +13,8 @@ urlpatterns = [
     #path('', include(router.urls)),
     path('users', views.AccountList.as_view()),
     path('auth', views.AuthAccount.as_view()),
+
+    # not using the below api currently but will need them if we are doing jwt
     path('api/token/', TokenObtainPairView.as_view()),
     path('api/token/refresh/', TokenRefreshView.as_view()),
 
