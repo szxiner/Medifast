@@ -9,6 +9,7 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework import generics
 from django.http import Http404
+from bcrypt import checkpw
 
 # Lists all accounts
 # /users
@@ -26,32 +27,38 @@ class AccountView(viewsets.ModelViewSet):
             return False
 '''
 
-class AccountList(APIView):
+# API to authorize user when logging in
+class AuthAccount(APIView):
+    def post(self, request, format=None):
+        if self.verifiedInDB(request.data):
+            return Response(True, status=status.HTTP_200_OK)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
+    #Checks if the user is already in the database
+    #Returns True if they are found
+    def verifiedInDB(self, user):
+        name = user['username']
+        a = Account.objects.filter(username=name)
+        for instance in a:
+            if checkpw(user["password"].encode('utf-8'), instance.password):
+                return True
+            return False
+
+# API to register new user to the database
+class AccountList(APIView):
     def get(self, request, format=None):
         accounts = Account.objects.all()
         serializer = AccountSerializer(accounts, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        data = request.data
         serializer = AccountSerializer(data=request.data)
-        if not self.verifiedInDB(request.data):
-            #It was not in database
-            if serializer.is_valid():
-                serializer.save()
-                #Return True if post was successful
-                return Response(True, status=status.HTTP_201_CREATED)
-            return Response(False, status=status.HTTP_400_BAD_REQUEST)
-        return Response(False)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(True, status=status.HTTP_201_CREATED)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
-    #Checks if the user is already in the database
-    #Returns True if they are found
-    def verifiedInDB(self, user):
-        name = user['username']
-        a = Account.objects.filter(username=name).exists()
-        if a == True:
-            return True
-        return False
 
 '''
 class AccountView(generics.RetrieveDestroyAPIView):

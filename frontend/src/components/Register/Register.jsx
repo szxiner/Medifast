@@ -24,6 +24,11 @@ const styles = StyleSheet.create({
       // TODO: Not responsive for mobile. Will Fix later
     }
   },
+  error: {
+    fontWeight: 600,
+    textAlign: "center",
+    color: themeColor.red1
+  },
   inputBox: {},
   // TODO: Change button style
   loginButton: { width: 80 },
@@ -31,13 +36,15 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-class Register extends React.Component {
+export class Register extends React.Component {
   constructor() {
     super();
     this.state = {
       username: "",
       password: "",
-      typeOfUser: "role"
+      confirmPassword: "",
+      typeOfUser: "role",
+      errorMsg: ""
     };
 
     this.onChange = this.onChange.bind(this);
@@ -46,14 +53,28 @@ class Register extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-
-    const user = {
-      username: this.state.username,
-      password: this.state.password,
-      typeOfUser: this.state.typeOfUser
-    };
-
-    this.props.createUser(user);
+    if (
+      this.state.username === "" ||
+      this.state.password === "" ||
+      this.state.confirmPassword === "" ||
+      this.state.typeOfUser === "role"
+    ) {
+      this.setState({ errorMsg: "Please complete all the fields." });
+    } else {
+      if (this.state.password === this.state.confirmPassword) {
+        const user = {
+          username: this.state.username,
+          password: this.state.password,
+          confirmPassword: this.state.confirmPassword,
+          typeOfUser: this.state.typeOfUser
+        };
+        this.props.createUser(user);
+        this.setState({ errorMsg: "" });
+        console.log("Creating user");
+      } else {
+        this.setState({ errorMsg: "Passwords does not match." });
+      }
+    }
   };
 
   onChange = e => {
@@ -90,6 +111,17 @@ class Register extends React.Component {
               onChange={this.onChange}
             />
             <br />
+            <ControlLabel>Confirm Password:</ControlLabel>
+            <FormControl
+              className={css(styles.inputBox)}
+              type="password"
+              name="confirmPassword"
+              label="Confirm Password"
+              placeholder="Confirm Password"
+              value={this.state.confirmPassword}
+              onChange={this.onChange}
+            />
+            <br />
             <ControlLabel>Role:</ControlLabel>
             <FormControl
               componentClass="select"
@@ -107,6 +139,7 @@ class Register extends React.Component {
             <Button name="Log in" type="submit" />
           </FormGroup>
         </form>
+        <div className={css(styles.error)}>{this.state.errorMsg}</div>
       </div>
     );
   }

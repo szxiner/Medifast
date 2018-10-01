@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import Landing from "./components/Landing/Landing";
@@ -8,13 +8,6 @@ import Register from "./components/Register/Register";
 import LandingNavbar from "./components/Layout/LandingNavbar";
 // import Dashboard from "./components/Dashboard/Dashboard";
 import store from "./store";
-import { StyleSheet, css } from "aphrodite";
-
-// const styles = StyleSheet.create({
-//   app: {
-//     height: "100%"
-//   }
-// });
 
 class App extends React.Component {
   render() {

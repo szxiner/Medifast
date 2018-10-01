@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class Login extends React.Component {
+export class Login extends React.Component {
   constructor() {
     super();
     this.state = {

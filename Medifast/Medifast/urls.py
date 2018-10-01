@@ -22,7 +22,7 @@ from pages.views import FrontendRenderView
 urlpatterns = [
     path('api-auth', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
-    path('api-users', include('users.urls')),
+    path('', include('users.urls')),
     #path('(?P<path>.*)', FrontendRenderView, name=home),
 ]
 
