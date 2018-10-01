@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { themeColor } from "../theme/colors";
 import { StyleSheet, css } from "aphrodite";
 

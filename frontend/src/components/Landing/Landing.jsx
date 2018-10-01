@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     width: "22%",
     border: "0px solid",
     borderRadius: 5,
-    color: themeColor.white,
     fontWeight: 500
   },
   index: {
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
 export default class Landing extends React.Component {
   render() {
     return (
-      <div className={css(styles.index)}>
+      <div data-it="landing" className={css(styles.index)}>
         {/*TODO: index page is not responsive yet*/}
         <div className={css(styles.indexContent)}>
           <div className={css(styles.logo)}>Medifast</div>
