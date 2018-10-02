@@ -3,25 +3,32 @@ import { AUTH_USER, NEW_USER } from "./types";
 import { Redirect } from "react-router-dom";
 
 export const authenticateUser = userData => dispatch => {
-  console.log("action called");
   axios
     .post("http://127.0.0.1:8000/auth", userData)
     .then(res => {
       if (res.status === 200) {
+        console.log("Login success!");
         dispatch({
           type: AUTH_USER,
           payload: true
         });
+      } else {
+        console.log("User name and password does not match...");
       }
     })
     .catch(err => console.log(err));
 };
 
 export const createUser = userData => dispatch => {
-  console.log("action called" + JSON.stringify(userData));
   axios
     .post("http://127.0.0.1:8000/users", userData)
-    .then(res => console.log(res))
+    .then(res => {
+      if (res.status === 201) {
+        console.log("User created!");
+      } else {
+        console.log("Username already exist...");
+      }
+    })
     .then(userData => {
       {
         dispatch({
