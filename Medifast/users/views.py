@@ -14,19 +14,6 @@ from django.contrib.auth.hashers import check_password
 # Lists all accounts
 # /users
 
-'''
-class AccountView(viewsets.ModelViewSet):
-    pass
-    queryset = Account.objects.all()
-    serializer_class = AccountSerializer
-    def checkInDB(self, request, password):
-        try:
-            Account.objects.get(password=password)
-            return True
-        except Account.DoesNotExist:
-            return False
-'''
-
 # API to authorize user when logging in
 class AuthAccount(APIView):
     def post(self, request, format=None):
@@ -45,6 +32,7 @@ class AuthAccount(APIView):
                 return True
             return False
 
+
 # API to register new user to the database
 class AccountList(APIView):
     def get(self, request, format=None):
@@ -61,4 +49,19 @@ class AccountList(APIView):
             return Response(True, status=status.HTTP_201_CREATED)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
+class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
 
+    #Check if ans matched Q
+    #def update(self, request, *args, **kwargs):
+
+
+'''
+class AccountDetail(APIView):
+    pass
+    def get(self, request, pk):
+        account = get_object_or_404(Account, pk=pk)
+        serializer = AccountSerializer(account)
+        return Response(serializer.data)
+'''

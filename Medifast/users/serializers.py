@@ -19,7 +19,9 @@ class AccountSerializer(serializers.ModelSerializer):
                 setattr(instance, attr, value)
         instance.save()
         return instance
+
+
     class Meta:
         model = Account
-        fields = ('id', 'username', 'password', 'typeOfUser')
+        fields = ('id', 'username', 'password', 'typeOfUser', 'securityQ', 'securityAns')
         #fields = '__all__'

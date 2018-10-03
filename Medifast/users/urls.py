@@ -11,8 +11,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     #path('', include(router.urls)),
-    path('users', views.AccountList.as_view()),
+    path('api-users/<int:pk>', views.AccountDetail.as_view()),
+    path('api-users', views.AccountList.as_view()),
     path('auth', views.AuthAccount.as_view()),
+
 
     # not using the below api currently but will need them if we are doing jwt
     path('api/token/', TokenObtainPairView.as_view()),
