@@ -20,6 +20,11 @@ djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
 
 [dev-packages]
+pre-commit = "*"
+"flake8" = "*"
+phonenumbers = "*"
+authy = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.6"

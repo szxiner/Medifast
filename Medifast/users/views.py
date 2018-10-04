@@ -49,19 +49,10 @@ class AccountList(APIView):
             return Response(True, status=status.HTTP_201_CREATED)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
+# API to get, update, delete specific user
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
-    #Check if ans matched Q
-    #def update(self, request, *args, **kwargs):
 
 
-'''
-class AccountDetail(APIView):
-    pass
-    def get(self, request, pk):
-        account = get_object_or_404(Account, pk=pk)
-        serializer = AccountSerializer(account)
-        return Response(serializer.data)
-'''
