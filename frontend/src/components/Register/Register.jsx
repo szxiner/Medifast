@@ -44,6 +44,8 @@ export class Register extends React.Component {
       password: "",
       confirmPassword: "",
       typeOfUser: "role",
+      SecurityQuestion1: "",
+      SecurityQuestion2: "",
       errorMsg: ""
     };
 
@@ -57,7 +59,9 @@ export class Register extends React.Component {
       this.state.username === "" ||
       this.state.password === "" ||
       this.state.confirmPassword === "" ||
-      this.state.typeOfUser === "role"
+      this.state.typeOfUser === "role" ||
+      this.state.SecurityQuestion1 == "" ||
+      this.state.SecurityQuestion2 == ""
     ) {
       this.setState({ errorMsg: "Please complete all the fields." });
     } else {
@@ -66,7 +70,9 @@ export class Register extends React.Component {
           username: this.state.username,
           password: this.state.password,
           confirmPassword: this.state.confirmPassword,
-          typeOfUser: this.state.typeOfUser
+          typeOfUser: this.state.typeOfUser,
+          SecurityQuestion1: this.state.SecurityQuestion1,
+          SecurityQuestion2: this.state.SecurityQuestion2
         };
         this.props.createUser(user);
         this.setState({ errorMsg: "" });
@@ -134,6 +140,29 @@ export class Register extends React.Component {
               <option value="doctor">Doctor</option>
               <option value="insurance">Insurance Provider</option>
             </FormControl>
+            <br />
+            <ControlLabel>Security Question 1:</ControlLabel>
+            <FormControl
+              className={css(styles.inputBox)}
+              type="test"
+              name="SecurityQuestion1"
+              label="SecurityQuestion1"
+              placeholder="What's the name of your first teacher?"
+              value={this.state.SecurityQuestion1}
+              onChange={this.onChange}
+            />
+            <br />
+            <ControlLabel>Security Question 2:</ControlLabel>
+            <FormControl
+              className={css(styles.inputBox)}
+              type="test"
+              name="SecurityQuestion2"
+              label="SecurityQuestion2"
+              placeholder="What is your dream job?"
+              value={this.state.SecurityQuestion2}
+              onChange={this.onChange}
+            />
+
             <br />
             <br />
             <Button name="Sign Up" type="submit" />
