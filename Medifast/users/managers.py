@@ -1,7 +1,7 @@
 from django.contrib.auth.models import BaseUserManager
 
 
-class TwoFAUserManager(BaseUserManager):
+class AccountUserManager(BaseUserManager):
     use_in_migrations = True
 
     def _create_user(self, username, email, authy_id, password,

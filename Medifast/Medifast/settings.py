@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'twofa',
+    #'twofa',
     'phone_verification',
 ]
 
@@ -95,6 +95,13 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    }
+}
+'''
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'd5ub27o6r1nllb',
         'USER': 'mdkfstsswktqlv',
@@ -103,6 +110,7 @@ DATABASES = {
         'PORT': '5432'
     }
 }
+'''
 
 # Password hashes
 PASSWORD_HASHERS = [
@@ -156,7 +164,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #Custom Authy User Model
-AUTH_USER_MODEL = 'twofa.TwoFAUser'
+#AUTH_USER_MODEL = 'twofa.TwoFAUser'
+AUTH_USER_MODEL = 'users.Account'
 
 #Authy Application Key
 ACCOUNT_SECURITY_API_KEY = os.environ.get('ACCOUNT_SECURITY_API_KEY')

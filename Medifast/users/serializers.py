@@ -1,6 +1,16 @@
 from rest_framework import serializers
 from .models import Account
 from django.contrib.auth.hashers import make_password
+import phonenumbers
+
+from authy.api import AuthyApiClient
+from django import forms
+from django.conf import settings
+from phonenumbers.phonenumberutil import NumberParseException
+
+from .models import Account
+
+authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
 
 class AccountSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
@@ -20,8 +30,23 @@ class AccountSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+    def cleanPhoneNumber(self):
+        pass
+
+    #Consider cleaning functions instead of using views to check this info
+    '''
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if Account.objects.filter(username=username).exists():
+            self.add_error('username', 'Username is already taken')
+        return username
+    '''
+
+
 
     class Meta:
         model = Account
-        fields = ('id', 'username', 'password', 'typeOfUser', 'securityQ', 'securityAns')
-        #fields = '__all__'
+        #fields = ('id', 'username', 'password', 'typeOfUser', 'securityQ', 'securityAns', 'email', 'authy_id', 'phone_number')
+        fields = '__all__'
+
+

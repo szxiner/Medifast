@@ -2,7 +2,7 @@ import phonenumbers
 
 from django import forms
 from phonenumbers import NumberParseException
-from twofa.forms import BootstrapInput
+from users.forms import BootstrapInput
 
 
 class BootstrapSelect(forms.Select):
