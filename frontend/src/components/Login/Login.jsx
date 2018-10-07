@@ -67,7 +67,7 @@ export class Login extends React.Component {
 
   render() {
     if (this.state.isAuth) {
-      console.log("ha");
+      console.log("hello");
       return <Redirect to="/dashboard" />;
     }
     return (

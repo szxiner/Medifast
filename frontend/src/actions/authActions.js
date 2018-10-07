@@ -29,11 +29,9 @@ export const createUser = userData => dispatch => {
       }
     })
     .then(userData => {
-      {
-        dispatch({
-          type: NEW_USER,
-          payload: userData
-        });
-      }
+      dispatch({
+        type: NEW_USER,
+        payload: userData
+      });
     });
 };
