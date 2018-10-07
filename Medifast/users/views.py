@@ -30,9 +30,12 @@ authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
 class AuthAccount(APIView):
     def post(self, request, format=None):
         if self.verifiedInDB(request.data):
+            users = Account.objects.filter(username=request.data['username'])
+            user = users.first()
+            login(request, user)
+            return redirect('2fa')
             return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
-
 
 
     # Check if there is an username matches in the database
@@ -65,16 +68,16 @@ class AccountList(APIView):
                 serializer.validated_data['phone_number'],
                 "+1"
             )
-
             #if authy_user.ok():
             serializer.save(authy_id=authy_user.id)
             #Create User in our db
             serializer.save()
-
+            users = Account.objects.filter(username=serializer.validated_data['username'])
+            user = users.first()
+            login(request, user)
             return redirect('2fa')
-            #twofa(request)
 
-            return Response(True, status=status.HTTP_201_CREATED)
+            #return Response(True, status=status.HTTP_201_CREATED)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
     #If everything else works, we will check if the phone number is 10 digits
@@ -88,7 +91,7 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AccountSerializer
 
 
-#@login_required
+@login_required
 def twofa(request):
     pass
     #user = request.data
@@ -101,14 +104,14 @@ def twofa(request):
             request.session['authy'] = True
             #I think return true for Frontend to take over
             #Might need to do work in html file
-            return redirect('protected')
+            return #redirect('protected')
     else:
         form = TokenVerificationForm()
     #
     return render(request, '2fa.html', {'form': form})
 
 
-#@login_required
+@login_required
 def token_sms(request):
     sms = authy_api.users.request_sms(request.user.authy_id, {'force': True})
     if sms.ok():
@@ -150,7 +153,7 @@ def token_onetouch(request):
     else:
         return HttpResponse('OneTouch request failed', status=503)
 
-#@login_required
+@login_required
 def onetouch_status(request):
     uuid = request.session['onetouch_uuid']
     approval_status = authy_api.one_touch.get_approval_status(uuid)
