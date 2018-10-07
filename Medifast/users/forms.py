@@ -13,6 +13,17 @@ class BootstrapInput(forms.TextInput):
             'placeholder': placeholder
         })
 
+    def bootwrap_input(self, input_tag):
+        classes = 'col-xs-{n} col-sm-{n} col-md-{n}'.format(n=self.size)
+
+        return '''<div class="{classes}">
+                    <div class="form-group">{input_tag}</div>
+                  </div>
+               '''.format(classes=classes, input_tag=input_tag)
+
+    def render(self, *args, **kwargs):
+        input_tag = super(BootstrapInput, self).render(*args, **kwargs)
+        return self.bootwrap_input(input_tag)
 
 class TokenVerificationForm(forms.Form):
     token = forms.CharField(

@@ -152,6 +152,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+#Change deeze
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/protected/'
