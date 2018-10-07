@@ -10,12 +10,21 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import store from "./store";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    store.subscribe(() => {
+      const isAuth = store.getState().auth.isAuth;
+      console.log(isAuth);
+    });
+  }
   render() {
     return (
       // Provider glues react and redux together
       <Provider store={store}>
         <Router>
           <div className="App">
+            {console.log(this.props)}
             <LandingNavbar />
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />

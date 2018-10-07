@@ -1,6 +1,5 @@
 import axios from "axios";
 import { AUTH_USER, NEW_USER } from "./types";
-import { Redirect } from "react-router-dom";
 
 export const authenticateUser = userData => dispatch => {
   axios
@@ -21,7 +20,7 @@ export const authenticateUser = userData => dispatch => {
 
 export const createUser = userData => dispatch => {
   axios
-    .post("http://127.0.0.1:8000/users", userData)
+    .post("http://127.0.0.1:8000/api-users", userData)
     .then(res => {
       if (res.status === 201) {
         console.log("User created!");
