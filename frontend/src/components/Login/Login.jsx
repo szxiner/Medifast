@@ -9,7 +9,7 @@ import { themeColor } from "../../theme/colors";
 import Button from "../../common/Button";
 import { FormGroup, FormControl } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-
+import store from "../../store";
 const styles = StyleSheet.create({
   box: {
     margin: "auto",
@@ -35,23 +35,19 @@ export class Login extends React.Component {
     super();
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      isAuth: false
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
 
-  // componentDidMount() {
-  //   if (this.props.auth.isAuth) {
-  //     <Redirect to="/dashboard" />;
-  //   }
-  // }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuth) {
-      <Redirect to="/dashboard" />;
-    }
+    store.subscribe(() => {
+      this.setState({
+        isAuth: store.getState().auth.isAuth
+      });
+      console.log(this.state.isAuth);
+    });
   }
 
   onSubmit = e => {
@@ -70,6 +66,10 @@ export class Login extends React.Component {
   };
 
   render() {
+    if (this.state.isAuth) {
+      console.log("hello");
+      return <Redirect to="/dashboard" />;
+    }
     return (
       <div className={css(styles.box)}>
         <h1 className={css(styles.logo)}>Medifast</h1>
