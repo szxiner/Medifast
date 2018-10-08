@@ -17,7 +17,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
     securityAns = models.CharField(max_length=5000, default='DEFAULT VALUE1')
     country_code = models.CharField(max_length=5, default='+1')
 
-
     objects = AccountUserManager()
 
     USERNAME_FIELD = 'username'

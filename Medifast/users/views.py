@@ -34,7 +34,7 @@ class AuthAccount(APIView):
             user = users.first()
             login(request, user)
             return redirect('2fa')
-            return Response(True, status=status.HTTP_200_OK)
+            #return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -104,7 +104,7 @@ def twofa(request):
             request.session['authy'] = True
             #I think return true for Frontend to take over
             #Might need to do work in html file
-            return #redirect('protected')
+            return Response(True, status=status.HTTP_200_OK) #redirect('protected')
     else:
         form = TokenVerificationForm()
     #
