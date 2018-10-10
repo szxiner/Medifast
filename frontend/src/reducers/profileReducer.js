@@ -1,17 +1,15 @@
-import { AUTH_USER } from "../actions/types";
+import { USER_PROFILE } from "../actions/types";
 
 const initState = {
-  isAuth: false,
-  user: ""
+  userInfo: {}
 };
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case AUTH_USER:
+    case USER_PROFILE:
       return {
         ...state,
-        isAuth: action.payload !== "",
-        user: action.payload
+        userInfo: action.payload
       };
     default:
       return state;

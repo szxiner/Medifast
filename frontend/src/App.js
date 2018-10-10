@@ -1,12 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import Landing from "./components/Landing/Landing";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import LandingNavbar from "./components/Layout/LandingNavbar";
-import Dashboard from "./components/Dashboard/Dashboard";
+import DashboardMain from "./components/Dashboard/DashboardMain";
+import UserList from "./components/UserList/UserList";
 import store from "./store";
 
 class App extends React.Component {
@@ -24,12 +25,18 @@ class App extends React.Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            {console.log(this.props)}
             <LandingNavbar />
             <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/dashboard" component={Dashboard} />
+            <div className="componentRoutings">
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Switch>
+                <Route exact path="/dashboard" component={DashboardMain} />
+              </Switch>
+              <Switch>
+                <Route exact path="/user-list" component={UserList} />
+              </Switch>
+            </div>
           </div>
         </Router>
       </Provider>
