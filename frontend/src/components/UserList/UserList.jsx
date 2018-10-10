@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite";
 
 const styles = StyleSheet.create({});
-export default class DashboardMain extends React.Component {
+export default class UserList extends React.Component {
   constructor() {
     super();
     this.state = {};
@@ -11,6 +11,6 @@ export default class DashboardMain extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <div>Hello I am main dashboard</div>;
+    return <div>Hello I am user list</div>;
   }
 }
