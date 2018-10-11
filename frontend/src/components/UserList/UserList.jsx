@@ -89,16 +89,16 @@ export default class UserList extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    axios.get("http://127.0.0.1:8000/patient/history").then(res => {
-      if (res.status === 200) {
-        const mediHis = _.filter(res.data, {
-          username: this.state.activeProfile
-        });
-        this.setState({ activeInfo: mediHis });
-      }
-    });
-  }
+  //   componentDidUpdate() {
+  //     axios.get("http://127.0.0.1:8000/patient/history").then(res => {
+  //       if (res.status === 200) {
+  //         const mediHis = _.filter(res.data, {
+  //           username: this.state.activeProfile
+  //         });
+  //         this.setState({ activeInfo: mediHis });
+  //       }
+  //     });
+  //   }
 
   render() {
     return (
