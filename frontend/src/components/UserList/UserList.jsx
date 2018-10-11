@@ -75,30 +75,29 @@ export default class UserList extends React.Component {
       showModal: true,
       activeProfile: user.username
     });
+
+    axios.get("http://127.0.0.1:8000/patient/history").then(res => {
+      if (res.status === 200) {
+        const mediHis = _.filter(res.data, {
+          username: this.state.activeProfile
+        });
+        this.setState({ activeInfo: mediHis });
+      }
+    });
   }
 
   handleCloseModal() {
-    this.setState({ showModal: false });
+    this.setState({ showModal: false, activeInfo: [] });
   }
 
   componentDidMount() {
     axios.get("http://127.0.0.1:8000/patient/profile").then(res => {
+      console.log(res);
       if (res.status === 200) {
         this.setState({ userList: res.data });
       }
     });
   }
-
-  //   componentDidUpdate() {
-  //     axios.get("http://127.0.0.1:8000/patient/history").then(res => {
-  //       if (res.status === 200) {
-  //         const mediHis = _.filter(res.data, {
-  //           username: this.state.activeProfile
-  //         });
-  //         this.setState({ activeInfo: mediHis });
-  //       }
-  //     });
-  //   }
 
   render() {
     return (
