@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Doctor_profile',
     'Patient_profile',
     'rest_framework',
     'users.apps.UsersConfig',
