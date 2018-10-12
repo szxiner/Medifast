@@ -7,6 +7,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import LandingNavbar from "./components/Layout/LandingNavbar";
 import Dashboard from "./components/Dashboard/Dashboard";
+//import DashboardSideBar from "./components/Dashboard/DashboardSideBar";
 import store from "./store";
 
 class App extends React.Component {

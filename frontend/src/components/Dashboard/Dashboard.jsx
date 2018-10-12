@@ -3,21 +3,13 @@ import { Redirect } from "react-router-dom";
 import DashboardMenu from "./DashboardMenu";
 import DashboardSideBar from "./DashboardSideBar";
 import DashboardMain from "./DashboardMain";
-import store from "../../store";
+//import DashboardSideBar from "./DashboardSideBar";
 export default class Dashboard extends React.Component {
   constructor() {
     super();
     this.state = {
       isAuth: false
     };
-  }
-
-  componentDidMount() {
-    store.subscribe(() => {
-      this.setState({
-        isAuth: store.getState().auth.isAuth
-      });
-    });
   }
 
   render() {
