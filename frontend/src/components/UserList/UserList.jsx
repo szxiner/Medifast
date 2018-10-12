@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
-import ReactModal from "react-modal";
 import { StyleSheet, css } from "aphrodite";
 import { Icon } from "antd";
 import { themeColor } from "../../theme/colors";
+import PatientModal from "./PatientModal";
 
 const styles = StyleSheet.create({
   innerComponent: {
@@ -37,24 +37,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     color: themeColor.dark1
-  },
-  modal: {
-    backgroundColor: themeColor.white,
-    position: "absolute",
-    border: "1px solid",
-    borderRaduis: 5,
-    borderColor: themeColor.grey0,
-    padding: 40,
-    marginTop: "10%",
-    marginLeft: "20%",
-    marginRight: "20%",
-    width: "60%",
-    height: 450
-  },
-  close: {
-    right: 25,
-    top: 25,
-    position: "absolute"
   }
 });
 export default class UserList extends React.Component {
@@ -92,7 +74,6 @@ export default class UserList extends React.Component {
 
   componentDidMount() {
     axios.get("http://127.0.0.1:8000/patient/profile").then(res => {
-      console.log(res);
       if (res.status === 200) {
         this.setState({ userList: res.data });
       }
@@ -130,29 +111,12 @@ export default class UserList extends React.Component {
             })}
           </table>
         </div>
-        <ReactModal
-          isOpen={this.state.showModal}
-          contentLabel="Patient Detail"
-          onRequestClose={this.handleCloseModal}
-          className={css(styles.modal)}
-        >
-          <a onClick={this.handleCloseModal} className={css(styles.close)}>
-            <Icon type="close" theme="outlined" />
-          </a>
-          <h3>Medical History for {this.state.activeProfile}</h3>
-          <br />
-          <table className={css(styles.table)}>
-            {_.map(this.state.activeInfo, info => {
-              return (
-                <tr className={css(styles.tr)}>
-                  <th className={css(styles.th)}>{info.issue}</th>
-                  <th className={css(styles.th)}>{info.date}</th>
-                  <th className={css(styles.th)}>{info.doctor}</th>
-                </tr>
-              );
-            })}
-          </table>
-        </ReactModal>
+        <PatientModal
+          showModal={this.state.showModal}
+          handleCloseModal={this.handleCloseModal}
+          activeProfile={this.state.activeProfile}
+          activeInfo={this.state.activeInfo}
+        />
       </div>
     );
   }
