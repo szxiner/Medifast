@@ -5,6 +5,7 @@ import { StyleSheet, css } from "aphrodite";
 import { Icon } from "antd";
 import { themeColor } from "../../theme/colors";
 import PatientModal from "./PatientModal";
+import DoctorModal from "./DoctorModal";
 
 const styles = StyleSheet.create({
   innerComponent: {
@@ -62,15 +63,21 @@ export default class UserList extends React.Component {
       showModal: true,
       activeProfile: user.username
     });
-
-    axios.get("http://127.0.0.1:8000/patient/history").then(res => {
-      if (res.status === 200) {
-        const mediHis = _.filter(res.data, {
-          username: this.state.activeProfile
-        });
-        this.setState({ activeInfo: mediHis });
-      }
-    });
+    if (viewType === "Patient") {
+      axios.get("http://127.0.0.1:8000/patient/history").then(res => {
+        if (res.status === 200) {
+          const mediHis = _.filter(res.data, {
+            username: this.state.activeProfile
+          });
+          this.setState({ activeInfo: mediHis });
+        }
+      });
+    } else {
+      const docInfo = _.filter(this.state.userList, {
+        username: user.username
+      });
+      this.setState({ activeInfo: docInfo });
+    }
   }
 
   handleCloseModal() {
@@ -78,7 +85,6 @@ export default class UserList extends React.Component {
   }
 
   componentDidMount() {
-    console.log(userType);
     if (userType === "Doctor") {
       axios.get("http://127.0.0.1:8000/patient/profile").then(res => {
         if (res.status === 200) {
@@ -86,9 +92,7 @@ export default class UserList extends React.Component {
         }
       });
     } else if (userType === "Patient") {
-      console.log("I am here");
       axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({ userList: res.data });
         }
@@ -138,12 +142,21 @@ export default class UserList extends React.Component {
             })}
           </table>
         </div>
-        <PatientModal
-          showModal={this.state.showModal}
-          handleCloseModal={this.handleCloseModal}
-          activeProfile={this.state.activeProfile}
-          activeInfo={this.state.activeInfo}
-        />
+        {viewType === "Patient" ? (
+          <PatientModal
+            showModal={this.state.showModal}
+            handleCloseModal={this.handleCloseModal}
+            activeProfile={this.state.activeProfile}
+            activeInfo={this.state.activeInfo}
+          />
+        ) : (
+          <DoctorModal
+            showModal={this.state.showModal}
+            handleCloseModal={this.handleCloseModal}
+            activeProfile={this.state.activeProfile}
+            activeInfo={this.state.activeInfo}
+          />
+        )}
       </div>
     );
   }

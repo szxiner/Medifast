@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class PatientModal extends React.Component {
+export default class DoctorModal extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -58,6 +58,17 @@ export default class PatientModal extends React.Component {
       activeInfo
     } = this.props;
 
+    let star;
+
+    let lastName;
+    if (activeInfo[0]) {
+      star = activeInfo[0].rating;
+      lastName = activeInfo[0].Last_Name;
+    } else {
+      star = 0;
+      lastName = "";
+    }
+
     return (
       <div>
         <ReactModal
@@ -69,24 +80,15 @@ export default class PatientModal extends React.Component {
           <a onClick={handleCloseModal} className={css(styles.close)}>
             <Icon type="close" theme="outlined" />
           </a>
-          <h3>Medical History for {activeProfile}</h3>
+          <h3>Doctor Information for {lastName}</h3>
           <br />
-          <table className={css(styles.table)}>
-            <tr className={css(styles.tr)}>
-              <th className={css(styles.th)}>Issue</th>
-              <th className={css(styles.th)}>Date</th>
-              <th className={css(styles.th)}>Doctor</th>
-            </tr>
-            {_.map(activeInfo, info => {
-              return (
-                <tr className={css(styles.tr)}>
-                  <th className={css(styles.th)}>{info.issue}</th>
-                  <th className={css(styles.th)}>{info.date}</th>
-                  <th className={css(styles.th)}>{info.doctor}</th>
-                </tr>
-              );
+          <div>
+            REVIEW: &nbsp; &nbsp;
+            {_.times(star, () => {
+              return <Icon type="star" theme="filled" />;
             })}
-          </table>
+            <br />
+          </div>
         </ReactModal>
       </div>
     );
