@@ -19,7 +19,6 @@ urlpatterns = [
     path('token/voice/', views.token_voice, name='token-voice'),
     path('token/onetouch/', views.token_onetouch, name='token-onetouch'),
     path('onetouch-status/', views.onetouch_status, name='onetouch-status'),
-    path('protected/', views.protected, name='protected'),
 
     #For testing
 #    path('register/', views.register, name='register'),

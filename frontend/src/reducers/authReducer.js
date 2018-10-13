@@ -1,8 +1,8 @@
-import { AUTH_USER, NEW_USER } from "../actions/types";
+import { AUTH_USER } from "../actions/types";
 
 const initState = {
   isAuth: false,
-  user: {}
+  user: ""
 };
 
 export default (state = initState, action) => {
@@ -10,11 +10,7 @@ export default (state = initState, action) => {
     case AUTH_USER:
       return {
         ...state,
-        isAuth: action.payload
-      };
-    case NEW_USER:
-      return {
-        ...state,
+        isAuth: action.payload !== "",
         user: action.payload
       };
     default:

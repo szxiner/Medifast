@@ -30,6 +30,10 @@ urlpatterns = [
     path('patient_profile',include('Patient_profile.urls')),
     path('users-api/', include('users.urls')),
     path('patient/',include('Patient_profile.urls')),
+    path('', include('users.urls')),
+    path('doctor/',include('Doctor_profile.urls')),
+
+
     path('phone/', include('phone_verification.urls'))
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

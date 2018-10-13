@@ -2,11 +2,63 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb0e12a9-c8c5-4d64-8a36-8951bcf059fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/migrations/0002_doctor_profile_hourly_charge.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doctor_profile/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/actions/profileAction.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/Dashboard/Dashboardinfo.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/Dashboard/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserList/DoctorModal.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserList/PatientModal.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserList/UserList.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/reducers/profileReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Medifast/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Medifast/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Medifast/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Medifast/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/actions/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/common/Button.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/Button.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/common/Button.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/Button.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/common/TextInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/TextInput.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/common/TextInput.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/TextInput.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Dashboard/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Dashboard/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Dashboard/DashboardMain.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Dashboard/DashboardMain.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Dashboard/DashboardMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Dashboard/DashboardMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Dashboard/DashboardSideBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Dashboard/DashboardSideBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Landing/Landing.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Landing/Landing.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Landing/Landing.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Landing/Landing.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Layout/LandingNavbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Layout/LandingNavbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Layout/LandingNavbar.test.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Layout/LandingNavbar.test.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Login/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Login/Login.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Login/Login.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Register/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Register/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Register/Register.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Register/Register.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Register/sAA.py" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Register/sAA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/reducers/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/reducers/authReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/registerServiceWorker.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/registerServiceWorker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/setupTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/setupTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/theme/colors.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/theme/colors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/theme/secondaryColor.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/theme/secondaryColor.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +128,7 @@
           <entry key="example" value="2" />
           <entry key="html" value="17" />
           <entry key="lock" value="1" />
-          <entry key="py" value="315" />
+          <entry key="py" value="317" />
           <entry key="txt" value="4" />
           <entry key="windows" value="2" />
         </counts>
@@ -85,7 +137,7 @@
         <counts>
           <entry key="HTML" value="17" />
           <entry key="PLAIN_TEXT" value="14" />
-          <entry key="Python" value="315" />
+          <entry key="Python" value="317" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -95,7 +147,7 @@
           <entry key="Procfile" value="9" />
           <entry key="example" value="3" />
           <entry key="html" value="211" />
-          <entry key="py" value="12912" />
+          <entry key="py" value="13015" />
           <entry key="txt" value="114" />
         </counts>
       </usages-collector>
@@ -103,18 +155,18 @@
         <counts>
           <entry key="HTML" value="211" />
           <entry key="PLAIN_TEXT" value="128" />
-          <entry key="Python" value="12971" />
+          <entry key="Python" value="13074" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/users/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="16" column="39" lean-forward="true" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+            <state relative-caret-position="76">
+              <caret line="20" column="76" selection-start-line="20" selection-start-column="76" selection-end-line="20" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -131,14 +183,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/users/serializers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="39" column="36" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+            <state relative-caret-position="282">
+              <caret line="170" column="65" selection-start-line="170" selection-start-column="65" selection-end-line="170" selection-end-column="65" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <marker date="1539449206236" expanded="true" signature="3521:3523" ph="..." />
+                <marker date="1539449397597" expanded="true" signature="3459:3461" ph="..." />
               </folding>
             </state>
           </provider>
@@ -159,8 +223,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Medifast/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
+            <state relative-caret-position="288">
+              <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Medifast/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+              <folding>
+                <element signature="e#309#318#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -215,13 +291,13 @@
         <option value="$PROJECT_DIR$/users/migrations/0001_initial.py" />
         <option value="$PROJECT_DIR$/users/managers.py" />
         <option value="$PROJECT_DIR$/users/serializers.py" />
-        <option value="$PROJECT_DIR$/Medifast/settings.py" />
         <option value="$PROJECT_DIR$/users/forms.py" />
         <option value="$PROJECT_DIR$/users/models.py" />
-        <option value="$PROJECT_DIR$/Medifast/urls.py" />
-        <option value="$PROJECT_DIR$/users/urls.py" />
         <option value="$PROJECT_DIR$/templates/2fa.html" />
         <option value="$PROJECT_DIR$/users/views.py" />
+        <option value="$PROJECT_DIR$/Medifast/urls.py" />
+        <option value="$PROJECT_DIR$/Medifast/settings.py" />
+        <option value="$PROJECT_DIR$/users/urls.py" />
       </list>
     </option>
   </component>
@@ -366,8 +442,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13993949" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -375,7 +450,7 @@
       <window_info anchor="bottom" id="Inspection Results" order="0" weight="0.3289689" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.49924356" visible="true" weight="0.26022914" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.49924356" visible="true" weight="0.5417349" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -679,36 +754,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Medifast/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="170" column="1" selection-start-line="170" selection-start-column="1" selection-end-line="170" selection-end-column="1" />
-          <folding>
-            <element signature="e#309#318#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/twofa/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-510" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Medifast/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/forms.py">
@@ -717,6 +765,30 @@
           <caret line="42" column="15" selection-start-line="42" selection-start-column="15" selection-end-line="42" selection-end-column="15" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/2fa.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Medifast/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Medifast/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+          <folding>
+            <element signature="e#309#318#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -731,28 +803,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/users/urls.py">
+    <entry file="file://$PROJECT_DIR$/users/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="16" column="39" lean-forward="true" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/2fa.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        <state relative-caret-position="329">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="39" column="36" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+        <state relative-caret-position="282">
+          <caret line="170" column="65" selection-start-line="170" selection-start-column="65" selection-end-line="170" selection-end-column="65" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <marker date="1539449206236" expanded="true" signature="3521:3523" ph="..." />
+            <marker date="1539449397597" expanded="true" signature="3459:3461" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="20" column="76" selection-start-line="20" selection-start-column="76" selection-end-line="20" selection-end-column="76" />
         </state>
       </provider>
     </entry>
