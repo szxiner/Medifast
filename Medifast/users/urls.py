@@ -5,12 +5,8 @@ from . import views
 from rest_framework import routers
 #from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-#router = routers.DefaultRouter()
-#router.register('users', views.AccountList.as_view())
-#router.register('userdeets', views.AccountDetails.as_view())
 
 urlpatterns = [
-    #path('', include(router.urls)),
     path('<int:pk>', views.AccountDetail.as_view()),
     path('', views.AccountList.as_view()),
     path('auth', views.AuthAccount.as_view()),
