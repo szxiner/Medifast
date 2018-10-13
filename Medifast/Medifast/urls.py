@@ -34,17 +34,13 @@ urlpatterns = [
     path('api-auth', include('rest_framework.urls')),
 
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-    #path('', include('users.urls')),
-    path('patient_profile',include('Patient_profile.urls')),
-    path('users/', include('users.urls')),
-=======
     path('', include('users.urls')),
     path('patient/',include('Patient_profile.urls')),
+    path('doctor/',include('Doctor_profile.urls')),
+
     #path('(?P<path>.*)', FrontendRenderView, name=home),
     #path('admin/', admin.site.urls),
     #path('users/', include('users.urls')),
->>>>>>> 23d66d4da9c0f1338fa9bc690ddcf7d9012fa38e
     path('phone/', include('phone_verification.urls'))
 
 

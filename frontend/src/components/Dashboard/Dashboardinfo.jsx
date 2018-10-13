@@ -10,7 +10,7 @@ export default class Dashboardinfo extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div backgroundcolor="themeColor.black">
         <p>doctors info</p>
       </div>
     );
