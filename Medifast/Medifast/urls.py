@@ -25,45 +25,14 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
 
-    #path('login/', auth_views.LoginView.as_view(), name='login'),
-    #path('login/', auth_views.LoginView, {'template_name': 'core/login.html'}, name='login'),
-    #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-
-
-
     path('api-auth', include('rest_framework.urls')),
-
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-    #path('', include('users.urls')),
     path('patient_profile',include('Patient_profile.urls')),
-    path('users/', include('users.urls')),
-=======
-    path('', include('users.urls')),
+    path('users-api/', include('users.urls')),
     path('patient/',include('Patient_profile.urls')),
-    #path('(?P<path>.*)', FrontendRenderView, name=home),
-    #path('admin/', admin.site.urls),
-    #path('users/', include('users.urls')),
->>>>>>> 23d66d4da9c0f1338fa9bc690ddcf7d9012fa38e
     path('phone/', include('phone_verification.urls'))
-
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 #urlpatterns = format_suffix_patterns(urlpatterns)
-
-'''
-    path('register/', twofa_views.register, name='register'),
-    path('2fa/', twofa_views.twofa, name='2fa'),
-    path('token/sms', twofa_views.token_sms, name='token-sms'),
-    path('token/voice', twofa_views.token_voice, name='token-voice'),
-    path('token/onetouch', twofa_views.token_onetouch, name='token-onetouch'),  # noqa: E501
-    path('protected/', twofa_views.protected, name='protected'),
-    path('onetouch-status', twofa_views.onetouch_status, name='onetouch-status'),  # noqa: E501
->>>>>>> securityQQA
-
-    path('verification/', verify_views.phone_verification, name='phone_verification'),  # noqa: E501
-    path('verification/token/', verify_views.token_validation, name='token_validation'),  # noqa: E501
-    path('verified/', verify_views.verified, name='verified'),
-'''

@@ -13,6 +13,13 @@ from .models import Account
 authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
 
 class AccountSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Account
+        #fields = ('id', 'username', 'password', 'typeOfUser', 'securityQ', 'securityAns', 'email', 'authy_id', 'phone_number')
+        fields = '__all__'
+
+
     def create(self, validated_data):
         password = validated_data.pop('password', None)
         instance = self.Meta.model(**validated_data)
@@ -30,23 +37,5 @@ class AccountSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-    def cleanPhoneNumber(self):
-        pass
-
-    #Consider cleaning functions instead of using views to check this info
-    '''
-    def clean_username(self):
-        username = self.cleaned_data['username']
-        if Account.objects.filter(username=username).exists():
-            self.add_error('username', 'Username is already taken')
-        return username
-    '''
-
-
-
-    class Meta:
-        model = Account
-        #fields = ('id', 'username', 'password', 'typeOfUser', 'securityQ', 'securityAns', 'email', 'authy_id', 'phone_number')
-        fields = '__all__'
 
 

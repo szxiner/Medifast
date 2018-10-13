@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
     'Patient_profile',
     'rest_framework',
     'users.apps.UsersConfig',
@@ -85,13 +86,14 @@ WSGI_APPLICATION = 'Medifast.wsgi.application'
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
-    # 'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication', ),
+     #'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+     #'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication', ),
 }
 
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
 '''
 DATABASES = {
     'default': {
@@ -166,8 +168,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #Custom Authy User Model
-#AUTH_USER_MODEL = 'twofa.TwoFAUser'
-AUTH_USER_MODEL = 'users.Account'
+#AUTH_USER_MODEL = 'users.Account'
 
 #Authy Application Key
 ACCOUNT_SECURITY_API_KEY = os.environ.get('ACCOUNT_SECURITY_API_KEY')

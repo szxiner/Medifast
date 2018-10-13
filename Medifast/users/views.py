@@ -20,11 +20,13 @@ from django.shortcuts import render, redirect
 from .forms import TokenVerificationForm
 from .decorators import twofa_required
 from rest_framework.test import APIRequestFactory
+from rest_framework.decorators import api_view
 
 # Lists all accounts
 # /users
 authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
-
+authy_id = None
+username = None
 
 # API to authorize user when logging in
 class AuthAccount(APIView):
@@ -32,9 +34,11 @@ class AuthAccount(APIView):
         if self.verifiedInDB(request.data):
             users = Account.objects.filter(username=request.data['username'])
             user = users.first()
-            login(request, user)
+            global authy_id
+            global username
+            username = request.data['username']
+            authy_id = user.authy_id
             return redirect('2fa')
-            #return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -49,6 +53,10 @@ class AuthAccount(APIView):
                 return True
             return False
 
+# API to get, update, delete specific user
+class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
 
 # API to register new user to the database
 class AccountList(APIView):
@@ -58,81 +66,76 @@ class AccountList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        data = request.data
+
         serializer = AccountSerializer(data=request.data)
         a = Account.objects.filter(username=request.data['username'])
         if serializer.is_valid() & len(a)==0:
+
             #Create authy user
             authy_user = authy_api.users.create(
-                serializer.validated_data['username'],
+                serializer.validated_data['email'],
                 serializer.validated_data['phone_number'],
-                "+1"
+                #serializer.validated_data['country_code'],
+                '+1'
             )
-            #if authy_user.ok():
-            serializer.save(authy_id=authy_user.id)
-            #Create User in our db
-            serializer.save()
-            users = Account.objects.filter(username=serializer.validated_data['username'])
-            user = users.first()
-            login(request, user)
-            return redirect('2fa')
+            #If the user is okay, we redirect to duo auth
+            if authy_user.ok():
+                #Update the user's authy id
+                serializer.save(authy_id=authy_user.id)
+                #Create User in our db
+                serializer.save()
+                global authy_id
+                global username
+                username = serializer.validated_data['username']
+                authy_id = authy_user.id
+                return redirect('2fa')
 
-            #return Response(True, status=status.HTTP_201_CREATED)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
-    #If everything else works, we will check if the phone number is 10 digits
-    #disect phone number?
-    def hasValidPhoneNumber(self, user):
-        pass
-
-# API to get, update, delete specific user
-class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Account.objects.all()
-    serializer_class = AccountSerializer
 
 
-@login_required
-def twofa(request):
+#Creates the form for the users to verify through sms/call/push
+@api_view(('GET','POST',))
+def twofa(request,):
     pass
-    #user = request.data
-    #name = user['username']
-    #a = Account.objects.filter(username=name)
-    #yes = a.first()
+    global authy_id
+    global username
     if request.method == 'POST':
         form = TokenVerificationForm(request.POST)
-        if form.is_valid(request.user.authy_id):
+        if form.is_valid(authy_id):
             request.session['authy'] = True
-            #I think return true for Frontend to take over
-            #Might need to do work in html file
-            return Response(True, status=status.HTTP_200_OK) #redirect('protected')
+            #Return true for Frontend to take over
+            authy_id = None
+            username = None
+            return Response(True, status=status.HTTP_200_OK)
     else:
         form = TokenVerificationForm()
-    #
     return render(request, '2fa.html', {'form': form})
 
 
-@login_required
-def token_sms(request):
-    sms = authy_api.users.request_sms(request.user.authy_id, {'force': True})
+#sends the user a text
+def token_sms(request,):
+    sms = authy_api.users.request_sms(authy_id, {'force': True})
     if sms.ok():
         return HttpResponse('SMS request successful', status=200)
     else:
         return HttpResponse('SMS request failed', status=503)
 
-#@login_required
-def token_voice(request):
-    call = authy_api.users.request_call(request.user.authy_id, {'force': True})
+#calls the user
+def token_voice(request,):
+    call = authy_api.users.request_call(authy_id, {'force': True})
     if call.ok():
         return HttpResponse('Call request successfull', status=200)
     else:
         return HttpResponse('Call request failed', status=503)
 
-#@login_required
-def token_onetouch(request):
-    #user = request.data
+
+#Sends one touch notification to user
+def token_onetouch(request,):
+
     details = {
-        'Authy ID': request.user.authy_id,
-        'Username': request.user.username,
+        'Authy ID': str(authy_id),
+        'Username': str(username),
         'Reason': 'Medifast Security'
     }
 
@@ -141,11 +144,11 @@ def token_onetouch(request):
     }
 
     response = authy_api.one_touch.send_request(
-        int(request.user.authy_id),
+        int(authy_id),
         message='Login requested for Account Security account.',
         seconds_to_expire=120,
         details=details,
-        hidden_details=hidden_details
+#        hidden_details=hidden_details
     )
     if response.ok():
         request.session['onetouch_uuid'] = response.get_uuid()
@@ -153,8 +156,8 @@ def token_onetouch(request):
     else:
         return HttpResponse('OneTouch request failed', status=503)
 
-@login_required
-def onetouch_status(request):
+#Status of one touch
+def onetouch_status(request,):
     uuid = request.session['onetouch_uuid']
     approval_status = authy_api.one_touch.get_approval_status(uuid)
     if approval_status.ok():
@@ -166,8 +169,3 @@ def onetouch_status(request):
         )
     else:
         return HttpResponse(approval_status.errros(), status=503)
-
-#This will be gone
-#@twofa_required
-def protected(request):
-    return render(request, 'protected.html')

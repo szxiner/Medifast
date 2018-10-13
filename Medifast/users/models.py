@@ -2,25 +2,18 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
-from .managers import AccountUserManager
-
 # Create your models here.
-class Account(AbstractBaseUser, PermissionsMixin):
+class Account(models.Model):
 
-    username = models.CharField(max_length=200, unique=True, default='DEFAULT VALUE1')
-    password = models.CharField(max_length=200, default='DEFAULT VALUE1')
-    typeOfUser = models.CharField(max_length=100, default='DEFAULT VALUE1')
-    phone_number = models.IntegerField(default='12345678901')
-    authy_id = models.CharField(max_length=12, null=True, blank=True)
-    email = models.EmailField(default='joemomma@yahoo.com')
+    username = models.CharField(max_length=200, default='DEFAULT VALUE')
+    password = models.CharField(max_length=200, default='DEFAULT VALUE')
+    typeOfUser = models.CharField(max_length=100, default='DEFAULT VALUE')
+    phone_number = models.BigIntegerField(default='2197288966')
+    authy_id = models.BigIntegerField(null=True, blank=True)
+    email = models.EmailField(default='theemail@yahoo.com')
     securityQ = models.CharField(max_length=5000, default='What is your username?1')
     securityAns = models.CharField(max_length=5000, default='DEFAULT VALUE1')
-    country_code = models.CharField(max_length=5, default='+1')
-
-    objects = AccountUserManager()
-
-    USERNAME_FIELD = 'username'
-    EMAIL_FIELD = 'email'
+    #country_code = models.IntegerField(default='+1')
 
     def __str__(self):
         return self.username
