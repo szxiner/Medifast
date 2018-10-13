@@ -16,6 +16,7 @@
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-sidebar": "0.0.1",
     "react-container": "^0.3.1",
+    "react-content-loader": "^3.2.0",
     "react-dom": "^16.5.2",
     "react-modal": "^3.6.1",
     "react-redux": "^5.0.7",
