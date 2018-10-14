@@ -65,3 +65,8 @@
   height: 100%;
   border-right: 3px solid #00d8ff;
 }
+
+.rwt__tabpanel {
+  height: 100%;
+  width: 100%;
+}
