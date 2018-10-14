@@ -5,10 +5,7 @@ import { StyleSheet, css } from "aphrodite";
 import { Icon } from "antd";
 import { themeColor } from "../../theme/colors";
 import PatientModal from "./PatientModal";
-<<<<<<< HEAD
-=======
 import DoctorModal from "./DoctorModal";
->>>>>>> 38703ec8be412734161dd6d2b50d71058f8988aa
 
 const styles = StyleSheet.create({
   innerComponent: {
@@ -45,12 +42,10 @@ const styles = StyleSheet.create({
 });
 
 // This need to change after api is fixed
-const userType = "Patient";
-const viewType = "Doctor";
 
 export default class UserList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userList: [],
       modal: false,
@@ -62,6 +57,13 @@ export default class UserList extends React.Component {
   }
 
   handleOpenModal(user) {
+    const { userType } = this.props;
+    let viewType;
+    if (userType === "Doctor") {
+      viewType = "Patient";
+    } else {
+      viewType = "Doctor";
+    }
     this.setState({
       showModal: true,
       activeProfile: user.username
@@ -88,24 +90,17 @@ export default class UserList extends React.Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
-    console.log(userType);
-=======
->>>>>>> 38703ec8be412734161dd6d2b50d71058f8988aa
+    const { userType } = this.props;
+
     if (userType === "Doctor") {
       axios.get("http://127.0.0.1:8000/patient/profile").then(res => {
         if (res.status === 200) {
+          console.log(res.data);
           this.setState({ userList: res.data });
         }
       });
     } else if (userType === "Patient") {
-<<<<<<< HEAD
-      console.log("I am here");
       axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
-        console.log(res);
-=======
-      axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
->>>>>>> 38703ec8be412734161dd6d2b50d71058f8988aa
         if (res.status === 200) {
           this.setState({ userList: res.data });
         }
@@ -114,6 +109,13 @@ export default class UserList extends React.Component {
   }
 
   render() {
+    const { userType } = this.props;
+    let viewType;
+    if (userType === "Doctor") {
+      viewType = "Patient";
+    } else {
+      viewType = "Doctor";
+    }
     return (
       <div className={css(styles.innerComponent)}>
         <h3>Available {viewType}</h3>
@@ -155,14 +157,6 @@ export default class UserList extends React.Component {
             })}
           </table>
         </div>
-<<<<<<< HEAD
-        <PatientModal
-          showModal={this.state.showModal}
-          handleCloseModal={this.handleCloseModal}
-          activeProfile={this.state.activeProfile}
-          activeInfo={this.state.activeInfo}
-        />
-=======
         {viewType === "Patient" ? (
           <PatientModal
             showModal={this.state.showModal}
@@ -178,7 +172,6 @@ export default class UserList extends React.Component {
             activeInfo={this.state.activeInfo}
           />
         )}
->>>>>>> 38703ec8be412734161dd6d2b50d71058f8988aa
       </div>
     );
   }

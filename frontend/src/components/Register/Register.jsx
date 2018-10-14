@@ -48,7 +48,6 @@ export class Register extends React.Component {
       SecurityQuestion2: "",
       errorMsg: ""
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -60,7 +59,7 @@ export class Register extends React.Component {
       this.state.password === "" ||
       this.state.confirmPassword === "" ||
       this.state.typeOfUser === "role" ||
-      this.state.securityQ == ""
+      this.state.securityQ === ""
     ) {
       this.setState({ errorMsg: "Please complete all the fields." });
     } else {
@@ -87,6 +86,8 @@ export class Register extends React.Component {
   };
 
   render() {
+    console.log("Aaaaa" + this.props);
+
     return (
       <div className={css(styles.box)}>
         <h1 className={css(styles.logo)}>Medifast</h1>

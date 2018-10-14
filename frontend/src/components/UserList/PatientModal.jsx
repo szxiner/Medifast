@@ -3,10 +3,6 @@ import _ from "lodash";
 import ReactModal from "react-modal";
 import { StyleSheet, css } from "aphrodite";
 import { Icon } from "antd";
-<<<<<<< HEAD
-import { List } from "react-content-loader";
-=======
->>>>>>> 38703ec8be412734161dd6d2b50d71058f8988aa
 
 import { themeColor } from "../../theme/colors";
 
@@ -49,11 +45,7 @@ const styles = StyleSheet.create({
   }
 });
 
-<<<<<<< HEAD
-export default class Patient extends React.Component {
-=======
 export default class PatientModal extends React.Component {
->>>>>>> 38703ec8be412734161dd6d2b50d71058f8988aa
   constructor(props) {
     super(props);
   }

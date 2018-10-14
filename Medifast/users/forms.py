@@ -37,6 +37,8 @@ class TokenVerificationForm(forms.Form):
 
     def clean(self):
         token = self.cleaned_data['token']
-        verification = authy_api.tokens.verify(self.authy_id, token)
-        if not verification.ok():
+        try:
+            verification = authy_api.tokens.verify(self.authy_id, token)
+        #if not verification.ok():
+        except:
             self.add_error('token', 'Invalid token')
