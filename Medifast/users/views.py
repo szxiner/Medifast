@@ -58,6 +58,17 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
+    def put(self, request, format=None):
+        users = Account.objects.filter(username=request.data['username'])
+        if len(users) != 0:
+            user = users.first()
+            serializer = AccountSerializer(user, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(True, status=status.HTTP_200_OK)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
+
+
 # API to register new user to the database
 class AccountList(APIView):
     def get(self, request, format=None):
