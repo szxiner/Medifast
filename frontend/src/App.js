@@ -11,6 +11,7 @@ import UserList from "./components/UserList/UserList";
 import store from "./store";
 import { StyleSheet, css } from "aphrodite";
 import { ForgotPwd } from "./components/ForgotPwd/ForgotPwd";
+import ForgotPwdModal from "./components/ForgotPwd/ForgotPwdModal";
 
 const styles = StyleSheet.create({
   app: {
@@ -48,6 +49,13 @@ class App extends React.Component {
               </Switch>
               <Switch>
                 <Route exact path="/forgotpassword" component={ForgotPwd} />
+              </Switch>
+              <Switch>
+                <Route
+                  exact
+                  path="/forgotpasswordmodal"
+                  component={ForgotPwdModal}
+                />
               </Switch>
             </div>
           </div>

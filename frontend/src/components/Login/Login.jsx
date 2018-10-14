@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
-import Modal from "react-responsive-modal";
-import { Icon } from "antd";
 
 import { authenticateUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
@@ -13,9 +11,7 @@ import Button from "../../common/Button";
 import { FormGroup, FormControl, NavItem } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import store from "../../store";
-import ReactModal from "react-modal";
-import fp from "./fp";
-import Button1 from "../../common/Button1";
+
 import { Link } from "react-router-dom";
 
 const styles = StyleSheet.create({

@@ -42,7 +42,8 @@ export class ForgotPwd extends React.Component {
     this.state = {
       username: "",
       errorMsg: "",
-      securityQuestion: ""
+      securityQuestion: "",
+      activeProfile: null
     };
 
     this.onChange = this.onChange.bind(this);
