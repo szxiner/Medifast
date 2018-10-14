@@ -20,6 +20,7 @@
     "react-dom": "^16.5.2",
     "react-modal": "^3.6.1",
     "react-redux": "^5.0.7",
+    "react-responsive-modal": "^3.4.0",
     "react-responsive-sidebar": "^0.1.16",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

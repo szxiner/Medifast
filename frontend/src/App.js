@@ -10,6 +10,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import UserList from "./components/UserList/UserList";
 import store from "./store";
 import { StyleSheet, css } from "aphrodite";
+import { ForgotPwd } from "./components/ForgotPwd/ForgotPwd";
 
 const styles = StyleSheet.create({
   app: {
@@ -44,6 +45,9 @@ class App extends React.Component {
               </Switch>
               <Switch>
                 <Route exact path="/user-list" component={UserList} />
+              </Switch>
+              <Switch>
+                <Route exact path="/forgotpassword" component={ForgotPwd} />
               </Switch>
             </div>
           </div>

@@ -64,29 +64,7 @@ export default class PatientModal extends React.Component {
           contentLabel="Patient Detail"
           onRequestClose={handleCloseModal}
           className={css(styles.modal)}
-        >
-          <a onClick={handleCloseModal} className={css(styles.close)}>
-            <Icon type="close" theme="outlined" />
-          </a>
-          <h3>Medical History for {activeProfile}</h3>
-          <br />
-          <table className={css(styles.table)}>
-            <tr className={css(styles.tr)}>
-              <th className={css(styles.th)}>Issue</th>
-              <th className={css(styles.th)}>Date</th>
-              <th className={css(styles.th)}>Doctor</th>
-            </tr>
-            {_.map(activeInfo, info => {
-              return (
-                <tr className={css(styles.tr)}>
-                  <th className={css(styles.th)}>{info.issue}</th>
-                  <th className={css(styles.th)}>{info.date}</th>
-                  <th className={css(styles.th)}>{info.doctor}</th>
-                </tr>
-              );
-            })}
-          </table>
-        </ReactModal>
+        />
       </div>
     );
   }
