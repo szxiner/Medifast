@@ -46,6 +46,8 @@ export class Register extends React.Component {
       typeOfUser: "role",
       SecurityQuestion1: "",
       SecurityQuestion2: "",
+      email: "default@yahoo.com",
+      phone_number: 9492288063,
       errorMsg: ""
     };
     this.onChange = this.onChange.bind(this);
@@ -69,9 +71,12 @@ export class Register extends React.Component {
           password: this.state.password,
           confirmPassword: this.state.confirmPassword,
           typeOfUser: this.state.typeOfUser,
+          email: this.state.email,
+          phone_number: this.state.phone_number,
           securityQ: this.state.SecurityQuestion,
           securityAns: this.state.securityAns
         };
+
         this.props.createUser(user);
         this.setState({ errorMsg: "" });
         console.log("Creating user");
@@ -86,8 +91,6 @@ export class Register extends React.Component {
   };
 
   render() {
-    console.log("Aaaaa" + this.props);
-
     return (
       <div className={css(styles.box)}>
         <h1 className={css(styles.logo)}>Medifast</h1>
