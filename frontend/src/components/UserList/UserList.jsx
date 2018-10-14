@@ -42,12 +42,10 @@ const styles = StyleSheet.create({
 });
 
 // This need to change after api is fixed
-const userType = "Patient";
-const viewType = "Doctor";
 
 export default class UserList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userList: [],
       modal: false,
@@ -59,6 +57,13 @@ export default class UserList extends React.Component {
   }
 
   handleOpenModal(user) {
+    const { userType } = this.props;
+    let viewType;
+    if (userType === "Doctor") {
+      viewType = "Patient";
+    } else {
+      viewType = "Doctor";
+    }
     this.setState({
       showModal: true,
       activeProfile: user.username
@@ -85,9 +90,12 @@ export default class UserList extends React.Component {
   }
 
   componentDidMount() {
+    const { userType } = this.props;
+
     if (userType === "Doctor") {
       axios.get("http://127.0.0.1:8000/patient/profile").then(res => {
         if (res.status === 200) {
+          console.log(res.data);
           this.setState({ userList: res.data });
         }
       });
@@ -101,6 +109,13 @@ export default class UserList extends React.Component {
   }
 
   render() {
+    const { userType } = this.props;
+    let viewType;
+    if (userType === "Doctor") {
+      viewType = "Patient";
+    } else {
+      viewType = "Doctor";
+    }
     return (
       <div className={css(styles.innerComponent)}>
         <h3>Available {viewType}</h3>

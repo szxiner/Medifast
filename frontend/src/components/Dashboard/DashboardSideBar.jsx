@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import { Tabs, Tab, TabPanel, TabList, TabProvider } from "react-web-tabs";
 import styles from "./styles.css";
 import store from "../../store";
+import UserView from "../UserList/UserView";
 
 export default class DashboardSideBar extends Component {
   constructor(props) {
@@ -44,9 +45,7 @@ export default class DashboardSideBar extends Component {
         <TabPanel tabId="vertical-tab-one">
           <p>My Profile</p>
         </TabPanel>
-        <TabPanel tabId="vertical-tab-two">
-          <p>Finding Doctors</p>
-        </TabPanel>
+        <TabPanel tabId="vertical-tab-two" component={UserView} />
         <TabPanel tabId="vertical-tab-three">
           <p>Insurance Info</p>
         </TabPanel>
