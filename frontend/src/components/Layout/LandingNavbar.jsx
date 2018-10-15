@@ -14,7 +14,6 @@ export default class LandingNavbar extends React.Component {
       this.setState({
         isAuth: store.getState().auth.isAuth
       });
-      console.log(this.state.isAuth);
     });
   }
 
@@ -31,7 +30,7 @@ export default class LandingNavbar extends React.Component {
             </Navbar.Header>
             <Nav pullRight>
               <Navbar.Brand eventKey={2} href="#">
-                <Link to="/logout">Log out</Link>
+                <Link to="/">Log out</Link>
               </Navbar.Brand>
             </Nav>
           </Navbar>
