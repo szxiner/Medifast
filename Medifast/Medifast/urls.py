@@ -30,7 +30,6 @@ urlpatterns = [
     path('patient_profile',include('Patient_profile.urls')),
     path('users-api/', include('users.urls')),
     path('patient/',include('Patient_profile.urls')),
-    path('', include('users.urls')),
     path('doctor/',include('Doctor_profile.urls')),
 
 

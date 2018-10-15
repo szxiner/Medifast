@@ -4,6 +4,7 @@ import ReactModal from "react-modal";
 import { StyleSheet, css } from "aphrodite";
 import { Icon } from "antd";
 
+import Map from "../../common/Map";
 import { themeColor } from "../../theme/colors";
 
 const styles = StyleSheet.create({
@@ -88,6 +89,11 @@ export default class DoctorModal extends React.Component {
               return <Icon type="star" theme="filled" />;
             })}
             <br />
+          </div>
+          <br />
+
+          <div className={css(styles.map)}>
+            <Map />
           </div>
         </ReactModal>
       </div>

@@ -7,10 +7,12 @@ from rest_framework import routers
 
 
 urlpatterns = [
-    path('<int:pk>', views.AccountDetail.as_view()),
+    path('<int:pk>/<password>/', views.AccountDetail.as_view()),
+    path('<int:pk>/', views.AccountDetail.as_view()),
     path('', views.AccountList.as_view()),
     path('auth', views.AuthAccount.as_view()),
-    path('2fa/', views.twofa, name='2fa'),
+    # path('2fa/', views.twofa, name='2fa'),
+    path('2fa/', views.twofa.as_view()),
     path('token/sms/', views.token_sms, name='token-sms'),
     path('token/voice/', views.token_voice, name='token-voice'),
     path('token/onetouch/', views.token_onetouch, name='token-onetouch'),

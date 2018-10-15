@@ -1,15 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 
-import { authenticateUser } from "../../actions/authActions";
+import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
+import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
 import { FormGroup, FormControl } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
-import store from "../../store";
+
 const styles = StyleSheet.create({
   box: {
     margin: "auto",
@@ -27,6 +28,36 @@ const styles = StyleSheet.create({
   },
   logo: {
     textAlign: "center"
+  },
+  clickMe: {
+    textAlign: "center"
+  },
+  error: {
+    fontWeight: 600,
+    textAlign: "center",
+    color: themeColor.red1
+  },
+  box1: {
+    margin: "auto",
+    marginTop: "8%",
+    width: "60%",
+    height: "70%",
+    padding: 50,
+    backgroundColor: SecondaryThemeColor.white,
+    color: SecondaryThemeColor.aegean2,
+    borderColor: SecondaryThemeColor.grey3,
+    borderRadius: 8,
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
+  },
+  logo1: {
+    textAlign: "center"
+  },
+  error1: {
+    fontWeight: 600,
+    textAlign: "center",
+    color: SecondaryThemeColor.red1
   }
 });
 
@@ -36,18 +67,12 @@ export class Login extends React.Component {
     this.state = {
       username: "",
       password: "",
-      isAuth: false
+      errorMsg: "",
+      primaryColor: true
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
-    store.subscribe(() => {
-      this.setState({
-        isAuth: store.getState().auth.isAuth
-      });
-      console.log(this.state.isAuth);
-    });
   }
 
   onSubmit = e => {
@@ -58,21 +83,31 @@ export class Login extends React.Component {
       password: this.state.password
     };
 
-    this.props.authenticateUser(user);
+    // this.props.authenticateUser(user);
+    axios.post("http://127.0.0.1:8000/users-api/auth", user).then(res => {
+      if (res.status === 200) {
+        this.props.history.push("/2fa");
+      } else {
+        this.setState({ errorMsg: "Username and password does not match" });
+      }
+    });
   };
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  onClick = () => {
+    this.setState({ primaryColor: !this.state.primaryColor });
+  };
+
   render() {
-    if (this.state.isAuth) {
-      console.log("hello");
-      return <Redirect to="/dashboard" />;
-    }
+    const { primaryColor } = this.state;
     return (
-      <div className={css(styles.box)}>
-        <h1 className={css(styles.logo)}>Medifast</h1>
+      <div className={css(primaryColor ? styles.box : styles.box1)}>
+        <h1 className={css(primaryColor ? styles.logo : styles.logo1)}>
+          Medifast
+        </h1>
         <br />
         <form onSubmit={this.onSubmit}>
           <FormGroup>
@@ -99,24 +134,29 @@ export class Login extends React.Component {
             />
             <br />
             <br />
-            <Button name="Log in" type="submit" />
+            <Button
+              name="Log in"
+              type="submit"
+              color={primaryColor ? "primary" : "secondary"}
+            />
           </FormGroup>
         </form>
+        <div className={css(primaryColor ? styles.error : styles.error1)}>
+          {this.state.errorMsg}
+        </div>
+        <a onClick={this.onClick} className={css(styles.clickMe)}>
+          Click Me!
+        </a>
       </div>
     );
   }
 }
 
 Login.propTypes = {
-  auth: PropTypes.object.isRequired,
-  authenticateUser: PropTypes.func.isRequired
+  storeUser: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
 export default connect(
-  mapStateToProps,
-  { authenticateUser }
+  null,
+  { storeUser }
 )(Login);

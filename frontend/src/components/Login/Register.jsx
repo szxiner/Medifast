@@ -1,12 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
-import { createUser } from "../../actions/authActions";
+import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
+import { SecondaryThemeColor } from "../../theme/secondaryColor";
+
 import Button from "../../common/Button";
 
 const styles = StyleSheet.create({
@@ -24,18 +27,41 @@ const styles = StyleSheet.create({
       // TODO: Not responsive for mobile. Will Fix later
     }
   },
+  logo: {
+    textAlign: "center"
+  },
+  clickMe: {
+    textAlign: "center"
+  },
   error: {
     fontWeight: 600,
     textAlign: "center",
     color: themeColor.red1
   },
-  inputBox: {},
-  // TODO: Change button style
-  loginButton: { width: 80 },
-  logo: {
+  box1: {
+    margin: "auto",
+    marginTop: "8%",
+    width: "60%",
+    height: "70%",
+    padding: 50,
+    backgroundColor: SecondaryThemeColor.white,
+    color: SecondaryThemeColor.aegean2,
+    borderColor: SecondaryThemeColor.grey3,
+    borderRadius: 8,
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
+  },
+  logo1: {
     textAlign: "center"
+  },
+  error1: {
+    fontWeight: 600,
+    textAlign: "center",
+    color: SecondaryThemeColor.red1
   }
 });
+
 export class Register extends React.Component {
   constructor() {
     super();
@@ -46,7 +72,10 @@ export class Register extends React.Component {
       typeOfUser: "role",
       SecurityQuestion1: "",
       SecurityQuestion2: "",
-      errorMsg: ""
+      email: "default@yahoo.com",
+      phone_number: 9492288063,
+      errorMsg: "",
+      primaryColor: true
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -69,12 +98,20 @@ export class Register extends React.Component {
           password: this.state.password,
           confirmPassword: this.state.confirmPassword,
           typeOfUser: this.state.typeOfUser,
+          email: this.state.email,
+          phone_number: this.state.phone_number,
           securityQ: this.state.SecurityQuestion,
           securityAns: this.state.securityAns
         };
-        this.props.createUser(user);
-        this.setState({ errorMsg: "" });
-        console.log("Creating user");
+
+        axios.post("http://127.0.0.1:8000/users-api/", user).then(res => {
+          if (res.status === 201) {
+            this.props.storeUser(user);
+            this.props.history.push("/2fa");
+          } else {
+            this.setState({ errorMsg: "User Name already exists." });
+          }
+        });
       } else {
         this.setState({ errorMsg: "Passwords does not match." });
       }
@@ -85,12 +122,18 @@ export class Register extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  onClick = () => {
+    this.setState({ primaryColor: !this.state.primaryColor });
+  };
+
   render() {
-    console.log("Aaaaa" + this.props);
+    const { primaryColor } = this.state;
 
     return (
-      <div className={css(styles.box)}>
-        <h1 className={css(styles.logo)}>Medifast</h1>
+      <div className={css(primaryColor ? styles.box : styles.box1)}>
+        <h1 className={css(primaryColor ? styles.logo : styles.logo1)}>
+          Medifast
+        </h1>
         <br />
         {/*TODO: Create global form*/}
         <form onSubmit={this.onSubmit}>
@@ -136,9 +179,9 @@ export class Register extends React.Component {
               name="typeOfUser"
             >
               <option value="role">Role</option>
-              <option value="patient">Patient</option>
-              <option value="doctor">Doctor</option>
-              <option value="insurance">Insurance Provider</option>
+              <option value="Patient">Patient</option>
+              <option value="Doctor">Doctor</option>
+              <option value="Insurance">Insurance Provider</option>
             </FormControl>
             <br />
             <ControlLabel>Security Question</ControlLabel>
@@ -146,7 +189,7 @@ export class Register extends React.Component {
               componentClass="select"
               placeholder="select"
               onChange={this.onChange}
-              name="typeOfUser"
+              name="securityQ"
             >
               <option value="Select a role">Select</option>
               <option value="Q1">What's the name of your first teacher?</option>
@@ -164,18 +207,27 @@ export class Register extends React.Component {
               onChange={this.onChange}
             />
             <br />
-            <Button name="Sign Up" type="submit" />
+            <Button
+              name="Sign Up"
+              type="submit"
+              color={primaryColor ? "primary" : "secondary"}
+            />
           </FormGroup>
         </form>
-        <div className={css(styles.error)}>{this.state.errorMsg}</div>
+        <div className={css(primaryColor ? styles.error : styles.error1)}>
+          {this.state.errorMsg}
+        </div>{" "}
+        <a onClick={this.onClick} className={css(styles.clickMe)}>
+          Click Me!
+        </a>
       </div>
     );
   }
 }
 
-Register.propTypes = { createUser: PropTypes.func.isRequired };
+Register.propTypes = { storeUser: PropTypes.func.isRequired };
 
 export default connect(
   null,
-  { createUser }
+  { storeUser }
 )(Register);

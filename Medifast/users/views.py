@@ -38,7 +38,7 @@ class AuthAccount(APIView):
             global username
             username = request.data['username']
             authy_id = user.authy_id
-            return redirect('2fa')
+            return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -57,6 +57,17 @@ class AuthAccount(APIView):
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+
+    def put(self, request, format=None):
+        users = Account.objects.filter(username=request.data['username'])
+        if len(users) != 0:
+            user = users.first()
+            serializer = AccountSerializer(user, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(True, status=status.HTTP_200_OK)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
+
 
 # API to register new user to the database
 class AccountList(APIView):
@@ -88,29 +99,44 @@ class AccountList(APIView):
                 global username
                 username = serializer.validated_data['username']
                 authy_id = authy_user.id
-                return redirect('2fa')
+                return Response(False, status=status.HTTP_201_CREATED)
+                # return redirect('2fa')
 
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
-
-
-#Creates the form for the users to verify through sms/call/push
-@api_view(('GET','POST',))
-def twofa(request,):
-    pass
-    global authy_id
-    global username
-    if request.method == 'POST':
-        form = TokenVerificationForm(request.POST)
-        if form.is_valid(authy_id):
+class twofa(APIView):
+    def post(self, request, format=None):
+        pass
+        global authy_id
+        global username
+        verification = authy_api.tokens.verify(authy_id, request.data["token"])
+        if verification.ok():
             request.session['authy'] = True
             #Return true for Frontend to take over
             authy_id = None
             username = None
             return Response(True, status=status.HTTP_200_OK)
-    else:
-        form = TokenVerificationForm()
-    return render(request, '2fa.html', {'form': form})
+        else:
+            return Response(False, status=status.HTTP_400_BAD_REQUEST)
+
+
+#Creates the form for the users to verify through sms/call/push
+# @api_view(('GET','POST',))
+# def twofa(request,):
+#     pass
+#     global authy_id
+#     global username
+#     if request.method == 'POST':
+#         form = TokenVerificationForm(request.POST)
+#         if form.is_valid(authy_id):
+#             request.session['authy'] = True
+#             #Return true for Frontend to take over
+#             authy_id = None
+#             username = None
+#             return Response(True, status=status.HTTP_200_OK)
+#     else:
+#         form = TokenVerificationForm()
+#     return render(request, '2fa.html', {'form': form})
 
 
 #sends the user a text
