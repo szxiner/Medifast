@@ -4,6 +4,7 @@ import { Tabs, Tab, TabPanel, TabList, TabProvider } from "react-web-tabs";
 import styles from "./styles.css";
 import store from "../../store";
 import UserView from "../UserList/UserView";
+import { themeColor } from "../../theme/colors";
 
 export default class DashboardSideBar extends Component {
   constructor(props) {
