@@ -144,7 +144,7 @@ export class Login extends React.Component {
         <div className={css(primaryColor ? styles.error : styles.error1)}>
           {this.state.errorMsg}
         </div>
-        <div AlignItems="absolute">
+        <div alignitems="center">
           <button onClick={this.onClick} className={css(styles.clickMe)}>
             Click Me!
           </button>
