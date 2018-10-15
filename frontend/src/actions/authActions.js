@@ -9,7 +9,7 @@ export const authenticateUser = userData => dispatch => {
         console.log("Login success!");
         dispatch({
           type: AUTH_USER,
-          payload: userData.username
+          payload: userData.typeOfUser
         });
       } else {
         console.log("User name and password does not match...");
@@ -19,17 +19,8 @@ export const authenticateUser = userData => dispatch => {
 };
 
 export const createUser = userData => dispatch => {
-  console.log(userData);
-  axios.post("http://127.0.0.1:8000/users-api/", userData).then(res => {
-    if (res.status === 201) {
-      console.log("User created!");
-    } else {
-      console.log("Username already exist...");
-    }
-  });
-
   dispatch({
     type: AUTH_USER,
-    payload: userData.username
+    payload: userData.typeOfUser
   });
 };

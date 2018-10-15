@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
@@ -27,6 +28,11 @@ const styles = StyleSheet.create({
   },
   logo: {
     textAlign: "center"
+  },
+  error: {
+    fontWeight: 600,
+    textAlign: "center",
+    color: themeColor.red1
   }
 });
 
@@ -36,7 +42,8 @@ export class Login extends React.Component {
     this.state = {
       username: "",
       password: "",
-      isAuth: false
+      isAuth: false,
+      errorMsg: ""
     };
 
     this.onChange = this.onChange.bind(this);
@@ -58,7 +65,14 @@ export class Login extends React.Component {
       password: this.state.password
     };
 
-    this.props.authenticateUser(user);
+    // this.props.authenticateUser(user);
+    axios.post("http://127.0.0.1:8000/users-api/auth", user).then(res => {
+      if (res.status === 200) {
+        this.props.history.push("/2fa");
+      } else {
+        this.setState({ errorMsg: "Username and password does not match" });
+      }
+    });
   };
 
   onChange = e => {
@@ -102,6 +116,7 @@ export class Login extends React.Component {
             <Button name="Log in" type="submit" />
           </FormGroup>
         </form>
+        <div className={css(styles.error)}>{this.state.errorMsg}</div>
       </div>
     );
   }

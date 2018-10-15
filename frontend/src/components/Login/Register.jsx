@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import axios from "axios";
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Route, Redirect } from "react-router";
 
 import { createUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
@@ -77,9 +78,13 @@ export class Register extends React.Component {
           securityAns: this.state.securityAns
         };
 
-        this.props.createUser(user);
-        this.setState({ errorMsg: "" });
-        console.log("Creating user");
+        axios.post("http://127.0.0.1:8000/users-api/", user).then(res => {
+          if (res.status === 201) {
+            this.props.history.push("/2fa");
+          } else {
+            this.setState({ errorMsg: "User Name already exists." });
+          }
+        });
       } else {
         this.setState({ errorMsg: "Passwords does not match." });
       }
