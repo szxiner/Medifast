@@ -5,12 +5,11 @@ import axios from "axios";
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 
-import { authenticateUser } from "../../actions/authActions";
+import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import Button from "../../common/Button";
 import { FormGroup, FormControl } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
-import store from "../../store";
+
 const styles = StyleSheet.create({
   box: {
     margin: "auto",
@@ -42,19 +41,11 @@ export class Login extends React.Component {
     this.state = {
       username: "",
       password: "",
-      isAuth: false,
       errorMsg: ""
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
-    store.subscribe(() => {
-      this.setState({
-        isAuth: store.getState().auth.isAuth
-      });
-      console.log(this.state.isAuth);
-    });
   }
 
   onSubmit = e => {
@@ -80,10 +71,6 @@ export class Login extends React.Component {
   };
 
   render() {
-    if (this.state.isAuth) {
-      console.log("hello");
-      return <Redirect to="/dashboard" />;
-    }
     return (
       <div className={css(styles.box)}>
         <h1 className={css(styles.logo)}>Medifast</h1>
@@ -123,15 +110,10 @@ export class Login extends React.Component {
 }
 
 Login.propTypes = {
-  auth: PropTypes.object.isRequired,
-  authenticateUser: PropTypes.func.isRequired
+  storeUser: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
 export default connect(
-  mapStateToProps,
-  { authenticateUser }
+  null,
+  { storeUser }
 )(Login);

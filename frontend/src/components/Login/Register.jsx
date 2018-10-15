@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import { Route, Redirect } from "react-router";
 
-import { createUser } from "../../actions/authActions";
+import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import Button from "../../common/Button";
 
@@ -80,6 +80,7 @@ export class Register extends React.Component {
 
         axios.post("http://127.0.0.1:8000/users-api/", user).then(res => {
           if (res.status === 201) {
+            this.props.storeUser(user);
             this.props.history.push("/2fa");
           } else {
             this.setState({ errorMsg: "User Name already exists." });
@@ -144,9 +145,9 @@ export class Register extends React.Component {
               name="typeOfUser"
             >
               <option value="role">Role</option>
-              <option value="patient">Patient</option>
-              <option value="doctor">Doctor</option>
-              <option value="insurance">Insurance Provider</option>
+              <option value="Patient">Patient</option>
+              <option value="Doctor">Doctor</option>
+              <option value="Insurance">Insurance Provider</option>
             </FormControl>
             <br />
             <ControlLabel>Security Question</ControlLabel>
@@ -154,7 +155,7 @@ export class Register extends React.Component {
               componentClass="select"
               placeholder="select"
               onChange={this.onChange}
-              name="typeOfUser"
+              name="securityQ"
             >
               <option value="Select a role">Select</option>
               <option value="Q1">What's the name of your first teacher?</option>
@@ -181,9 +182,9 @@ export class Register extends React.Component {
   }
 }
 
-Register.propTypes = { createUser: PropTypes.func.isRequired };
+Register.propTypes = { storeUser: PropTypes.func.isRequired };
 
 export default connect(
   null,
-  { createUser }
+  { storeUser }
 )(Register);
