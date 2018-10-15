@@ -18,6 +18,7 @@
     "react-container": "^0.3.1",
     "react-content-loader": "^3.2.0",
     "react-dom": "^16.5.2",
+    "react-google-maps": "^9.4.5",
     "react-modal": "^3.6.1",
     "react-redux": "^5.0.7",
     "react-responsive-sidebar": "^0.1.16",
