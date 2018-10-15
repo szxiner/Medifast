@@ -5,12 +5,20 @@ import styles from "./styles.css";
 import store from "../../store";
 import UserView from "../UserList/UserView";
 import { themeColor } from "../../theme/colors";
+import { StyleSheet, css } from "aphrodite";
+
+const stylesclick = StyleSheet.create({
+  clickMe: {
+    textAlign: "center"
+  }
+});
 
 export default class DashboardSideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuth: false
+      isAuth: false,
+      primaryColor: true
     };
     store.subscribe(() => {
       this.setState({
@@ -19,7 +27,13 @@ export default class DashboardSideBar extends Component {
       console.log(this.state.isAuth);
     });
   }
+  onClick = () => {
+    this.setState({ primaryColor: !this.state.primaryColor });
+  };
+
   render() {
+    const { primaryColor } = this.state;
+
     //if (this.state.isAuth && user.role == Patient)
     return (
       <Tabs defaultTab="vertical-tab-one" vertical>
@@ -42,9 +56,10 @@ export default class DashboardSideBar extends Component {
           <Tab tabFor="vertical-tab-16">TBD</Tab>
           <Tab tabFor="vertical-tab-17">TBD</Tab>
           <Tab tabFor="vertical-tab-18">TBD</Tab>
+          <Tab tabFor="vertical-tab-19">TBD</Tab>
         </TabList>
         <TabPanel tabId="vertical-tab-one">
-          <p>My Profile</p>
+          <p>My profile</p>
         </TabPanel>
         <TabPanel tabId="vertical-tab-two" component={UserView} />
         <TabPanel tabId="vertical-tab-three">
@@ -93,6 +108,9 @@ export default class DashboardSideBar extends Component {
           <p>Will be coming up soon!!</p>
         </TabPanel>
         <TabPanel tabId="vertical-tab-18">
+          <p>Will be coming up soon!!</p>
+        </TabPanel>
+        <TabPanel tabId="vertical-tab-19">
           <p>Will be coming up soon!!</p>
         </TabPanel>
       </Tabs>
