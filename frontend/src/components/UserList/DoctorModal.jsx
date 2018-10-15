@@ -60,14 +60,17 @@ export default class DoctorModal extends React.Component {
     } = this.props;
 
     let star;
-
     let lastName;
+    let location;
     if (activeInfo[0]) {
       star = activeInfo[0].rating;
       lastName = activeInfo[0].Last_Name;
+      location = activeInfo[0].location.split(" ");
+      console.log(location);
     } else {
       star = 0;
       lastName = "";
+      location = ["12.222", "-86.111"];
     }
 
     return (
@@ -93,7 +96,7 @@ export default class DoctorModal extends React.Component {
           <br />
 
           <div className={css(styles.map)}>
-            <Map />
+            <Map lat={parseFloat(location[0])} lng={parseFloat(location[1])} />
           </div>
         </ReactModal>
       </div>
