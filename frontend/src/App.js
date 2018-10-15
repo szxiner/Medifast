@@ -7,6 +7,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Login/Register";
 import LandingNavbar from "./components/Layout/LandingNavbar";
 import Dashboard from "./components/Dashboard/Dashboard";
+
 import store from "./store";
 import history from "./history";
 import { StyleSheet, css } from "aphrodite";

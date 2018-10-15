@@ -34,5 +34,6 @@ export const themeColor = {
   black: "#000000",
   white: "#FFFFFF",
   transparent: "#92a8d1",
-  aliceblue: "#F0F8FF"
+  aliceblue: "#F0F8FF",
+  lightyellow: "#f3f994"
 };

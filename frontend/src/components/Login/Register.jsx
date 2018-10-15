@@ -217,9 +217,11 @@ export class Register extends React.Component {
         <div className={css(primaryColor ? styles.error : styles.error1)}>
           {this.state.errorMsg}
         </div>{" "}
-        <a onClick={this.onClick} className={css(styles.clickMe)}>
-          Click Me!
-        </a>
+        <div align="center">
+          <button onClick={this.onClick} className={css(styles.clickMe)}>
+            Change Theme!!
+          </button>
+        </div>
       </div>
     );
   }
