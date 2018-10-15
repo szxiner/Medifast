@@ -5,7 +5,7 @@ import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
-import { createUser } from "../../actions/authActions";
+import { authUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import Button from "../../common/Button";
 
@@ -94,9 +94,9 @@ export class Register extends React.Component {
   }
 }
 
-Register.propTypes = { createUser: PropTypes.func.isRequired };
+Register.propTypes = { authUser: PropTypes.func.isRequired };
 
 export default connect(
   null,
-  { createUser }
+  { authUser }
 )(Register);
