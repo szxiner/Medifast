@@ -4,9 +4,10 @@ const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
 
 class Map extends Component {
   render() {
+    const { lat, lng } = this.props;
     const DoctorMap = withGoogleMap(props => (
-      <GoogleMap defaultCenter={{ lat: 39.166, lng: -86.519 }} defaultZoom={14}>
-        <Marker position={{ lat: 39.166, lng: -86.519 }} />
+      <GoogleMap defaultCenter={{ lat: lat, lng: lng }} defaultZoom={14}>
+        <Marker position={{ lat: lat, lng: lng }} />
       </GoogleMap>
     ));
     return (
