@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from django.http import Http404
 from rest_framework import status
 
-
 class Doctor_profile_view(APIView):
     def get(self, request, format=None):
         if request.GET != {}:
