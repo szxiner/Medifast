@@ -6,6 +6,7 @@ import store from "../../store";
 import UserView from "../UserList/UserView";
 import { themeColor } from "../../theme/colors";
 import { StyleSheet, css } from "aphrodite";
+import Column from "antd/lib/table/Column";
 
 const stylesclick = StyleSheet.create({
   clickMe: {
@@ -36,7 +37,11 @@ export default class DashboardSideBar extends Component {
 
     //if (this.state.isAuth && user.role == Patient)
     return (
-      <Tabs defaultTab="vertical-tab-one" vertical>
+      <Tabs
+        className={css(stylesclick.tabs)}
+        defaultTab="vertical-tab-one"
+        vertical
+      >
         <TabList>
           <Tab tabFor="vertical-tab-one">Profile</Tab>
           <Tab tabFor="vertical-tab-two">Find Doctors</Tab>
