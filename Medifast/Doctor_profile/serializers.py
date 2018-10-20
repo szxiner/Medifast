@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Doctor_profile,Doctor_appointment,Doctor_reviews
+from .models import Doctor_profile,Doctor_appointments,Doctor_reviews,Booking
 
 class Doctor_profile_serializer(serializers.ModelSerializer):
     class Meta:
@@ -8,8 +8,13 @@ class Doctor_profile_serializer(serializers.ModelSerializer):
 
 class Doctor_appointment_serializer(serializers.ModelSerializer):
     class Meta:
-        model = Doctor_appointment
-        fields = ('username','appointment')
+        model = Doctor_appointments
+        fields = ('username','workingdays','time')
+
+class Bookings_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ('docusername','patientusername','bdate','btime')
 
 class Doctor_reviews_serializer(serializers.ModelSerializer):
     class Meta:
