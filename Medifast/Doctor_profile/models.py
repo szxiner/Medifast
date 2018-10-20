@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import *
+from django.contrib.postgres.fields import ArrayField
 
 class Doctor_profile(models.Model):
     username = models.CharField(max_length=100, primary_key=True) 
@@ -17,9 +18,16 @@ class Doctor_profile(models.Model):
     def __str__(self):
         return self.username
 
-class Doctor_appointment(models.Model):
+class Doctor_appointments(models.Model):
     username = models.CharField(max_length=100, null=True)
-    appointment = models.DateTimeField( null=True)
+    workingdays = ArrayField(models.CharField(max_length=100), null=True)
+    time = ArrayField(models.TimeField(),null=True)
+
+class Booking(models.Model):
+    docusername = models.CharField(max_length=100, null=True)
+    patientusername = models.CharField(max_length=100, null=True)
+    bdate = models.DateField(null=True)
+    btime = ArrayField(models.TimeField(),null=True)
 
 class Doctor_reviews(models.Model):
     username = models.CharField(max_length=100, null=True)

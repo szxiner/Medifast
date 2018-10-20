@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Doctor_profile,Doctor_appointment,Doctor_reviews
-from .serializers import Doctor_profile_serializer,Doctor_appointment_serializer,Doctor_reviews_serializer
+from .models import Doctor_profile,Doctor_appointments,Doctor_reviews,Booking
+from .serializers import Doctor_profile_serializer,Doctor_appointment_serializer,Doctor_reviews_serializer,Bookings_serializer
 from rest_framework.response import Response
 from django.http import Http404
 from rest_framework import status
+import datetime
+import calendar
 
 class Doctor_profile_view(APIView):
     def get(self, request, format=None):
@@ -31,9 +33,31 @@ class Doctor_profile_view(APIView):
 
 class Doctor_appointment_view(APIView):
     def  get(self,request, format=None):
-        appointments = Doctor_appointment.objects.all()
-        serializer = Doctor_appointment_serializer(appointments, many=True)
-        return Response(serializer.data)
+        if request.GET != {}:
+            requested_date = datetime.datetime.strptime(request.GET['date'],'%y-%m-%d').date()
+            todays_date = datetime.date.today()
+            if requested_date < todays_date:
+                return Response('Past Date', status=status.HTTP_400_BAD_REQUEST)
+            day = calendar.day_name[requested_date.weekday()]
+            profile = Doctor_appointments.objects.filter(username=request.GET['username'])
+            serializer = Doctor_appointment_serializer(profile, many=True)
+            days = serializer.data[0]['workingdays']
+            if day in days:
+                timings = serializer.data[0]['time']
+                appointments = Booking.objects.filter(bdate=requested_date,docusername=request.GET['username'])
+                bookingserializer = Bookings_serializer(appointments, many=True)
+                if bookingserializer.data != []:
+                    Booked_times = bookingserializer.data[0]['btime']
+                    Available_times = [i for i in timings if i not in Booked_times]
+                    return Response(Available_times)
+                else:
+                    return Response(timings)
+            else:
+                return Response('No schedule for this day')
+        else:
+            appointments = Doctor_appointments.objects.all()
+            serializer = Doctor_appointment_serializer(appointments, many=True)
+            return Response(serializer.data)
     def post(self, request, format=None):
         serializer = Doctor_appointment_serializer(data=request.data)
         if serializer.is_valid():
@@ -42,6 +66,19 @@ class Doctor_appointment_view(APIView):
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
+class Doctor_bookings_view(APIView):
+    def get(self, format=None):
+        appointments = Booking.objects.all()
+        seralizer = Bookings_serializer(appointments, many=True)
+        return Response(seralizer.data)
+    def post(self, request, format=None):
+        serializer = Bookings_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(True, status=status.HTTP_201_CREATED)
+        else:
+            return Response(False, status=status.HTTP_400_BAD_REQUEST)
+            
 class Doctor_reviews_view(APIView):
     def  get(self,request, format=None):
         reviews = Doctor_reviews.objects.all()
