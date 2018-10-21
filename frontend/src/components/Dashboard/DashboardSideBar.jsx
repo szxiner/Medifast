@@ -30,7 +30,7 @@ export default class DashboardSideBar extends Component {
       console.log(this.state.isAuth);
     });
   }
-
+  /*
   componentWillMount(primaryColor) {
     if (primaryColor === "Blue") {
       require("styles.css");
@@ -39,7 +39,7 @@ export default class DashboardSideBar extends Component {
       require("styles1.css");
     }
   }
-
+*/
   render() {
     const { primaryColor } = this.state;
     //if (this.state.isAuth && user.role == Patient)

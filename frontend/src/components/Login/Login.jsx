@@ -9,7 +9,8 @@ import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
-import { FormGroup, FormControl } from "react-bootstrap";
+import { FormGroup, FormControl, Modal } from "react-bootstrap";
+import ResetPasswordModal from "./ResetPasswordModal";
 
 const styles = StyleSheet.create({
   box: {
@@ -101,6 +102,13 @@ export class Login extends React.Component {
     this.setState({ primaryColor: !this.state.primaryColor });
   };
 
+  handleShow() {
+    this.setState({ show: true });
+  }
+  handleClose() {
+    this.setState({ show: false });
+  }
+
   render() {
     const { primaryColor } = this.state;
     return (
@@ -149,6 +157,8 @@ export class Login extends React.Component {
             Change Theme!!
           </button>
         </div>
+        <br />
+        <div align="center" />
       </div>
     );
   }

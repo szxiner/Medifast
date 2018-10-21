@@ -12,6 +12,7 @@ import store from "./store";
 import history from "./history";
 import { StyleSheet, css } from "aphrodite";
 import TwoFactor from "./components/Login/TwoFactor";
+import ResetPasswordModal from "./components/Login/ResetPasswordModal";
 
 const styles = StyleSheet.create({
   app: {
@@ -33,6 +34,12 @@ class App extends React.Component {
             <div className="componentRoutings">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route
+                exact
+                path="/ResetPasswordModal"
+                component={ResetPasswordModal}
+              />
+
               <Route exact path="/2fa" component={TwoFactor} />
 
               <Switch>
