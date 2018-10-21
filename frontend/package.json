@@ -39,8 +39,10 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "css-loader": "^1.0.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
-    "popper.js": "^1.14.4"
+    "popper.js": "^1.14.4",
+    "style-loader": "^0.23.1"
   }
 }
