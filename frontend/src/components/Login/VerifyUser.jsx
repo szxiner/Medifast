@@ -1,3 +1,5 @@
+// This page is currently not being used.
+
 import React from "react";
 import { FormGroup, FormControl, NavItem, ControlLabel } from "react-bootstrap";
 import { themeColor } from "../../theme/colors";

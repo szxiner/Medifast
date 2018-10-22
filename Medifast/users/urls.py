@@ -7,8 +7,8 @@ from rest_framework import routers
 
 
 urlpatterns = [
-    path('<int:pk>/<password>/', views.AccountDetail.as_view()),
-    path('<int:pk>/', views.AccountDetail.as_view()),
+    path('<username>/<password>/', views.AccountDetail.as_view()),
+    path('<username>/', views.AccountDetail.as_view()),
     path('', views.AccountList.as_view()),
     path('auth', views.AuthAccount.as_view()),
     # path('2fa/', views.twofa, name='2fa'),
