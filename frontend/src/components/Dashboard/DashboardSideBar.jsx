@@ -50,7 +50,7 @@ export default class DashboardSideBar extends Component {
           <Tab tabFor="vertical-tab-two">Find Doctors</Tab>
           <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
           <Tab tabFor="vertical-tab-four">
-            <div align="center">
+            {/* <div align="center">
               <button
                 onClick={this.onClick(this.componentWillMount("Blue"))}
                 className={css(styles.clickMe)}
@@ -63,7 +63,7 @@ export default class DashboardSideBar extends Component {
               >
                 Yellow
               </button>
-            </div>
+            </div> */}
           </Tab>
           <Tab tabFor="vertical-tab-five">Chat</Tab>
           <Tab tabFor="vertical-tab-six">Appointments</Tab>

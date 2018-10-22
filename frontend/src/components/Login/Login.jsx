@@ -1,4 +1,4 @@
-import { React } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -9,8 +9,7 @@ import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
-import { FormGroup, FormControl, Navbar } from "react-bootstrap";
-import ResetPasswordModal from "./ResetPasswordModal";
+import { FormGroup, FormControl, NavItem } from "react-bootstrap";
 
 const styles = StyleSheet.create({
   box: {
@@ -145,14 +144,15 @@ export class Login extends React.Component {
         <div className={css(primaryColor ? styles.error : styles.error1)}>
           {this.state.errorMsg}
         </div>
-        <div align="left">
+        <div align="center">
           <button onClick={this.onClick} className={css(styles.clickMe)}>
             Change Theme!!
           </button>
         </div>
-        <Navbar.Brand eventKey={2} href="#">
-          <Link to="/ResetPasswordModal">FP?</Link>
-        </Navbar.Brand>
+        <br />
+        <div align="Center">
+          <a href="/ResetPassword">Forgot Password?</a>
+        </div>
       </div>
     );
   }
