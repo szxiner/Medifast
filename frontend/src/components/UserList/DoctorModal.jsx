@@ -2,10 +2,11 @@ import React from "react";
 import _ from "lodash";
 import ReactModal from "react-modal";
 import { StyleSheet, css } from "aphrodite";
-import { Icon } from "antd";
+import { Icon, Button } from "antd";
 
 import Map from "../../common/Map";
 import { themeColor } from "../../theme/colors";
+import MyCalendar from "./Calendar";
 
 const styles = StyleSheet.create({
   table: {
@@ -33,14 +34,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: themeColor.grey0,
     padding: 40,
-    marginTop: "10%",
+    marginTop: "5%",
     marginLeft: "20%",
     marginRight: "20%",
-    width: "60%",
-    height: 450
+    marginBottom: "10%",
+    width: "60%"
   },
   close: {
     right: 25,
+    top: 25,
+    position: "absolute"
+  },
+  left: {
+    left: 25,
     top: 25,
     position: "absolute"
   }
@@ -49,24 +55,26 @@ const styles = StyleSheet.create({
 export default class DoctorModal extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      appointment: false
+    };
   }
 
+  onClick = () => {
+    this.setState({ appointment: !this.state.appointment });
+  };
+
   render() {
-    const {
-      showModal,
-      handleCloseModal,
-      activeProfile,
-      activeInfo
-    } = this.props;
+    const { showModal, handleCloseModal, activeInfo } = this.props;
 
     let star;
     let lastName;
     let location;
+
     if (activeInfo[0]) {
       star = activeInfo[0].rating;
       lastName = activeInfo[0].Last_Name;
       location = activeInfo[0].location.split(" ");
-      console.log(location);
     } else {
       star = 0;
       lastName = "";
@@ -77,27 +85,50 @@ export default class DoctorModal extends React.Component {
       <div>
         <ReactModal
           isOpen={showModal}
-          contentLabel="Patient Detail"
+          contentLabel="Doctor Detail"
           onRequestClose={handleCloseModal}
           className={css(styles.modal)}
         >
           <a onClick={handleCloseModal} className={css(styles.close)}>
             <Icon type="close" theme="outlined" />
           </a>
-          <h3>Doctor Information for {lastName}</h3>
           <br />
-          <div>
-            REVIEW: &nbsp; &nbsp;
-            {_.times(star, () => {
-              return <Icon type="star" theme="filled" />;
-            })}
-            <br />
-          </div>
+          <h3>Doctor {lastName}</h3>
           <br />
-
-          <div className={css(styles.map)}>
-            <Map lat={parseFloat(location[0])} lng={parseFloat(location[1])} />
-          </div>
+          {this.state.appointment ? (
+            <div>
+              <a onClick={this.onClick} className={css(styles.left)}>
+                <Icon type="left" theme="outlined" />
+              </a>
+              <MyCalendar />
+            </div>
+          ) : (
+            <div>
+              <div>
+                REVIEW: &nbsp; &nbsp;
+                {_.times(star, () => {
+                  return <Icon type="star" theme="filled" />;
+                })}
+                <br />
+              </div>
+              <br />
+              <div className={css(styles.map)}>
+                <Map
+                  lat={parseFloat(location[0])}
+                  lng={parseFloat(location[1])}
+                />
+              </div>
+              <br />
+              <Button
+                type="primary"
+                icon="calendar"
+                size="large"
+                onClick={this.onClick}
+              >
+                Book an Appointment
+              </Button>
+            </div>
+          )}
         </ReactModal>
       </div>
     );
