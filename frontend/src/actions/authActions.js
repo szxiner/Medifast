@@ -1,9 +1,16 @@
-import { AUTH_USER, STORE_USER } from "./types";
+import { AUTH_USER, STORE_USER, UNAUTH_USER } from "./types";
 
 export const authUser = () => dispatch => {
   dispatch({
     type: AUTH_USER,
     payload: true
+  });
+};
+
+export const unauthUser = () => dispatch => {
+  dispatch({
+    type: UNAUTH_USER,
+    payload: false
   });
 };
 

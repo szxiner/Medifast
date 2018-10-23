@@ -1,4 +1,4 @@
-import { AUTH_USER, STORE_USER } from "../actions/types";
+import { AUTH_USER, STORE_USER, UNAUTH_USER } from "../actions/types";
 
 const initState = {
   isAuth: false,
@@ -16,6 +16,11 @@ export default (state = initState, action) => {
       return {
         ...state,
         user: action.payload
+      };
+    case UNAUTH_USER:
+      return {
+        ...state,
+        isAuth: action.payload
       };
     default:
       return state;

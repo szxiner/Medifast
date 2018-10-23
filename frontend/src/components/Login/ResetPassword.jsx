@@ -63,11 +63,21 @@ export class ResetPassword extends React.Component {
       username_entered: "false",
       show: true,
       verify: false,
-      isexpanded: true
+      isexpanded: true,
+      errorMsg_onSumbit1: "",
+      errorMsg_onVerify: "",
+      errorMsg_onSumbit2: "",
+      errorMsg_onVerify2: "",
+      errorMsg_onSubmit3: "",
+      password: "",
+      confirmPassword: "",
+      errorMsg: "",
+      errorMsg_onSubmit4: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmitOne = this.onSubmitOne.bind(this);
     this.onSubmitTwo = this.onSubmitTwo.bind(this);
+    this.onSubmit3 = this.onSubmit3.bind(this);
 
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -88,67 +98,91 @@ export class ResetPassword extends React.Component {
   onSubmitOne = e => {
     e.preventDefault();
     console.log(this.state.username);
-    this.username_entered = true;
+
+    if (this.state.username === "") {
+      this.setState({ errorMsg_onSumbit1: "Please enter user name." });
+    }
 
     // this.props.authenticateUser(user);
-    axios
-      .get(`http://127.0.0.1:8000/users-api/${this.state.username}`)
-      .then(res => {
-        console.log(res.status);
-        console.log(res.data.securityQ);
-        if (res.status === 200) {
+    else {
+      this.username_entered = true;
+      axios
+        .get(`http://127.0.0.1:8000/users-api/${this.state.username}`)
+        .then(res => {
+          console.log(res.status);
           console.log(res.data.securityQ);
-          this.setState({ securityQ: res.data.securityQ });
-          this.setState({ username_entered: true });
-          this.setState({ isexpanded: false });
-        } else {
-          this.setState({ errorMsg: "ERROR" });
-        }
-        console.log(this.state.securityQ);
-      });
+          if (res.status === 200) {
+            console.log(res.data.securityQ);
+            this.setState({ securityQ: res.data.securityQ });
+            this.setState({ username_entered: true });
+            this.setState({ isexpanded: false });
+          } else {
+            this.setState({ errorMsg: "ERROR" });
+          }
+          console.log(this.state.securityQ);
+        });
+    }
   };
 
   onSubmitTwo = e => {
     // this.setState({ [e.target.name]: e.target.value });
     e.preventDefault();
     console.log("hahaha", this.state.username);
-    axios
-      .get(`http://127.0.0.1:8000/users-api/${this.state.username}`)
-      .then(res => {
-        console.log(res.status);
-        console.log(res.data.securityAns);
-        if (res.status === 200) {
-          if (this.state.securityAns === res.data.securityAns)
-            this.setState({ verify: true });
-        } else {
-          this.setState({ errorMsg: "ERROR" });
-        }
-        console.log(this.state.securityAns);
-      });
+
+    if (this.state.securityAns === "") {
+      this.setState({ errorMsg_onVerify: "Please complete all the fields." });
+    } else {
+      axios
+        .get(`http://127.0.0.1:8000/users-api/${this.state.username}`)
+        .then(res => {
+          console.log(res.status);
+          console.log(res.data.securityAns);
+          if (res.status === 200) {
+            if (this.state.securityAns === res.data.securityAns)
+              this.setState({ verify: true });
+            else {
+              this.setState({ errorMsg_onVerify2: "Incorrect Answer" });
+              this.setState({ errorMsg_onVerify: "" });
+            }
+          } else {
+            this.setState({ errorMsg_onVerify2: "ERROR with connection" });
+          }
+          console.log(this.state.securityAns);
+        });
+    }
   };
 
   onSubmit3 = e => {
     e.preventDefault();
     console.log(this.state.username);
-    this.username_entered = true;
+    // this.username_entered = true;
     console.log(this.state.password);
-
     // this.props.authenticateUser(user);
-    console.log(`http://127.0.0.1:8000/users-api/${this.state.username}`);
-    axios
-      .post(`http://127.0.0.1:8000/users-api/${this.state.username}`, {
-        password: this.state.password
-      })
-      .then(res => {
-        console.log(res.status);
-        console.log(res.data.securityQ);
-        if (res.status === 200) {
-          console.log("success");
-        } else {
-          this.setState({ errorMsg: "ERROR" });
-        }
-        console.log(this.state.securityQ);
-      });
+    // console.log(`http://127.0.0.1:8000/users-api/${this.state.username}`);
+    if (this.state.password === "" || this.state.confirmPassword === "") {
+      this.setState({ errorMsg_onSubmit3: "Please complete all the fields." });
+    } else {
+      //is this right way to define not equal to?
+      if (this.state.password != this.state.confirmPassword) {
+        this.setState({ errorMsg_onSubmit4: "Passwords do not match" });
+      } else {
+        axios
+          .post(`http://127.0.0.1:8000/users-api/${this.state.username}`, {
+            password: this.state.password
+          })
+          .then(res => {
+            console.log(res.status);
+            console.log(res.data.securityQ);
+            if (res.status === 200) {
+              console.log("success");
+            } else {
+              this.setStatethis.setState({
+                errorMsg: "Error"
+              });
+            }
+          });
+      }
+    }
   };
 
   handleHide() {
@@ -181,6 +215,9 @@ export class ResetPassword extends React.Component {
               />
             </FormGroup>
             <Button name="submit" type="submit" />
+            <div className={css(styles.error)}>
+              {this.state.errorMsg_onSumbit1}
+            </div>
           </form>
         </div>
         <br />
@@ -201,6 +238,13 @@ export class ResetPassword extends React.Component {
               />
               <br />
               <Button name="verify" type="submit" />
+              <div className={css(styles.error)}>
+                {this.state.errorMsg_onVerify}
+              </div>
+              <div className={css(styles.error)}>
+                {" "}
+                {this.state.errorMsg_onVerify2}
+              </div>
             </FormGroup>
           </form>
         ) : (
@@ -235,6 +279,14 @@ export class ResetPassword extends React.Component {
                   />
                   <br />
                   <Button name="submit" type="submit" />
+                  <p className={css(styles.error)}>
+                    {this.state.errorMsg_onSumbit4}
+                  </p>
+                  <div className={css(styles.error)}>
+                    {this.state.errorMsg_onSumbit3}
+                  </div>
+
+                  <div>{this.state.errorMsg_onSumbit2}</div>
                 </FormGroup>
               </form>
             </Modal.Body>

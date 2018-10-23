@@ -7,17 +7,20 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.5",
     "@fortawesome/free-solid-svg-icons": "^5.4.0",
     "@fortawesome/react-fontawesome": "^0.1.3",
-    "antd": "^3.10.0",
+    "antd": "^3.10.2",
+    "antd-init": "^2.0.6",
     "aphrodite": "^2.2.3",
     "axios": "^0.18.0",
     "i": "^0.3.6",
     "npm": "^6.4.1",
+    "rc-calendar": "^9.7.10",
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-button-loader": "^1.0.12",
     "react-bootstrap-sidebar": "0.0.1",
     "react-container": "^0.3.1",
     "react-content-loader": "^3.2.0",
+    "react-day-picker": "^7.2.4",
     "react-dom": "^16.5.2",
     "react-google-maps": "^9.4.5",
     "react-modal": "^3.6.1",
@@ -40,10 +43,9 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "css-loader": "^1.0.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
-    "popper.js": "^1.14.4",
-    "style-loader": "^0.23.1"
-  }
+    "popper.js": "^1.14.4"
+  },
+  "proxy": "http://localhost:8000/"
 }
