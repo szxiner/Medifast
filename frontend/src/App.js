@@ -36,8 +36,8 @@ class App extends React.Component {
             <div className="componentRoutings">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/SearchDoctors" component={SearchDoctors} />
               <Route exact path="/ResetPassword" component={ResetPassword} />
+              <Route exact path="/SearchDoctors" component={SearchDoctors} />
 
               <Route exact path="/2fa" component={TwoFactor} />
 

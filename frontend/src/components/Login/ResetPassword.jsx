@@ -190,8 +190,6 @@ export class ResetPassword extends React.Component {
   }
 
   render() {
-    const username_entered = false;
-
     return (
       <div className={css(styles.box)}>
         <div
