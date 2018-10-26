@@ -70,8 +70,8 @@ export class Register extends React.Component {
       password: "",
       confirmPassword: "",
       typeOfUser: "role",
-      SecurityQuestion1: "",
-      SecurityQuestion2: "",
+      SecurityQuestion: "",
+      securityAns: "",
       email: "default@yahoo.com",
       phone_number: 9492288063,
       errorMsg: "",
@@ -88,7 +88,8 @@ export class Register extends React.Component {
       this.state.password === "" ||
       this.state.confirmPassword === "" ||
       this.state.typeOfUser === "role" ||
-      this.state.securityQ === ""
+      this.state.SecurityQuestion === "" ||
+      this.state.securityAns === ""
     ) {
       this.setState({ errorMsg: "Please complete all the fields." });
     } else {
@@ -104,14 +105,17 @@ export class Register extends React.Component {
           securityAns: this.state.securityAns
         };
 
-        axios.post("http://127.0.0.1:8000/users-api/", user).then(res => {
-          if (res.status === 201) {
-            this.props.storeUser(user);
-            this.props.history.push("/2fa");
-          } else {
+        axios
+          .post("http://127.0.0.1:8000/users-api/", user)
+          .then(res => {
+            if (res.status === 201) {
+              this.props.storeUser(user);
+              this.props.history.push("/2fa");
+            }
+          })
+          .catch(() => {
             this.setState({ errorMsg: "User Name already exists." });
-          }
-        });
+          });
       } else {
         this.setState({ errorMsg: "Passwords does not match." });
       }
@@ -189,7 +193,7 @@ export class Register extends React.Component {
               componentClass="select"
               placeholder="select"
               onChange={this.onChange}
-              name="securityQ"
+              name="SecurityQuestion"
             >
               <option value="Select a role">Select</option>
               <option value="Q1">What's the name of your first teacher?</option>
@@ -200,7 +204,7 @@ export class Register extends React.Component {
             <FormControl
               className={css(styles.inputBox)}
               type="text"
-              name="Security Question Answer"
+              name="securityAns"
               label="Username"
               placeholder="Enter your answer here."
               value={this.state.securityAns}

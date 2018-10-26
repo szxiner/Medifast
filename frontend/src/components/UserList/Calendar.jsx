@@ -1,14 +1,15 @@
 import "rc-calendar/assets/index.css";
-import "moment/locale/en-gb";
 
 import React from "react";
 import _ from "lodash";
+import axios from "axios";
 import moment from "moment";
 import Calendar from "rc-calendar";
-
+import { connect } from "react-redux";
 import { Button, Icon, Radio } from "antd";
 import { Grid, Row, Col } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
+import { themeColor } from "../../theme/colors";
 
 const styles = StyleSheet.create({
   expanded: {
@@ -22,21 +23,18 @@ const styles = StyleSheet.create({
     height: 0,
     transition: "height 2s ease-out",
     maxHeight: 300
+  },
+  message: {
+    textAlign: "center",
+    margin: 10,
+    fontWeight: 500,
+    color: themeColor.red1
   }
 });
 
 const RadioGroup = Radio.Group;
 
-const dummyTimes = [
-  "09:00-10:00",
-  "10:00-11:00",
-  "11:00-12:00",
-  "14:00-15:00",
-  "15:00-16:00"
-];
-
 const now = moment();
-now.locale("en-gb").utcOffset(0);
 
 function disabledDate(current) {
   if (!current) {
@@ -49,7 +47,7 @@ function disabledDate(current) {
   return current.valueOf() < date.valueOf();
 }
 
-export default class MyCalendar extends React.Component {
+class MyCalendar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -57,7 +55,10 @@ export default class MyCalendar extends React.Component {
       disabled: true,
       value: props.defaultValue,
       time: null,
-      expandConfirm: false
+      expandConfirm: false,
+      available: [],
+      message: "",
+      submitted: false
     };
   }
 
@@ -65,6 +66,24 @@ export default class MyCalendar extends React.Component {
     this.setState({
       value
     });
+    const { username } = this.props;
+    if (value) {
+      if (value) {
+        axios
+          .get(
+            `http://localhost:8000/doctor/appointments?date=${value.format(
+              "YY-MM-DD"
+            )}&username=${username}`
+          )
+          .then(res => {
+            if (Array.isArray(res.data)) {
+              this.setState({ available: res.data });
+            } else {
+              this.setState({ available: [] });
+            }
+          });
+      }
+    }
   };
 
   radioOnChange = e => {
@@ -80,13 +99,32 @@ export default class MyCalendar extends React.Component {
     });
   };
 
-  render() {
-    const { value, time } = this.state;
-    const radioStyle = {
-      display: "block",
-      height: "30px",
-      lineHeight: "30px"
+  onSubmit = () => {
+    this.setState({ submitted: true });
+    const { username } = this.props.auth.user;
+    const request = {
+      docusername: this.props.username,
+      patientusername: username,
+      bdate: this.state.value.format("YYYY-MM-DD"),
+      btime: [this.state.available[this.state.time]]
     };
+
+    axios.post(`http://localhost:8000/doctor/bookings`, request).then(res => {
+      if (res.status === 201) {
+        this.setState({
+          message: "Appointment Booked! A confirmation email will be sent."
+        });
+      } else {
+        this.setState({
+          message: "An error occurs, please try again later."
+        });
+      }
+    });
+  };
+
+  render() {
+    const { value, time, available } = this.state;
+
     return (
       <Grid style={{ width: "100%" }}>
         <Row className="show-grid">
@@ -109,20 +147,35 @@ export default class MyCalendar extends React.Component {
             <Icon type="schedule" theme="outlined" /> Confirm Time
             <hr />
             <div>
-              <RadioGroup onChange={this.radioOnChange} value={time}>
-                {_.map(dummyTimes, (timeSlot, key) => {
-                  return (
-                    <Radio style={radioStyle} value={key}>
-                      {timeSlot}
-                    </Radio>
-                  );
-                })}
-              </RadioGroup>
+              {available.length > 0 ? (
+                <RadioGroup onChange={this.radioOnChange} value={time}>
+                  {_.map(available, (timeSlot, key) => {
+                    return (
+                      <Radio
+                        style={{
+                          display: "block",
+                          height: "30px",
+                          lineHeight: "30px"
+                        }}
+                        value={key}
+                      >
+                        {timeSlot.substring(0, 5)} -
+                        {moment
+                          .utc(timeSlot.substring(0, 5), "HH:mm")
+                          .add(1, "hour")
+                          .format("HH:mm")}
+                      </Radio>
+                    );
+                  })}
+                </RadioGroup>
+              ) : (
+                <p>No available time found. Please try another date</p>
+              )}
             </div>
             <br />
             <Button
               type="normal"
-              disabled={!(!!value && !!time)}
+              disabled={!(!!value && time !== null)}
               style={{ width: 100 }}
               onClick={this.onClick}
             >
@@ -141,23 +194,48 @@ export default class MyCalendar extends React.Component {
             <Icon type="solution" theme="outlined" />
             &nbsp; Confirm appointment
             <hr />
-            Name: &nbsp; {"Xiner"} <br />
             Date: &nbsp;
-            {!!value ? value.format("MM/DD/YYYY") : "ERROR"}
+            {!!value ? value.format("MM-DD-YYYY") : "ERROR"}
             <br />
             Time: &nbsp;
-            {dummyTimes[time]} <br />
+            {available[time] && available[time].substring(0, 5)}-
+            {available[time] &&
+              moment
+                .utc(available[time].substring(0, 5), "HH:mm")
+                .add(1, "hour")
+                .format("HH:mm")}
+            <br />
             <Button
               type="primary"
               disabled={this.state.disabled}
               style={{ width: "100%", marginTop: 16, height: 36 }}
               htmlType="submit"
+              onClick={this.onSubmit}
             >
               Confirm
             </Button>
+            {this.state.submitted && this.state.message === "" ? (
+              <Icon
+                type="loading"
+                theme="outlined"
+                style={{ marginLeft: "50%" }}
+              />
+            ) : (
+              <div />
+            )}
+            <div className={css(styles.message)}>{this.state.message}</div>
           </div>
         </Row>
       </Grid>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(MyCalendar);
