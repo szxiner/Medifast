@@ -65,19 +65,22 @@ export default class DoctorModal extends React.Component {
   };
 
   render() {
-    const { showModal, handleCloseModal, activeInfo } = this.props;
+    const { showModal, handleCloseModal, activeInfo, showAppt } = this.props;
 
     let star;
     let lastName;
     let location;
+    let username;
 
     if (activeInfo[0]) {
       star = activeInfo[0].rating;
+      username = activeInfo[0].username;
       lastName = activeInfo[0].Last_Name;
       location = activeInfo[0].location.split(" ");
     } else {
       star = 0;
       lastName = "";
+      username = "";
       location = ["12.222", "-86.111"];
     }
 
@@ -100,7 +103,7 @@ export default class DoctorModal extends React.Component {
               <a onClick={this.onClick} className={css(styles.left)}>
                 <Icon type="left" theme="outlined" />
               </a>
-              <MyCalendar />
+              <MyCalendar username={username} />
             </div>
           ) : (
             <div>
@@ -119,14 +122,18 @@ export default class DoctorModal extends React.Component {
                 />
               </div>
               <br />
-              <Button
-                type="primary"
-                icon="calendar"
-                size="large"
-                onClick={this.onClick}
-              >
-                Book an Appointment
-              </Button>
+              {showAppt ? (
+                <Button
+                  type="primary"
+                  icon="calendar"
+                  size="large"
+                  onClick={this.onClick}
+                >
+                  Book an Appointment
+                </Button>
+              ) : (
+                <div />
+              )}
             </div>
           )}
         </ReactModal>
