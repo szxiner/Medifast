@@ -29,6 +29,7 @@ class App extends React.Component {
   render() {
     return (
       // Provider glues react and redux together
+
       <Provider store={store}>
         <Router history={history}>
           <div className={css(styles.app)}>

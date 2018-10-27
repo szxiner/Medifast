@@ -9,6 +9,7 @@ import MyAppointment from "../Appointment/MyAppointment";
 import Profile from "../Profile/Profile";
 import { StyleSheet, css } from "aphrodite";
 import Column from "antd/lib/table/Column";
+import { connect } from "react-redux";
 
 const stylesclick = StyleSheet.create({
   clickMe: {
@@ -42,7 +43,7 @@ export default class DashboardSideBar extends Component {
 */
   render() {
     const { primaryColor } = this.state;
-    //if (this.state.isAuth && user.role == Patient)
+    // if (this.state.isAuth && user.role == Patient)
     return (
       <Tabs defaultTab="vertical-tab-one" vertical>
         <TabList>
@@ -67,5 +68,47 @@ export default class DashboardSideBar extends Component {
         <TabPanel tabId="vertical-tab-six" component={MyAppointment} />
       </Tabs>
     );
+    // else if (this.state.isAuth && user.role == Doctor)
+    //   return (
+    //     <Tabs defaultTab="vertical-tab-one" vertical>
+    //       <TabList>
+    //         <Tab tabFor="vertical-tab-one">Profile</Tab>
+    //         <Tab tabFor="vertical-tab-two">Your Patients</Tab>
+    //         <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
+    //         <Tab tabFor="vertical-tab-five">Chat</Tab>
+    //         <Tab tabFor="vertical-tab-six">My Appointments</Tab>
+    //       </TabList>
+    //       <TabPanel tabId="vertical-tab-one" component={Profile} />
+    //       <TabPanel tabId="vertical-tab-two" component={UserView} />
+    //       <TabPanel tabId="vertical-tab-three">
+    //         <p>Insurance Info</p>
+    //       </TabPanel>
+
+    //       <TabPanel tabId="vertical-tab-five">
+    //         <p>Chat feature</p>
+    //       </TabPanel>
+    //       <TabPanel tabId="vertical-tab-six" component={MyAppointment} />
+    //     </Tabs>
+    //   );
+    // else if (this.state.isAuth && user.role == Insurance)
+    //   return (
+    //     <Tabs defaultTab="vertical-tab-one" vertical>
+    //       <TabList>
+    //         <Tab tabFor="vertical-tab-one">Profile</Tab>
+    //         <Tab tabFor="vertical-tab-two">View Doctors</Tab>
+    //         <Tab tabFor="vertical-tab-three">View Patients</Tab>
+    //         <Tab tabFor="vertical-tab-five">Chat</Tab>
+    //       </TabList>
+    //       <TabPanel tabId="vertical-tab-one" component={Profile} />
+    //       <TabPanel tabId="vertical-tab-two" component={UserView} />
+    //       <TabPanel tabId="vertical-tab-three">
+    //         <p>Insurance Info</p>
+    //       </TabPanel>
+
+    //       <TabPanel tabId="vertical-tab-five">
+    //         <p>Chat feature</p>
+    //       </TabPanel>
+    //     </Tabs>
+    //   );
   }
 }

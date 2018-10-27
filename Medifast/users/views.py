@@ -58,6 +58,31 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     lookup_field = 'username'
+    
+    def post(self, request, username, format=None):
+        print(request.data,"checking")
+        print(Account.objects.filter(username=username),"users")
+
+        users = Account.objects.filter(username=username)
+        print(Account.objects.filter(username=username),"users")
+        if len(users) != 0:
+            user = users.first()
+            serializer = AccountSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(True, status=status.HTTP_200_OK)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
+
+    # def get_object(self, pk):
+    #     return Account.objects.get(pk=pk)
+
+    # def patch(self, request, pk):
+    #     testmodel = self.get_object(pk)
+    #     serializer = AccountSerializer(testmodel, data=request.data, partial=True) # set partial=True to update a data partially
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return JsonReponse(code=201, data=serializer.data)
+    #     return JsonResponse(code=400, data="wrong parameters")
 
 '''
     def put(self, request, format=None):
@@ -70,6 +95,9 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
                 return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 '''
+
+
+
 #class AccountUpdate():
 
 

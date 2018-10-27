@@ -25,6 +25,7 @@
     "react-dom": "^16.5.2",
     "react-google-maps": "^9.4.5",
     "react-modal": "^3.6.1",
+    "react-native": "^0.57.4",
     "react-redux": "^5.0.7",
     "react-responsive-sidebar": "^0.1.16",
     "react-router": "^4.3.1",

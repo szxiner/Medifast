@@ -62,7 +62,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: SecondaryThemeColor.red1
   },
-  wellStyles: { maxWidth: 400, margin: "0 auto 10px" }
+  wellStyles: {
+    maxWidth: 400,
+    margin: "0 auto 10px"
+  }
 });
 
 export default class ResetOption extends React.Component {
