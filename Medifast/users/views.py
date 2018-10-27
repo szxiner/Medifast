@@ -84,6 +84,7 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     #         return JsonReponse(code=201, data=serializer.data)
     #     return JsonResponse(code=400, data="wrong parameters")
 
+
 '''
     def put(self, request, format=None):
         users = Account.objects.filter(username=request.data['username'])
