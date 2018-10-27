@@ -57,10 +57,10 @@ class AuthAccount(APIView):
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
-    lookup_field= 'username'
+    lookup_field = 'username'
 
-    def put(self, request, pk):
-
+'''
+    def put(self, request, format=None):
         users = Account.objects.filter(username=request.data['username'])
         if len(users) != 0:
             user = users.first()
