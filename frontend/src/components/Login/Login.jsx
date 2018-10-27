@@ -83,14 +83,25 @@ export class Login extends React.Component {
       password: this.state.password
     };
 
-    // this.props.authenticateUser(user);
-    axios.post("http://127.0.0.1:8000/users-api/auth", user).then(res => {
-      if (res.status === 200) {
-        this.props.history.push("/2fa");
-      } else {
-        this.setState({ errorMsg: "Username and password does not match" });
-      }
-    });
+    axios
+      .get(`http://127.0.0.1:8000/users-api/?username=${user.username}`)
+      .then(res => {
+        if (res.data.length !== 0) {
+          this.props.storeUser(res.data[0]);
+        }
+      });
+    axios
+      .post("http://127.0.0.1:8000/users-api/auth", user)
+      .then(res => {
+        if (res.status === 200) {
+          this.props.history.push("/2fa");
+        }
+      })
+      .catch(() => {
+        this.setState({
+          errorMsg: "Username and password does not match. Please try again"
+        });
+      });
   };
 
   onChange = e => {

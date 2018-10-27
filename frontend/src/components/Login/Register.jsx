@@ -105,14 +105,17 @@ export class Register extends React.Component {
           securityAns: this.state.securityAns
         };
 
-        axios.post("http://127.0.0.1:8000/users-api/", user).then(res => {
-          if (res.status === 201) {
-            this.props.storeUser(user);
-            this.props.history.push("/2fa");
-          } else {
+        axios
+          .post("http://127.0.0.1:8000/users-api/", user)
+          .then(res => {
+            if (res.status === 201) {
+              this.props.storeUser(user);
+              this.props.history.push("/2fa");
+            }
+          })
+          .catch(() => {
             this.setState({ errorMsg: "User Name already exists." });
-          }
-        });
+          });
       } else {
         this.setState({ errorMsg: "Passwords does not match." });
       }
@@ -190,7 +193,7 @@ export class Register extends React.Component {
               componentClass="select"
               placeholder="select"
               onChange={this.onChange}
-              name="securityQ"
+              name="SecurityQuestion"
             >
               <option value="Select a role">Select</option>
               <option value="What's the name of your first teacher?">

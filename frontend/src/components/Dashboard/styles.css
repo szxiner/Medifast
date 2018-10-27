@@ -27,25 +27,25 @@
   padding: 1rem 6rem;
   color: #001f3f;
   transition: background 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-  height: 100%;
+  height: 100px;
 }
 
 .rwt__tab[aria-selected="false"]:hover,
 .rwt__tab:focus {
   outline: 0;
   background-color: #fad746;
-  height: 100%;
+  height: 100px;
 }
 
 .rwt__tab[aria-selected="true"] {
   position: relative;
-  height: 100%;
+  height: 100px;
 }
 
 .rwt__tab[aria-selected="true"]:after {
   content: "";
   position: absolute;
-  height: 100%;
+  height: 100px;
 }
 
 .rwt__tablist:not([aria-orientation="vertical"])

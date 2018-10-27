@@ -170,6 +170,7 @@ export default class UserList extends React.Component {
             handleCloseModal={this.handleCloseModal}
             activeProfile={this.state.activeProfile}
             activeInfo={this.state.activeInfo}
+            showAppt={true}
           />
         )}
       </div>

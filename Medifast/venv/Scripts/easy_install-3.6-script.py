@@ -1,4 +1,4 @@
-#!"C:\Users\T Baby\Documents\GitHub\P465\Medifast\Medifast\venv\Scripts\python.exe"
+#!"C:\Users\T Baby\Documents\GitHub\CleanMed\Medifast\Medifast\venv\Scripts\python.exe"
 # EASY-INSTALL-ENTRY-SCRIPT: 'setuptools==39.1.0','console_scripts','easy_install-3.6'
 __requires__ = 'setuptools==39.1.0'
 import re
