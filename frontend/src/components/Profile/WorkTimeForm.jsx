@@ -2,21 +2,20 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
-import { Select, Icon } from "antd";
+import { Select, Button } from "antd";
 import { themeColor } from "../../theme/colors";
-import Button from "../../common/Button";
 
 const Option = Select.Option;
 
 const days = [];
 
-days.push(<Option key="mon">Monday</Option>);
-days.push(<Option key="tue">Tuesday</Option>);
-days.push(<Option key="wed">Wednesday</Option>);
-days.push(<Option key="thur">Thursday</Option>);
-days.push(<Option key="fri">Friday</Option>);
-days.push(<Option key="sat">Saturday</Option>);
-days.push(<Option key="sun">Sunday</Option>);
+days.push(<Option key="Monday">Monday</Option>);
+days.push(<Option key="Tuesday">Tuesday</Option>);
+days.push(<Option key="Wednesday">Wednesday</Option>);
+days.push(<Option key="Thursday">Thursday</Option>);
+days.push(<Option key="Friday">Friday</Option>);
+days.push(<Option key="Saturday">Saturday</Option>);
+days.push(<Option key="Sunday">Sunday</Option>);
 
 const time = [];
 
@@ -29,14 +28,23 @@ for (let i = 10; i < 18; i++) {
   time.push(<Option key={`${i}:00:00`}>{`${i}:00 - ${i + 1}:00`}</Option>);
 }
 
-const workingdays = [];
-const workingtime = [];
-
 const styles = StyleSheet.create({
-  error1: {
+  instruction: {
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 20,
+    marginTop: 24,
+    marginBottom: 24,
+    marginLeft: 28,
+    marginRight: 28
+  },
+  error: {
     fontWeight: 600,
     textAlign: "center",
     color: themeColor.red1
+  },
+  questions: {
+    fontWeight: "bold"
   }
 });
 
@@ -45,68 +53,123 @@ class WorkTimeForm extends React.Component {
     super(props);
 
     this.state = {
-      showSecondStep: false
+      showSecondStep: false,
+      showThirdStep: false,
+      workingdays: [],
+      workingtime: [],
+      errorMsg: ""
     };
 
     this.onChangeDay = this.onChangeDay.bind(this);
     this.onChangeTime = this.onChangeTime.bind(this);
+
+    this.onClickNext = this.onClickNext.bind(this);
+    this.onClickSubmit = this.onClickSubmit.bind(this);
   }
 
   onChangeDay = value => {
     console.log(`Selected: ${value}`);
-    workingdays.push(value);
-    console.log(workingdays);
+    this.setState({ workingdays: value });
   };
 
   onChangeTime = value => {
     console.log(`Selected: ${value}`);
-    workingtime.push(value);
-    console.log(workingtime);
+    this.setState({ workingtime: value });
   };
 
-  onDaySubmit = () => {
+  onClickNext = () => {
     this.setState({
       showSecondStep: true
     });
   };
 
-  onTimeSubmit = () => {};
+  onClickSubmit = () => {
+    const { workingdays, workingtime } = this.state;
+    const username = this.props.auth.user.username;
+    console.log(workingdays);
+    console.log(workingtime);
+    const appointments = {
+      username: username,
+      workingdays: workingdays,
+      time: workingtime
+    };
+    axios
+      .post("http://127.0.0.1:8000/doctor/appointments", appointments)
+      .then(res => {
+        if (res.status === 201) {
+          console.log(res);
+          this.setState({ errorMsg: " You are all set !" });
+        }
+      })
+      .catch(() => {
+        this.setState({
+          errorMsg: " An error occurs, please try again later!"
+        });
+      });
+  };
 
   componentDidMount = () => {};
 
   render() {
+    const { showSecondStep } = this.state;
     return (
       <div>
-        Now, Let's add your work time so future patients can make appointment
-        with you on Medifast.
+        <div className={css(styles.instruction)}>
+          Now, let's add your work time so future patients can make appointment
+          with you on Medifast.
+        </div>
         <div className="select">
+          <div className={css(styles.questions)}>
+            When is your working days?
+          </div>
           <Select
             mode="multiple"
             size="large"
             placeholder="Please select"
             onChange={this.onChangeDay}
-            style={{ width: "100%" }}
+            style={{ width: "100%", marginTop: 24 }}
           >
             {days}
           </Select>
-          <Button name="Next" />
+          <br />
+          <Button
+            type="primary"
+            block
+            onClick={this.onClickNext}
+            style={{ marginTop: 24, marginBottom: 24 }}
+          >
+            Next
+          </Button>
           <br />
           {showSecondStep ? (
             <div>
+              <div className={css(styles.questions)}>
+                When is your working time?
+              </div>
               <Select
                 mode="multiple"
                 size="large"
                 placeholder="Please select"
                 onChange={this.onChangeTime}
-                style={{ width: "100%" }}
+                style={{ width: "100%", marginTop: 24 }}
               >
                 {time}
               </Select>
-              <Button name="Submit" />
+              <br />
+              <Button
+                type="primary"
+                block
+                onClick={this.onClickSubmit}
+                style={{ marginTop: 24, marginBottom: 24 }}
+              >
+                Submit
+              </Button>
             </div>
           ) : (
             <div />
           )}
+          <br />
+          <div className={css(styles.error)}>{this.state.errorMsg}</div>
         </div>
       </div>
     );

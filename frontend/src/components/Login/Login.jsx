@@ -53,11 +53,6 @@ const styles = StyleSheet.create({
   },
   logo1: {
     textAlign: "center"
-  },
-  error1: {
-    fontWeight: 600,
-    textAlign: "center",
-    color: SecondaryThemeColor.red1
   }
 });
 
@@ -148,9 +143,7 @@ export class Login extends React.Component {
             <Button name="Log in" type="submit" />
           </FormGroup>
         </form>
-        <div className={css(primaryColor ? styles.error : styles.error1)}>
-          {this.state.errorMsg}
-        </div>
+        <div className={css(styles.error)}>{this.state.errorMsg}</div>
       </div>
     );
   }
