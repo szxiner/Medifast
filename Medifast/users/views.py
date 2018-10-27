@@ -72,7 +72,11 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
 # API to register new user to the database
 class AccountList(APIView):
     def get(self, request, format=None):
-        accounts = Account.objects.all()
+        # accounts = Account.objects.all()
+        if request.GET != {}:
+            accounts = Account.objects.filter(username=request.GET['username'])
+        else:
+            accounts = Account.objects.all()
         serializer = AccountSerializer(accounts, many=True)
         return Response(serializer.data)
 
