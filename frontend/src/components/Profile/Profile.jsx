@@ -48,7 +48,7 @@ class Profile extends React.Component {
   componentDidMount = () => {
     const { auth } = this.props;
     const { type, username } = auth.user;
-    if (type === "doctor") {
+    if (type === "Doctor") {
       axios
         .get(`http://localhost:8000/doctor/profile?username=${username}`)
         .then(res => {
