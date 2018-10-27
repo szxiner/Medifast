@@ -145,20 +145,11 @@ export class Login extends React.Component {
             />
             <br />
             <br />
-            <Button
-              name="Log in"
-              type="submit"
-              color={primaryColor ? "primary" : "secondary"}
-            />
+            <Button name="Log in" type="submit" />
           </FormGroup>
         </form>
         <div className={css(primaryColor ? styles.error : styles.error1)}>
           {this.state.errorMsg}
-        </div>
-        <div align="center">
-          <button onClick={this.onClick} className={css(styles.clickMe)}>
-            Change Theme!!
-          </button>
         </div>
       </div>
     );
