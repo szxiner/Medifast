@@ -43,7 +43,6 @@ class App extends React.Component {
               <Route exact path="/EmailReset" component={EmailReset} />
 
               <Route exact path="/2fa" component={TwoFactor} />
-
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
               </Switch>

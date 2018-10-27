@@ -6,6 +6,7 @@ import styles1 from "./styles1.css";
 import store from "../../store";
 import UserView from "../UserList/UserView";
 import MyAppointment from "../Appointment/MyAppointment";
+import Profile from "../Profile/Profile";
 import { StyleSheet, css } from "aphrodite";
 import Column from "antd/lib/table/Column";
 
@@ -52,9 +53,7 @@ export default class DashboardSideBar extends Component {
           <Tab tabFor="vertical-tab-five">Chat</Tab>
           <Tab tabFor="vertical-tab-six">My Appointments</Tab>
         </TabList>
-        <TabPanel tabId="vertical-tab-one">
-          <p>My profile</p>
-        </TabPanel>
+        <TabPanel tabId="vertical-tab-one" component={Profile} />
         <TabPanel tabId="vertical-tab-two" component={UserView} />
         <TabPanel tabId="vertical-tab-three">
           <p>Insurance Info</p>
