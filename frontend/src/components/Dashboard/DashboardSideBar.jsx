@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { Tabs, Tab, TabPanel, TabList, TabProvider } from "react-web-tabs";
 import styles from "./styles.css";
+import styles1 from "./styles1.css";
+
 import store from "../../store";
 import UserView from "../UserList/UserView";
 import MyAppointment from "../Appointment/MyAppointment";
 import Profile from "../Profile/Profile";
 import { StyleSheet, css } from "aphrodite";
+import Column from "antd/lib/table/Column";
 
 const stylesclick = StyleSheet.create({
   clickMe: {
@@ -18,7 +21,7 @@ export default class DashboardSideBar extends Component {
     super(props);
     this.state = {
       isAuth: false,
-      primaryColor: true
+      primaryColor: ""
     };
     store.subscribe(() => {
       this.setState({
@@ -27,13 +30,18 @@ export default class DashboardSideBar extends Component {
       console.log(this.state.isAuth);
     });
   }
-  onClick = () => {
-    this.setState({ primaryColor: !this.state.primaryColor });
-  };
-
+  /*
+  componentWillMount(primaryColor) {
+    if (primaryColor === "Blue") {
+      require("styles.css");
+    }
+    if (primaryColor === "Yellow") {
+      require("styles1.css");
+    }
+  }
+*/
   render() {
     const { primaryColor } = this.state;
-
     //if (this.state.isAuth && user.role == Patient)
     return (
       <Tabs defaultTab="vertical-tab-one" vertical>
@@ -41,7 +49,7 @@ export default class DashboardSideBar extends Component {
           <Tab tabFor="vertical-tab-one">Profile</Tab>
           <Tab tabFor="vertical-tab-two">Find Doctors</Tab>
           <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
-          <Tab tabFor="vertical-tab-four">Claims</Tab>
+          <Tab tabFor="vertical-tab-four"> Search Doctors</Tab>
           <Tab tabFor="vertical-tab-five">Chat</Tab>
           <Tab tabFor="vertical-tab-six">My Appointments</Tab>
           <Tab tabFor="vertical-tab-seven">TBD</Tab>
@@ -107,76 +115,5 @@ export default class DashboardSideBar extends Component {
         </TabPanel>
       </Tabs>
     );
-    //Make the page responsive based on the user logged in.
-    /*
-      elseif(this.state.isAuth && user.role == doctor);
-    return (
-      <Tabs defaultTab="vertical-tab-one" vertical>
-        <TabList>
-          <Tab tabFor="vertical-tab-one">Profile</Tab>
-          <Tab tabFor="vertical-tab-two">Find Doctors</Tab>
-          <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
-          <Tab tabFor="vertical-tab-four">Claims</Tab>
-          <Tab tabFor="vertical-tab-five">Chat</Tab>
-          <Tab tabFor="vertical-tab-six">Appointments</Tab>
-          <Tab tabFor="vertical-tab-seven">TBD</Tab>
-          <Tab tabFor="vertical-tab-eight">TBD</Tab>
-          <Tab tabFor="vertical-tab-nine">TBD</Tab>
-          <Tab tabFor="vertical-tab-ten">TBD</Tab>
-          <Tab tabFor="vertical-tab-12">TBD</Tab>
-          <Tab tabFor="vertical-tab-13">TBD</Tab>
-          <Tab tabFor="vertical-tab-14">TBD</Tab>
-          <Tab tabFor="vertical-tab-15">TBD</Tab>
-          <Tab tabFor="vertical-tab-16">TBD</Tab>
-          <Tab tabFor="vertical-tab-17">TBD</Tab>
-          <Tab tabFor="vertical-tab-18">TBD</Tab>
-          <Tab tabFor="vertical-tab-19">TBD</Tab>
-        </TabList>
-        <TabPanel tabId="vertical-tab-one">
-          <p>Tab 1 content</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-two">
-          <p>Tab 2 content</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-three">
-          <p>Tab 3 content</p>
-        </TabPanel>
-      </Tabs>
-    );
-    elseif(this.state.isAuth && user.role == "Insurance Provider");
-    return (
-      <Tabs defaultTab="vertical-tab-one" vertical>
-        <TabList>
-          <Tab tabFor="vertical-tab-one">Profile</Tab>
-          <Tab tabFor="vertical-tab-two">Find Doctors</Tab>
-          <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
-          <Tab tabFor="vertical-tab-four">Claims</Tab>
-          <Tab tabFor="vertical-tab-five">Chat</Tab>
-          <Tab tabFor="vertical-tab-six">Appointments</Tab>
-          <Tab tabFor="vertical-tab-seven">TBD</Tab>
-          <Tab tabFor="vertical-tab-eight">TBD</Tab>
-          <Tab tabFor="vertical-tab-nine">TBD</Tab>
-          <Tab tabFor="vertical-tab-ten">TBD</Tab>
-          <Tab tabFor="vertical-tab-12">TBD</Tab>
-          <Tab tabFor="vertical-tab-13">TBD</Tab>
-          <Tab tabFor="vertical-tab-14">TBD</Tab>
-          <Tab tabFor="vertical-tab-15">TBD</Tab>
-          <Tab tabFor="vertical-tab-16">TBD</Tab>
-          <Tab tabFor="vertical-tab-17">TBD</Tab>
-          <Tab tabFor="vertical-tab-18">TBD</Tab>
-          <Tab tabFor="vertical-tab-19">TBD</Tab>
-        </TabList>
-        <TabPanel tabId="vertical-tab-one">
-          <p>Tab 1 content</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-two">
-          <p>Tab 2 content</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-three">
-          <p>Tab 3 content</p>
-        </TabPanel>
-      </Tabs>
-    );
-    */
   }
 }

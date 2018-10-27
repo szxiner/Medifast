@@ -70,10 +70,11 @@ export class Register extends React.Component {
       password: "",
       confirmPassword: "",
       typeOfUser: "role",
-      SecurityQuestion: "",
+      securityQ: "",
+
       securityAns: "",
       email: "default@yahoo.com",
-      phone_number: 9492288063,
+      phone_number: 8126069143,
       errorMsg: "",
       primaryColor: true
     };
@@ -88,7 +89,8 @@ export class Register extends React.Component {
       this.state.password === "" ||
       this.state.confirmPassword === "" ||
       this.state.typeOfUser === "role" ||
-      this.state.SecurityQuestion === "" ||
+      this.state.securityQ === "" ||
+
       this.state.securityAns === ""
     ) {
       this.setState({ errorMsg: "Please complete all the fields." });
@@ -101,7 +103,7 @@ export class Register extends React.Component {
           typeOfUser: this.state.typeOfUser,
           email: this.state.email,
           phone_number: this.state.phone_number,
-          securityQ: this.state.SecurityQuestion,
+          securityQ: this.state.securityQ,
           securityAns: this.state.securityAns
         };
 
@@ -196,16 +198,23 @@ export class Register extends React.Component {
               name="SecurityQuestion"
             >
               <option value="Select a role">Select</option>
-              <option value="Q1">What's the name of your first teacher?</option>
-              <option value="Q2">What is your dream job?</option>
-              <option value="Q3">What is your favourite color?</option>
+              <option value="What's the name of your first teacher?">
+                What's the name of your first teacher?
+              </option>
+              <option value="What is your dream job?">
+                What is your dream job?
+              </option>
+              <option value="What is your favourite color?">
+                What is your favourite color?
+              </option>
             </FormControl>
             <br />
             <FormControl
               className={css(styles.inputBox)}
               type="text"
               name="securityAns"
-              label="Username"
+              label="Security Answer"
+
               placeholder="Enter your answer here."
               value={this.state.securityAns}
               onChange={this.onChange}

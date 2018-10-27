@@ -9,7 +9,7 @@ import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
-import { FormGroup, FormControl } from "react-bootstrap";
+import { FormGroup, FormControl, NavItem } from "react-bootstrap";
 
 const styles = StyleSheet.create({
   box: {
@@ -144,6 +144,12 @@ export class Login extends React.Component {
           </FormGroup>
         </form>
         <div className={css(styles.error)}>{this.state.errorMsg}</div>
+
+
+        <div align="Center">
+          <a href="/ResetOption">Forgot Password?</a>
+        </div>
+
       </div>
     );
   }
