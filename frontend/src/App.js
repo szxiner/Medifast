@@ -1,16 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
+import { StyleSheet, css } from "aphrodite";
+
+import store from "./store";
+import history from "./history";
 
 import Landing from "./components/Landing/Landing";
 import Login from "./components/Login/Login";
 import Register from "./components/Login/Register";
 import LandingNavbar from "./components/Layout/LandingNavbar";
 import Dashboard from "./components/Dashboard/Dashboard";
-
-import store from "./store";
-import history from "./history";
-import { StyleSheet, css } from "aphrodite";
 import TwoFactor from "./components/Login/TwoFactor";
 import ResetPassword from "./components/Login/ResetPassword";
 import SearchDoctors from "./components/UserList/SearchDoctors";
@@ -43,7 +43,6 @@ class App extends React.Component {
               <Route exact path="/EmailReset" component={EmailReset} />
 
               <Route exact path="/2fa" component={TwoFactor} />
-
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
               </Switch>

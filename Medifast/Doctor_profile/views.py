@@ -5,8 +5,11 @@ from .serializers import Doctor_profile_serializer,Doctor_appointment_serializer
 from rest_framework.response import Response
 from django.http import Http404
 from rest_framework import status
+from .email_info import *
 import datetime
 import calendar
+import smtplib
+
 
 class Doctor_profile_view(APIView):
     def get(self, request, format=None):
@@ -30,6 +33,7 @@ class Doctor_profile_view(APIView):
                 return Response(False, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(False, status=status.HTTP_409_CONFLICT)
+
 
 class Doctor_appointment_view(APIView):
     def  get(self,request, format=None):
@@ -58,6 +62,7 @@ class Doctor_appointment_view(APIView):
             appointments = Doctor_appointments.objects.all()
             serializer = Doctor_appointment_serializer(appointments, many=True)
             return Response(serializer.data)
+
     def post(self, request, format=None):
         serializer = Doctor_appointment_serializer(data=request.data)
         if serializer.is_valid():
@@ -66,24 +71,42 @@ class Doctor_appointment_view(APIView):
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
+
 class Doctor_bookings_view(APIView):
     def get(self, format=None):
         appointments = Booking.objects.all()
         seralizer = Bookings_serializer(appointments, many=True)
         return Response(seralizer.data)
+
     def post(self, request, format=None):
         serializer = Bookings_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            send_email()
             return Response(True, status=status.HTTP_201_CREATED)
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
+
+    def send_email(subject,message):
+            subject = 'Appointment Confirmation'
+            message = 'Congratulations! Your appointment is confirmed!'
+            To_list = ['mankumarasdf@gmail.com','medifastiu@gmail.com']
+            from_email = EMAIL_HOST_USER
+            server = smtplib.SMTP('smtp.gmail.com:587')
+            server.ehlo()
+            server.starttls()
+            server.login(EMAIL_HOST_USER,EMAIL_HOST_PASSWORD)
+            msg = 'Subject: {}\n\n{}'.format(subject,message)
+            server.sendmail(EMAIL_HOST_USER,To_list,msg)
+            server.quit()
+
             
 class Doctor_reviews_view(APIView):
     def  get(self,request, format=None):
         reviews = Doctor_reviews.objects.all()
         serializer = Doctor_reviews_serializer(reviews, many=True)
         return Response(serializer.data)
+
     def post(self, request, format=None):
         serializer = Doctor_reviews_serializer(data=request.data)
         if serializer.is_valid():

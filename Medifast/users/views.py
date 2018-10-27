@@ -53,13 +53,14 @@ class AuthAccount(APIView):
                 return True
             return False
 
-# API to get, update, delete specific user
+# API to get, update, delete specific user (Update using post)
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     lookup_field= 'username'
 
     def put(self, request, pk):
+
         users = Account.objects.filter(username=request.data['username'])
         if len(users) != 0:
             user = users.first()
@@ -68,12 +69,18 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
                 serializer.save()
                 return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
+'''
+#class AccountUpdate():
 
 
 # API to register new user to the database
 class AccountList(APIView):
     def get(self, request, format=None):
-        accounts = Account.objects.all()
+        # accounts = Account.objects.all()
+        if request.GET != {}:
+            accounts = Account.objects.filter(username=request.GET['username'])
+        else:
+            accounts = Account.objects.all()
         serializer = AccountSerializer(accounts, many=True)
         return Response(serializer.data)
 

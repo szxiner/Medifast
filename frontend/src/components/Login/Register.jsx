@@ -71,6 +71,7 @@ export class Register extends React.Component {
       confirmPassword: "",
       typeOfUser: "role",
       securityQ: "",
+
       securityAns: "",
       email: "default@yahoo.com",
       phone_number: 8126069143,
@@ -89,6 +90,7 @@ export class Register extends React.Component {
       this.state.confirmPassword === "" ||
       this.state.typeOfUser === "role" ||
       this.state.securityQ === "" ||
+
       this.state.securityAns === ""
     ) {
       this.setState({ errorMsg: "Please complete all the fields." });
@@ -105,14 +107,17 @@ export class Register extends React.Component {
           securityAns: this.state.securityAns
         };
 
-        axios.post("http://127.0.0.1:8000/users-api/", user).then(res => {
-          if (res.status === 201) {
-            this.props.storeUser(user);
-            this.props.history.push("/2fa");
-          } else {
+        axios
+          .post("http://127.0.0.1:8000/users-api/", user)
+          .then(res => {
+            if (res.status === 201) {
+              this.props.storeUser(user);
+              this.props.history.push("/2fa");
+            }
+          })
+          .catch(() => {
             this.setState({ errorMsg: "User Name already exists." });
-          }
-        });
+          });
       } else {
         this.setState({ errorMsg: "Passwords does not match." });
       }
@@ -190,7 +195,7 @@ export class Register extends React.Component {
               componentClass="select"
               placeholder="select"
               onChange={this.onChange}
-              name="securityQ"
+              name="SecurityQuestion"
             >
               <option value="Select a role">Select</option>
               <option value="What's the name of your first teacher?">
@@ -209,6 +214,7 @@ export class Register extends React.Component {
               type="text"
               name="securityAns"
               label="Security Answer"
+
               placeholder="Enter your answer here."
               value={this.state.securityAns}
               onChange={this.onChange}
@@ -224,11 +230,6 @@ export class Register extends React.Component {
         <div className={css(primaryColor ? styles.error : styles.error1)}>
           {this.state.errorMsg}
         </div>{" "}
-        <div align="center">
-          <button onClick={this.onClick} className={css(styles.clickMe)}>
-            Change Theme!!
-          </button>
-        </div>
       </div>
     );
   }
