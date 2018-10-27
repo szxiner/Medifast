@@ -19,10 +19,10 @@
     "develop": {
         "autopep8": {
             "hashes": [
-                "sha256:655e3ee8b4545be6cfed18985f581ee9ecc74a232550ee46e9797b6fbf4f336d"
+                "sha256:1b8d42ebba751a91090d3adb5c06840b1151d71ed43e1c7a9ed6911bfe8ebe6c"
             ],
             "index": "pypi",
-            "version": "==1.4"
+            "version": "==1.4.2"
         },
         "pycodestyle": {
             "hashes": [

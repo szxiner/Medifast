@@ -62,8 +62,7 @@ def exchange_token(request, backend):
             user = request.backend.do_auth(serializer.validated_data['access_token'])
         except HTTPError as e:
             # An HTTPError bubbled up from the request to the social auth provider.
-            # This happens, at least in Google's case, every time you send a malformed
-            # or incorrect access key.
+            # This happens every time you send a malformed or incorrect access key.
             return Response(
                 {'errors': {
                     'token': 'Invalid token',
