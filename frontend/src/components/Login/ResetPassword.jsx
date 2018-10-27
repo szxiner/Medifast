@@ -72,7 +72,9 @@ export class ResetPassword extends React.Component {
       password: "",
       confirmPassword: "",
       errorMsg: "",
-      errorMsg_onSubmit4: ""
+      errorMsg_onSubmit4: "",
+      securityQ2: "",
+      securityAns2: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmitOne = this.onSubmitOne.bind(this);
@@ -85,6 +87,7 @@ export class ResetPassword extends React.Component {
 
   handleClose() {
     this.setState({ show: false });
+    this.setState({ verify: false });
   }
 
   handleShow() {
@@ -114,6 +117,7 @@ export class ResetPassword extends React.Component {
           if (res.status === 200) {
             console.log(res.data.securityQ);
             this.setState({ securityQ: res.data.securityQ });
+            this.setState({ securityQ2: res.data.securityQ2 });
             this.setState({ username_entered: true });
             this.setState({ isexpanded: false });
           } else {
@@ -138,7 +142,10 @@ export class ResetPassword extends React.Component {
           console.log(res.status);
           console.log(res.data.securityAns);
           if (res.status === 200) {
-            if (this.state.securityAns === res.data.securityAns)
+            if (
+              this.state.securityAns === res.data.securityAns &&
+              this.state.securityAns2 === res.data.securityAns2
+            )
               this.setState({ verify: true });
             else {
               this.setState({ errorMsg_onVerify2: "Incorrect Answer" });
@@ -159,6 +166,7 @@ export class ResetPassword extends React.Component {
     console.log(this.state.password);
     // this.props.authenticateUser(user);
     // console.log(`http://127.0.0.1:8000/users-api/${this.state.username}`);
+    const password = this.state.password;
     if (this.state.password === "" || this.state.confirmPassword === "") {
       this.setState({ errorMsg_onSubmit3: "Please complete all the fields." });
     } else {
@@ -167,9 +175,13 @@ export class ResetPassword extends React.Component {
         this.setState({ errorMsg_onSubmit4: "Passwords do not match" });
       } else {
         axios
-          .put(`http://127.0.0.1:8000/users-api/${this.state.username}`, {
-            password: this.state.password
-          })
+          .post(
+            `http://127.0.0.1:8000/users-api/${this.state.username}/`,
+            //password
+            {
+              password: this.state.password
+            }
+          )
           .then(res => {
             console.log(res.status);
             console.log(res.data.securityQ);
@@ -215,7 +227,7 @@ export class ResetPassword extends React.Component {
                 onChange={this.onChange}
               />
             </FormGroup>
-            <Button name="submit" type="submit" />
+            <Button name="submit" type="submit" onSubmit={this.onSubmitOne} />
             <div className={css(styles.error)}>
               {this.state.errorMsg_onSumbit1}
             </div>
@@ -228,11 +240,22 @@ export class ResetPassword extends React.Component {
               <ControlLabel>{this.state.securityQ}</ControlLabel>
               <FormControl
                 className={css(styles.inputBox)}
-                type="text"
+                type="password"
                 name="securityAns"
                 label="Security Answer"
                 placeholder="Enter your answer here"
                 value={this.state.securityAns}
+                onChange={this.onChange}
+              />
+              <br />
+              <ControlLabel>{this.state.securityQ2}</ControlLabel>
+              <FormControl
+                className={css(styles.inputBox)}
+                type="password"
+                name="securityAns2"
+                label="Security Answer"
+                placeholder="Enter your answer here"
+                value={this.state.securityAns2}
                 onChange={this.onChange}
               />
               <br />

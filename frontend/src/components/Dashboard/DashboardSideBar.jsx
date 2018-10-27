@@ -9,6 +9,7 @@ import MyAppointment from "../Appointment/MyAppointment";
 import Profile from "../Profile/Profile";
 import { StyleSheet, css } from "aphrodite";
 import Column from "antd/lib/table/Column";
+import { connect } from "react-redux";
 
 const stylesclick = StyleSheet.create({
   clickMe: {
@@ -42,7 +43,7 @@ export default class DashboardSideBar extends Component {
 */
   render() {
     const { primaryColor } = this.state;
-    //if (this.state.isAuth && user.role == Patient)
+    // if (this.state.isAuth && user.role == Patient)
     return (
       <Tabs defaultTab="vertical-tab-one" vertical>
         <TabList>
@@ -52,18 +53,6 @@ export default class DashboardSideBar extends Component {
           <Tab tabFor="vertical-tab-four"> Search Doctors</Tab>
           <Tab tabFor="vertical-tab-five">Chat</Tab>
           <Tab tabFor="vertical-tab-six">My Appointments</Tab>
-          <Tab tabFor="vertical-tab-seven">TBD</Tab>
-          <Tab tabFor="vertical-tab-eight">TBD</Tab>
-          <Tab tabFor="vertical-tab-nine">TBD</Tab>
-          <Tab tabFor="vertical-tab-ten">TBD</Tab>
-          <Tab tabFor="vertical-tab-11">TBD</Tab>
-          <Tab tabFor="vertical-tab-12">TBD</Tab>
-          <Tab tabFor="vertical-tab-13">TBD</Tab>
-          <Tab tabFor="vertical-tab-14">TBD</Tab>
-          <Tab tabFor="vertical-tab-15">TBD</Tab>
-          <Tab tabFor="vertical-tab-16">TBD</Tab>
-          <Tab tabFor="vertical-tab-17">TBD</Tab>
-          <Tab tabFor="vertical-tab-18">TBD</Tab>
         </TabList>
         <TabPanel tabId="vertical-tab-one" component={Profile} />
         <TabPanel tabId="vertical-tab-two" component={UserView} />
@@ -77,43 +66,49 @@ export default class DashboardSideBar extends Component {
           <p>Chat feature</p>
         </TabPanel>
         <TabPanel tabId="vertical-tab-six" component={MyAppointment} />
-        <TabPanel tabId="vertical-tab-seven">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-eight">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-nine">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-ten">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-11">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-12">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-13">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-14">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-15">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-16">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-17">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-18">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
       </Tabs>
     );
+    // else if (this.state.isAuth && user.role == Doctor)
+    //   return (
+    //     <Tabs defaultTab="vertical-tab-one" vertical>
+    //       <TabList>
+    //         <Tab tabFor="vertical-tab-one">Profile</Tab>
+    //         <Tab tabFor="vertical-tab-two">Your Patients</Tab>
+    //         <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
+    //         <Tab tabFor="vertical-tab-five">Chat</Tab>
+    //         <Tab tabFor="vertical-tab-six">My Appointments</Tab>
+    //       </TabList>
+    //       <TabPanel tabId="vertical-tab-one" component={Profile} />
+    //       <TabPanel tabId="vertical-tab-two" component={UserView} />
+    //       <TabPanel tabId="vertical-tab-three">
+    //         <p>Insurance Info</p>
+    //       </TabPanel>
+
+    //       <TabPanel tabId="vertical-tab-five">
+    //         <p>Chat feature</p>
+    //       </TabPanel>
+    //       <TabPanel tabId="vertical-tab-six" component={MyAppointment} />
+    //     </Tabs>
+    //   );
+    // else if (this.state.isAuth && user.role == Insurance)
+    //   return (
+    //     <Tabs defaultTab="vertical-tab-one" vertical>
+    //       <TabList>
+    //         <Tab tabFor="vertical-tab-one">Profile</Tab>
+    //         <Tab tabFor="vertical-tab-two">View Doctors</Tab>
+    //         <Tab tabFor="vertical-tab-three">View Patients</Tab>
+    //         <Tab tabFor="vertical-tab-five">Chat</Tab>
+    //       </TabList>
+    //       <TabPanel tabId="vertical-tab-one" component={Profile} />
+    //       <TabPanel tabId="vertical-tab-two" component={UserView} />
+    //       <TabPanel tabId="vertical-tab-three">
+    //         <p>Insurance Info</p>
+    //       </TabPanel>
+
+    //       <TabPanel tabId="vertical-tab-five">
+    //         <p>Chat feature</p>
+    //       </TabPanel>
+    //     </Tabs>
+    //   );
   }
 }

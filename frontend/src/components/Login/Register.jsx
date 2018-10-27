@@ -71,12 +71,13 @@ export class Register extends React.Component {
       confirmPassword: "",
       typeOfUser: "role",
       securityQ: "",
-
       securityAns: "",
-      email: "default@yahoo.com",
+      email: "",
       phone_number: 8126069143,
       errorMsg: "",
-      primaryColor: true
+      primaryColor: true,
+      securityQ2: "",
+      securityAns2: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -87,11 +88,13 @@ export class Register extends React.Component {
     if (
       this.state.username === "" ||
       this.state.password === "" ||
+      this.state.email === "" ||
       this.state.confirmPassword === "" ||
       this.state.typeOfUser === "role" ||
       this.state.securityQ === "" ||
-
-      this.state.securityAns === ""
+      this.state.securityAns === "" ||
+      this.state.securityQ2 === "" ||
+      this.state.securityAns2 === ""
     ) {
       this.setState({ errorMsg: "Please complete all the fields." });
     } else {
@@ -99,12 +102,14 @@ export class Register extends React.Component {
         const user = {
           username: this.state.username,
           password: this.state.password,
-          confirmPassword: this.state.confirmPassword,
+          //confirmPassword: this.state.confirmPassword,
           typeOfUser: this.state.typeOfUser,
           email: this.state.email,
           phone_number: this.state.phone_number,
           securityQ: this.state.securityQ,
-          securityAns: this.state.securityAns
+          securityAns: this.state.securityAns,
+          securityQ2: this.state.securityQ2,
+          securityAns2: this.state.securityAns2
         };
 
         axios
@@ -177,6 +182,17 @@ export class Register extends React.Component {
               onChange={this.onChange}
             />
             <br />
+            <ControlLabel>Email:</ControlLabel>
+            <FormControl
+              className={css(styles.inputBox)}
+              type="email"
+              label="Email address"
+              name="email"
+              placeholder="Enter email"
+              value={this.state.email}
+              onChange={this.onChange}
+            />
+            <br />
             <ControlLabel>Role:</ControlLabel>
             <FormControl
               componentClass="select"
@@ -195,9 +211,11 @@ export class Register extends React.Component {
               componentClass="select"
               placeholder="select"
               onChange={this.onChange}
-              name="SecurityQuestion"
+              name="securityQ"
             >
-              <option value="Select a role">Select</option>
+              <option value="Select a question">
+                Select Securtiy Question 1
+              </option>
               <option value="What's the name of your first teacher?">
                 What's the name of your first teacher?
               </option>
@@ -214,9 +232,38 @@ export class Register extends React.Component {
               type="text"
               name="securityAns"
               label="Security Answer"
-
               placeholder="Enter your answer here."
               value={this.state.securityAns}
+              onChange={this.onChange}
+            />
+            <br />
+            <FormControl
+              componentClass="select"
+              placeholder="select"
+              onChange={this.onChange}
+              name="securityQ2"
+            >
+              <option value="Select a question">
+                Select Securtiy Question 2
+              </option>
+              <option value="What's the name of your first school?">
+                What's the name of your first school?
+              </option>
+              <option value="What's the name of your first pet?">
+                What's the name of your first pet?
+              </option>
+              <option value="What is your favourite food?">
+                What is your favourite food?
+              </option>
+            </FormControl>
+            <br />
+            <FormControl
+              className={css(styles.inputBox)}
+              type="text"
+              name="securityAns2"
+              label="Security Answer"
+              placeholder="Enter your answer here."
+              value={this.state.securityAns2}
               onChange={this.onChange}
             />
             <br />
