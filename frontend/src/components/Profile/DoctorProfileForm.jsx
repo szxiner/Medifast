@@ -84,17 +84,17 @@ class DoctorProfileForm extends React.Component {
 
     const google = window.google;
     const geocoder = new google.maps.Geocoder();
-    return geocoder
-      .geocode({ address: this.state.address }, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
-          const locationString =
-            results[0].geometry.location.lat().toString() +
-            ", " +
-            results[0].geometry.location.lng().toString();
-          this.setState({ location: locationString });
-        }
-      })
-      .then(() => this.onSubmit);
+    geocoder.geocode({ address: this.state.address }, (results, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        const locationString =
+          results[0].geometry.location.lat().toString() +
+          ", " +
+          results[0].geometry.location.lng().toString();
+        this.setState({ location: locationString }, () => {
+          this.woo();
+        });
+      }
+    });
   };
 
   componentDidMount = () => {};
