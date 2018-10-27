@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=C:\Users\T Baby\Documents\GitHub\P465\Medifast\Medifast\venv"
+set "VIRTUAL_ENV=C:\Users\T Baby\Documents\GitHub\CleanMed\Medifast\Medifast\venv"
 
 if not defined PROMPT (
     set "PROMPT=$P$G"

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 import { Tabs, Tab, TabPanel, TabList, TabProvider } from "react-web-tabs";
 import styles from "./styles.css";
 import store from "../../store";
 import UserView from "../UserList/UserView";
-import { themeColor } from "../../theme/colors";
+import MyAppointment from "../Appointment/MyAppointment";
 import { StyleSheet, css } from "aphrodite";
 
 const stylesclick = StyleSheet.create({
@@ -43,7 +42,7 @@ export default class DashboardSideBar extends Component {
           <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
           <Tab tabFor="vertical-tab-four">Claims</Tab>
           <Tab tabFor="vertical-tab-five">Chat</Tab>
-          <Tab tabFor="vertical-tab-six">Appointments</Tab>
+          <Tab tabFor="vertical-tab-six">My Appointments</Tab>
           <Tab tabFor="vertical-tab-seven">TBD</Tab>
           <Tab tabFor="vertical-tab-eight">TBD</Tab>
           <Tab tabFor="vertical-tab-nine">TBD</Tab>
@@ -56,7 +55,6 @@ export default class DashboardSideBar extends Component {
           <Tab tabFor="vertical-tab-16">TBD</Tab>
           <Tab tabFor="vertical-tab-17">TBD</Tab>
           <Tab tabFor="vertical-tab-18">TBD</Tab>
-          <Tab tabFor="vertical-tab-19">TBD</Tab>
         </TabList>
         <TabPanel tabId="vertical-tab-one">
           <p>My profile</p>
@@ -71,9 +69,7 @@ export default class DashboardSideBar extends Component {
         <TabPanel tabId="vertical-tab-five">
           <p>Chat feature</p>
         </TabPanel>
-        <TabPanel tabId="vertical-tab-six">
-          <p>Book an Appointment here</p>
-        </TabPanel>
+        <TabPanel tabId="vertical-tab-six" component={MyAppointment} />
         <TabPanel tabId="vertical-tab-seven">
           <p>Will be coming up soon!!</p>
         </TabPanel>
@@ -108,9 +104,6 @@ export default class DashboardSideBar extends Component {
           <p>Will be coming up soon!!</p>
         </TabPanel>
         <TabPanel tabId="vertical-tab-18">
-          <p>Will be coming up soon!!</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-19">
           <p>Will be coming up soon!!</p>
         </TabPanel>
       </Tabs>

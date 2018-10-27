@@ -1,3 +1,5 @@
+@import "~antd/dist/antd.css";
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 22px;
@@ -17,4 +19,13 @@ a {
 h1 {
   font-family: "Pacifico", cursive;
   size: 48;
+}
+
+p {
+  margin: 0;
+}
+
+.navbar,
+.navbar-default {
+  margin: 0;
 }

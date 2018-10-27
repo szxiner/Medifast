@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Nav, Navbar, NavItem, Button, Collapse } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import store from "../../store";
-import DashboardSideBar from "../Dashboard/DashboardSideBar";
 
 export default class LandingNavbar extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ export default class LandingNavbar extends React.Component {
     if (this.state.isAuth) {
       return (
         <div>
-          <Navbar>
+          <Navbar styles={{ position: "fixed", width: "100%", top: 0 }}>
             <Navbar.Header>
               <Navbar.Brand />
               <Navbar.Brand>

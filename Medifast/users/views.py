@@ -53,11 +53,48 @@ class AuthAccount(APIView):
                 return True
             return False
 
-# API to get, update, delete specific user
-class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
+'''
+class AccountUpdate(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Account.objects.get(pk=pk)
+        except Account.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = AccountSerializer(snippet)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = AccountSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+'''
+
+# API to get, update, delete specific user (Update using post)
+class AccountDetail(generics.RetrieveDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+    lookup_field = 'username'
 
+
+
+    def post(self, request, format=None):
+
+        users = Account.objects.filter(username=request.data['username'])
+        if len(users) != 0:
+            user = users.first()
+            serializer = AccountSerializer(user, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(True, status=status.HTTP_200_OK)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
+'''
     def put(self, request, format=None):
         users = Account.objects.filter(username=request.data['username'])
         if len(users) != 0:
@@ -67,7 +104,7 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
                 serializer.save()
                 return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
-
+'''
 
 # API to register new user to the database
 class AccountList(APIView):
