@@ -34,7 +34,6 @@ class App extends React.Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/2fa" component={TwoFactor} />
-
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
               </Switch>

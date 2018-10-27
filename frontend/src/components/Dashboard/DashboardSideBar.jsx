@@ -4,6 +4,7 @@ import styles from "./styles.css";
 import store from "../../store";
 import UserView from "../UserList/UserView";
 import MyAppointment from "../Appointment/MyAppointment";
+import Profile from "../Profile/Profile";
 import { StyleSheet, css } from "aphrodite";
 
 const stylesclick = StyleSheet.create({
@@ -56,9 +57,7 @@ export default class DashboardSideBar extends Component {
           <Tab tabFor="vertical-tab-17">TBD</Tab>
           <Tab tabFor="vertical-tab-18">TBD</Tab>
         </TabList>
-        <TabPanel tabId="vertical-tab-one">
-          <p>My profile</p>
-        </TabPanel>
+        <TabPanel tabId="vertical-tab-one" component={Profile} />
         <TabPanel tabId="vertical-tab-two" component={UserView} />
         <TabPanel tabId="vertical-tab-three">
           <p>Insurance Info</p>
