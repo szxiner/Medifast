@@ -13,8 +13,9 @@ import history from "./history";
 import { StyleSheet, css } from "aphrodite";
 import TwoFactor from "./components/Login/TwoFactor";
 import ResetPassword from "./components/Login/ResetPassword";
-import VerifyUser from "./components/Login/VerifyUser";
 import SearchDoctors from "./components/UserList/SearchDoctors";
+import ResetOption from "./components/Login/ResetOption";
+import EmailReset from "./components/Login/EmailReset";
 
 const styles = StyleSheet.create({
   app: {
@@ -38,6 +39,8 @@ class App extends React.Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/ResetPassword" component={ResetPassword} />
               <Route exact path="/SearchDoctors" component={SearchDoctors} />
+              <Route exact path="/ResetOption" component={ResetOption} />
+              <Route exact path="/EmailReset" component={EmailReset} />
 
               <Route exact path="/2fa" component={TwoFactor} />
 

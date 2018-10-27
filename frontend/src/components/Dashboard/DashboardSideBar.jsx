@@ -49,22 +49,7 @@ export default class DashboardSideBar extends Component {
           <Tab tabFor="vertical-tab-one">Profile</Tab>
           <Tab tabFor="vertical-tab-two">Find Doctors</Tab>
           <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
-          <Tab tabFor="vertical-tab-four">
-            {/* <div align="center">
-              <button
-                onClick={this.onClick(this.componentWillMount("Blue"))}
-                className={css(styles.clickMe)}
-              >
-                Blue
-              </button>
-              <button
-                onClick={this.onClick(this.componentWillMount("Yellow"))}
-                className={css(styles.clickMe)}
-              >
-                Yellow
-              </button>
-            </div> */}
-          </Tab>
+          <Tab tabFor="vertical-tab-four"> Search Doctors</Tab>
           <Tab tabFor="vertical-tab-five">Chat</Tab>
           <Tab tabFor="vertical-tab-six">Appointments</Tab>
           <Tab tabFor="vertical-tab-seven">TBD</Tab>

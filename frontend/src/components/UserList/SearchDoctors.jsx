@@ -10,14 +10,15 @@ import PatientModal from "./PatientModal";
 import {
   FormGroup,
   FormControl,
-  InputGroup,
   DropdownButton,
   MenuItem,
-  Form
+  Form,
+  InputGroup,
+  Button
 } from "react-bootstrap";
 import SearchDocModal from "./SearchDocModal";
 import UserList from "./UserList";
-import Button from "../../common/Button";
+//import Button from "../../common/Button";
 
 const styles = StyleSheet.create({
   box: {
@@ -64,6 +65,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     color: themeColor.dark1
+  },
+  p: {
+    font: "Cagliostro",
+    fontWeight: "bold",
+    fontSize: 20
+  },
+  icon: {
+    size: 100
   }
 });
 
@@ -79,7 +88,13 @@ export default class SearchDoctors extends React.Component {
       activeInfo: [],
       value: "",
       search: [],
-      searchList: []
+      searchList: [],
+      search: "",
+      search_lower: "",
+      userList_lower: "",
+      new_list: "",
+      searchbar: true,
+      noresults: false
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -89,77 +104,68 @@ export default class SearchDoctors extends React.Component {
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state.username, "onchange");
-    this.setState({ show: true });
+    console.log(this.state.search, "onchange");
   };
 
   onSubmit = e => {
     e.preventDefault();
-    //console.log(username);
-    console.log(this.state.username, "onsubmit");
+    //console.log(search);
+    console.log(this.state.search, "onsubmit");
     console.log("here");
-    this.setState({ show: true });
     this.setState({ viewType: "Doctor" });
-    const username = this.setState.username;
+    //this.state.search = this.state.search.toLowerCase();
+    this.state.search_lower = this.state.search.toLowerCase();
+    console.log(this.state.search_lower, "lowercase");
     axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
       if (res.status === 200) {
         console.log(res.data);
         this.setState({ userList: res.data });
       }
-      // this.state.searchList = _.filter(
+      this.state.userList_lower = JSON.stringify(
+        this.state.userList
+      ).toLowerCase();
+      console.log(this.state.userList_lower, "str");
+      const filteredList = this.state.userList.filter(s => {
+        //Object.values(s).includes(this.state.search);
+        //console.log("HA", Object.values(s));
+        const arr = _.map(Object.values(s), function(o) {
+          if (typeof o === "string") {
+            return o.toLowerCase();
+          } else {
+            return o;
+          }
+        });
+        if (arr.includes(this.state.search.toLowerCase())) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      this.setState({ searchList: filteredList });
+      // this.state.searchList = this.state.userList.filter(s => {
+      //   Object.values(s).includes(this.state.search);
+      //   console.log("HA", Object.values(s));
+      //   // console.log(this.state.userList_lower, "str");
+      // });
+      // this.state.userList_lower = _.mapValues(
       //   this.state.userList,
+      //   _.method("toLowerCase")
+      // );
+      // console.log(this.state.userList_lower, "is this lower?");
+      if (this.state.searchList.length > 0) {
+        this.setState({
+          show: true
 
-      //   {
-      //     First_name: this.state.username,
-      //     Last_Name: this.state.username
-      //   }
-
-      // function(result, search) {
-      //   if (
-      //     (userList, First_Name == search || userList, Last_Name == search)
-      //   ) {
-      //     (result[(userList, Last_Name)] = []).push(userList);
-      //   }
-      //   return result;
-      // },
-      // {}
-      //);
-      this.state.searchList = this.state.userList.filter(s =>
-        Object.values(s).includes(this.state.username)
-      );
-      // const search = this.state.username;
-
-      // this.state.searchList = this.state.userList.filter(function(search) {
-      //   for (var i = 0; i < 3; i++) {
-      //     if (userList[i].First_name == search) return userList[i];
-      //     else if (userList[i].Last_Name == search) return userList[i];
-      //     else if (
-      //       userList[i].First_name == search ||
-      //       userList[i].Last_Name == search
-      //     )
-      //       return userList[i];
-      //   }
-      // });
-
-      //   if (
-      //     search.First_name === search ||
-      //     search.Last_Name === search ||
-      //     search.specialization === search
-      //   ) {
-      //     return search;
-      //   }
-      // });
-
-      // const search = this.state.username;
-      // const searchList = this.state.userList.filter(function(search) {
-      // for(var i=0;i<3;i++){
-      //   if(userList[i]=== this.state.search)
-
-      // }
-
-      //}
-      //   return this.state.userList[(0, 3)];
-      //)};
+          //activeProfile: user.search
+        });
+      } else if (this.state.searchList.length === 0) {
+        this.setState({
+          noresults: true,
+          show: false
+          //activeProfile: user.search
+        });
+      }
       console.log(this.state.userList);
       console.log(this.state.searchList, "bindu");
     });
@@ -168,64 +174,49 @@ export default class SearchDoctors extends React.Component {
   handleOpenModal(user) {
     const { userType } = this.props;
     this.state.viewType = "Doctor";
+    this.state.searchbar = false;
+    this.state.showModal = true;
 
-    this.setState({
-      showModal: true,
-      activeProfile: user.username
+    const docInfo = _.filter(this.state.userList, {
+      search: user.search
     });
-    if (this.state.viewType === "Patient") {
-      axios.get("http://127.0.0.1:8000/patient/history").then(res => {
-        if (res.status === 200) {
-          const mediHis = _.filter(res.data, {
-            username: this.state.activeProfile
-          });
-          this.setState({ activeInfo: mediHis });
-        }
-      });
-    } else {
-      const docInfo = _.filter(this.state.userList, {
-        username: user.username
-      });
-      this.setState({ activeInfo: docInfo });
-    }
+    this.setState({ activeInfo: docInfo });
   }
 
   handleCloseModal() {
     this.setState({ showModal: false, activeInfo: [] });
+    this.state.searchbar = true;
   }
 
   render() {
-    const Search = Input.Search;
-    const viewType = "Doctor";
-    const searchval = "";
-    const value = "";
-
     return (
       <div className={css(styles.box)}>
-        {/* <Input.Search
-          placeholder="input search text"
-          onSearch={this.onSubmit}
-          ref={this.saveInput}
-          onClick={ref => console.log(ref)}
-          onChange={this.onChange}
-          enterButton
-        
-        /> */}
-        <form onSubmit={this.onSubmit}>
-          <FormGroup>
-            <FormControl
-              className={css(styles.inputBox)}
-              type="text"
-              name="username"
-              label="username"
-              placeholder="Search"
-              value={this.state.username}
-              onChange={this.onChange}
-            />
-            <Button name="search" type="submit" />
-          </FormGroup>
-        </form>
-        <br />
+        {this.state.searchbar ? (
+          <div>
+            <form onSubmit={this.onSubmit}>
+              <FormGroup>
+                <InputGroup>
+                  <FormControl
+                    type="text"
+                    name="search"
+                    label="search"
+                    placeholder="Search ( Ex: Doctor Name, Specialization, Location)"
+                    value={this.state.search}
+                    onChange={this.onChange}
+                  />
+                  <InputGroup.Button>
+                    <Button bsStyle="primary" type={this.onSubmit}>
+                      <Icon type="search" theme="outlined" />
+                    </Button>
+                  </InputGroup.Button>
+                </InputGroup>
+              </FormGroup>
+            </form>
+            <br />
+          </div>
+        ) : (
+          ""
+        )}
         {this.state.show ? (
           <div className={css(styles.innerComponent)}>
             <div className={css(styles.userList)}>
@@ -242,14 +233,8 @@ export default class SearchDoctors extends React.Component {
                     <tr className={css(styles.tr)}>
                       <th className={css(styles.th)}>{key + 1}</th>
                       <th className={css(styles.th)}>{user.Last_Name}</th>
-                      <th className={css(styles.th)}>
-                        {viewType === "Patient"
-                          ? user.gender
-                          : user.specialization}
-                      </th>
-                      <th className={css(styles.th)}>
-                        {viewType === "Patient" ? user.DOB : user.Hospital}
-                      </th>
+                      <th className={css(styles.th)}>{user.specialization}</th>
+                      <th className={css(styles.th)}>{user.Hospital}</th>
                       <th className={css(styles.more)}>
                         <a onClick={() => this.handleOpenModal(user)}>
                           <Icon type="down" theme="outlined" />
@@ -263,22 +248,28 @@ export default class SearchDoctors extends React.Component {
           </div>
         ) : (
           ""
-        )}{" "}
-        {viewType === "Patient" ? (
-          <PatientModal
-            showModal={this.state.showModal}
-            handleCloseModal={this.handleCloseModal}
-            activeProfile={this.state.activeProfile}
-            activeInfo={this.state.activeInfo}
-          />
-        ) : (
-          <SearchDocModal
-            showModal={this.state.showModal}
-            handleCloseModal={this.handleCloseModal}
-            activeProfile={this.state.activeProfile}
-            activeInfo={this.state.activeInfo}
-          />
         )}
+        {this.state.noresults ? (
+          <div align="center">
+            <p className={css(styles.p)}>
+              {" "}
+              <Icon
+                className={css(styles.icon)}
+                type="exclamation-circle"
+                theme="filled"
+              />{" "}
+              Oops! No Results!
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
+        <SearchDocModal
+          showModal={this.state.showModal}
+          handleCloseModal={this.handleCloseModal}
+          activeProfile={this.state.activeProfile}
+          activeInfo={this.state.activeInfo}
+        />
       </div>
     );
   }

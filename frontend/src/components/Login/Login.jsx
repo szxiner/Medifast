@@ -151,7 +151,7 @@ export class Login extends React.Component {
         </div>
         <br />
         <div align="Center">
-          <a href="/ResetPassword">Forgot Password?</a>
+          <a href="/ResetOption">Forgot Password?</a>
         </div>
       </div>
     );

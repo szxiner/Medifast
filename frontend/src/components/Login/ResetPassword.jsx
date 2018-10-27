@@ -167,7 +167,7 @@ export class ResetPassword extends React.Component {
         this.setState({ errorMsg_onSubmit4: "Passwords do not match" });
       } else {
         axios
-          .post(`http://127.0.0.1:8000/users-api/${this.state.username}`, {
+          .put(`http://127.0.0.1:8000/users-api/${this.state.username}`, {
             password: this.state.password
           })
           .then(res => {
@@ -192,6 +192,9 @@ export class ResetPassword extends React.Component {
   render() {
     return (
       <div className={css(styles.box)}>
+        <h1 className={css(styles.logo)}>Medifast</h1>
+        <h3 className={css(styles.logo)}>Password Recovery</h3>
+
         <div
           className={
             this.state.isexpanded
@@ -218,12 +221,10 @@ export class ResetPassword extends React.Component {
             </div>
           </form>
         </div>
-        <br />
 
         {this.username_entered ? (
           <form onSubmit={this.onSubmitTwo}>
             <FormGroup>
-              <br />
               <ControlLabel>{this.state.securityQ}</ControlLabel>
               <FormControl
                 className={css(styles.inputBox)}

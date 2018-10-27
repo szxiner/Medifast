@@ -73,7 +73,7 @@ export class Register extends React.Component {
       securityQ: "",
       securityAns: "",
       email: "default@yahoo.com",
-      phone_number: 9492288063,
+      phone_number: 8126069143,
       errorMsg: "",
       primaryColor: true
     };
