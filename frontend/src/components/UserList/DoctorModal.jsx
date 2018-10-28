@@ -3,7 +3,8 @@ import _ from "lodash";
 import ReactModal from "react-modal";
 import { StyleSheet, css } from "aphrodite";
 import { Icon, Button } from "antd";
-
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import Map from "../../common/Map";
 import { themeColor } from "../../theme/colors";
 import MyCalendar from "./Calendar";
@@ -34,10 +35,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: themeColor.grey0,
     padding: 40,
-    marginTop: "5%",
+    marginTop: "1%",
     marginLeft: "20%",
     marginRight: "20%",
-    marginBottom: "10%",
+    marginBottom: "1%",
     width: "60%"
   },
   close: {
@@ -51,8 +52,7 @@ const styles = StyleSheet.create({
     position: "absolute"
   }
 });
-
-export default class DoctorModal extends React.Component {
+class DoctorModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -122,7 +122,7 @@ export default class DoctorModal extends React.Component {
                 />
               </div>
               <br />
-              {showAppt ? (
+              {showAppt && this.props.auth.type === "Insurance" ? (
                 <Button
                   type="primary"
                   icon="calendar"
@@ -141,3 +141,16 @@ export default class DoctorModal extends React.Component {
     );
   }
 }
+
+DoctorModal.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(DoctorModal);

@@ -147,13 +147,15 @@ class twofa(APIView):
         global authy_id
         global username
         verification = authy_api.tokens.verify(authy_id, request.data["token"])
-        if verification.ok():
+        try: 
+            verification.ok()
             request.session['authy'] = True
             #Return true for Frontend to take over
             authy_id = None
             username = None
             return Response(True, status=status.HTTP_200_OK)
-        else:
+        except Exception as e:
+            print(e)
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
 
