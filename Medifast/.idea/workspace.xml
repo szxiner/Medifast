@@ -5,12 +5,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/Medifast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Medifast.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/requirements-dev.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Pipfile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+=======
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,6 +56,7 @@
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.2" value="2" />
+          <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.28" value="1" />
@@ -70,27 +74,43 @@
           <entry key="project.open.time.56" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.87" value="1" />
+<<<<<<< HEAD
           <entry key="project.opened" value="46" />
+=======
+          <entry key="project.opened" value="43" />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="Pipfile" value="3" />
+          <entry key="Pipfile" value="4" />
           <entry key="Procfile" value="1" />
           <entry key="env" value="1" />
           <entry key="example" value="2" />
           <entry key="html" value="17" />
+<<<<<<< HEAD
           <entry key="lock" value="1" />
           <entry key="py" value="324" />
           <entry key="txt" value="4" />
+=======
+          <entry key="lock" value="2" />
+          <entry key="py" value="318" />
+          <entry key="txt" value="7" />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
           <entry key="windows" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="17" />
+<<<<<<< HEAD
           <entry key="PLAIN_TEXT" value="14" />
           <entry key="Python" value="324" />
+=======
+          <entry key="PLAIN_TEXT" value="18" />
+          <entry key="Python" value="318" />
+          <entry key="TOML file" value="1" />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -112,6 +132,36 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="2112747550">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.21" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="391" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="391" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="3" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -119,16 +169,24 @@
         <entry file="file://$PROJECT_DIR$/users/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
-              <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+              <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Medifast/urls.py">
+        <entry file="file://$PROJECT_DIR$/users/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="175">
               <caret line="30" column="46" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
+=======
+            <state relative-caret-position="153">
+              <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
             </state>
           </provider>
         </entry>
@@ -136,15 +194,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="714">
               <caret line="42" column="33" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
+=======
+            <state relative-caret-position="265">
+              <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+                <marker date="1540668092759" expanded="true" signature="2706:2709" ph="..." />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Medifast/settings.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -152,7 +219,37 @@
               <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
               <folding>
                 <element signature="e#309#318#0" expanded="true" />
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Medifast/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+              <folding>
+                <element signature="e#309#318#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/users/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Medifast/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="30" column="46" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -198,10 +295,13 @@
         <option value="$PROJECT_DIR$/users/migrations/0001_initial.py" />
         <option value="$PROJECT_DIR$/users/managers.py" />
         <option value="$PROJECT_DIR$/users/forms.py" />
-        <option value="$PROJECT_DIR$/users/models.py" />
         <option value="$PROJECT_DIR$/templates/2fa.html" />
         <option value="$PROJECT_DIR$/Medifast/urls.py" />
         <option value="$PROJECT_DIR$/users/serializers.py" />
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/users/models.py" />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
         <option value="$PROJECT_DIR$/users/urls.py" />
         <option value="$PROJECT_DIR$/users/views.py" />
         <option value="$PROJECT_DIR$/Medifast/settings.py" />
@@ -232,11 +332,14 @@
               <item name="Medifast" type="b2602c69:ProjectViewProjectNode" />
               <item name="Medifast" type="462c0819:PsiDirectoryNode" />
             </path>
+<<<<<<< HEAD
             <path>
               <item name="Medifast" type="b2602c69:ProjectViewProjectNode" />
               <item name="Medifast" type="462c0819:PsiDirectoryNode" />
               <item name="Medifast" type="462c0819:PsiDirectoryNode" />
             </path>
+=======
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
           </expand>
           <select />
         </subPane>
@@ -346,13 +449,21 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20121029" />
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15658094" />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Inspection Results" order="0" weight="0.3289689" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.3289689" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49924356" weight="0.42062193" />
+=======
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49924356" weight="0.3715221" />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -360,7 +471,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.49924356" weight="0.3289689" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.4680851" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.40589198" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32242227" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.33387887" />
       <window_info anchor="bottom" id="Debug" order="14" weight="0.39934534" />
@@ -371,23 +482,24 @@
       <window_info anchor="right" id="Database" order="4" weight="0.3290469" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10363086" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09984872" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.2913257" />
-      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="5" />
-      <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Database Changes" order="8" sideWeight="0.49924356" weight="0.3289689" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.5188216" />
-      <window_info anchor="bottom" id="Python Console" order="11" weight="0.32242227" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="12" weight="0.33388704" />
-      <window_info active="true" anchor="bottom" id="Debug" order="13" visible="true" weight="0.39934534" />
+      <window_info anchor="bottom" id="Inspection Results" order="0" weight="0.3289689" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.49924356" visible="true" weight="0.3715221" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.49924356" weight="0.3289689" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.40589198" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32242227" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.33387887" />
+      <window_info anchor="bottom" id="Debug" order="14" weight="0.39934534" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -420,12 +532,15 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Patient_profile/urls.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Patient_profile/models.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+=======
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
     <entry file="file://$PROJECT_DIR$/Patient_profile/apps.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -652,6 +767,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/twofa/views.py" />
     <entry file="file://$PROJECT_DIR$/users/forms.py">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="42" column="15" selection-start-line="42" selection-start-column="15" selection-end-line="42" selection-end-column="15" />
@@ -671,17 +787,17 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/models.py">
+=======
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="714">
+          <caret line="42" column="15" selection-start-line="42" selection-start-column="15" selection-end-line="42" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/users/serializers.py">
+    <entry file="file://$PROJECT_DIR$/templates/2fa.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="782">
           <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
           <folding>
@@ -691,11 +807,23 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Doctor_profile/models.py">
+=======
+        <state relative-caret-position="204">
+          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pipfile" />
+    <entry file="file://$PROJECT_DIR$/requirements-dev.txt" />
+    <entry file="file://$PROJECT_DIR$/Pipfile.lock" />
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/users/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
+<<<<<<< HEAD
           <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
         </state>
       </provider>
@@ -706,10 +834,35 @@
           <caret line="42" column="33" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+=======
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/users/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
     <entry file="file://$PROJECT_DIR$/Medifast/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -718,11 +871,30 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Medifast/settings.py">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
           <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
           <folding>
             <element signature="e#309#318#0" expanded="true" />
+=======
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+          <folding>
+            <element signature="e#309#318#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <marker date="1540668092759" expanded="true" signature="2706:2709" ph="..." />
+>>>>>>> 21c39b2794a5cd531a92f0b34d70c9547ee0ef8d
           </folding>
         </state>
       </provider>

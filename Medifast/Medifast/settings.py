@@ -87,9 +87,9 @@ INSTALLED_APPS = [
     'Doctor_profile',
     'Patient_profile',
     'rest_framework',
+    'corsheaders',
     'users.apps.UsersConfig',
 
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

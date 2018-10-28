@@ -19,7 +19,6 @@ class AccountSerializer(serializers.ModelSerializer):
         #fields = ('id', 'username', 'password', 'typeOfUser', 'securityQ', 'securityAns', 'email', 'authy_id', 'phone_number')
         fields = '__all__'
 
-
     def create(self, validated_data):
         password = validated_data.pop('password', None)
         instance = self.Meta.model(**validated_data)

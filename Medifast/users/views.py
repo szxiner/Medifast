@@ -87,7 +87,7 @@ class AuthAccount(APIView):
                 return True
             return False
 
-# API to get, update, delete specific user
+# API to get, update, delete specific user (Update using post)
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
@@ -107,11 +107,26 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
                 return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
+    # def get_object(self, pk):
+    #     return Account.objects.get(pk=pk)
+
+    # def patch(self, request, pk):
+    #     testmodel = self.get_object(pk)
+    #     serializer = AccountSerializer(testmodel, data=request.data, partial=True) # set partial=True to update a data partially
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return JsonReponse(code=201, data=serializer.data)
+    #     return JsonResponse(code=400, data="wrong parameters")
+
 
 # API to register new user to the database
 class AccountList(APIView):
     def get(self, request, format=None):
-        accounts = Account.objects.all()
+        # accounts = Account.objects.all()
+        if request.GET != {}:
+            accounts = Account.objects.filter(username=request.GET['username'])
+        else:
+            accounts = Account.objects.all()
         serializer = AccountSerializer(accounts, many=True)
         return Response(serializer.data)
 
@@ -149,13 +164,15 @@ class twofa(APIView):
         global authy_id
         global username
         verification = authy_api.tokens.verify(authy_id, request.data["token"])
-        if verification.ok():
+        try: 
+            verification.ok()
             request.session['authy'] = True
             #Return true for Frontend to take over
             authy_id = None
             username = None
             return Response(True, status=status.HTTP_200_OK)
-        else:
+        except Exception as e:
+            print(e)
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
 

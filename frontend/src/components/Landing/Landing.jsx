@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   index: {
     display: "flex",
     margin: "auto",
-    height: "100%",
+    height: "95%",
     flexWrap: "wrap",
     alignItems: "stretch",
     alignContent: "stretch"

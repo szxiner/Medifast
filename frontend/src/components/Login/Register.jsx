@@ -70,12 +70,14 @@ export class Register extends React.Component {
       password: "",
       confirmPassword: "",
       typeOfUser: "role",
-      SecurityQuestion1: "",
-      SecurityQuestion2: "",
-      email: "default@yahoo.com",
-      phone_number: 9492288063,
+      securityQ: "",
+      securityAns: "",
+      email: "",
+      phone_number: 8126069143,
       errorMsg: "",
-      primaryColor: true
+      primaryColor: true,
+      securityQ2: "",
+      securityAns2: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -86,9 +88,13 @@ export class Register extends React.Component {
     if (
       this.state.username === "" ||
       this.state.password === "" ||
+      this.state.email === "" ||
       this.state.confirmPassword === "" ||
       this.state.typeOfUser === "role" ||
-      this.state.securityQ === ""
+      this.state.securityQ === "" ||
+      this.state.securityAns === "" ||
+      this.state.securityQ2 === "" ||
+      this.state.securityAns2 === ""
     ) {
       this.setState({ errorMsg: "Please complete all the fields." });
     } else {
@@ -96,22 +102,27 @@ export class Register extends React.Component {
         const user = {
           username: this.state.username,
           password: this.state.password,
-          confirmPassword: this.state.confirmPassword,
+          //confirmPassword: this.state.confirmPassword,
           typeOfUser: this.state.typeOfUser,
           email: this.state.email,
           phone_number: this.state.phone_number,
-          securityQ: this.state.SecurityQuestion,
-          securityAns: this.state.securityAns
+          securityQ: this.state.securityQ,
+          securityAns: this.state.securityAns,
+          securityQ2: this.state.securityQ2,
+          securityAns2: this.state.securityAns2
         };
 
-        axios.post("http://127.0.0.1:8000/users-api/", user).then(res => {
-          if (res.status === 201) {
-            this.props.storeUser(user);
-            this.props.history.push("/2fa");
-          } else {
+        axios
+          .post("http://127.0.0.1:8000/users-api/", user)
+          .then(res => {
+            if (res.status === 201) {
+              this.props.storeUser(user);
+              this.props.history.push("/2fa");
+            }
+          })
+          .catch(() => {
             this.setState({ errorMsg: "User Name already exists." });
-          }
-        });
+          });
       } else {
         this.setState({ errorMsg: "Passwords does not match." });
       }
@@ -171,6 +182,17 @@ export class Register extends React.Component {
               onChange={this.onChange}
             />
             <br />
+            <ControlLabel>Email:</ControlLabel>
+            <FormControl
+              className={css(styles.inputBox)}
+              type="email"
+              label="Email address"
+              name="email"
+              placeholder="Enter email"
+              value={this.state.email}
+              onChange={this.onChange}
+            />
+            <br />
             <ControlLabel>Role:</ControlLabel>
             <FormControl
               componentClass="select"
@@ -191,19 +213,57 @@ export class Register extends React.Component {
               onChange={this.onChange}
               name="securityQ"
             >
-              <option value="Select a role">Select</option>
-              <option value="Q1">What's the name of your first teacher?</option>
-              <option value="Q2">What is your dream job?</option>
-              <option value="Q3">What is your favourite color?</option>
+              <option value="Select a question">
+                Select Securtiy Question 1
+              </option>
+              <option value="What's the name of your first teacher?">
+                What's the name of your first teacher?
+              </option>
+              <option value="What is your dream job?">
+                What is your dream job?
+              </option>
+              <option value="What is your favourite color?">
+                What is your favourite color?
+              </option>
             </FormControl>
             <br />
             <FormControl
               className={css(styles.inputBox)}
               type="text"
-              name="Security Question Answer"
-              label="Username"
+              name="securityAns"
+              label="Security Answer"
               placeholder="Enter your answer here."
               value={this.state.securityAns}
+              onChange={this.onChange}
+            />
+            <br />
+            <FormControl
+              componentClass="select"
+              placeholder="select"
+              onChange={this.onChange}
+              name="securityQ2"
+            >
+              <option value="Select a question">
+                Select Securtiy Question 2
+              </option>
+              <option value="What's the name of your first school?">
+                What's the name of your first school?
+              </option>
+              <option value="What's the name of your first pet?">
+                What's the name of your first pet?
+              </option>
+              <option value="What is your favourite food?">
+                What is your favourite food?
+              </option>
+            </FormControl>
+            <br />
+            <FormControl
+              className={css(styles.inputBox)}
+              type="text"
+              name="securityAns2"
+              label="Security Answer"
+              placeholder="Enter your answer here."
+              value={this.state.securityAns2}
               onChange={this.onChange}
             />
             <br />
@@ -217,11 +277,6 @@ export class Register extends React.Component {
         <div className={css(primaryColor ? styles.error : styles.error1)}>
           {this.state.errorMsg}
         </div>{" "}
-        <div align="center">
-          <button onClick={this.onClick} className={css(styles.clickMe)}>
-            Change Theme!!
-          </button>
-        </div>
       </div>
     );
   }

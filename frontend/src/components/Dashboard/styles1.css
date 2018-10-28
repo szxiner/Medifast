@@ -5,7 +5,7 @@
 
 .rwt__tablist:not([aria-orientation="vertical"]) {
   border-bottom: 1px solid #ddd;
-  height: 100%;
+  height: 100px;
 }
 
 .rwt__tablist[aria-orientation="vertical"] {
@@ -27,7 +27,7 @@
   padding: 1rem 6rem;
   color: #001f3f;
   transition: background 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-  height: 100%;
+  height: 100px;
 }
 
 .rwt__tab[aria-selected="false"]:hover,
@@ -35,18 +35,18 @@
   outline: 0;
   background-color: #f4f4f4;
   background-color: rgba(0, 0, 0, 0.05);
-  height: 100%;
+  height: 100px;
 }
 
 .rwt__tab[aria-selected="true"] {
   position: relative;
-  height: 100%;
+  height: 100px;
 }
 
 .rwt__tab[aria-selected="true"]:after {
   content: "";
   position: absolute;
-  height: 100%;
+  height: 100px;
 }
 
 .rwt__tablist:not([aria-orientation="vertical"])
@@ -67,6 +67,6 @@
 }
 
 .rwt__tabpanel {
-  height: 100%;
+  height: 100px;
   width: 100%;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { themeColor } from "../theme/colors";
 import { StyleSheet, css } from "aphrodite";
-import { SecondaryThemeColor } from "../theme/secondaryColor";
 
 const styles = StyleSheet.create({
   loginButton: {
@@ -13,16 +12,6 @@ const styles = StyleSheet.create({
     ":hover": {
       backgroundColor: themeColor.aegean1
     }
-  },
-  loginButton1: {
-    width: "100%",
-    color: SecondaryThemeColor.white,
-    backgroundColor: SecondaryThemeColor.aegean0,
-    borderRadius: 5,
-    height: 36,
-    ":hover": {
-      backgroundColor: SecondaryThemeColor.aegean1
-    }
   }
 });
 
@@ -33,14 +22,9 @@ export default class Button extends React.Component {
     super(props);
   }
   render() {
-    const { name, type, color } = this.props;
+    const { name, type } = this.props;
     return (
-      <button
-        className={css(
-          color === "primary" ? styles.loginButton : styles.loginButton1
-        )}
-        type={type}
-      >
+      <button className={css(styles.loginButton)} type={type}>
         {name}
       </button>
     );
