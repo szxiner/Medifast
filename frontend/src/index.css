@@ -28,4 +28,9 @@ p {
 .navbar,
 .navbar-default {
   margin: 0;
+  background-color: #00acc1;
+}
+
+.navbar {
+  background-color: #f16e10;
 }
