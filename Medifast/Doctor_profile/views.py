@@ -51,7 +51,7 @@ class Doctor_appointment_view(APIView):
                 appointments = Booking.objects.filter(bdate=requested_date,docusername=request.GET['username'])
                 bookingserializer = Bookings_serializer(appointments, many=True)
                 if bookingserializer.data != []:
-                    Booked_times = bookingserializer.data[0]['btime']
+                    Booked_times = [i['btime'][0] for i in bookingserializer.data]
                     Available_times = [i for i in timings if i not in Booked_times]
                     return Response(Available_times)
                 else:
@@ -82,14 +82,17 @@ class Doctor_bookings_view(APIView):
         serializer = Bookings_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            send_email()
+            time = serializer.data['btime']
+            date = serializer.data['bdate']
+            message = 'Congratulations! Your appointment is confirmed for ' + str(date) + ' at ' + str(time[0])
+            self.send_email(message)
             return Response(True, status=status.HTTP_201_CREATED)
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
-    def send_email(subject,message):
+
+    def send_email(self,message):
             subject = 'Appointment Confirmation'
-            message = 'Congratulations! Your appointment is confirmed!'
             To_list = ['mankumarasdf@gmail.com','medifastiu@gmail.com']
             from_email = EMAIL_HOST_USER
             server = smtplib.SMTP('smtp.gmail.com:587')
