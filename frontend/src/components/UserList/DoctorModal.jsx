@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: themeColor.grey0,
     padding: 40,
-    marginTop: "5%",
+    marginTop: "1%",
     marginLeft: "20%",
     marginRight: "20%",
-    marginBottom: "10%",
+    marginBottom: "1%",
     width: "60%"
   },
   close: {
