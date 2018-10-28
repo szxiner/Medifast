@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Doctor_profile,Doctor_appointments,Doctor_reviews,Booking
+from Patient_profile.models import Patient_profile
 from .serializers import Doctor_profile_serializer,Doctor_appointment_serializer,Doctor_reviews_serializer,Bookings_serializer
+from Patient_profile.serializers import Patient_profile_serializer
 from rest_framework.response import Response
 from django.http import Http404
 from rest_framework import status
@@ -85,15 +87,20 @@ class Doctor_bookings_view(APIView):
             time = serializer.data['btime']
             date = serializer.data['bdate']
             message = 'Congratulations! Your appointment is confirmed for ' + str(date) + ' at ' + str(time[0])
-            self.send_email(message)
+            profile = Doctor_profile.objects.filter(username=request.data['docusername'])
+            D_serial = Doctor_profile_serializer(profile, many=True)
+            patient = Patient_profile.objects.filter(username=request.data['patientusername'])
+            P_serial = Patient_profile_serializer(patient, many=True)
+            email_id = [D_serial.data[0]['email'],P_serial.data[0]['email']]
+            self.send_email(message,email_id)
             return Response(True, status=status.HTTP_201_CREATED)
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
-
-    def send_email(self,message):
+    def send_email(self,message,email):
             subject = 'Appointment Confirmation'
-            To_list = ['mankumarasdf@gmail.com','medifastiu@gmail.com']
+            To_list = ['medifastiu@gmail.com']
+            To_list.extend(email)
             from_email = EMAIL_HOST_USER
             server = smtplib.SMTP('smtp.gmail.com:587')
             server.ehlo()
