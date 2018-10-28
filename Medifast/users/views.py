@@ -21,6 +21,11 @@ from .forms import TokenVerificationForm
 from .decorators import twofa_required
 from rest_framework.test import APIRequestFactory
 from rest_framework.decorators import api_view
+from django.contrib.auth.hashers import make_password
+from Doctor_profile.email_info import *
+import string
+import random
+import smtplib
 
 # Lists all accounts
 # /users
@@ -234,3 +239,27 @@ def onetouch_status(request,):
         )
     else:
         return HttpResponse(approval_status.errros(), status=503)
+		
+class forgot_password(APIView):
+    def post(self, request):
+        profile = Account.objects.get(username=request.GET['username'])
+        password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+        profile.password = make_password(password)
+        profile.save()
+        message = 'The Temporary password for user ' + profile.username + ' is ' + password
+        email_id = profile.email
+        self.send_email(message,email_id)
+        return Response('Reset Successful')
+
+    def send_email(self,message,email):
+        subject = 'Temporary Password'
+        To_list = ['medifastiu@gmail.com']
+        To_list.extend(email)
+        from_email = EMAIL_HOST_USER
+        server = smtplib.SMTP('smtp.gmail.com:587')
+        server.ehlo()
+        server.starttls()
+        server.login(EMAIL_HOST_USER,EMAIL_HOST_PASSWORD)
+        msg = 'Subject: {}\n\n{}'.format(subject,message)
+        server.sendmail(EMAIL_HOST_USER,To_list,msg)
+        server.quit()
