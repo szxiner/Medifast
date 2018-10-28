@@ -37,9 +37,9 @@ CLIENT_ID = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
 CLIENT_SECRET = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    #'DEFAULT_PERMISSION_CLASSES': (
+    #    'rest_framework.permissions.IsAuthenticated',
+    #),
 
     #'DEFAULT_AUTHENTICATION_CLASSES': (
     #    'rest_framework.authentication.TokenAuthentication',
@@ -54,8 +54,7 @@ AUTHENTICATION_BACKENDS = (
 ## Doesn't do anything, but needed for Python Social Auth
 for key in ['GOOGLE_OAUTH2_KEY',
             'GOOGLE_OAUTH2_SECRET',
-            'FACEBOOK_KEY',
-            'FACEBOOK_SECRET']:
+            ]:
     exec("SOCIAL_AUTH_{key} = os.environ.get('{key}', '')".format(key=key))
 
 #Define scope for what you want to receive from Google
@@ -90,6 +89,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'users.apps.UsersConfig',
 
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,6 +105,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -224,6 +225,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #Authy Application Key
 ACCOUNT_SECURITY_API_KEY = os.environ.get('ACCOUNT_SECURITY_API_KEY')
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 #Configure django app for heroku
 django_heroku.settings(locals())

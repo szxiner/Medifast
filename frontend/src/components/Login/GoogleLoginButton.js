@@ -1,39 +1,29 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
-import Axios from "axios";
+import axios from "axios";
 
 const GoogleLoginButton = props => {
 
-    /*
-    const responseGoogleSuccess = response => {
-        console.log(response);
-        if (response.profileObj) {
-            //localStorage.setItem("goog_avatar_url", response.profileObj.imageUrl);
-            localStorage.setItem("goog_name", response.profileObj.name);
-            localStorage.setItem("goog_email", response.profileObj.email);
-        }
-        props.convertGoogleToken(response.Zi.access_token);
-    };
-    const responseGoogleFailure = response => {
-        console.log(response);
-    };
-    */
+    //CReate callback url that points to a component that will handle the access token
 
     const responseGoogle = (response) => {
-        Axios.post("http://127.0.0.1:8000/social/google-oauth2/", response)
+        axios.post("http://127.0.0.1:8000/users-api/social/google-oauth2/", response)
         console.log(response);
     }
 
     return (
         <GoogleLogin
-            clientId="254472747355-6umtrkcedqn00tg7ec17l705ftttam0r.apps.googleusercontent.com"
+            clientId="1091955405168-v4i4qp61j8h6vv60cf6t8ivpa9vdt8tr.apps.googleusercontent.com"
             buttonText="Login with Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
+            //responseType='code'
+            //uxMode='redirect'
             className="loginBtn loginBtn--google"
             prompt="select_account"
-            redirectUri="http://localhost:3000"
+            redirectUri="http://localhost:3000/callback/"
         />
+
     );
 };
 export default GoogleLoginButton;

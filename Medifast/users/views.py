@@ -27,18 +27,24 @@ from rest_framework.permissions import AllowAny
 from social_django.utils import psa
 from requests.exceptions import HTTPError
 
-
-
-
 # Lists all accounts
 # /users
 authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
 authy_id = None
 username = None
 
-# OAuth2 API
 @api_view(http_method_names=['POST'])
 @permission_classes([AllowAny])
+@psa()
+def oauth2(request):
+    pass
+
+
+
+
+# OAuth2 API
+@api_view(http_method_names=['POST'])
+#@permission_classes([AllowAny])
 @psa()
 def exchange_token(request, backend):
     """
@@ -60,6 +66,7 @@ def exchange_token(request, backend):
             # get and populate a user object for any properly enabled/configured backend
             # which python-social-auth can handle.
             user = request.backend.do_auth(serializer.validated_data['access_token'])
+            print("TRY")
         except HTTPError as e:
             # An HTTPError bubbled up from the request to the social auth provider.
             # This happens every time you send a malformed or incorrect access key.
@@ -73,6 +80,7 @@ def exchange_token(request, backend):
 
         if user:
             if user.is_active:
+                ##HERE we are going to create a new user
                 token, _ = Token.objects.get_or_create(user=user)
                 return Response({'token': token.key})
             else:
@@ -124,11 +132,11 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
-    def put(self, request, format=None):
-        users = Account.objects.filter(username=request.data['username'])
+    def post(self, request, username, format=None):
+        users = Account.objects.filter(password=request.data['password'])
         if len(users) != 0:
             user = users.first()
-            serializer = AccountSerializer(user, data=request.data)
+            serializer = AccountSerializer(user, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(True, status=status.HTTP_200_OK)

@@ -4,8 +4,8 @@
     "\\frontend",
     "\\frontend\\src",
     "\\frontend\\src\\components",
-    "\\Medifast"
+    "\\frontend\\src\\components\\Login"
   ],
-  "SelectedNode": "\\frontend\\src\\components",
+  "SelectedNode": "\\frontend\\src\\registerServiceWorker.js",
   "PreviewInSolutionExplorer": false
 }
