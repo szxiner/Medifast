@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
 });
 
 export class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       password: "",
@@ -102,7 +102,8 @@ export class Login extends React.Component {
     this.setState({ primaryColor: !this.state.primaryColor });
   };
 
-  render() {
+    render() {
+    console.log(this.props);
     const { primaryColor } = this.state;
     return (
       <div className={css(primaryColor ? styles.box : styles.box1)}>
@@ -142,7 +143,7 @@ export class Login extends React.Component {
             />               
           </FormGroup>
             </form>
-            <GoogleLoginButton/>
+            <GoogleLoginButton history={this.props.history}/>
         <div className={css(primaryColor ? styles.error : styles.error1)}>
           {this.state.errorMsg}
         </div>

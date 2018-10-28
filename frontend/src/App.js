@@ -35,7 +35,7 @@ class App extends React.Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/2fa" component={TwoFactor} />
-              <Route exact path="/callback" component={GoogleCallback} />
+              <Route path="/callback/:accessToken" component={GoogleCallback} />
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
               </Switch>

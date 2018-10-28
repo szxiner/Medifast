@@ -4,8 +4,10 @@
     "\\frontend",
     "\\frontend\\src",
     "\\frontend\\src\\components",
-    "\\frontend\\src\\components\\Login"
+    "\\Medifast",
+    "\\Medifast\\Medifast",
+    "\\Medifast\\users"
   ],
-  "SelectedNode": "\\frontend\\src\\registerServiceWorker.js",
+  "SelectedNode": "\\Medifast\\Medifast\\settings.py",
   "PreviewInSolutionExplorer": false
 }

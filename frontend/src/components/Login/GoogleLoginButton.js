@@ -6,9 +6,23 @@ const GoogleLoginButton = props => {
 
     //CReate callback url that points to a component that will handle the access token
 
+    console.log("props",props)
     const responseGoogle = (response) => {
-        axios.post("http://127.0.0.1:8000/users-api/social/google-oauth2/", response)
+
+        axios.post("http://127.0.0.1:8000/users-api/social/google-oauth2/", response).then(res => {
+            if (res.status === 200) {
+                props.history.push("/2fa");
+            } else if (res.status === 201) {
+                //props
+                return true;
+            } else {
+                //Return error message on login
+                this.setState({ errorMsg: "Username and password does not match" });
+            }
+        });
+        //Based on response, we either push to /2fa or complete registration
         console.log(response);
+        
     }
 
     return (
@@ -27,42 +41,3 @@ const GoogleLoginButton = props => {
     );
 };
 export default GoogleLoginButton;
-
-/*
-    // OAuth Stuff 
-    // Set the configuration settings
-    const credentials = {
-        client: {
-            id: '1091955405168-v4i4qp61j8h6vv60cf6t8ivpa9vdt8tr.apps.googleusercontent.com',
-            secret: 'B-gBwosDSJ3H_njhH4IfWX_g'
-        },
-        auth: {
-            tokenHost: 'https://google.com'
-        }
-    };
-
-    // Initialize the OAuth2 Library
-    const oauth2 = require('simple-oauth2').create(credentials);
-
-    const authorizationUri = oauth2.authorizationCode.authorizeURL({
-        redirect_uri: 'http://localhost:3000',
-        scope: ['email', 'profile'], // also can be an array of multiple scopes, ex. ['<scope1>, '<scope2>', '...']
-        state: '3(#0/!~'
-    });
-
-    const tokenConfig = {
-        code: authorizationUri,
-        redirect_uri: 'http://localhost:3000',
-        scope: ['email', 'profile'], // also can be an array of multiple scopes, ex. ['<scope1>, '<scope2>', '...']
-    };
-
-    // Save the access token
-    try {
-        const result = await oauth2.authorizationCode.getToken(tokenConfig);
-        const accessToken = oauth2.accessToken.create(result);
-        //TODO : Send accesstoken to backend
-        console.log('Access Token', accessToken);
-
-    } catch (error) {
-        console.log('Access Token Error', error.message);
-    }*/

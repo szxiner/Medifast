@@ -7,7 +7,7 @@ from rest_framework import routers
 
 
 urlpatterns = [
-    path('social/<backend>/', views.exchange_token),
+    path('social/<backend>/', views.oauth2),
     path('<username>/<password>/', views.AccountDetail.as_view()),
     path('<username>/', views.AccountDetail.as_view()),
     path('', views.AccountList.as_view()),

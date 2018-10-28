@@ -34,73 +34,33 @@ authy_id = None
 username = None
 
 @api_view(http_method_names=['POST'])
-@permission_classes([AllowAny])
-@psa()
-def oauth2(request):
-    pass
-
-
-
-
-# OAuth2 API
-@api_view(http_method_names=['POST'])
 #@permission_classes([AllowAny])
-@psa()
-def exchange_token(request, backend):
-    """
-    Exchange an OAuth2 access token for one for this site
-    ## Request format
-    Requests must include the following field
-    - `access_token`: The OAuth2 access token provided by the auth provider
-    """
-    serializer = SocialSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
+#@psa()
+def oauth2(request, backend):
+    pass
+    
+    #Get Google info
+    profile = request.data['profileObj']
+    email = profile['email']
+    name = profile['givenName']
+    googleId = profile['googleId']
+    user = str(name)+str(googleId)
+    serializer = AccountSerializer(data={"username":user, "email":email})
 
-        try:
-            nfe = settings.NON_FIELD_ERRORS_KEY
-        except AttributeError:
-            nfe = 'non_field_errors'
+    a = Account.objects.filter(username=user)
 
-        try:
-            # this line, plus the psa decorator above, are all that's necessary to
-            # get and populate a user object for any properly enabled/configured backend
-            # which python-social-auth can handle.
-            user = request.backend.do_auth(serializer.validated_data['access_token'])
-            print("TRY")
-        except HTTPError as e:
-            # An HTTPError bubbled up from the request to the social auth provider.
-            # This happens every time you send a malformed or incorrect access key.
-            return Response(
-                {'errors': {
-                    'token': 'Invalid token',
-                    'detail': str(e),
-                }},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        if user:
-            if user.is_active:
-                ##HERE we are going to create a new user
-                token, _ = Token.objects.get_or_create(user=user)
-                return Response({'token': token.key})
-            else:
-                # user is not active; at some point they deleted their account,
-                # or were banned by a superuser. They can't just log in with their
-                # normal credentials anymore, so they can't log in with social
-                # credentials either.
-                return Response(
-                    {'errors': {nfe: 'This user account is inactive'}},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-        else:
-            # Unfortunately, PSA swallows any information the backend provider
-            # generated as to why specifically the authentication failed;
-            # this makes it tough to debug except by examining the server logs.
-            return Response(
-                {'errors': {nfe: "Authentication Failed"}},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
+    #Check to see if new or returning user
+    if serializer.is_valid() & len(a)==0:
+        pass
+        ##Save user
+        serializer.save()
+        return Response(True, status=status.HTTP_201_CREATED)
+    elif serializer.is_valid() & len(a) != 0:
+        pass
+        ##Do nothing?
+        return Response(True, status=status.HTTP_200_OK)
+    
+    return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
 # API to authorize user when logging in
 class AuthAccount(APIView):
@@ -131,9 +91,14 @@ class AuthAccount(APIView):
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+    lookup_field = 'username'
 
     def post(self, request, username, format=None):
-        users = Account.objects.filter(password=request.data['password'])
+        print(request.data,"checking")
+        print(Account.objects.filter(username=username),"users")
+
+        users = Account.objects.filter(username=username)
+        print(Account.objects.filter(username=username),"users")
         if len(users) != 0:
             user = users.first()
             serializer = AccountSerializer(user, data=request.data, partial=True)
