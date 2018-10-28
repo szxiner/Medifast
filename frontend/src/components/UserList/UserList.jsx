@@ -6,13 +6,14 @@ import { Icon } from "antd";
 import { themeColor } from "../../theme/colors";
 import PatientModal from "./PatientModal";
 import DoctorModal from "./DoctorModal";
+import UserCard from "./UserCard";
 
 const styles = StyleSheet.create({
   innerComponent: {
     borderRadius: 5,
-    margin: 24,
-    padding: 24,
-    background: themeColor.white
+    margin: 24
+    // padding: 24
+    // background: themeColor.white
   },
   userList: {
     background: themeColor.snow0,
@@ -119,8 +120,10 @@ export default class UserList extends React.Component {
     return (
       <div className={css(styles.innerComponent)}>
         <h3>Available {viewType}</h3>
-        <br />
-        <div className={css(styles.userList)}>
+        {_.map(this.state.userList, user => {
+          return <UserCard type={viewType} currentUser={user} />;
+        })}
+        {/* <div className={css(styles.userList)}>
           <table className={css(styles.table)}>
             <tr className={css(styles.tr)}>
               <th className={css(styles.th)}>
@@ -172,7 +175,7 @@ export default class UserList extends React.Component {
             activeInfo={this.state.activeInfo}
             showAppt={true}
           />
-        )}
+        )} */}
       </div>
     );
   }
