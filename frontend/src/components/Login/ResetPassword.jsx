@@ -5,7 +5,8 @@ import {
   NavItem,
   ControlLabel,
   Label,
-  Modal
+  Modal,
+  Alert
 } from "react-bootstrap";
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
@@ -45,11 +46,16 @@ const styles = StyleSheet.create({
     color: themeColor.red1
   },
   expanded: {
-    height: 150
+    height: "auto"
   },
   unexpanded: {
     height: 0,
     overflow: "hidden"
+  },
+  a: {
+    fontWeight: 600,
+    textDecorationLine: "underline",
+    text: "Bold"
   }
 });
 
@@ -74,7 +80,9 @@ export class ResetPassword extends React.Component {
       errorMsg: "",
       errorMsg_onSubmit4: "",
       securityQ2: "",
-      securityAns2: ""
+      securityAns2: "",
+      showmsg: false,
+      showpwd: true
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmitOne = this.onSubmitOne.bind(this);
@@ -87,7 +95,7 @@ export class ResetPassword extends React.Component {
 
   handleClose() {
     this.setState({ show: false });
-    this.setState({ verify: false });
+    // this.setState({ verify: false });
   }
 
   handleShow() {
@@ -187,6 +195,9 @@ export class ResetPassword extends React.Component {
             console.log(res.data.securityQ);
             if (res.status === 200) {
               console.log("success");
+              this.setState({ showpwd: false });
+              this.setState({ verify: true });
+              this.setState({ showmsg: true });
             } else {
               this.setStatethis.setState({
                 errorMsg: "Error"
@@ -276,46 +287,83 @@ export class ResetPassword extends React.Component {
         {this.state.verify ? (
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Body>
-              <form onSubmit={this.onSubmit3}>
-                <FormGroup>
-                  <ControlLabel>Enter New Password:</ControlLabel>
-                  <FormControl
-                    className={css(styles.inputBox)}
-                    type="password"
-                    name="password"
-                    label="Password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  <br />
-                  <ControlLabel>Confirm Password:</ControlLabel>
-                  <FormControl
-                    className={css(styles.inputBox)}
-                    type="password"
-                    name="confirmPassword"
-                    label="Confirm Password"
-                    placeholder="Confirm Password"
-                    value={this.state.confirmPassword}
-                    onChange={this.onChange}
-                  />
-                  <br />
-                  <Button name="submit" type="submit" />
-                  <p className={css(styles.error)}>
-                    {this.state.errorMsg_onSumbit4}
-                  </p>
-                  <div className={css(styles.error)}>
-                    {this.state.errorMsg_onSumbit3}
+              <div>
+                <form onSubmit={this.onSubmit3}>
+                  <div
+                    className={
+                      this.state.showpwd
+                        ? css(styles.expanded)
+                        : css(styles.unexpanded)
+                    }
+                  >
+                    <FormGroup>
+                      <ControlLabel>Enter New Password:</ControlLabel>
+                      <FormControl
+                        className={css(styles.inputBox)}
+                        type="password"
+                        name="password"
+                        label="Password"
+                        placeholder="Password"
+                        value={this.state.password}
+                        onChange={this.onChange}
+                      />
+                      <br />
+                      <ControlLabel>Confirm Password:</ControlLabel>
+                      <FormControl
+                        className={css(styles.inputBox)}
+                        type="password"
+                        name="confirmPassword"
+                        label="Confirm Password"
+                        placeholder="Confirm Password"
+                        value={this.state.confirmPassword}
+                        onChange={this.onChange}
+                      />
+                      <br />
+                      <Button name="submit" type="submit" />
+                      <p className={css(styles.error)}>
+                        {this.state.errorMsg_onSumbit4}
+                      </p>
+                      <div className={css(styles.error)}>
+                        {this.state.errorMsg_onSumbit3}
+                      </div>
+                      <div>{this.state.errorMsg_onSumbit2}</div>
+                    </FormGroup>
                   </div>
 
-                  <div>{this.state.errorMsg_onSumbit2}</div>
-                </FormGroup>
-              </form>
+                  <div
+                    className={
+                      this.state.showmsg
+                        ? css(styles.expanded)
+                        : css(styles.unexpanded)
+                    }
+                  >
+                    <Alert bsStyle="warning">
+                      <strong>
+                        Password Reset Successful. Please login{" "}
+                        <a href="/login" className={css(styles.a)}>
+                          here
+                        </a>{" "}
+                        with new password.
+                      </strong>
+                    </Alert>
+                  </div>
+                </form>
+              </div>
             </Modal.Body>
           </Modal>
         ) : (
-          <p />
+          ""
         )}
+        {/* // ) : (
+        //   <Modal show={this.state.show} onHide={this.handleClose}>
+        //     <Modal.Body>
+        //       <Alert bsStyle="warning">
+        //         <strong>Holy guacamole!</strong> Best check yo self, you're not
+        //         looking too good.
+        //       </Alert>
+        //     </Modal.Body>
+        //   </Modal>
+//)} */}
 
         {/* 
           {this.username_entered ? (

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     margin: "auto",
     marginTop: "8%",
     width: "60%",
-    height: "100px",
+    height: "auto",
     padding: 50,
     backgroundColor: themeColor.white,
     color: themeColor.aegean2,
@@ -198,16 +198,18 @@ class pwdchange extends React.Component {
             </FormGroup>
           </form>
         </div>
-        <div
-          className={
-            this.state.showmsg ? css(styles.expanded) : css(styles.unexpanded)
-          }
-        >
-          <div align="center">
-            <p1>Pasword changed Successfully</p1>
-            <form onSubmit={this.onclick}>
-              <Icon type="like" theme="outlined" onclick={this.onclick} />
-            </form>
+        <div>
+          <div
+            className={
+              this.state.showmsg ? css(styles.expanded) : css(styles.unexpanded)
+            }
+          >
+            <div align="center">
+              <p1>Pasword changed Successfully</p1>
+              <form onSubmit={this.onclick}>
+                <Icon type="like" theme="outlined" onclick={this.onclick} />
+              </form>
+            </div>
           </div>
         </div>
       </div>

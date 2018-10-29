@@ -19,7 +19,7 @@ import { connect } from "react-redux";
 import Map from "../../common/Map";
 import SearchDoctors from "../UserList/SearchDoctors";
 import pwdchange from "../Login/pwdchange";
-import UserList from "../UserList/UserList";
+import PropTypes from "prop-types";
 
 const Styles = StyleSheet.create({
   clickMe: {
@@ -124,7 +124,7 @@ class DashboardSideBar extends Component {
           </Tab>
         </TabList>
         <TabPanel tabId="vertical-tab-one" component={Profile} />
-        <TabPanel tabId="vertical-tab-two" component={UserList} />
+        <TabPanel tabId="vertical-tab-two" component={UserView} />
         <TabPanel tabId="vertical-tab-three">
           <Jumbotron className={css(Styles.jumbotron)}>
             <h1 color="#FAFAFA">Medicare Gold Plus®</h1>
@@ -211,6 +211,10 @@ class DashboardSideBar extends Component {
     );
   }
 }
+
+UserView.propTypes = {
+  auth: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   auth: state.auth
