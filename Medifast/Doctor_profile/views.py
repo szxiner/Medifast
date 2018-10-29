@@ -75,11 +75,22 @@ class Doctor_appointment_view(APIView):
 
 
 class Doctor_bookings_view(APIView):
-    def get(self, format=None):
-        appointments = Booking.objects.all()
-        seralizer = Bookings_serializer(appointments, many=True)
-        return Response(seralizer.data)
-
+    def get(self, request, format=None):
+        my_patients = []
+        if request.GET != {}:
+            appointments = Booking.objects.filter(docusername=request.GET['docusername'])
+            serializer = Bookings_serializer(appointments, many=True)
+            for each in serializer.data:
+                if each['patientusername'] not in my_patients:
+                    my_patients.append(each['patientusername'])
+            patients = Patient_profile.objects.filter(username__in=my_patients)
+            p_serializer = Patient_profile_serializer(patients, many=True)
+            return Response(p_serializer.data)
+        else:
+            appointments = Booking.objects.all()
+        serializer = Bookings_serializer(appointments, many=True)
+        return Response(serializer.data)
+		
     def post(self, request, format=None):
         serializer = Bookings_serializer(data=request.data)
         if serializer.is_valid():
