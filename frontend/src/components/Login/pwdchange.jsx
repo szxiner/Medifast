@@ -91,11 +91,12 @@ class pwdchange extends React.Component {
     super();
     this.state = {
       isexpanded: true,
-
+      password: "",
       username_entered: "",
       isSuccess: false,
       show: true,
-      showmsg: false
+      showmsg: false,
+      confirmPassword: ""
     };
     this.onSubmit3 = this.onSubmit3.bind(this);
     this.onclick = this.onclick.bind(this);
@@ -115,7 +116,8 @@ class pwdchange extends React.Component {
 
     // this.props.authenticateUser(user);
     // console.log(`http://127.0.0.1:8000/users-api/${this.state.username}`);
-    const password = this.state.password;
+    //const password;
+    this.setState({ password: this.state.password });
     if (this.state.password === "" || this.state.confirmPassword === "") {
       this.setState({
         errorMsg_onSubmit3: "Please complete all the fields."
@@ -127,7 +129,7 @@ class pwdchange extends React.Component {
       } else {
         axios
           .post(
-            `http://127.0.0.1:8000/users-api/${this.state.user}/`,
+            `http://127.0.0.1:8000/users-api/${this.state.username}/`,
             //password
             {
               password: this.state.password
@@ -150,11 +152,14 @@ class pwdchange extends React.Component {
       }
     }
   };
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
     const { auth } = this.props;
     const { username } = auth.user;
-    this.state.user = username;
+    this.state.username = username;
     return (
       <div className={css(styles.box)}>
         <div

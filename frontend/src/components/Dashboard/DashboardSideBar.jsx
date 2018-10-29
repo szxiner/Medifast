@@ -19,6 +19,7 @@ import { connect } from "react-redux";
 import Map from "../../common/Map";
 import SearchDoctors from "../UserList/SearchDoctors";
 import pwdchange from "../Login/pwdchange";
+import UserList from "../UserList/UserList";
 
 const Styles = StyleSheet.create({
   clickMe: {
@@ -30,7 +31,7 @@ const Styles = StyleSheet.create({
     width: "80%",
     height: "auto",
     padding: 50,
-    backgroundColor: "#E1F5FE    ",
+    backgroundColor: "##E0E0E0",
     fontFamily: " Pacifico",
     fontSize: 18,
     color: "#1A237E",
@@ -123,7 +124,7 @@ class DashboardSideBar extends Component {
           </Tab>
         </TabList>
         <TabPanel tabId="vertical-tab-one" component={Profile} />
-        <TabPanel tabId="vertical-tab-two" component={SearchDoctors} />
+        <TabPanel tabId="vertical-tab-two" component={UserList} />
         <TabPanel tabId="vertical-tab-three">
           <Jumbotron className={css(Styles.jumbotron)}>
             <h1 color="#FAFAFA">Medicare Gold Plus®</h1>
@@ -204,7 +205,7 @@ class DashboardSideBar extends Component {
         <TabPanel tabId="vertical-tab-six" component={pwdchange} />
         <TabPanel
           tabId="vertical-tab-7"
-          component={type === "Insurance" ? null : MyAppointment}
+          component={type === "Patient" ? SearchDoctors : null}
         />
       </Tabs>
     );

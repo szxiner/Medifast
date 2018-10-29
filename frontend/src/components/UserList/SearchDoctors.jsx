@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   box: {
     margin: "auto",
     marginTop: "8%",
-    width: "60%",
-    // height: "70%",
+    width: "80%",
+    // height: "100%",
     padding: 50,
     backgroundColor: themeColor.white,
     color: themeColor.aegean2,
@@ -213,12 +213,12 @@ export default class SearchDoctors extends React.Component {
                 </InputGroup>
               </FormGroup>
             </form>
-            <form onSubmit={this.onSubmit2}>
+            {/* <form onSubmit={this.onSubmit2}>
               <Button bsStyle="success" type={this.onSubmit2}>
                 Show All Doctors
               </Button>
               {this.state.isshowall ? this.showall : ""}
-            </form>
+            </form> */}
 
             <br />
           </div>
@@ -278,6 +278,12 @@ export default class SearchDoctors extends React.Component {
           activeProfile={this.state.activeProfile}
           activeInfo={this.state.activeInfo}
         />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     );
   }
