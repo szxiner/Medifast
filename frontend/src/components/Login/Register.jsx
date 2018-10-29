@@ -73,7 +73,7 @@ export class Register extends React.Component {
       securityQ: "",
       securityAns: "",
       email: "",
-      phone_number: 8126069143,
+      phone_number: "",
       errorMsg: "",
       primaryColor: true,
       securityQ2: "",
@@ -89,6 +89,7 @@ export class Register extends React.Component {
       this.state.username === "" ||
       this.state.password === "" ||
       this.state.email === "" ||
+      this.state.phone_number === "" ||
       this.state.confirmPassword === "" ||
       this.state.typeOfUser === "role" ||
       this.state.securityQ === "" ||
@@ -190,6 +191,17 @@ export class Register extends React.Component {
               name="email"
               placeholder="Enter email"
               value={this.state.email}
+              onChange={this.onChange}
+            />
+            <br />
+            <ControlLabel>Phone Number:</ControlLabel>
+            <FormControl
+              className={css(styles.inputBox)}
+              type="number"
+              label="Phone Number"
+              name="phonenumber"
+              placeholder="Enter your phone number"
+              value={this.state.phone_number}
               onChange={this.onChange}
             />
             <br />
