@@ -1,20 +1,18 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
+import { Icon, Card, Row, Col, data, List } from "antd";
 import { themeColor } from "../../theme/colors";
 import PatientModal from "./PatientModal";
 import DoctorModal from "./DoctorModal";
-import UserCard from "./UserCard";
 
 const styles = StyleSheet.create({
   innerComponent: {
     borderRadius: 5,
-    margin: 24
-    // padding: 24
-    // background: themeColor.white
+    margin: 24,
+    padding: 24,
+    background: themeColor.white
   },
   userList: {
     background: themeColor.snow0,
@@ -45,7 +43,7 @@ const styles = StyleSheet.create({
 
 // This need to change after api is fixed
 
-class UserList extends React.Component {
+export default class UserList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,17 +90,15 @@ class UserList extends React.Component {
   }
 
   componentDidMount() {
-    const { userType, auth } = this.props;
-    const { username } = auth.user;
+    const { userType } = this.props;
+
     if (userType === "Doctor") {
-      axios
-        .get(`http://127.0.0.1:8000/doctor/bookings?docusername=${username}`)
-        .then(res => {
-          if (res.status === 200) {
-            console.log(res.data);
-            this.setState({ userList: res.data });
-          }
-        });
+      axios.get("http://127.0.0.1:8000/patient/profile").then(res => {
+        if (res.status === 200) {
+          console.log(res.data);
+          this.setState({ userList: res.data });
+        }
+      });
     } else if (userType === "Patient") {
       axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
         if (res.status === 200) {
@@ -114,18 +110,27 @@ class UserList extends React.Component {
 
   render() {
     const { userType } = this.props;
+
     let viewType;
     if (userType === "Doctor") {
       viewType = "Patient";
     } else {
       viewType = "Doctor";
     }
+    {
+      _.map(this.state.userList, (user, key) => {
+        const data = [
+          {
+            title: this.state.user.Last_Name,
+            content: this.state.user.DOB
+          }
+        ];
+      });
+    }
     return (
       <div className={css(styles.innerComponent)}>
         <h3>Available {viewType}</h3>
-        {_.map(this.state.userList, user => {
-          return <UserCard type={viewType} currentUser={user} />;
-        })}
+        <br />
         {/* <div className={css(styles.userList)}>
           <table className={css(styles.table)}>
             <tr className={css(styles.tr)}>
@@ -141,28 +146,40 @@ class UserList extends React.Component {
                 {viewType === "Patient" ? "Date of Birth" : "Hospital"}
               </th>
               <th className={css(styles.th)}>More</th>
-            </tr>
-            {_.map(this.state.userList, (user, key) => {
-              return (
-                <tr className={css(styles.tr)}>
-                  <th className={css(styles.th)}>{key + 1}</th>
-                  <th className={css(styles.th)}>{user.Last_Name}</th>
-                  <th className={css(styles.th)}>
-                    {viewType === "Patient" ? user.gender : user.specialization}
-                  </th>
-                  <th className={css(styles.th)}>
-                    {viewType === "Patient" ? user.DOB : user.Hospital}
-                  </th>
-                  <th className={css(styles.more)}>
-                    <a onClick={() => this.handleOpenModal(user)}>
-                      <Icon type="down" theme="outlined" />
-                    </a>
-                  </th>
-                </tr>
-              );
-            })}
-          </table>
-        </div>
+            </tr> */}
+        {/* {_.map(this.state.userList, (user, key) => {
+          return (
+            <div style={{ background: "#ECECEC", padding: "30px" }}>
+              <Card
+                title={user.Last_Name}
+                extra={<a href="#">More</a>}
+                style={{ width: 300 }}
+              >
+                <p className={css(styles.th)}>{key + 1}</p>
+                <p className={css(styles.th)}>
+                  {viewType === "Patient" ? user.gender : user.specialization}
+                </p>
+                <p className={css(styles.th)}>
+                  {viewType === "Patient" ? user.DOB : user.Hospital}
+                </p>
+                <p className={css(styles.more)}>
+                  <a onClick={() => this.handleOpenModal(user)}>
+                    <Icon type="down" theme="outlined" />
+                  </a>
+                </p>
+              </Card>
+            </div>
+          ); */}
+        <List
+          grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+          dataSource={data}
+          renderItem={item => (
+            <List.Item>
+              <Card title={item.title}>Card content</Card>
+            </List.Item>
+          )}
+        />
+        ){/* </div> */}
         {viewType === "Patient" ? (
           <PatientModal
             showModal={this.state.showModal}
@@ -178,21 +195,8 @@ class UserList extends React.Component {
             activeInfo={this.state.activeInfo}
             showAppt={true}
           />
-        )} */}
+        )}
       </div>
     );
   }
 }
-
-UserList.propTypes = {
-  auth: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default connect(
-  mapStateToProps,
-  {}
-)(UserList);
