@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
-import { Icon } from "antd";
 import { themeColor } from "../../theme/colors";
 import PatientModal from "./PatientModal";
 import DoctorModal from "./DoctorModal";
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
 
 // This need to change after api is fixed
 
-export default class UserList extends React.Component {
+class UserList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,15 +92,17 @@ export default class UserList extends React.Component {
   }
 
   componentDidMount() {
-    const { userType } = this.props;
-
+    const { userType, auth } = this.props;
+    const { username } = auth.user;
     if (userType === "Doctor") {
-      axios.get("http://127.0.0.1:8000/patient/profile").then(res => {
-        if (res.status === 200) {
-          console.log(res.data);
-          this.setState({ userList: res.data });
-        }
-      });
+      axios
+        .get(`http://127.0.0.1:8000/doctor/bookings?docusername=${username}`)
+        .then(res => {
+          if (res.status === 200) {
+            console.log(res.data);
+            this.setState({ userList: res.data });
+          }
+        });
     } else if (userType === "Patient") {
       axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
         if (res.status === 200) {
@@ -180,3 +183,16 @@ export default class UserList extends React.Component {
     );
   }
 }
+
+UserList.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(UserList);
