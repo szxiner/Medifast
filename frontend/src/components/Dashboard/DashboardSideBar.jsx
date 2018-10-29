@@ -18,6 +18,7 @@ import Column from "antd/lib/table/Column";
 import { connect } from "react-redux";
 import Map from "../../common/Map";
 import SearchDoctors from "../UserList/SearchDoctors";
+import pwdchange from "../Login/pwdchange";
 
 const Styles = StyleSheet.create({
   clickMe: {
@@ -29,9 +30,12 @@ const Styles = StyleSheet.create({
     width: "80%",
     height: "auto",
     padding: 50,
-    backgroundColor: "#FAFAFA",
+    backgroundColor: "#E1F5FE    ",
     fontFamily: " Pacifico",
-    fontSize: 18
+    fontSize: 18,
+    color: "#1A237E",
+    borderColor: "#1A237E",
+    border: "auto"
   }
 });
 
@@ -122,7 +126,7 @@ class DashboardSideBar extends Component {
         <TabPanel tabId="vertical-tab-two" component={SearchDoctors} />
         <TabPanel tabId="vertical-tab-three">
           <Jumbotron className={css(Styles.jumbotron)}>
-            <h1>Medicare Gold Plus®</h1>
+            <h1 color="#FAFAFA">Medicare Gold Plus®</h1>
             <p1>
               Medicare Gold Plus is a Medicare Advantage health maintenance
               organization (HMO) plan that includes all the benefits of Original
@@ -157,22 +161,24 @@ class DashboardSideBar extends Component {
                     Medicare Gold Plus HMO plans cover all the benefits of
                     Original Medicare and much more, including:
                   </p1>
-                  <ul />
-                  <li>
-                    Choice of a primary care physician in the plan network
-                  </li>
-                  <li>Affordable monthly plan premium</li>
-                  <li>
-                    Prescription drug coverage equal to or better than the
-                    standard requirement for a Medicare Part D plan
-                    (prescription drug coverage not available with all plans)
-                  </li>
-                  <li>Emergency coverage anywhere in the world</li>
-                  <li>
-                    Coverage for most annual preventive screenings at no cost to
-                    you
-                  </li>
-                  <li>Hospitalization coverage</li>
+                  <p1>
+                    <ul />
+                    <li>
+                      Choice of a primary care physician in the plan network
+                    </li>
+                    <li>Affordable monthly plan premium</li>
+                    <li>
+                      Prescription drug coverage equal to or better than the
+                      standard requirement for a Medicare Part D plan
+                      (prescription drug coverage not available with all plans)
+                    </li>
+                    <li>Emergency coverage anywhere in the world</li>
+                    <li>
+                      Coverage for most annual preventive screenings at no cost
+                      to you
+                    </li>
+                    <li>Hospitalization coverage</li>
+                  </p1>
                   <hr />
                 </Modal.Body>
                 <Modal.Footer>
@@ -195,10 +201,7 @@ class DashboardSideBar extends Component {
         <TabPanel tabId="vertical-tab-five">
           <p>Chat feature</p>
         </TabPanel>
-        <TabPanel
-          tabId="vertical-tab-six"
-          component={type === "Insurance" ? null : MyAppointment}
-        />
+        <TabPanel tabId="vertical-tab-six" component={pwdchange} />
         <TabPanel
           tabId="vertical-tab-7"
           component={type === "Insurance" ? null : MyAppointment}

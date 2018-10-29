@@ -1,16 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
 
 import { StyleSheet, css } from "aphrodite";
-import { connect } from "react-redux";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
-import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
-import { ResetPassword } from "./ResetPassword";
 
 const styles = StyleSheet.create({
   box: {
@@ -70,6 +66,15 @@ const styles = StyleSheet.create({
   unexpanded: {
     height: 0,
     overflow: "hidden"
+  },
+  a: {
+    fontWeight: 600,
+    textDecorationLine: "underline",
+    text: "Bold",
+    fontSize: 22
+  },
+  resetmessage: {
+    fontSize: 22
   }
 });
 
@@ -78,12 +83,16 @@ export default class EmailReset extends React.Component {
     super();
     this.state = {
       isexpanded: true,
-      username: "",
-      username_entered: ""
+
+      username_entered: "",
+      isSuccess: false
     };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit1 = this.onSubmit1.bind(this);
   }
   onSubmit1 = e => {
     e.preventDefault();
+    const user = this.state.username;
     console.log(this.state.username);
 
     if (this.state.username === "") {
@@ -92,16 +101,18 @@ export default class EmailReset extends React.Component {
 
     // this.props.authenticateUser(user);
     else {
-      this.username_entered = true;
+      this.state.username_entered = true;
       axios
-        .get(`http://127.0.0.1:8000/users-api/${this.state.username}`)
+        .post(
+          `http://127.0.0.1:8000/users-api/forgot_password?username=${
+            this.state.username
+          }`
+        )
         .then(res => {
           console.log(res.status);
-          console.log(res.data.securityQ);
+
           if (res.status === 200) {
-            console.log(res.data.securityQ);
-            this.setState({ securityQ: res.data.securityQ });
-            this.setState({ username_entered: true });
+            this.setState({ isSuccess: true });
             this.setState({ isexpanded: false });
           } else {
             this.setState({ errorMsg: "ERROR" });
@@ -138,12 +149,14 @@ export default class EmailReset extends React.Component {
         });
     }
   };
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
     return (
       <div className={css(styles.box)}>
         <h1 className={css(styles.logo)}>Medifast</h1>
-        <h4 className={css(styles.logo)}>Password Reset</h4>
 
         <div
           className={
@@ -152,6 +165,7 @@ export default class EmailReset extends React.Component {
               : css(styles.unexpanded)
           }
         >
+          <h4 className={css(styles.logo)}>Password Reset</h4>
           <form onSubmit={this.onSubmit1}>
             <FormGroup>
               <label>Username:</label>
@@ -159,7 +173,7 @@ export default class EmailReset extends React.Component {
                 className={css(styles.inputBox)}
                 type="text"
                 name="username"
-                label="Username"
+                label="username"
                 placeholder="Username"
                 value={this.state.username}
                 onChange={this.onChange}
@@ -172,35 +186,23 @@ export default class EmailReset extends React.Component {
             </div>
           </form>
         </div>
-        {this.username_entered ? (
-          <form onSubmit={this.onSubmit2}>
-            <FormGroup>
-              <br />
-              <ControlLabel>
-                Enter new password sent throught mail here:
-              </ControlLabel>
-              <FormControl
-                className={css(styles.inputBox)}
-                type="text"
-                name="securityAns"
-                label="Security Answer"
-                placeholder="Enter your answer here"
-                value={this.state.securityAns}
-                onChange={this.onChange}
-              />
-              <br />
-              <Button name="verify" type="submit" />
-              <div className={css(styles.error)}>
-                {this.state.errorMsg_onVerify}
-              </div>
-              <div className={css(styles.error)}>
-                {" "}
-                {this.state.errorMsg_onVerify2}
-              </div>
-            </FormGroup>
-          </form>
+        {this.state.username_entered ? (
+          <div className={css(styles.box)}>
+            <div className={css(styles.resetmessage)}>
+              <p>
+                <p2>
+                  A new password has been sent to the registered email ID of
+                  this account. Please{" "}
+                  <a href="/login" className={css(styles.a)}>
+                    login{" "}
+                  </a>{" "}
+                  here with the new password.
+                </p2>
+              </p>
+            </div>
+          </div>
         ) : (
-          <p> </p>
+          ""
         )}
       </div>
     );

@@ -9,6 +9,8 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f5f5;
+
+  /* #f4f5f5; */
 }
 
 a {
@@ -40,5 +42,9 @@ p {
 }
 p1 {
   font-family: "Patrick Hand", cursive;
-  size: 40;
+  font-size: 40;
+}
+p2 {
+  font-family: "Passion+One", normal;
+  font-size: 40;
 }
