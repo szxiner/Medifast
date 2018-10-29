@@ -213,9 +213,7 @@ export class Register extends React.Component {
               onChange={this.onChange}
               name="securityQ"
             >
-              <option value="Select a question">
-                Select Securtiy Question 1
-              </option>
+              <option>Select Securtiy Question 1</option>
               <option value="What's the name of your first teacher?">
                 What's the name of your first teacher?
               </option>
@@ -243,9 +241,7 @@ export class Register extends React.Component {
               onChange={this.onChange}
               name="securityQ2"
             >
-              <option value="Select a question">
-                Select Securtiy Question 2
-              </option>
+              <option>Select Securtiy Question 2</option>
               <option value="What's the name of your first school?">
                 What's the name of your first school?
               </option>
