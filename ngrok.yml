@@ -1,0 +1,8 @@
+tunnels:
+  front:
+    proto: http
+    addr: 3000
+    host_header: localhost:3000
+  back:
+    proto: http
+    addr: 8000
