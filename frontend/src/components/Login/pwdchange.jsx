@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     margin: "auto",
     marginTop: "8%",
     width: "60%",
-    height: "70%",
+    height: "auto",
     padding: 50,
     backgroundColor: SecondaryThemeColor.white,
     color: SecondaryThemeColor.aegean2,
@@ -198,6 +198,7 @@ class pwdchange extends React.Component {
             </FormGroup>
           </form>
         </div>
+
         <div>
           <div
             className={
