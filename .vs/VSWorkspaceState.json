@@ -7,6 +7,6 @@
     "\\frontend\\src\\components\\Login",
     "\\Medifast"
   ],
-  "SelectedNode": "\\Medifast\\users",
+  "SelectedNode": "\\frontend\\src\\components\\Login\\GoogleCallback.jsx",
   "PreviewInSolutionExplorer": false
 }
