@@ -197,11 +197,12 @@ export class Register extends React.Component {
             <ControlLabel>Phone Number:</ControlLabel>
             <FormControl
               className={css(styles.inputBox)}
-              type="number"
+              type="numeric"
               label="Phone Number"
-              name="phonenumber"
+              name="phone_number"
               placeholder="Enter your phone number"
               value={this.state.phone_number}
+              maxLength="10"
               onChange={this.onChange}
             />
             <br />

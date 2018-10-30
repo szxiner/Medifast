@@ -109,6 +109,12 @@ class UserCard extends React.Component {
                       <span style={{ fontWeight: "bold" }}>Hospital: </span>
                       {currentUser.Hospital}
                     </div>
+                    <div>
+                      <span style={{ fontWeight: "bold" }}>
+                        Insurance Information:{" "}
+                      </span>
+                      {currentUser.insurance_name}
+                    </div>
                   </div>
                 ) : (
                   <div />
