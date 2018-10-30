@@ -8,6 +8,7 @@ import Register from "./components/Login/Register";
 import LandingNavbar from "./components/Layout/LandingNavbar";
 import Dashboard from "./components/Dashboard/Dashboard";
 import GoogleCallback from "./components/Login/GoogleCallback";
+import GoogleFinishRegister from "./components/Login/GoogleFinishRegister";
 
 import store from "./store";
 import history from "./history";
@@ -38,6 +39,7 @@ class App extends React.Component {
             <Route exact path="/" component={Landing} />
             <div className="componentRoutings">
               <Route exact path="/register" component={Register} />
+              <Route exact path="/completeRegistration" component={GoogleFinishRegister} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/2fa" component={TwoFactor} />
               <Route path="/callback/:accessToken" component={GoogleCallback} />

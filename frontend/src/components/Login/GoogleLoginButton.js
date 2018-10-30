@@ -12,7 +12,7 @@ const GoogleLoginButton = props => {
             if (res.status === 200) {
                 props.history.push("/2fa");
             } else if (res.status === 201) {
-                //props
+                props.history.push("/completeRegistration")
                 return true;
             } else {
                 //Return error message on login
