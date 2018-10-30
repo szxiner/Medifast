@@ -93,16 +93,25 @@ class UserList extends React.Component {
 
   componentDidMount() {
     const { userType, auth } = this.props;
-    const { username } = auth.user;
+    const { username, type } = auth.user;
     if (userType === "Doctor") {
-      axios
-        .get(`http://127.0.0.1:8000/doctor/bookings?docusername=${username}`)
-        .then(res => {
+      if (type === "Doctor") {
+        axios
+          .get(`http://127.0.0.1:8000/doctor/bookings?docusername=${username}`)
+          .then(res => {
+            if (res.status === 200) {
+              console.log(res.data);
+              this.setState({ userList: res.data });
+            }
+          });
+      } else {
+        axios.get(`http://127.0.0.1:8000/patient/profile`).then(res => {
           if (res.status === 200) {
             console.log(res.data);
             this.setState({ userList: res.data });
           }
         });
+      }
     } else if (userType === "Patient") {
       axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
         if (res.status === 200) {
