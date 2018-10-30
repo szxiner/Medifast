@@ -63,7 +63,11 @@ def oauth2(request, backend):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     elif serializer.is_valid() & len(a) != 0:
         pass
-        ##Do nothing?
+        theuser = a.first()
+        global authy_id
+        global the_Username
+        the_Username = user
+        authy_id = theuser.authy_id
         return Response(True, status=status.HTTP_200_OK)
     
     return Response(False, status=status.HTTP_400_BAD_REQUEST)
@@ -125,6 +129,9 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
                         serializer.save(authy_id=authy_user.id)
                         print(serializer.validated_data['authy_id'])
                         #Create User in our db
+                        serialized_data = serializer.validated_data
+                        serialized_data['authy_id'] = authy_user.id
+                        print(serializer.validated_data['authy_id'])
                         serializer.save()
                         global authy_id
                         global the_Username

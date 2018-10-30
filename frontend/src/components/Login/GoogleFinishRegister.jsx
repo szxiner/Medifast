@@ -99,7 +99,7 @@ export class GoogleFinishRegister extends React.Component {
                   {
                       username: this.state.username,
                       email: this.state.email,
-                      authy_id: 103080772,
+                      authy_id: 0,
                       typeOfUser: this.state.typeOfUser,
                       phone_number: this.state.phone_number
                   }
