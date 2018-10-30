@@ -73,7 +73,7 @@ export class Register extends React.Component {
       securityQ: "",
       securityAns: "",
       email: "",
-      phone_number: 8126069143,
+      phone_number: "",
       errorMsg: "",
       primaryColor: true,
       securityQ2: "",
@@ -89,6 +89,7 @@ export class Register extends React.Component {
       this.state.username === "" ||
       this.state.password === "" ||
       this.state.email === "" ||
+      this.state.phone_number === "" ||
       this.state.confirmPassword === "" ||
       this.state.typeOfUser === "role" ||
       this.state.securityQ === "" ||
@@ -193,6 +194,18 @@ export class Register extends React.Component {
               onChange={this.onChange}
             />
             <br />
+            <ControlLabel>Phone Number:</ControlLabel>
+            <FormControl
+              className={css(styles.inputBox)}
+              type="numeric"
+              label="Phone Number"
+              name="phone_number"
+              placeholder="Enter your phone number"
+              value={this.state.phone_number}
+              maxLength="10"
+              onChange={this.onChange}
+            />
+            <br />
             <ControlLabel>Role:</ControlLabel>
             <FormControl
               componentClass="select"
@@ -213,9 +226,7 @@ export class Register extends React.Component {
               onChange={this.onChange}
               name="securityQ"
             >
-              <option value="Select a question">
-                Select Securtiy Question 1
-              </option>
+              <option>Select Securtiy Question 1</option>
               <option value="What's the name of your first teacher?">
                 What's the name of your first teacher?
               </option>
@@ -243,9 +254,7 @@ export class Register extends React.Component {
               onChange={this.onChange}
               name="securityQ2"
             >
-              <option value="Select a question">
-                Select Securtiy Question 2
-              </option>
+              <option>Select Securtiy Question 2</option>
               <option value="What's the name of your first school?">
                 What's the name of your first school?
               </option>

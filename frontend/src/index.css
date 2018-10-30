@@ -9,6 +9,8 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f5f5;
+
+  /* #f4f5f5; */
 }
 
 a {
@@ -21,6 +23,11 @@ h1 {
   size: 48;
 }
 
+h2 {
+  font-family: "Patrick Hand", cursive;
+  size: 20;
+}
+
 p {
   margin: 0;
 }
@@ -28,4 +35,20 @@ p {
 .navbar,
 .navbar-default {
   margin: 0;
+}
+.Alert,
+.Alert-default {
+  background-color: aliceblue;
+}
+
+.navbar {
+  background-color: #f16e10;
+}
+p1 {
+  font-family: "Patrick Hand", cursive;
+  font-size: 40;
+}
+p2 {
+  font-family: "Passion+One", normal;
+  font-size: 40;
 }

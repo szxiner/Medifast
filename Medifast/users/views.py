@@ -254,7 +254,7 @@ class forgot_password(APIView):
     def send_email(self,message,email):
         subject = 'Temporary Password'
         To_list = ['medifastiu@gmail.com']
-        To_list.extend(email)
+        To_list.append(email)
         from_email = EMAIL_HOST_USER
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()

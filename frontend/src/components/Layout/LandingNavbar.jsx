@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
 import store from "../../store";
+import nav from "./nav.css";
 
 export default class LandingNavbar extends React.Component {
   constructor(props) {
