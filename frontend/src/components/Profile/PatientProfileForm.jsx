@@ -98,7 +98,9 @@ class PatientProfileForm extends React.Component {
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="other">Other</option>
-              <option value="nwtp">I do not wish to provide</option>
+              <option value="Not with to provide">
+                I do not wish to provide
+              </option>
             </FormControl>
             <br />
             <ControlLabel>Date of Birth (MM-DD-YYYY):</ControlLabel>

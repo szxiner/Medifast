@@ -17,7 +17,8 @@ export const unauthUser = () => dispatch => {
 export const storeUser = userData => dispatch => {
   const storeUser = {
     username: userData.username,
-    type: userData.typeOfUser
+    type: userData.typeOfUser,
+    email: userData.email
   };
   dispatch({
     type: STORE_USER,
