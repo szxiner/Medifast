@@ -37,7 +37,7 @@ import smtplib
 # /users
 authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
 authy_id = None
-username = None
+the_Username = None
 
 @api_view(http_method_names=['POST'])
 #@permission_classes([AllowAny])
@@ -60,7 +60,7 @@ def oauth2(request, backend):
         pass
         ##Save user
         serializer.save()
-        return Response(True, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     elif serializer.is_valid() & len(a) != 0:
         pass
         ##Do nothing?
@@ -75,8 +75,8 @@ class AuthAccount(APIView):
             users = Account.objects.filter(username=request.data['username'])
             user = users.first()
             global authy_id
-            global username
-            username = request.data['username']
+            global the_Username
+            the_Username = request.data['username']
             authy_id = user.authy_id
             return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
@@ -100,29 +100,44 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'username'
 
     def post(self, request, username, format=None):
-        print(request.data,"checking")
-        print(Account.objects.filter(username=username),"users")
 
         users = Account.objects.filter(username=username)
         print(Account.objects.filter(username=username),"users")
+  
         if len(users) != 0:
+            print("Ok")
             user = users.first()
             serializer = AccountSerializer(user, data=request.data, partial=True)
+            print(serializer)
             if serializer.is_valid():
-                serializer.save()
-                return Response(True, status=status.HTTP_200_OK)
+                print("valid")
+                if(serializer.validated_data['phone_number'] is not None):
+                    print("Gooogle")
+                    authy_user = authy_api.users.create(
+                    serializer.validated_data['email'],
+                    serializer.validated_data['phone_number'],
+                    #serializer.validated_data['country_code'],
+                    '+1'
+                    )
+                    if authy_user.ok():
+                        print(authy_user.id)
+                        #Update the user's authy id
+                        serializer.save(authy_id=authy_user.id)
+                        print(serializer.validated_data['authy_id'])
+                        #Create User in our db
+                        serializer.save()
+                        global authy_id
+                        global the_Username
+                        the_Username = serializer.validated_data['username']
+                        authy_id = authy_user.id
+                        return Response(True, status=status.HTTP_200_OK)
+                else:
+                    print("Not goog")
+                    serializer.save()
+                    return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
-    # def get_object(self, pk):
-    #     return Account.objects.get(pk=pk)
 
-    # def patch(self, request, pk):
-    #     testmodel = self.get_object(pk)
-    #     serializer = AccountSerializer(testmodel, data=request.data, partial=True) # set partial=True to update a data partially
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return JsonReponse(code=201, data=serializer.data)
-    #     return JsonResponse(code=400, data="wrong parameters")
 
 
 # API to register new user to the database
@@ -156,8 +171,8 @@ class AccountList(APIView):
                 #Create User in our db
                 serializer.save()
                 global authy_id
-                global username
-                username = serializer.validated_data['username']
+                global the_Username
+                the_Username = serializer.validated_data['username']
                 authy_id = authy_user.id
                 return Response(False, status=status.HTTP_201_CREATED)
                 # return redirect('2fa')
@@ -168,14 +183,14 @@ class twofa(APIView):
     def post(self, request, format=None):
         pass
         global authy_id
-        global username
+        global the_Username
         verification = authy_api.tokens.verify(authy_id, request.data["token"])
         try: 
             verification.ok()
             request.session['authy'] = True
             #Return true for Frontend to take over
             authy_id = None
-            username = None
+            the_Username = None
             return Response(True, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)

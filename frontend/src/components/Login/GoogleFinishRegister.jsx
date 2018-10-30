@@ -63,9 +63,11 @@ const styles = StyleSheet.create({
 });
 
 export class GoogleFinishRegister extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      username: "",
+      email: "",
       typeOfUser: "role",
       phone_number: "",
       errorMsg: "",
@@ -85,6 +87,8 @@ export class GoogleFinishRegister extends React.Component {
     } else {
       if (true) {
         const user = {
+          username: this.state.username,
+          email: this.state.email,
           typeOfUser: this.state.typeOfUser,
           phone_number: this.state.phone_number,
         };
@@ -93,6 +97,9 @@ export class GoogleFinishRegister extends React.Component {
           .post(
                   `http://127.0.0.1:8000/users-api/${this.state.username}/`,
                   {
+                      username: this.state.username,
+                      email: this.state.email,
+                      authy_id: 103080772,
                       typeOfUser: this.state.typeOfUser,
                       phone_number: this.state.phone_number
                   }
@@ -101,11 +108,16 @@ export class GoogleFinishRegister extends React.Component {
             if (res.status === 200) {
               this.props.storeUser(user);
               this.props.history.push("/2fa");
+            }else {
+              this.setState({
+                errorMsg: "Error"
+              });
             }
-          })
+          });
+          /*
           .catch(() => {
             this.setState({ errorMsg: "I dont know what the error was!" });
-          });
+          });*/
       } else {
         this.setState({ errorMsg: "I really dont know what the error was" });
       }
@@ -121,12 +133,13 @@ export class GoogleFinishRegister extends React.Component {
   };
 
     render() {
-    console.log(this.props);
-    console.log(this.state.user);
     const { auth } = this.props;
-    const { username } = auth.user;
+    const {username} = auth.user;
+    const {email} = auth.user;
+    console.log(username);
+    console.log(email);
     this.state.username = username;
-    console.log(this.state.username);
+    this.state.email = email;
     const { primaryColor } = this.state;
 
     return (
@@ -180,13 +193,16 @@ export class GoogleFinishRegister extends React.Component {
   }
 }
 
-GoogleFinishRegister.propTypes = { storeUser: PropTypes.func.isRequired };
+//GoogleFinishRegister.propTypes = { storeUser: PropTypes.func.isRequired };
+GoogleFinishRegister.propTypes = {
+    auth: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
     auth: state.auth
 });
 
 export default connect(
-  mapStateToProps,
-  { storeUser }
+    mapStateToProps,
+    { storeUser }
 )(GoogleFinishRegister);

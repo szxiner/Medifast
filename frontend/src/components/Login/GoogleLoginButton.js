@@ -1,6 +1,9 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { storeUser } from "../../actions/authActions";
 
 const GoogleLoginButton = props => {
 
@@ -9,6 +12,10 @@ const GoogleLoginButton = props => {
     const responseGoogle = (response) => {
 
         axios.post("http://127.0.0.1:8000/users-api/social/google-oauth2/", response).then(res => {
+            console.log(res.data);
+            console.log(res.data['username']);
+            props.storeUser(res.data);
+
             if (res.status === 200) {
                 props.history.push("/2fa");
             } else if (res.status === 201) {
@@ -39,4 +46,10 @@ const GoogleLoginButton = props => {
 
     );
 };
-export default GoogleLoginButton;
+
+GoogleLoginButton.propTypes = { storeUser: PropTypes.func.isRequired };
+//export default GoogleLoginButton;
+export default connect(
+    null,
+    { storeUser }
+)(GoogleLoginButton);
