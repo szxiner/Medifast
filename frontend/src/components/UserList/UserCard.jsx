@@ -154,7 +154,7 @@ class UserCard extends React.Component {
                     showModal={this.state.showModal}
                     handleCloseModal={this.handleCloseModal}
                     activeInfo={[currentUser]}
-                    showAppt={false}
+                    showAppt={this.props.auth.user.type === "Patient"}
                   />
                 </div>
               ) : (
