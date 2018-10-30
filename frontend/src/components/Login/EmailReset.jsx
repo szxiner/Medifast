@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 
 import { StyleSheet, css } from "aphrodite";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup, FormControl, ControlLabel, Alert } from "react-bootstrap";
 
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
@@ -189,16 +189,17 @@ export default class EmailReset extends React.Component {
         {this.state.username_entered ? (
           <div className={css(styles.box)}>
             <div className={css(styles.resetmessage)}>
-              <p>
-                <p2>
-                  A new password has been sent to the registered email ID of
-                  this account. Please{" "}
+              <Alert bsStyle="info">
+                <strong>
+                  A new password has been sent to registered email address.
+                  Please login{" "}
                   <a href="/login" className={css(styles.a)}>
-                    login{" "}
+                    {" "}
+                    here{" "}
                   </a>{" "}
-                  here with the new password.
-                </p2>
-              </p>
+                  with new password.
+                </strong>
+              </Alert>
             </div>
           </div>
         ) : (

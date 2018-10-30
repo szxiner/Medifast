@@ -337,7 +337,7 @@ export class ResetPassword extends React.Component {
                         : css(styles.unexpanded)
                     }
                   >
-                    <Alert bsStyle="warning">
+                    <Alert bsStyle="info">
                       <strong>
                         Password Reset Successful. Please login{" "}
                         <a href="/login" className={css(styles.a)}>
