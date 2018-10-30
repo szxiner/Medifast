@@ -6,7 +6,6 @@ const GoogleLoginButton = props => {
 
     //CReate callback url that points to a component that will handle the access token
 
-    console.log("props",props)
     const responseGoogle = (response) => {
 
         axios.post("http://127.0.0.1:8000/users-api/social/google-oauth2/", response).then(res => {

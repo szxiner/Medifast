@@ -55,7 +55,7 @@ export class Register extends React.Component {
 
     axios.post("http://127.0.0.1:8000/users-api/2fa", token).then(res => {
       if (res.status === 200) {
-        this.props.authUser();
+        //this.props.authUser();
         this.props.history.push("/dashboard");
       } else {
         this.setState({ errorMsg: "Token is not valid" });

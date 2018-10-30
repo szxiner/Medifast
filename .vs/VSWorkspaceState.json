@@ -4,10 +4,9 @@
     "\\frontend",
     "\\frontend\\src",
     "\\frontend\\src\\components",
-    "\\Medifast",
-    "\\Medifast\\Medifast",
-    "\\Medifast\\users"
+    "\\frontend\\src\\components\\Login",
+    "\\Medifast"
   ],
-  "SelectedNode": "\\Medifast\\Medifast\\settings.py",
+  "SelectedNode": "\\Medifast\\users",
   "PreviewInSolutionExplorer": false
 }
