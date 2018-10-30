@@ -31,6 +31,55 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#######
+# Oauth Stuff
+CLIENT_ID = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+CLIENT_SECRET = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
+
+REST_FRAMEWORK = {
+    #'DEFAULT_PERMISSION_CLASSES': (
+    #    'rest_framework.permissions.IsAuthenticated',
+    #),
+
+    #'DEFAULT_AUTHENTICATION_CLASSES': (
+    #    'rest_framework.authentication.TokenAuthentication',
+    #),
+}
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+## Doesn't do anything, but needed for Python Social Auth
+for key in ['GOOGLE_OAUTH2_KEY',
+            'GOOGLE_OAUTH2_SECRET',
+            ]:
+    exec("SOCIAL_AUTH_{key} = os.environ.get('{key}', '')".format(key=key))
+
+#Define scope for what you want to receive from Google
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email', 'profile']
+
+#Not sure if this is needed
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+
+#Sets username to email
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',  # <- this line not included by default
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
+### END OAuth stuff
 
 # Application definition
 
@@ -48,6 +97,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework.authtoken',
+    'social_django',
     'phone_verification',
 ]
 
@@ -85,12 +136,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Medifast.wsgi.application'
 
-REST_FRAMEWORK = {
+#REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
      #'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
      #'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication', ),
-}
+#}
 
 
 # Database

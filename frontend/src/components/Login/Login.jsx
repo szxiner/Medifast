@@ -9,7 +9,8 @@ import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
-import { FormGroup, FormControl, NavItem } from "react-bootstrap";
+import { FormGroup, FormControl } from "react-bootstrap";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const styles = StyleSheet.create({
   box: {
@@ -68,8 +69,8 @@ const styles = StyleSheet.create({
 });
 
 export class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       password: "",
@@ -87,7 +88,7 @@ export class Login extends React.Component {
     const user = {
       username: this.state.username,
       password: this.state.password
-    };
+      };
 
     axios
       .get(`http://127.0.0.1:8000/users-api/?username=${user.username}`)
@@ -118,7 +119,8 @@ export class Login extends React.Component {
     this.setState({ primaryColor: !this.state.primaryColor });
   };
 
-  render() {
+    render() {
+    console.log(this.props);
     const { primaryColor } = this.state;
     return (
       <div className={css(primaryColor ? styles.box : styles.box1)}>
@@ -151,15 +153,16 @@ export class Login extends React.Component {
             />
             <br />
             <br />
-            <Button name="Log in" type="submit" />
+            <Button name="Log in" type="submit" />    
+            <GoogleLoginButton history={this.props.history} />
           </FormGroup>
         </form>
         <div className={css(styles.error)}>{this.state.errorMsg}</div>
 
         <div align="Center" className={css(styles.forgotpassword)}>
-          <a href="/ResetOption">Forgot Password?</a>
+              <a href="/ResetOption">Forgot Password?</a>
+            </div>
         </div>
-      </div>
     );
   }
 }

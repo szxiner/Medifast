@@ -23,6 +23,7 @@
     "react-content-loader": "^3.2.0",
     "react-day-picker": "^7.2.4",
     "react-dom": "^16.5.2",
+    "react-google-login": "^3.2.1",
     "react-google-maps": "^9.4.5",
     "react-modal": "^3.6.1",
     "react-native": "^0.57.4",
@@ -37,7 +38,8 @@
     "reactstrap": "^6.5.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "sidebar-js": "^1.0.4"
+    "sidebar-js": "^1.0.4",
+    "simple-oauth2": "^2.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
