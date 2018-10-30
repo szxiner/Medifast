@@ -10,7 +10,6 @@ import DoctorProfileForm from "./DoctorProfileForm";
 const styles = StyleSheet.create({
   container: {
     width: "90%",
-    height: "80%",
     margin: "4%",
     backgroundColor: themeColor.white,
     borderRadius: 8,
