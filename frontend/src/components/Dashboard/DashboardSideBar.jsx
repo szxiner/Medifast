@@ -31,10 +31,10 @@ const Styles = StyleSheet.create({
     width: "80%",
     height: "auto",
     padding: 50,
-    backgroundColor: "##E0E0E0",
+    backgroundColor: "#ECEFF1    ",
     fontFamily: " Pacifico",
     fontSize: 18,
-    color: "#1A237E",
+    color: "#000000	    ",
     borderColor: "#1A237E",
     border: "auto"
   }
