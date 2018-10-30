@@ -83,7 +83,6 @@ class DashboardSideBar extends Component {
 
     const { primaryColor } = this.state;
     return (
-      // {type === "Patient"? (
       <Tabs defaultTab="vertical-tab-one" vertical>
         <TabList>
           <Tab tabFor="vertical-tab-one">Profile</Tab>
