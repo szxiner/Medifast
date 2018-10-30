@@ -122,7 +122,7 @@ class DoctorModal extends React.Component {
                 />
               </div>
               <br />
-              {showAppt && this.props.auth.type === "Insurance" ? (
+              {showAppt && this.props.auth.user.type === "Patient" ? (
                 <Button
                   type="primary"
                   icon="calendar"

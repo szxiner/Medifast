@@ -6,6 +6,7 @@ import { themeColor } from "../../theme/colors";
 import { Input, Icon } from "antd";
 import axios from "axios";
 import PatientModal from "./PatientModal";
+import UserList from "./UserList";
 
 import {
   FormGroup,
@@ -17,15 +18,14 @@ import {
   Button
 } from "react-bootstrap";
 import SearchDocModal from "./SearchDocModal";
-import UserList from "./UserList";
 //import Button from "../../common/Button";
 
 const styles = StyleSheet.create({
   box: {
     margin: "auto",
     marginTop: "8%",
-    width: "60%",
-    height: "70%",
+    width: "80%",
+    // height: "100%",
     padding: 50,
     backgroundColor: themeColor.white,
     color: themeColor.aegean2,
@@ -94,9 +94,13 @@ export default class SearchDoctors extends React.Component {
       userList_lower: "",
       new_list: "",
       searchbar: true,
-      noresults: false
+      noresults: false,
+      isshowall: false
     };
+    this.showall = null;
     this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmit2 = this.onSubmit2.bind(this);
+
     this.onChange = this.onChange.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -126,8 +130,6 @@ export default class SearchDoctors extends React.Component {
       ).toLowerCase();
       console.log(this.state.userList_lower, "str");
       const filteredList = this.state.userList.filter(s => {
-        //Object.values(s).includes(this.state.search);
-        //console.log("HA", Object.values(s));
         const arr = _.map(Object.values(s), function(o) {
           if (typeof o === "string") {
             return o.toLowerCase();
@@ -143,16 +145,7 @@ export default class SearchDoctors extends React.Component {
       });
 
       this.setState({ searchList: filteredList });
-      // this.state.searchList = this.state.userList.filter(s => {
-      //   Object.values(s).includes(this.state.search);
-      //   console.log("HA", Object.values(s));
-      //   // console.log(this.state.userList_lower, "str");
-      // });
-      // this.state.userList_lower = _.mapValues(
-      //   this.state.userList,
-      //   _.method("toLowerCase")
-      // );
-      // console.log(this.state.userList_lower, "is this lower?");
+
       if (this.state.searchList.length > 0) {
         this.setState({
           show: true
@@ -169,6 +162,14 @@ export default class SearchDoctors extends React.Component {
       console.log(this.state.userList);
       console.log(this.state.searchList, "bindu");
     });
+  };
+
+  onSubmit2 = e => {
+    e.preventDefault();
+
+    this.showall = <UserList userType={"Patient"} />;
+    this.setState({ isshowall: true });
+    // this.setState({ searchbar: false });
   };
 
   handleOpenModal(user) {
@@ -212,6 +213,13 @@ export default class SearchDoctors extends React.Component {
                 </InputGroup>
               </FormGroup>
             </form>
+            {/* <form onSubmit={this.onSubmit2}>
+              <Button bsStyle="success" type={this.onSubmit2}>
+                Show All Doctors
+              </Button>
+              {this.state.isshowall ? this.showall : ""}
+            </form> */}
+
             <br />
           </div>
         ) : (
@@ -270,6 +278,12 @@ export default class SearchDoctors extends React.Component {
           activeProfile={this.state.activeProfile}
           activeInfo={this.state.activeInfo}
         />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     );
   }

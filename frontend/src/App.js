@@ -17,7 +17,7 @@ import ResetPassword from "./components/Login/ResetPassword";
 import SearchDoctors from "./components/UserList/SearchDoctors";
 import ResetOption from "./components/Login/ResetOption";
 import EmailReset from "./components/Login/EmailReset";
-
+import pwdchange from "./components/Login/pwdchange";
 const styles = StyleSheet.create({
   app: {
     position: "absolute",
@@ -45,6 +45,7 @@ class App extends React.Component {
               <Route exact path="/SearchDoctors" component={SearchDoctors} />
               <Route exact path="/ResetOption" component={ResetOption} />
               <Route exact path="/EmailReset" component={EmailReset} />
+              <Route exact path="/pwdchange" component={pwdchange} />
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
               </Switch>

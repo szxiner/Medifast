@@ -3,10 +3,10 @@
     "",
     "\\frontend",
     "\\frontend\\src",
-    "\\frontend\\src\\components",
     "\\frontend\\src\\components\\Login",
-    "\\Medifast"
+    "\\Medifast",
+    "\\Medifast\\users"
   ],
-  "SelectedNode": "\\frontend\\src\\components\\Login\\GoogleCallback.jsx",
+  "SelectedNode": "\\Medifast\\users\\views.py",
   "PreviewInSolutionExplorer": false
 }
