@@ -115,6 +115,14 @@ class UserCard extends React.Component {
                       </span>
                       {currentUser.insurance_name}
                     </div>
+                    <div>
+                      <span style={{ fontWeight: "bold" }}>City: </span>
+                      {currentUser.city_name}
+                    </div>
+                    <div>
+                      <span style={{ fontWeight: "bold" }}>State: </span>
+                      {currentUser.state_name}
+                    </div>
                   </div>
                 ) : (
                   <div />

@@ -73,6 +73,16 @@ const styles = StyleSheet.create({
   },
   icon: {
     size: 100
+  },
+  FormGroup: {
+    width: " 100%"
+  },
+  showIcon: {
+    size: 300
+  },
+  noIcon: {
+    height: 0,
+    overflow: "hidden"
   }
 });
 
@@ -95,7 +105,8 @@ export default class SearchDoctors extends React.Component {
       new_list: "",
       searchbar: true,
       noresults: false,
-      isshowall: false
+      isshowall: false,
+      showIcon: true
     };
     this.showall = null;
     this.onSubmit = this.onSubmit.bind(this);
@@ -120,6 +131,7 @@ export default class SearchDoctors extends React.Component {
     //this.state.search = this.state.search.toLowerCase();
     this.state.search_lower = this.state.search.toLowerCase();
     console.log(this.state.search_lower, "lowercase");
+    this.setState({ showIcon: false });
     axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
       if (res.status === 200) {
         console.log(res.data);
@@ -195,7 +207,7 @@ export default class SearchDoctors extends React.Component {
         {this.state.searchbar ? (
           <div>
             <form onSubmit={this.onSubmit}>
-              <FormGroup>
+              <FormGroup className={css(styles.FormGroup)}>
                 <InputGroup>
                   <FormControl
                     type="text"
@@ -204,13 +216,35 @@ export default class SearchDoctors extends React.Component {
                     placeholder="Search ( Ex: Doctor Name, Specialization, Location)"
                     value={this.state.search}
                     onChange={this.onChange}
+                    bsSize="large"
                   />
-                  <InputGroup.Button>
-                    <Button bsStyle="primary" type={this.onSubmit}>
+                  <InputGroup.Button bsSize="large">
+                    <Button
+                      bsStyle="primary"
+                      type={this.onSubmit}
+                      bsSize="large"
+                    >
                       <Icon type="search" theme="outlined" />
                     </Button>
                   </InputGroup.Button>
                 </InputGroup>
+                <div
+                  className={
+                    this.state.showIcon
+                      ? css(styles.showIcon)
+                      : css(styles.noIcon)
+                  }
+                  align="center"
+                >
+                  <br />
+                  <br />
+                  <br />
+                  <Icon
+                    type="search"
+                    theme="outlined"
+                    style={{ fontSize: 66, margin: 10 }}
+                  />
+                </div>
               </FormGroup>
             </form>
             {/* <form onSubmit={this.onSubmit2}>
@@ -234,6 +268,10 @@ export default class SearchDoctors extends React.Component {
                   <th className={css(styles.th)}>Name </th>
                   <th className={css(styles.th)}>Specialization</th>
                   <th className={css(styles.th)}>Hospital</th>
+                  <th className={css(styles.th)}>Insurance Information</th>
+                  <th className={css(styles.th)}>City</th>
+                  <th className={css(styles.th)}>State</th>
+
                   <th className={css(styles.th)}>More</th>
                 </tr>
                 {_.map(this.state.searchList, (user, key) => {
@@ -243,6 +281,10 @@ export default class SearchDoctors extends React.Component {
                       <th className={css(styles.th)}>{user.Last_Name}</th>
                       <th className={css(styles.th)}>{user.specialization}</th>
                       <th className={css(styles.th)}>{user.Hospital}</th>
+                      <th className={css(styles.th)}>{user.insurance_name}</th>
+                      <th className={css(styles.th)}>{user.city_name}</th>
+                      <th className={css(styles.th)}>{user.state_name}</th>
+
                       <th className={css(styles.more)}>
                         <a onClick={() => this.handleOpenModal(user)}>
                           <Icon type="down" theme="outlined" />

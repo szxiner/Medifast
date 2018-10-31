@@ -108,22 +108,16 @@ class DashboardSideBar extends Component {
                 ? "My Appointments"
                 : "Account Settings"}
           </Tab>
-          {/* <Tab tabFor="vertical-tab-five">
-            <p>Chat</p>
-          </Tab> */}
-          <Tab tabFor="vertical-tab-six">
-            {type === "Patient"
-              ? "Account Settings"
-              : type === "Doctor"
-                ? "Account Settings"
-                : ""}{" "}
-          </Tab>
-          <Tab tabFor="vertical-tab-7">
+
+          <Tab tabFor="vertical-tab-5">
             {type === "Patient"
               ? "Search Doctors"
               : type === "Doctor"
-                ? ""
+                ? "Account Settings"
                 : ""}
+          </Tab>
+          <Tab tabFor="vertical-tab-6">
+            {type === "Patient" ? "Account Settings" : ""}
           </Tab>
         </TabList>
         <TabPanel tabId="vertical-tab-one" component={Profile} />
@@ -200,19 +194,28 @@ class DashboardSideBar extends Component {
         </TabPanel>
         <TabPanel
           tabId="vertical-tab-four"
-          component={type === "Insurance" ? { pwdchange } : MyAppointment}
-        />
-        {/* <TabPanel tabId="vertical-tab-five">
-          <p>Chat feature</p>
-        </TabPanel> */}
-        <TabPanel
-          tabId="vertical-tab-six"
-          component={type === "Insurance" ? null : { pwdchange }}
+          component={
+            type === "Patient"
+              ? MyAppointment
+              : type === "Doctor"
+                ? MyAppointment
+                : pwdchange
+          }
         />
 
         <TabPanel
-          tabId="vertical-tab-7"
-          component={type === "Patient" ? SearchDoctors : null}
+          tabId="vertical-tab-5"
+          component={
+            type === "Patient"
+              ? SearchDoctors
+              : type === "Doctor"
+                ? pwdchange
+                : SearchDoctors
+          }
+        />
+        <TabPanel
+          tabId="vertical-tab-6"
+          component={type === "Patient" ? pwdchange : ""}
         />
       </Tabs>
     );

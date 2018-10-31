@@ -12,15 +12,11 @@ import { Icon } from "antd";
 
 const styles = StyleSheet.create({
   box: {
-    margin: "auto",
-    marginTop: "8%",
-    width: "60%",
-    height: "auto",
-    padding: 50,
+    width: "90%",
+    margin: "4%",
     backgroundColor: themeColor.white,
-    color: themeColor.aegean2,
-    borderColor: themeColor.grey3,
     borderRadius: 8,
+    padding: 36,
     "@media (max-width: 600px)": {
       // TODO: Not responsive for mobile. Will Fix later
     }
