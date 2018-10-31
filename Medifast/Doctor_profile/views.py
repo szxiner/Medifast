@@ -111,7 +111,7 @@ class Doctor_bookings_view(APIView):
     def send_email(self,message,email):
             subject = 'Appointment Confirmation'
             To_list = ['medifastiu@gmail.com']
-            To_list.append(email)
+            To_list.extend(email)
             from_email = EMAIL_HOST_USER
             server = smtplib.SMTP('smtp.gmail.com:587')
             server.ehlo()
