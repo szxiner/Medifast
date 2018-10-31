@@ -5,7 +5,7 @@ import axios from "axios";
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 
-import { storeUser, authUser } from "../../actions/authActions";
+import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
@@ -88,7 +88,7 @@ export class Login extends React.Component {
     const user = {
       username: this.state.username,
       password: this.state.password
-    };
+      };
 
     axios
       .get(`http://127.0.0.1:8000/users-api/?username=${user.username}`)
@@ -101,10 +101,7 @@ export class Login extends React.Component {
       .post("http://127.0.0.1:8000/users-api/auth", user)
       .then(res => {
         if (res.status === 200) {
-          this.props.authUser();
-
-          // this.props.history.push("/2fa");
-          this.props.history.push("/dashboard");
+          this.props.history.push("/2fa");
         }
       })
       .catch(() => {
@@ -122,7 +119,7 @@ export class Login extends React.Component {
     this.setState({ primaryColor: !this.state.primaryColor });
   };
 
-  render() {
+    render() {
     console.log(this.props);
     const { primaryColor } = this.state;
     return (
@@ -156,26 +153,25 @@ export class Login extends React.Component {
             />
             <br />
             <br />
-            <Button name="Log in" type="submit" />
+            <Button name="Log in" type="submit" />    
             <GoogleLoginButton history={this.props.history} />
           </FormGroup>
         </form>
         <div className={css(styles.error)}>{this.state.errorMsg}</div>
 
         <div align="Center" className={css(styles.forgotpassword)}>
-          <a href="/ResetOption">Forgot Password?</a>
+              <a href="/ResetOption">Forgot Password?</a>
+            </div>
         </div>
-      </div>
     );
   }
 }
 
 Login.propTypes = {
-  storeUser: PropTypes.func.isRequired,
-  authUser: PropTypes.func.isRequired
+  storeUser: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { storeUser, authUser }
+  { storeUser }
 )(Login);
