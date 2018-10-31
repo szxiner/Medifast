@@ -71,7 +71,7 @@ export class GoogleFinishRegister extends React.Component {
       typeOfUser: "role",
       phone_number: "",
       errorMsg: "",
-      primaryColor: true,
+      primaryColor: true
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -79,10 +79,7 @@ export class GoogleFinishRegister extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-    if (
-      this.state.phone_number === "" ||
-      this.state.typeOfUser === "role" 
-    ) {
+    if (this.state.phone_number === "" || this.state.typeOfUser === "role") {
       this.setState({ errorMsg: "Please complete all the fields." });
     } else {
       if (true) {
@@ -90,31 +87,28 @@ export class GoogleFinishRegister extends React.Component {
           username: this.state.username,
           email: this.state.email,
           typeOfUser: this.state.typeOfUser,
-          phone_number: this.state.phone_number,
+          phone_number: this.state.phone_number
         };
-		//Use of patch
+        //Use of patch
         axios
-          .post(
-                  `http://127.0.0.1:8000/users-api/${this.state.username}/`,
-                  {
-                      username: this.state.username,
-                      email: this.state.email,
-                      authy_id: 0,
-                      typeOfUser: this.state.typeOfUser,
-                      phone_number: this.state.phone_number
-                  }
-              )
+          .post(`http://127.0.0.1:8000/users-api/${this.state.username}/`, {
+            username: this.state.username,
+            email: this.state.email,
+            authy_id: 0,
+            typeOfUser: this.state.typeOfUser,
+            phone_number: this.state.phone_number
+          })
           .then(res => {
             if (res.status === 200) {
               this.props.storeUser(user);
               this.props.history.push("/2fa");
-            }else {
+            } else {
               this.setState({
                 errorMsg: "Error"
               });
             }
           });
-          /*
+        /*
           .catch(() => {
             this.setState({ errorMsg: "I dont know what the error was!" });
           });*/
@@ -132,10 +126,10 @@ export class GoogleFinishRegister extends React.Component {
     this.setState({ primaryColor: !this.state.primaryColor });
   };
 
-    render() {
+  render() {
     const { auth } = this.props;
-    const {username} = auth.user;
-    const {email} = auth.user;
+    const { username } = auth.user;
+    const { email } = auth.user;
     console.log(username);
     console.log(email);
     this.state.username = username;
@@ -143,7 +137,6 @@ export class GoogleFinishRegister extends React.Component {
     const { primaryColor } = this.state;
 
     return (
-
       <div className={css(primaryColor ? styles.box : styles.box1)}>
         <h1 className={css(primaryColor ? styles.logo : styles.logo1)}>
           Medifast
@@ -163,7 +156,11 @@ export class GoogleFinishRegister extends React.Component {
               //onInput={this.handleChange.bind(this)}
               value={this.state.phone_number}
               //onChange={this.onChange}
-              onChange={event => this.setState({ phone_number: event.target.value.replace(/\D/, '') })}
+              onChange={event =>
+                this.setState({
+                  phone_number: event.target.value.replace(/\D/, "")
+                })
+              }
             />
             <br />
             <ControlLabel>Role:</ControlLabel>
@@ -172,6 +169,7 @@ export class GoogleFinishRegister extends React.Component {
               placeholder="select"
               onChange={this.onChange}
               name="typeOfUser"
+              value={this.state.typeOfUser}
             >
               <option value="role">Role</option>
               <option value="Patient">Patient</option>
@@ -195,14 +193,14 @@ export class GoogleFinishRegister extends React.Component {
 
 //GoogleFinishRegister.propTypes = { storeUser: PropTypes.func.isRequired };
 GoogleFinishRegister.propTypes = {
-    auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+  auth: state.auth
 });
 
 export default connect(
-    mapStateToProps,
-    { storeUser }
+  mapStateToProps,
+  { storeUser }
 )(GoogleFinishRegister);
