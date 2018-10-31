@@ -11,16 +11,16 @@ import { connect } from "react-redux";
 import { Icon } from "antd";
 
 const styles = StyleSheet.create({
-  box: {
-    width: "90%",
-    margin: "4%",
-    backgroundColor: themeColor.white,
-    borderRadius: 8,
-    padding: 36,
-    "@media (max-width: 600px)": {
-      // TODO: Not responsive for mobile. Will Fix later
-    }
-  },
+  // box: {
+  //   width: "90%",
+  //   margin: "4%",
+  //   backgroundColor: themeColor.white,
+  //   borderRadius: 8,
+  //   padding: 36,
+  //   "@media (max-width: 600px)": {
+  //     // TODO: Not responsive for mobile. Will Fix later
+  //   }
+  // },
   logo: {
     textAlign: "center"
   },
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: themeColor.red1
   },
-  box1: {
+  box: {
     margin: "auto",
     marginTop: "8%",
     width: "60%",

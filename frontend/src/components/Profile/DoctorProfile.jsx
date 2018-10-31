@@ -95,7 +95,7 @@ class DoctorProfile extends React.Component {
                   </div>
                 ) : (
                   <div className={css(styles.healthy)}>
-                    No appointment found. Stay healthy!
+                    <hr />
                   </div>
                 )}
               </div>

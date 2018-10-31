@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     background: themeColor.white
   },
   userList: {
-    background: themeColor.snow0,
+    background: "#E3F2FD",
     border: "1px solid",
     borderRadius: 5,
     borderColor: themeColor.dark0
@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
   },
   th: {
     padding: 4,
-    fontWeight: "normal"
+    fontWeight: "600",
+    color: "#1A237E    "
   },
   more: {
     textAlign: "center",
@@ -213,7 +214,7 @@ export default class SearchDoctors extends React.Component {
                     type="text"
                     name="search"
                     label="search"
-                    placeholder="Search ( Ex: Doctor Name, Specialization, Location)"
+                    placeholder="Search ( Ex: Doctor Name, Specialization, City or State)"
                     value={this.state.search}
                     onChange={this.onChange}
                     bsSize="large"
@@ -265,14 +266,13 @@ export default class SearchDoctors extends React.Component {
               <table className={css(styles.table)}>
                 <tr className={css(styles.tr)}>
                   <th className={css(styles.th)}>ID</th>
-                  <th className={css(styles.th)}>Name </th>
-                  <th className={css(styles.th)}>Specialization</th>
-                  <th className={css(styles.th)}>Hospital</th>
-                  <th className={css(styles.th)}>Insurance Information</th>
-                  <th className={css(styles.th)}>City</th>
-                  <th className={css(styles.th)}>State</th>
-
-                  <th className={css(styles.th)}>More</th>
+                  <th className={css(styles.th)}>NAME </th>
+                  <th className={css(styles.th)}>SPECIALIZATION</th>
+                  <th className={css(styles.th)}>HOSPITAL</th>
+                  <th className={css(styles.th)}>INSURANCE INFORMATION</th>
+                  <th className={css(styles.th)}>CITY</th>
+                  <th className={css(styles.th)}>STATE</th>
+                  <th className={css(styles.th)}>MORE</th>
                 </tr>
                 {_.map(this.state.searchList, (user, key) => {
                   return (

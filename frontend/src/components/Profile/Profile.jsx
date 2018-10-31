@@ -4,7 +4,6 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import { themeColor } from "../../theme/colors";
-import { List } from "react-content-loader";
 
 import InsuranceProfile from "./InsuranceProfile";
 import PatientProfile from "./PatientProfile";
@@ -19,6 +18,9 @@ const styles = StyleSheet.create({
     backgroundColor: themeColor.white,
     borderRadius: 8,
     padding: 36
+  },
+  forms: {
+    padding: 16
   },
   error: {
     width: "85%",
@@ -85,7 +87,7 @@ class Profile extends React.Component {
               {type === "Doctor" ? <DoctorProfile user={user} /> : <div />}
             </div>
           ) : (
-            <div>
+            <div className={css(styles.forms)}>
               {type === "Patient" ? <PatientProfileForm /> : <div />}
               {type === "Doctor" ? <DoctorProfileForm /> : <div />}
             </div>
