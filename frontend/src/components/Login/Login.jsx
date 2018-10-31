@@ -9,8 +9,9 @@ import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
-import { FormGroup, FormControl } from "react-bootstrap";
+import { FormGroup, FormControl, Grid, Row, Col } from "react-bootstrap";
 import GoogleLoginButton from "./GoogleLoginButton";
+import browser from "../../images/browser.svg";
 
 const styles = StyleSheet.create({
   box: {
@@ -56,15 +57,22 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   error1: {
-    fontWeight: 600,
+    fontWeight: "bold",
     textAlign: "center",
     color: SecondaryThemeColor.red1
   },
   forgotpassword: {
-    fontWeight: 600,
+    marginTop: 4,
+    fontWeight: "bold",
     textDecorationLine: "underline",
-    text: "Bold",
-    fontSize: 16
+    text: "Bold"
+  },
+  img: {
+    paddingLeft: 72,
+    paddingTop: 44,
+    paddingBottom: 44,
+    borderLeft: "1px solid",
+    borderColor: "#E9EBEC"
   }
 });
 
@@ -88,7 +96,7 @@ export class Login extends React.Component {
     const user = {
       username: this.state.username,
       password: this.state.password
-      };
+    };
 
     axios
       .get(`http://127.0.0.1:8000/users-api/?username=${user.username}`)
@@ -119,7 +127,7 @@ export class Login extends React.Component {
     this.setState({ primaryColor: !this.state.primaryColor });
   };
 
-    render() {
+  render() {
     console.log(this.props);
     const { primaryColor } = this.state;
     return (
@@ -128,41 +136,52 @@ export class Login extends React.Component {
           Medifast
         </h1>
         <br />
-        <form onSubmit={this.onSubmit}>
-          <FormGroup>
-            <label>Username:</label>
-            <FormControl
-              className={css(styles.inputBox)}
-              type="text"
-              name="username"
-              label="Username"
-              placeholder="Username"
-              value={this.state.username}
-              onChange={this.onChange}
-            />
-            <br />
-            <label>Password:</label>
-            <FormControl
-              className={css(styles.inputBox)}
-              type="password"
-              name="password"
-              label="Password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.onChange}
-            />
-            <br />
-            <br />
-            <Button name="Log in" type="submit" />    
-            <GoogleLoginButton history={this.props.history} />
-          </FormGroup>
-        </form>
-        <div className={css(styles.error)}>{this.state.errorMsg}</div>
+        <Grid style={{ width: "100%" }}>
+          <Row bsStyle="visibleMdBlock" className="show-grid">
+            <Col xs={11} md={6}>
+              <GoogleLoginButton history={this.props.history} />
+              <hr />
+              <form onSubmit={this.onSubmit}>
+                <FormGroup>
+                  <label>Username:</label>
+                  <FormControl
+                    className={css(styles.inputBox)}
+                    type="text"
+                    name="username"
+                    label="Username"
+                    placeholder="Username"
+                    value={this.state.username}
+                    onChange={this.onChange}
+                  />
+                  <br />
+                  <label>Password:</label>
+                  <FormControl
+                    className={css(styles.inputBox)}
+                    type="password"
+                    name="password"
+                    label="Password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                  />
+                  <br />
+                  <Button name="Log in" type="submit" />
+                  <div className={css(styles.error)}>{this.state.errorMsg}</div>
 
-        <div align="Center" className={css(styles.forgotpassword)}>
-              <a href="/ResetOption">Forgot Password?</a>
-            </div>
-        </div>
+                  <div align="Center" className={css(styles.forgotpassword)}>
+                    <a href="/ResetOption">Forgot Password?</a>
+                  </div>
+                </FormGroup>
+              </form>
+            </Col>
+            <Col xs={7} md={6}>
+              <div className={css(styles.img)}>
+                <img src={browser} width="85%" />
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
     );
   }
 }

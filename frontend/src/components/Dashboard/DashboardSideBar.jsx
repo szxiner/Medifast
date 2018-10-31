@@ -31,10 +31,10 @@ const Styles = StyleSheet.create({
     width: "80%",
     height: "auto",
     padding: 50,
-    backgroundColor: "##E0E0E0",
+    backgroundColor: "#FFFFFF",
     fontFamily: " Pacifico",
     fontSize: 18,
-    color: "#1A237E",
+    color: "#000000	    ",
     borderColor: "#1A237E",
     border: "auto"
   }
@@ -83,7 +83,6 @@ class DashboardSideBar extends Component {
 
     const { primaryColor } = this.state;
     return (
-      // {type === "Patient"? (
       <Tabs defaultTab="vertical-tab-one" vertical>
         <TabList>
           <Tab tabFor="vertical-tab-one">Profile</Tab>
@@ -107,20 +106,18 @@ class DashboardSideBar extends Component {
               ? "My Appointments"
               : type === "Doctor"
                 ? "My Appointments"
-                : "TBD"}
+                : "Account Settings"}
           </Tab>
-          <Tab tabFor="vertical-tab-five">
-            <p>Chat</p>
-          </Tab>
-          <Tab tabFor="vertical-tab-six">
-            <p>Settings</p>
-          </Tab>
-          <Tab tabFor="vertical-tab-7">
+
+          <Tab tabFor="vertical-tab-5">
             {type === "Patient"
               ? "Search Doctors"
               : type === "Doctor"
-                ? ""
+                ? "Account Settings"
                 : ""}
+          </Tab>
+          <Tab tabFor="vertical-tab-6">
+            {type === "Patient" ? "Account Settings" : ""}
           </Tab>
         </TabList>
         <TabPanel tabId="vertical-tab-one" component={Profile} />
@@ -197,15 +194,28 @@ class DashboardSideBar extends Component {
         </TabPanel>
         <TabPanel
           tabId="vertical-tab-four"
-          component={type === "Insurance" ? null : MyAppointment}
+          component={
+            type === "Patient"
+              ? MyAppointment
+              : type === "Doctor"
+                ? MyAppointment
+                : pwdchange
+          }
         />
-        <TabPanel tabId="vertical-tab-five">
-          <p>Chat feature</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-six" component={pwdchange} />
+
         <TabPanel
-          tabId="vertical-tab-7"
-          component={type === "Patient" ? SearchDoctors : null}
+          tabId="vertical-tab-5"
+          component={
+            type === "Patient"
+              ? SearchDoctors
+              : type === "Doctor"
+                ? pwdchange
+                : SearchDoctors
+          }
+        />
+        <TabPanel
+          tabId="vertical-tab-6"
+          component={type === "Patient" ? pwdchange : ""}
         />
       </Tabs>
     );
