@@ -4,8 +4,8 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import { themeColor } from "../../theme/colors";
+import { Button } from "antd";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import Button from "../../common/Button";
 import WorkTimeForm from "./WorkTimeForm";
 
 const styles = StyleSheet.create({
@@ -33,9 +33,15 @@ class DoctorProfileForm extends React.Component {
       address: "",
       location: "",
       charge: null,
-      stageTwo: false
+      stageTwo: false,
+      stageAddress: false,
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      doctor: undefined
     };
-
+    this.onClick = this.onClick.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -49,7 +55,9 @@ class DoctorProfileForm extends React.Component {
       specialization,
       hospital,
       charge,
-      location
+      location,
+      city,
+      state
     } = this.state;
     const doctor = {
       username: username,
@@ -62,8 +70,12 @@ class DoctorProfileForm extends React.Component {
       Hospital: hospital,
       rating: 0,
       hourly_charge: parseInt(charge, 10),
-      location: location
+      location: location,
+      city_name: city,
+      state_name: state
     };
+    this.setState({ doctor: doctor });
+    console.log("doctor", doctor);
     axios
       .post("http://127.0.0.1:8000/doctor/profile", doctor)
       .then(res => {
@@ -82,17 +94,26 @@ class DoctorProfileForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSubmit = e => {
-    e.preventDefault();
+  onClick = () => {
+    this.setState({
+      stageAddress: true
+    });
+  };
 
+  onSubmit = e => {
+    const { street, city, state, zip } = this.state;
+    e.preventDefault();
+    const address = `${street}, ${city}, ${state}, ${zip}`;
+    console.log("address", address);
     const google = window.google;
     const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ address: this.state.address }, (results, status) => {
+    geocoder.geocode({ address: address }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
         const locationString =
           results[0].geometry.location.lat().toString() +
           ", " +
           results[0].geometry.location.lng().toString();
+        console.log("locationString", locationString);
         this.setState({ location: locationString }, () => {
           this.postDoctor();
         });
@@ -105,83 +126,140 @@ class DoctorProfileForm extends React.Component {
   render() {
     return (
       <div>
-        <h1>Welcome to Medifast!</h1>
-        <div className={css(styles.welcome)}>
-          To get full service of our digital platform, please tell us a bit more
-          about yourself!
-        </div>
-        <br />
         {!this.state.stageTwo ? (
           <div>
-            <form onSubmit={this.onSubmit}>
-              <FormGroup>
-                <ControlLabel>First Name:</ControlLabel>
-                <FormControl
-                  className={css(styles.inputBox)}
-                  type="text"
-                  name="firstName"
-                  label="firstName"
-                  value={this.state.firstName}
-                  onChange={this.onChange}
-                />
+            {!this.state.stageAddress ? (
+              <div>
+                <h1>Welcome to Medifast!</h1>
+                <div className={css(styles.welcome)}>
+                  To get full service of our digital platform, please tell us a
+                  bit more about yourself!
+                </div>
                 <br />
-                <ControlLabel>Last Name:</ControlLabel>
-                <FormControl
-                  className={css(styles.inputBox)}
-                  type="text"
-                  name="lastName"
-                  label="lastName"
-                  value={this.state.lastName}
-                  onChange={this.onChange}
-                />
-                <br />
-                <ControlLabel>Specialization:</ControlLabel>
-                <FormControl
-                  className={css(styles.inputBox)}
-                  type="text"
-                  name="specialization"
-                  label="specialization"
-                  value={this.state.specialization}
-                  onChange={this.onChange}
-                />
-                <br />
-                <ControlLabel>Hospital/Clinic:</ControlLabel>
-                <FormControl
-                  className={css(styles.inputBox)}
-                  type="text"
-                  name="hospital"
-                  label="hospital"
-                  value={this.state.hospital}
-                  onChange={this.onChange}
-                />
-                <br />
-                <ControlLabel>Address:</ControlLabel>
-                <FormControl
-                  className={css(styles.inputBox)}
-                  type="text"
-                  name="address"
-                  label="address"
-                  value={this.state.address}
-                  onChange={this.onChange}
-                />
-                <br />
-                <ControlLabel>Approximate Charge / hr:</ControlLabel>
-                <FormControl
-                  className={css(styles.inputBox)}
-                  type="number"
-                  name="charge"
-                  label="charge"
-                  value={this.state.charge}
-                  onChange={this.onChange}
-                />
-                <br />
-                <Button name="Submit" type="submit" />
-              </FormGroup>
-            </form>
+                <form>
+                  <FormGroup>
+                    <ControlLabel>First Name:</ControlLabel>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="text"
+                      name="firstName"
+                      label="firstName"
+                      value={this.state.firstName}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <ControlLabel>Last Name:</ControlLabel>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="text"
+                      name="lastName"
+                      label="lastName"
+                      value={this.state.lastName}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <ControlLabel>Specialization:</ControlLabel>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="text"
+                      name="specialization"
+                      label="specialization"
+                      value={this.state.specialization}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <Button
+                      type="primary"
+                      block
+                      onClick={this.onClick}
+                      style={{ marginTop: 24, marginBottom: 24 }}
+                    >
+                      Next
+                    </Button>
+                  </FormGroup>
+                </form>
+              </div>
+            ) : (
+              <div>
+                <form>
+                  <FormGroup>
+                    <ControlLabel>Hospital/Clinic:</ControlLabel>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="text"
+                      name="hospital"
+                      label="hospital"
+                      value={this.state.hospital}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <ControlLabel>Street Address:</ControlLabel>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="text"
+                      name="street"
+                      label="street"
+                      value={this.state.street}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <ControlLabel>City</ControlLabel>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="text"
+                      name="city"
+                      label="city"
+                      value={this.state.city}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <ControlLabel>State:</ControlLabel>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="text"
+                      name="state"
+                      label="state"
+                      value={this.state.state}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <ControlLabel>Zip Code:</ControlLabel>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="text"
+                      name="zip"
+                      label="zip"
+                      value={this.state.zip}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <ControlLabel>Approximate Charge / hr:</ControlLabel>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="number"
+                      name="charge"
+                      label="charge"
+                      value={this.state.charge}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <Button
+                      type="primary"
+                      block
+                      onClick={this.onSubmit}
+                      style={{ marginTop: 24, marginBottom: 24 }}
+                    >
+                      Submit
+                    </Button>
+                  </FormGroup>
+                </form>
+              </div>
+            )}
+
             <div className={css(styles.error1)}>{this.state.errorMsg}</div>
           </div>
         ) : (
-          <WorkTimeForm />
+          <WorkTimeForm callBack={this.props.update} user={this.state.doctor} />
         )}
       </div>
     );

@@ -16,9 +16,12 @@ const styles = StyleSheet.create({
   container: {
     width: "90%",
     margin: "4%",
-    backgroundColor: themeColor.white,
+    backgroundImage: "linear-gradient(top, white 97%, #1890ff 3%)",
     borderRadius: 8,
     padding: 36
+  },
+  forms: {
+    padding: 16
   },
   error: {
     width: "85%",
@@ -40,65 +43,98 @@ class Profile extends React.Component {
     this.state = {
       user: undefined,
       firstName: "",
-      lastName: ""
+      lastName: "",
+      loading: true,
+      render: false
     };
+    this.update = this.update.bind(this);
   }
+
+  update = () => {
+    this.setState();
+    console.log("UPDATE");
+  };
 
   componentDidMount = () => {
     const { auth } = this.props;
     const { type, username } = auth.user;
-    if (!!username) {
-      if (type === "Doctor") {
-        axios
-          .get(`http://localhost:8000/doctor/profile?username=${username}`)
-          .then(res => {
-            if (res.status === 200 && res.data.length !== 0) {
-              this.setState({ user: res.data[0] });
-            }
-          });
-      } else if (type === "Patient") {
-        axios
-          .get(`http://localhost:8000/patient/profile?username=${username}`)
-          .then(res => {
-            console.log(res);
-            if (res.status === 200 && res.data.length !== 0) {
-              console.log("I am here");
-              this.setState({ user: res.data[0] });
-            }
-          });
-      }
+    if (type === "Doctor") {
+      axios
+        .get(`http://localhost:8000/doctor/profile?username=${username}`)
+        .then(res => {
+          if (res.status === 200 && res.data.length !== 0) {
+            this.setState({ user: res.data[0], loading: false });
+          } else {
+            this.setState({ loading: false });
+          }
+        })
+        .catch(e => {
+          this.setState({ loading: false });
+        });
+    } else if (type === "Patient") {
+      axios
+        .get(`http://localhost:8000/patient/profile?username=${username}`)
+        .then(res => {
+          console.log(res);
+          if (res.status === 200 && res.data.length !== 0) {
+            this.setState({ user: res.data[0], loading: false });
+          } else {
+            this.setState({ loading: false });
+          }
+        })
+        .catch(e => {
+          this.setState({ loading: false });
+        });
+    } else {
+      this.setState({ loading: false });
     }
   };
 
+  componentWillReceiveProps = () => {
+    this.setState({ render: true });
+  };
+
   render() {
-    const { auth } = this.props;
+    const { auth, render } = this.props;
     const { type } = auth.user;
     const { user } = this.state;
-    console.log("type", type);
-    console.log("user", user);
+
     return (
       <div className={css(styles.container)}>
-        <div>
-          {!!user ? (
-            <div>
-              {type === "Patient" ? <PatientProfile user={user} /> : <div />}
-              {type === "Doctor" ? <DoctorProfile user={user} /> : <div />}
-            </div>
-          ) : (
-            <div>
-              {type === "Patient" ? <PatientProfileForm /> : <div />}
-              {type === "Doctor" ? <DoctorProfileForm /> : <div />}
-            </div>
-          )}
-          {type === "Insurance" ? <InsuranceProfile /> : <div />}
-        </div>
+        {this.state.loading ? (
+          <List />
+        ) : (
+          <div>
+            {!!user ? (
+              <div>
+                {type === "Patient" ? <PatientProfile user={user} /> : <div />}
+                {type === "Doctor" ? <DoctorProfile user={user} /> : <div />}
+              </div>
+            ) : (
+              <div className={css(styles.forms)}>
+                {type === "Patient" ? (
+                  <PatientProfileForm callBack={this.update()} />
+                ) : (
+                  <div />
+                )}
+                {type === "Doctor" ? (
+                  <DoctorProfileForm callBack={this.update()} />
+                ) : (
+                  <div />
+                )}
+              </div>
+            )}
+            {type === "Insurance" ? <InsuranceProfile /> : <div />}
+          </div>
+        )}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  render: state.render
 });
 
 export default connect(

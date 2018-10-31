@@ -11,20 +11,16 @@ import { connect } from "react-redux";
 import { Icon } from "antd";
 
 const styles = StyleSheet.create({
-  box: {
-    margin: "auto",
-    marginTop: "8%",
-    width: "60%",
-    height: "auto",
-    padding: 50,
-    backgroundColor: themeColor.white,
-    color: themeColor.aegean2,
-    borderColor: themeColor.grey3,
-    borderRadius: 8,
-    "@media (max-width: 600px)": {
-      // TODO: Not responsive for mobile. Will Fix later
-    }
-  },
+  // box: {
+  //   width: "90%",
+  //   margin: "4%",
+  //   backgroundColor: themeColor.white,
+  //   borderRadius: 8,
+  //   padding: 36,
+  //   "@media (max-width: 600px)": {
+  //     // TODO: Not responsive for mobile. Will Fix later
+  //   }
+  // },
   logo: {
     textAlign: "center"
   },
@@ -36,11 +32,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: themeColor.red1
   },
-  box1: {
+  box: {
     margin: "auto",
     marginTop: "8%",
     width: "60%",
-    height: "70%",
     padding: 50,
     backgroundColor: SecondaryThemeColor.white,
     color: SecondaryThemeColor.aegean2,
@@ -198,6 +193,7 @@ class pwdchange extends React.Component {
             </FormGroup>
           </form>
         </div>
+
         <div>
           <div
             className={

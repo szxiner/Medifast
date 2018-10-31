@@ -27,6 +27,7 @@
     "react-content-loader": "^3.2.0",
     "react-day-picker": "^7.2.4",
     "react-dom": "^16.5.2",
+    "react-google-button": "^0.5.3",
     "react-google-login": "^3.2.1",
     "react-google-maps": "^9.4.5",
     "react-modal": "^3.6.1",

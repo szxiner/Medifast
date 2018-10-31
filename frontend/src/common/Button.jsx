@@ -5,12 +5,13 @@ import { StyleSheet, css } from "aphrodite";
 const styles = StyleSheet.create({
   loginButton: {
     width: "100%",
+    fontWeight: "bold",
     color: themeColor.white,
-    backgroundColor: themeColor.aegean0,
+    backgroundColor: "#1890ff",
     borderRadius: 5,
     height: 36,
     ":hover": {
-      backgroundColor: themeColor.aegean1
+      backgroundColor: "#40a9ff"
     }
   }
 });

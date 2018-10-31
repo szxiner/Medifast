@@ -115,7 +115,8 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
             print(serializer)
             if serializer.is_valid():
                 print("valid")
-                if(serializer.validated_data['phone_number'] is not None):
+                try:
+                    serializer.validated_data['phone_number']
                     print("Gooogle")
                     authy_user = authy_api.users.create(
                     serializer.validated_data['email'],
@@ -138,7 +139,7 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
                         the_Username = serializer.validated_data['username']
                         authy_id = authy_user.id
                         return Response(True, status=status.HTTP_200_OK)
-                else:
+                except:
                     print("Not goog")
                     serializer.save()
                     return Response(True, status=status.HTTP_200_OK)
@@ -162,8 +163,10 @@ class AccountList(APIView):
 
         serializer = AccountSerializer(data=request.data)
         a = Account.objects.filter(username=request.data['username'])
+        
         if serializer.is_valid() & len(a)==0:
-
+            #print(serializer.data)
+            print(serializer.validated_data['email'])
             #Create authy user
             authy_user = authy_api.users.create(
                 serializer.validated_data['email'],
@@ -174,9 +177,11 @@ class AccountList(APIView):
             #If the user is okay, we redirect to duo auth
             if authy_user.ok():
                 #Update the user's authy id
-                serializer.save(authy_id=authy_user.id)
+                #serializer.save(authy_id=authy_user.id)
+                
                 #Create User in our db
                 serializer.save()
+                serializer.validated_data['authy_id'] = authy_user.id
                 global authy_id
                 global the_Username
                 the_Username = serializer.validated_data['username']

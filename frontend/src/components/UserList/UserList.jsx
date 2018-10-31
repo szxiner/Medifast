@@ -135,59 +135,6 @@ class UserList extends React.Component {
         {_.map(this.state.userList, user => {
           return <UserCard type={viewType} currentUser={user} />;
         })}
-        {/* <div className={css(styles.userList)}>
-          <table className={css(styles.table)}>
-            <tr className={css(styles.tr)}>
-              <th className={css(styles.th)}>
-                {viewType === "Patient" ? "Patient" : "Doctor"}
-                ID
-              </th>
-              <th className={css(styles.th)}>Name </th>
-              <th className={css(styles.th)}>
-                {viewType === "Patient" ? "Gender" : "Specialization"}
-              </th>
-              <th className={css(styles.th)}>
-                {viewType === "Patient" ? "Date of Birth" : "Hospital"}
-              </th>
-              <th className={css(styles.th)}>More</th>
-            </tr>
-            {_.map(this.state.userList, (user, key) => {
-              return (
-                <tr className={css(styles.tr)}>
-                  <th className={css(styles.th)}>{key + 1}</th>
-                  <th className={css(styles.th)}>{user.Last_Name}</th>
-                  <th className={css(styles.th)}>
-                    {viewType === "Patient" ? user.gender : user.specialization}
-                  </th>
-                  <th className={css(styles.th)}>
-                    {viewType === "Patient" ? user.DOB : user.Hospital}
-                  </th>
-                  <th className={css(styles.more)}>
-                    <a onClick={() => this.handleOpenModal(user)}>
-                      <Icon type="down" theme="outlined" />
-                    </a>
-                  </th>
-                </tr>
-              );
-            })}
-          </table>
-        </div>
-        {viewType === "Patient" ? (
-          <PatientModal
-            showModal={this.state.showModal}
-            handleCloseModal={this.handleCloseModal}
-            activeProfile={this.state.activeProfile}
-            activeInfo={this.state.activeInfo}
-          />
-        ) : (
-          <DoctorModal
-            showModal={this.state.showModal}
-            handleCloseModal={this.handleCloseModal}
-            activeProfile={this.state.activeProfile}
-            activeInfo={this.state.activeInfo}
-            showAppt={true}
-          />
-        )} */}
       </div>
     );
   }
