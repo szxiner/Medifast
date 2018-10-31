@@ -11,16 +11,13 @@ import { connect } from "react-redux";
 import { Icon } from "antd";
 
 const styles = StyleSheet.create({
-  // box: {
-  //   width: "90%",
-  //   margin: "4%",
-  //   backgroundColor: themeColor.white,
-  //   borderRadius: 8,
-  //   padding: 36,
-  //   "@media (max-width: 600px)": {
-  //     // TODO: Not responsive for mobile. Will Fix later
-  //   }
-  // },
+  box: {
+    width: "90%",
+    margin: "4%",
+    backgroundColor: themeColor.white,
+    borderRadius: 8,
+    padding: 60
+  },
   logo: {
     textAlign: "center"
   },
@@ -32,7 +29,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: themeColor.red1
   },
-  box: {
+  box1: {
     margin: "auto",
     marginTop: "8%",
     width: "60%",
@@ -157,56 +154,55 @@ class pwdchange extends React.Component {
     const { username } = auth.user;
     this.state.username = username;
     return (
-      <div className={css(styles.box)}>
-        <div
-          className={
-            this.state.show ? css(styles.expanded) : css(styles.unexpanded)
-          }
-        >
-          <div align="Center">
-            <h2>Password Change</h2>
-          </div>
-          <form onSubmit={this.onSubmit3}>
-            <FormGroup>
-              <ControlLabel>Enter New Password:</ControlLabel>
-              <FormControl
-                className={css(styles.inputBox)}
-                type="password"
-                name="password"
-                label="Password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.onChange}
-              />
-              <br />
-              <ControlLabel>Confirm Password:</ControlLabel>
-              <FormControl
-                className={css(styles.inputBox)}
-                type="password"
-                name="confirmPassword"
-                label="Confirm Password"
-                placeholder="Confirm Password"
-                value={this.state.confirmPassword}
-                onChange={this.onChange}
-              />
-              <br />
-              <Button name="submit" type="submit" />
-            </FormGroup>
-          </form>
-        </div>
-
-        <div>
+      <div>
+        <div className={css(styles.box)}>
           <div
             className={
-              this.state.showmsg ? css(styles.expanded) : css(styles.unexpanded)
+              this.state.show ? css(styles.expanded) : css(styles.unexpanded)
             }
           >
-            <div align="center">
-              <p1>Pasword changed Successfully</p1>
-              <form onSubmit={this.onclick}>
-                <Icon type="like" theme="outlined" onclick={this.onclick} />
-              </form>
+            <div align="Center">
+              <h2>Password Change</h2>
             </div>
+            <form onSubmit={this.onSubmit3}>
+              <FormGroup>
+                <ControlLabel>Enter New Password:</ControlLabel>
+                <FormControl
+                  className={css(styles.inputBox)}
+                  type="password"
+                  name="password"
+                  label="Password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                />
+                <br />
+                <ControlLabel>Confirm Password:</ControlLabel>
+                <FormControl
+                  className={css(styles.inputBox)}
+                  type="password"
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  placeholder="Confirm Password"
+                  value={this.state.confirmPassword}
+                  onChange={this.onChange}
+                />
+                <br />
+                <Button name="submit" type="submit" />
+              </FormGroup>
+            </form>
+          </div>
+        </div>
+        <div
+          className={
+            this.state.showmsg ? css(styles.expanded) : css(styles.unexpanded)
+          }
+        >
+          <div align="center">
+            <p1>Pasword changed Successfully</p1>
+            <form onSubmit={this.onclick}>
+              <Icon type="like" theme="outlined" onclick={this.onclick} />
+            </form>
           </div>
         </div>
       </div>
