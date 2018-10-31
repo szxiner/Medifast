@@ -28,7 +28,9 @@ class DoctorProfileForm extends React.Component {
       address: "",
       location: "",
       charge: null,
-      stageTwo: false
+      stageTwo: false,
+      city: "",
+      state: ""
     };
 
     this.onChange = this.onChange.bind(this);
@@ -44,7 +46,9 @@ class DoctorProfileForm extends React.Component {
       specialization,
       hospital,
       charge,
-      location
+      location,
+      city,
+      state
     } = this.state;
     const doctor = {
       username: username,
@@ -57,7 +61,9 @@ class DoctorProfileForm extends React.Component {
       Hospital: hospital,
       rating: 0,
       hourly_charge: parseInt(charge, 10),
-      location: location
+      location: location,
+      city: city,
+      state: state
     };
     axios
       .post("http://127.0.0.1:8000/doctor/profile", doctor)
@@ -152,6 +158,26 @@ class DoctorProfileForm extends React.Component {
                   name="address"
                   label="address"
                   value={this.state.address}
+                  onChange={this.onChange}
+                />
+                <br />
+                <ControlLabel>City:</ControlLabel>
+                <FormControl
+                  className={css(styles.inputBox)}
+                  type="text"
+                  name="city"
+                  label="address"
+                  value={this.state.city}
+                  onChange={this.onChange}
+                />
+                <br />
+                <ControlLabel>State:</ControlLabel>
+                <FormControl
+                  className={css(styles.inputBox)}
+                  type="text"
+                  name="state"
+                  label="address"
+                  value={this.state.state}
                   onChange={this.onChange}
                 />
                 <br />

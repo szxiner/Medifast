@@ -98,10 +98,10 @@ class Doctor_bookings_view(APIView):
             time = serializer.data['btime']
             date = serializer.data['bdate']
             message = 'Congratulations! Your appointment is confirmed for ' + str(date) + ' at ' + str(time[0])
-            profile = Doctor_profile.objects.filter(username=request.data['docusername'])
-            D_serial = Doctor_profile_serializer(profile, many=True)
-            patient = Patient_profile.objects.filter(username=request.data['patientusername'])
-            P_serial = Patient_profile_serializer(patient, many=True)
+            profile = Account.objects.filter(username=request.data['docusername'])
+            D_serial = AccountSerializer(profile, many=True)
+            patient = Account.objects.filter(username=request.data['patientusername'])
+            P_serial = AccountSerializer(patient, many=True)
             email_id = [D_serial.data[0]['email'],P_serial.data[0]['email']]
             self.send_email(message,email_id)
             return Response(True, status=status.HTTP_201_CREATED)
