@@ -4,6 +4,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { storeUser } from "../../actions/authActions";
+import GoogleButton from "react-google-button";
 
 const GoogleLoginButton = props => {
   //CReate callback url that points to a component that will handle the access token
@@ -33,7 +34,7 @@ const GoogleLoginButton = props => {
   return (
     <GoogleLogin
       clientId="1091955405168-v4i4qp61j8h6vv60cf6t8ivpa9vdt8tr.apps.googleusercontent.com"
-      buttonText="Login with Google"
+      GoogleButton="Login with Google"
       onSuccess={responseGoogle}
       onFailure={responseGoogle}
       //responseType='code'

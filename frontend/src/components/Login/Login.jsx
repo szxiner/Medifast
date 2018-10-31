@@ -128,9 +128,9 @@ export class Login extends React.Component {
           Medifast
         </h1>
         <br />
-        <Grid>
+        <Grid style={{ width: "100%" }}>
           <Row bsStyle="visibleMdBlock" className="show-grid">
-            <Col xs={9} md={5}>
+            <Col xs={11} md={6}>
               <form onSubmit={this.onSubmit}>
                 <FormGroup>
                   <label>Username:</label>
