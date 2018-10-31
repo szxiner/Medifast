@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     margin: "auto",
     marginTop: "8%",
     width: "60%",
-    height: "auto",
     padding: 50,
     backgroundColor: SecondaryThemeColor.white,
     color: SecondaryThemeColor.aegean2,

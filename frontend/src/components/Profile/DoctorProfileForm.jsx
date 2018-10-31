@@ -38,7 +38,8 @@ class DoctorProfileForm extends React.Component {
       street: "",
       city: "",
       state: "",
-      zip: ""
+      zip: "",
+      doctor: undefined
     };
     this.onClick = this.onClick.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -73,6 +74,7 @@ class DoctorProfileForm extends React.Component {
       city_name: city,
       state_name: state
     };
+    this.setState({ doctor: doctor });
     console.log("doctor", doctor);
     axios
       .post("http://127.0.0.1:8000/doctor/profile", doctor)
@@ -124,16 +126,16 @@ class DoctorProfileForm extends React.Component {
   render() {
     return (
       <div>
-        <h1>Welcome to Medifast!</h1>
-        <div className={css(styles.welcome)}>
-          To get full service of our digital platform, please tell us a bit more
-          about yourself!
-        </div>
-        <br />
         {!this.state.stageTwo ? (
           <div>
             {!this.state.stageAddress ? (
               <div>
+                <h1>Welcome to Medifast!</h1>
+                <div className={css(styles.welcome)}>
+                  To get full service of our digital platform, please tell us a
+                  bit more about yourself!
+                </div>
+                <br />
                 <form>
                   <FormGroup>
                     <ControlLabel>First Name:</ControlLabel>
@@ -257,7 +259,7 @@ class DoctorProfileForm extends React.Component {
             <div className={css(styles.error1)}>{this.state.errorMsg}</div>
           </div>
         ) : (
-          <WorkTimeForm callBack={this.props.update} />
+          <WorkTimeForm callBack={this.props.update} user={this.state.doctor} />
         )}
       </div>
     );

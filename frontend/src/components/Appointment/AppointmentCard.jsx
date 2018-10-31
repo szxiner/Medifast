@@ -97,7 +97,7 @@ class AppointmentCard extends React.Component {
               <Icon
                 type="schedule"
                 theme="outlined"
-                style={{ fontSize: 100, marginTop: 28, marginLeft: 22 }}
+                style={{ fontSize: 100, marginTop: 24, marginLeft: 22 }}
               />
             </Col>
             <Col xs={14} md={9}>

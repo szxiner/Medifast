@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   container: {
     width: "90%",
     margin: "4%",
-    backgroundImage: "linear-gradient(top, white 96%, #1890ff 4%)",
+    backgroundImage: "linear-gradient(top, white 97%, #1890ff 3%)",
     borderRadius: 8,
     padding: 36
   },
@@ -44,7 +44,8 @@ class Profile extends React.Component {
       user: undefined,
       firstName: "",
       lastName: "",
-      loading: true
+      loading: true,
+      render: false
     };
     this.update = this.update.bind(this);
   }
@@ -57,40 +58,47 @@ class Profile extends React.Component {
   componentDidMount = () => {
     const { auth } = this.props;
     const { type, username } = auth.user;
-    if (!!username) {
-      if (type === "Doctor") {
-        axios
-          .get(`http://localhost:8000/doctor/profile?username=${username}`)
-          .then(res => {
-            if (res.status === 200 && res.data.length !== 0) {
-              this.setState({ user: res.data[0], loading: false });
-            }
-          })
-          .catch(() => {
+    if (type === "Doctor") {
+      axios
+        .get(`http://localhost:8000/doctor/profile?username=${username}`)
+        .then(res => {
+          if (res.status === 200 && res.data.length !== 0) {
+            this.setState({ user: res.data[0], loading: false });
+          } else {
             this.setState({ loading: false });
-          });
-      } else if (type === "Patient") {
-        axios
-          .get(`http://localhost:8000/patient/profile?username=${username}`)
-          .then(res => {
-            console.log(res);
-            if (res.status === 200 && res.data.length !== 0) {
-              this.setState({ user: res.data[0], loading: false });
-            }
-          })
-          .catch(() => {
+          }
+        })
+        .catch(e => {
+          this.setState({ loading: false });
+        });
+    } else if (type === "Patient") {
+      axios
+        .get(`http://localhost:8000/patient/profile?username=${username}`)
+        .then(res => {
+          console.log(res);
+          if (res.status === 200 && res.data.length !== 0) {
+            this.setState({ user: res.data[0], loading: false });
+          } else {
             this.setState({ loading: false });
-          });
-      }
+          }
+        })
+        .catch(e => {
+          this.setState({ loading: false });
+        });
+    } else {
+      this.setState({ loading: false });
     }
   };
 
+  componentWillReceiveProps = () => {
+    this.setState({ render: true });
+  };
+
   render() {
-    const { auth } = this.props;
+    const { auth, render } = this.props;
     const { type } = auth.user;
     const { user } = this.state;
-    console.log("type", type);
-    console.log("user", user);
+
     return (
       <div className={css(styles.container)}>
         {this.state.loading ? (
@@ -125,7 +133,8 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  render: state.render
 });
 
 export default connect(

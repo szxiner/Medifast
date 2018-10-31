@@ -21,11 +21,13 @@ export default class LandingNavbar extends React.Component {
     if (this.state.isAuth) {
       return (
         <div>
-          <Navbar styles={{ position: "fixed", width: "100%", top: 0 }}>
+          <Navbar>
             <Navbar.Header>
               <Navbar.Brand />
               <Navbar.Brand>
-                <Link to="/dashboard">Home</Link>
+                <Link to="/dashboard">
+                  <h1 style={{ fontSize: 24 }}>Medifast</h1>
+                </Link>
               </Navbar.Brand>
             </Navbar.Header>
             <Nav pullRight>
@@ -42,7 +44,9 @@ export default class LandingNavbar extends React.Component {
           <Navbar>
             <Navbar.Header>
               <Navbar.Brand>
-                <Link to="/">Home</Link>
+                <Link to="/">
+                  <h1 style={{ fontSize: 24 }}>Medifast</h1>
+                </Link>
               </Navbar.Brand>
             </Navbar.Header>
             <Nav pullRight>

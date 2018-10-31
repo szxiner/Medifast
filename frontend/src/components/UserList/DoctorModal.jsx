@@ -71,11 +71,13 @@ class DoctorModal extends React.Component {
     let lastName;
     let location;
     let username;
+    let insurance;
 
     if (activeInfo[0]) {
       star = activeInfo[0].rating;
       username = activeInfo[0].username;
       lastName = activeInfo[0].Last_Name;
+      insurance = activeInfo[0].insurance_name;
       location = activeInfo[0].location.split(" ");
     } else {
       star = 0;
@@ -114,6 +116,7 @@ class DoctorModal extends React.Component {
                 })}
                 <br />
               </div>
+              <div>Insurance Company: {insurance}</div>
               <br />
               <div className={css(styles.map)}>
                 <Map

@@ -11,7 +11,7 @@ import AppointmentCard from "./AppointmentCard";
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%"
+    width: "90%"
   },
   error: {
     width: "85%",
