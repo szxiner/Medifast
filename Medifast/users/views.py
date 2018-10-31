@@ -68,7 +68,7 @@ def oauth2(request, backend):
         global the_Username
         the_Username = user
         authy_id = theuser.authy_id
-        return Response(True, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
