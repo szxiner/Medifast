@@ -122,11 +122,6 @@ class DoctorModal extends React.Component {
                 />
               </div>
               <br />
-              {console.log("showAppt", showAppt)}
-              {console.log(
-                "this.props.auth.user.type",
-                this.props.auth.user.type
-              )}
               {showAppt && this.props.auth.user.type === "Patient" ? (
                 <Button
                   type="primary"

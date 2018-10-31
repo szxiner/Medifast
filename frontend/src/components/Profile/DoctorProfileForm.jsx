@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     textAlign: "center",
     color: themeColor.red1
+  },
+  welcome: {
+    fontSize: 16,
+    fontWeight: 500,
+    marginLeft: 40
   }
 });
 
@@ -106,6 +111,11 @@ class DoctorProfileForm extends React.Component {
   render() {
     return (
       <div>
+        <h1>Welcome to Medifast!</h1>
+        <div className={css(styles.welcome)}>
+          To get full service of our digital platform, please tell us a bit more
+          about yourself!
+        </div>
         <br />
         {!this.state.stageTwo ? (
           <div>

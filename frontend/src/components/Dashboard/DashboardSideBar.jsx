@@ -106,13 +106,17 @@ class DashboardSideBar extends Component {
               ? "My Appointments"
               : type === "Doctor"
                 ? "My Appointments"
-                : "TBD"}
+                : "Account Settings"}
           </Tab>
-          <Tab tabFor="vertical-tab-five">
+          {/* <Tab tabFor="vertical-tab-five">
             <p>Chat</p>
-          </Tab>
+          </Tab> */}
           <Tab tabFor="vertical-tab-six">
-            <p>Settings</p>
+            {type === "Patient"
+              ? "Account Settings"
+              : type === "Doctor"
+                ? "Account Settings"
+                : ""}{" "}
           </Tab>
           <Tab tabFor="vertical-tab-7">
             {type === "Patient"
@@ -196,12 +200,16 @@ class DashboardSideBar extends Component {
         </TabPanel>
         <TabPanel
           tabId="vertical-tab-four"
-          component={type === "Insurance" ? null : MyAppointment}
+          component={type === "Insurance" ? { pwdchange } : MyAppointment}
         />
-        <TabPanel tabId="vertical-tab-five">
+        {/* <TabPanel tabId="vertical-tab-five">
           <p>Chat feature</p>
-        </TabPanel>
-        <TabPanel tabId="vertical-tab-six" component={pwdchange} />
+        </TabPanel> */}
+        <TabPanel
+          tabId="vertical-tab-six"
+          component={type === "Insurance" ? null : { pwdchange }}
+        />
+
         <TabPanel
           tabId="vertical-tab-7"
           component={type === "Patient" ? SearchDoctors : null}

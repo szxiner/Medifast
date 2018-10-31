@@ -14,9 +14,22 @@ const GoogleLoginButton = props => {
       .then(res => {
         console.log(res.data);
         console.log(res.data["username"]);
+        const user = {
+          username: res.data["username"]
+        };
         props.storeUser(res.data);
 
         if (res.status === 200) {
+          axios
+            .get(`http://127.0.0.1:8000/users-api/?username=${user.username}`)
+            .then(res => {
+              if (res.data.length !== 0) {
+                console.log(res.data);
+                console.log(res.data[0]);
+                props.storeUser(res.data[0]);
+              }
+            });
+
           props.history.push("/2fa");
         } else if (res.status === 201) {
           props.history.push("/completeRegistration");
