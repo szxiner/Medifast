@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import { themeColor } from "../../theme/colors";
+import browser1 from "../../images/browser1.svg";
+import browser2 from "../../images/browser2.svg";
 
 // TODO: CSS is a mess, fix it
 const styles = StyleSheet.create({
@@ -40,15 +42,20 @@ const styles = StyleSheet.create({
   },
   logo: {
     fontFamily: ["Pacifico", "cursive"],
-    fontSize: 52
+    fontSize: 52,
+    color: "black"
   },
   slogan: {
     marginTop: 50,
     width: "70%",
     lineHeight: 1.2,
     fontSize: 36,
-    fontWeight: 500
-  }
+    fontWeight: 500,
+    paddingBottom: 50,
+    borderBottom: "1px solid"
+  },
+  img1: { position: "fixed", bottom: 300, right: 400 },
+  img2: { position: "fixed", bottom: 160, right: 640 }
 });
 export default class Landing extends React.Component {
   render() {
@@ -61,10 +68,17 @@ export default class Landing extends React.Component {
             Digital software to elevate your health care experience{" "}
           </div>
           {/*TODO: This button won't do anything, just a placeholder for now*/}
-          <button className={css(styles.indexButton)}>Learn more</button>
+          {/* <button className={css(styles.indexButton)}>Learn more</button> */}
         </div>
         {/*TODO: Plan to put a screenshot of the dash board here and some svg img*/}
         {/* <div className={css(styles.indexDemo)} /> */}
+        <div className={css(styles.img1)}>
+          <img src={browser1} width="280%" />
+        </div>
+        <div className={css(styles.img2)}>
+          <img src={browser2} width="180%" />
+        </div>
+
         <div className={css(styles.indexImage)} />
       </div>
     );

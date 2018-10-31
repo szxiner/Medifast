@@ -3,6 +3,8 @@ import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Icon } from "antd";
+import Button from "../../common/Button";
 import { storeUser } from "../../actions/authActions";
 
 const GoogleLoginButton = props => {
@@ -53,8 +55,18 @@ const GoogleLoginButton = props => {
       //uxMode='redirect'
       className="loginBtn loginBtn--google"
       prompt="select_account"
+      style={{
+        width: "100%",
+        height: 36,
+        fontWeight: "bold",
+        borderRadius: 5,
+        marginTop: 12
+      }}
       redirectUri="http://localhost:3000/callback/"
-    />
+    >
+      <Icon type="google" theme="outlined" />
+      <span style={{ paddingLeft: 8 }}>Login with Google</span>
+    </GoogleLogin>
   );
 };
 

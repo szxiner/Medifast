@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
   },
   healthy: {
     textAlign: "center",
-    marginTop: "10%"
+    marginTop: "10%",
+    marginBottom: "10%"
   }
 });
 

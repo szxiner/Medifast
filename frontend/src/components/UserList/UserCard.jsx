@@ -6,6 +6,7 @@ import { Button, Icon } from "antd";
 import { Grid, Row, Col } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
+import doctor2 from "../../images/doctor2.svg";
 
 const styles = StyleSheet.create({
   container: {
@@ -23,6 +24,13 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     padding: 4
+  },
+  name: {
+    fontSize: 28,
+    paddingRight: 12,
+    paddingBottom: 1,
+    borderBottom: "1px solid",
+    borderColor: "#1890ff"
   }
 });
 
@@ -63,11 +71,9 @@ class UserCard extends React.Component {
                     style={{ fontSize: 66, margin: 10 }}
                   />
                 ) : (
-                  <Icon
-                    type="smile"
-                    theme="outlined"
-                    style={{ fontSize: 66, margin: 10 }}
-                  />
+                  <div style={{ marginTop: 12 }}>
+                    <img src={doctor2} width="60%" />
+                  </div>
                 )}
               </div>
             </Col>
@@ -95,32 +101,18 @@ class UserCard extends React.Component {
                 )}
                 {type === "Doctor" ? (
                   <div>
-                    <div>
-                      <span style={{ fontWeight: "bold" }}>Doctor :</span>
-                      {currentUser.Last_Name}
+                    <div className={css(styles.name)}>
+                      Doctor: {currentUser.First_name} {currentUser.Last_Name}
                     </div>
                     <div>
                       <span style={{ fontWeight: "bold" }}>
-                        Specialization :{" "}
+                        Specialization :
                       </span>
                       {currentUser.specialization}
                     </div>
                     <div>
                       <span style={{ fontWeight: "bold" }}>Hospital: </span>
-                      {currentUser.Hospital}
-                    </div>
-                    <div>
-                      <span style={{ fontWeight: "bold" }}>
-                        Insurance Information:{" "}
-                      </span>
-                      {currentUser.insurance_name}
-                    </div>
-                    <div>
-                      <span style={{ fontWeight: "bold" }}>City: </span>
-                      {currentUser.city_name}
-                    </div>
-                    <div>
-                      <span style={{ fontWeight: "bold" }}>State: </span>
+                      {currentUser.Hospital}, {currentUser.city_name},
                       {currentUser.state_name}
                     </div>
                   </div>

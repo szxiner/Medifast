@@ -20,12 +20,24 @@ const styles = StyleSheet.create({
     border: "1px solid",
     borderColor: "#E9EBEC",
     margin: "2%",
-    padding: "5%"
+    padding: "2%"
   },
-  info: {},
+  name: {
+    fontSize: 28,
+    paddingRight: 12,
+    paddingBottom: 4,
+    borderBottom: "1px solid",
+    borderColor: "#1890ff"
+  },
   modal: {
     right: 0,
     top: 0
+  },
+  info: {
+    marginLeft: 24,
+    paddingTop: 4,
+    fontSize: 18,
+    lineHeight: "2em"
   }
 });
 
@@ -82,36 +94,52 @@ class AppointmentCard extends React.Component {
         <Grid style={{ width: "100%" }}>
           <Row>
             <Col xs={4} md={3}>
-              <Icon type="schedule" theme="outlined" style={{ fontSize: 80 }} />
+              <Icon
+                type="schedule"
+                theme="outlined"
+                style={{ fontSize: 100, marginTop: 24, marginLeft: 22 }}
+              />
             </Col>
             <Col xs={14} md={9}>
               {!doctor && !patient ? (
-                <List height={40} />
+                <List height={80} />
               ) : (
                 <div>
                   {!!doctor ? (
                     <div className={css(styles.info)}>
-                      <div>
-                        <div> Doctor {doctor.Last_Name}</div>
-                        <div> Hospital: {doctor.Hospital} </div>
+                      <div className={css(styles.name)}>
+                        Doctor {doctor.Last_Name}
                       </div>
                       <div>
-                        Time:
-                        {moment
-                          .utc(appointment.bdate, "YYYY-MM-DD")
-                          .format("MM-DD-YYYY")}{" "}
-                        •{" "}
-                        {moment
-                          .utc(appointment.btime[0].substring(0, 5), "HH:mm")
-                          .format("HH:mm")}
-                        -
-                        {moment
-                          .utc(appointment.btime[0].substring(0, 5), "HH:mm")
-                          .add(1, "hour")
-                          .format("HH:mm")}
-                      </div>
-                      <div className={css(styles.modal)}>
-                        <a onClick={() => this.handleOpenModal()}>• More •</a>
+                        <div className={css(styles.info)}>
+                          Hospital: {doctor.Hospital}{" "}
+                          <div>
+                            Time:
+                            {moment
+                              .utc(appointment.bdate, "YYYY-MM-DD")
+                              .format("MM-DD-YYYY")}{" "}
+                            •{" "}
+                            {moment
+                              .utc(
+                                appointment.btime[0].substring(0, 5),
+                                "HH:mm"
+                              )
+                              .format("HH:mm")}
+                            -
+                            {moment
+                              .utc(
+                                appointment.btime[0].substring(0, 5),
+                                "HH:mm"
+                              )
+                              .add(1, "hour")
+                              .format("HH:mm")}
+                          </div>
+                          <div className={css(styles.modal)}>
+                            <a onClick={() => this.handleOpenModal()}>
+                              • More •
+                            </a>
+                          </div>
+                        </div>
                       </div>
                       <DoctorModal
                         showModal={this.state.showModal}

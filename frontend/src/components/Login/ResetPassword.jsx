@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     margin: "auto",
     marginTop: "8%",
     width: "60%",
-    height: "70%",
     padding: 50,
     backgroundColor: themeColor.white,
     color: themeColor.aegean2,

@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import { Select, Button } from "antd";
 import { themeColor } from "../../theme/colors";
-
+import { rerenderProfile } from "../../actions/rerenderActions";
+import DoctorProfile from "./DoctorProfile";
 const Option = Select.Option;
 
 const days = [];
@@ -57,7 +58,8 @@ class WorkTimeForm extends React.Component {
       showThirdStep: false,
       workingdays: [],
       workingtime: [],
-      errorMsg: ""
+      errorMsg: "",
+      finished: false
     };
 
     this.onChangeDay = this.onChangeDay.bind(this);
@@ -98,7 +100,8 @@ class WorkTimeForm extends React.Component {
       .then(res => {
         if (res.status === 201) {
           console.log(res);
-          this.setState({ errorMsg: " You are all set !" });
+          this.setState({ errorMsg: " You are all set !", finished: true });
+          this.props.rerenderProfile(true);
         }
       })
       .catch(() => {
@@ -111,66 +114,73 @@ class WorkTimeForm extends React.Component {
   componentDidMount = () => {};
 
   render() {
-    const { showSecondStep } = this.state;
+    const { showSecondStep, finished } = this.state;
     return (
       <div>
-        <div className={css(styles.instruction)}>
-          Now, let's add your work time so future patients can make appointment
-          with you on Medifast.
-        </div>
-        <div className="select">
-          <div className={css(styles.questions)}>
-            When is your working days?
-          </div>
-          <Select
-            mode="multiple"
-            size="large"
-            placeholder="Please select"
-            onChange={this.onChangeDay}
-            style={{ width: "100%", marginTop: 24 }}
-          >
-            {days}
-          </Select>
-          <br />
-          <Button
-            type="primary"
-            block
-            onClick={this.onClickNext}
-            style={{ marginTop: 24, marginBottom: 24 }}
-          >
-            Next
-          </Button>
-          <br />
-          {showSecondStep ? (
-            <div>
+        {finished ? (
+          <DoctorProfile user={this.props.user} />
+        ) : (
+          <div>
+            <h1>Welcome to Medifast!</h1>
+            <div className={css(styles.instruction)}>
+              Now, add your work time so future patients can make appointment
+              with you.
+            </div>
+            <div className="select">
               <div className={css(styles.questions)}>
-                When is your working time?
+                When is your working days?
               </div>
               <Select
                 mode="multiple"
                 size="large"
                 placeholder="Please select"
-                onChange={this.onChangeTime}
+                onChange={this.onChangeDay}
                 style={{ width: "100%", marginTop: 24 }}
               >
-                {time}
+                {days}
               </Select>
               <br />
               <Button
                 type="primary"
                 block
-                onClick={this.onClickSubmit}
+                onClick={this.onClickNext}
                 style={{ marginTop: 24, marginBottom: 24 }}
               >
-                Submit
+                Next
               </Button>
+              <br />
+              {showSecondStep ? (
+                <div>
+                  <div className={css(styles.questions)}>
+                    When is your working time?
+                  </div>
+                  <Select
+                    mode="multiple"
+                    size="large"
+                    placeholder="Please select"
+                    onChange={this.onChangeTime}
+                    style={{ width: "100%", marginTop: 24 }}
+                  >
+                    {time}
+                  </Select>
+                  <br />
+                  <Button
+                    type="primary"
+                    block
+                    onClick={this.onClickSubmit}
+                    style={{ marginTop: 24, marginBottom: 24 }}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              ) : (
+                <div />
+              )}
+              <br />
+              <div className={css(styles.error)}>{this.state.errorMsg}</div>
             </div>
-          ) : (
-            <div />
-          )}
-          <br />
-          <div className={css(styles.error)}>{this.state.errorMsg}</div>
-        </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -182,5 +192,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { rerenderProfile }
 )(WorkTimeForm);

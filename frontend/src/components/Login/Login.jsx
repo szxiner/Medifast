@@ -11,6 +11,7 @@ import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
 import { FormGroup, FormControl, Grid, Row, Col } from "react-bootstrap";
 import GoogleLoginButton from "./GoogleLoginButton";
+import browser from "../../images/browser.svg";
 
 const styles = StyleSheet.create({
   box: {
@@ -56,15 +57,22 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   error1: {
-    fontWeight: 600,
+    fontWeight: "bold",
     textAlign: "center",
     color: SecondaryThemeColor.red1
   },
   forgotpassword: {
-    fontWeight: 600,
+    marginTop: 12,
+    fontWeight: "bold",
     textDecorationLine: "underline",
-    text: "Bold",
-    fontSize: 16
+    text: "Bold"
+  },
+  img: {
+    paddingLeft: 72,
+    paddingTop: 44,
+    paddingBottom: 44,
+    borderLeft: "1px solid",
+    borderColor: "#E9EBEC"
   }
 });
 
@@ -131,6 +139,8 @@ export class Login extends React.Component {
         <Grid style={{ width: "100%" }}>
           <Row bsStyle="visibleMdBlock" className="show-grid">
             <Col xs={11} md={6}>
+              <GoogleLoginButton history={this.props.history} />
+              <hr />
               <form onSubmit={this.onSubmit}>
                 <FormGroup>
                   <label>Username:</label>
@@ -155,32 +165,17 @@ export class Login extends React.Component {
                     onChange={this.onChange}
                   />
                   <br />
-                  <br />
                   <Button name="Log in" type="submit" />
                   <div className={css(styles.error)}>{this.state.errorMsg}</div>
-
                   <div align="Center" className={css(styles.forgotpassword)}>
                     <a href="/ResetOption">Forgot Password?</a>
                   </div>
                 </FormGroup>
               </form>
             </Col>
-            <Col xs={5} md={4}>
-              <div
-                align="center"
-                justify-self="center"
-                position="absolute"
-                padding="50"
-                borderRadius="100"
-                border-left="1px solid"
-                borderColor="#32a1ce"
-              >
-                <br />
-                <br />
-                <br />
-                <form>
-                  <GoogleLoginButton history={this.props.history} />
-                </form>
+            <Col xs={7} md={6}>
+              <div className={css(styles.img)}>
+                <img src={browser} width="85%" />
               </div>
             </Col>
           </Row>
