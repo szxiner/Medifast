@@ -15,6 +15,8 @@ class Doctor_profile(models.Model):
     hourly_charge = models.IntegerField( null=True)
     location = models.CharField(max_length=100, null= True)
     insurance_name = models.CharField(max_length=100, default='Medi Care Gold Plus')
+    city_name = models.CharField(max_length=100, default='Bloomington')
+    state_name = models.CharField(max_length=100, default='IN')
 
     def __str__(self):
         return self.username
