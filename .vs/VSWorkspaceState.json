@@ -2,14 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\frontend",
-    "\\frontend\\public",
-    "\\frontend\\src",
     "\\frontend\\src\\actions",
-    "\\frontend\\src\\components",
-    "\\frontend\\src\\components\\Login",
-    "\\Medifast",
-    "\\Medifast\\users"
+    "\\Medifast"
   ],
-  "SelectedNode": "\\Medifast\\users\\views.py",
+  "SelectedNode": "\\Medifast\\.env",
   "PreviewInSolutionExplorer": false
 }
