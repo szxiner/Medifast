@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     color: SecondaryThemeColor.red1
   },
   forgotpassword: {
-    marginTop: 4,
+    marginTop: 12,
     fontWeight: "bold",
     textDecorationLine: "underline",
     text: "Bold"
@@ -167,7 +167,6 @@ export class Login extends React.Component {
                   <br />
                   <Button name="Log in" type="submit" />
                   <div className={css(styles.error)}>{this.state.errorMsg}</div>
-
                   <div align="Center" className={css(styles.forgotpassword)}>
                     <a href="/ResetOption">Forgot Password?</a>
                   </div>
