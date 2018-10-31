@@ -54,6 +54,7 @@ class PatientProfileForm extends React.Component {
       .then(res => {
         if (res.status === 201) {
           this.setState({ errorMsg: "Profile updated!" });
+          this.props.callBack();
         }
       })
       .catch(() => {

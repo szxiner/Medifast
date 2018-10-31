@@ -44,7 +44,13 @@ class Profile extends React.Component {
       firstName: "",
       lastName: ""
     };
+    this.update = this.update.bind(this);
   }
+
+  update = () => {
+    this.setState();
+    console.log("UPDATE");
+  };
 
   componentDidMount = () => {
     const { auth } = this.props;
@@ -88,8 +94,16 @@ class Profile extends React.Component {
             </div>
           ) : (
             <div className={css(styles.forms)}>
-              {type === "Patient" ? <PatientProfileForm /> : <div />}
-              {type === "Doctor" ? <DoctorProfileForm /> : <div />}
+              {type === "Patient" ? (
+                <PatientProfileForm callBack={this.update()} />
+              ) : (
+                <div />
+              )}
+              {type === "Doctor" ? (
+                <DoctorProfileForm callBack={this.update()} />
+              ) : (
+                <div />
+              )}
             </div>
           )}
           {type === "Insurance" ? <InsuranceProfile /> : <div />}

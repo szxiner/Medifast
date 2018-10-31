@@ -99,6 +99,7 @@ class WorkTimeForm extends React.Component {
         if (res.status === 201) {
           console.log(res);
           this.setState({ errorMsg: " You are all set !" });
+          this.props.update();
         }
       })
       .catch(() => {

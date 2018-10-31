@@ -257,7 +257,7 @@ class DoctorProfileForm extends React.Component {
             <div className={css(styles.error1)}>{this.state.errorMsg}</div>
           </div>
         ) : (
-          <WorkTimeForm />
+          <WorkTimeForm callBack={this.props.update} />
         )}
       </div>
     );
