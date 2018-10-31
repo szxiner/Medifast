@@ -4,6 +4,8 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import { themeColor } from "../../theme/colors";
+import PatientProfile from "./PatientProfile";
+import DoctorProfile from "./DoctorProfile";
 import PatientProfileForm from "./PatientProfileForm";
 import DoctorProfileForm from "./DoctorProfileForm";
 
@@ -29,7 +31,9 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 16,
     fontWeight: 500,
-    marginLeft: 40
+    marginLeft: 40,
+    padding: 100,
+    background: "url(frontend/src/images/medical.svg) no-repeat center 15px"
   }
 });
 
@@ -47,6 +51,8 @@ class Profile extends React.Component {
   componentDidMount = () => {
     const { auth } = this.props;
     const { type, username } = auth.user;
+    console.log(username);
+
     if (type === "Doctor") {
       axios
         .get(`http://localhost:8000/doctor/profile?username=${username}`)
@@ -59,7 +65,9 @@ class Profile extends React.Component {
       axios
         .get(`http://localhost:8000/patient/profile?username=${username}`)
         .then(res => {
+          console.log(res);
           if (res.status === 200 && res.data.length !== 0) {
+            console.log("I am here");
             this.setState({ user: res.data[0] });
           }
         });
@@ -70,11 +78,13 @@ class Profile extends React.Component {
     const { auth } = this.props;
     const { type } = auth.user;
     const { user } = this.state;
+    console.log("User", user);
     return (
       <div className={css(styles.container)}>
         {!!user ? (
           <div>
-            <h1>Welcome Back {user.First_name}</h1>
+            {type === "Patient" ? <PatientProfile user={user} /> : <div />}
+            {type === "Doctor" ? <DoctorProfile user={user} /> : <div />}
           </div>
         ) : (
           <div>
