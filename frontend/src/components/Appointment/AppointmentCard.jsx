@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import { Icon } from "antd";
 import { Grid, Row, Col } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
+import { List } from "react-content-loader";
+
 import DoctorModal from "../UserList/DoctorModal";
 import PatientModal from "../UserList/PatientModal";
 
@@ -15,6 +17,8 @@ const styles = StyleSheet.create({
     width: "88%",
     backgroundImage: "linear-gradient(right, white 75%, #E9EBEC 25%)",
     borderRadius: 8,
+    border: "1px solid",
+    borderColor: "#E9EBEC",
     margin: "2%",
     padding: "5%"
   },
@@ -81,72 +85,78 @@ class AppointmentCard extends React.Component {
               <Icon type="schedule" theme="outlined" style={{ fontSize: 80 }} />
             </Col>
             <Col xs={14} md={9}>
-              {!!doctor ? (
-                <div className={css(styles.info)}>
-                  <div>
-                    <div> Doctor {doctor.Last_Name}</div>
-                    <div> Hospital: {doctor.Hospital} </div>
-                  </div>
-                  <div>
-                    Time:
-                    {moment
-                      .utc(appointment.bdate, "YYYY-MM-DD")
-                      .format("MM-DD-YYYY")}{" "}
-                    •{" "}
-                    {moment
-                      .utc(appointment.btime[0].substring(0, 5), "HH:mm")
-                      .format("HH:mm")}
-                    -
-                    {moment
-                      .utc(appointment.btime[0].substring(0, 5), "HH:mm")
-                      .add(1, "hour")
-                      .format("HH:mm")}
-                  </div>
-                  <div className={css(styles.modal)}>
-                    <a onClick={() => this.handleOpenModal()}>• More •</a>
-                  </div>
-                  <DoctorModal
-                    showModal={this.state.showModal}
-                    handleCloseModal={this.handleCloseModal}
-                    activeInfo={[doctor]}
-                    showAppt={false}
-                  />
-                </div>
+              {!doctor && !patient ? (
+                <List height={40} />
               ) : (
-                <div />
-              )}
-              {!!patient ? (
-                <div className={css(styles.info)}>
-                  <div>
-                    Name: {patient.First_name} {patient.Last_Name}
-                  </div>
-                  <div>
-                    Time:
-                    {moment
-                      .utc(appointment.bdate, "YYYY-MM-DD")
-                      .format("MM-DD-YYYY")}{" "}
-                    •{" "}
-                    {moment
-                      .utc(appointment.btime[0].substring(0, 5), "HH:mm")
-                      .format("HH:mm")}
-                    -
-                    {moment
-                      .utc(appointment.btime[0].substring(0, 5), "HH:mm")
-                      .add(1, "hour")
-                      .format("HH:mm")}
-                  </div>
-                  <div className={css(styles.modal)}>
-                    <a onClick={() => this.handleOpenModal()}>• More •</a>
-                  </div>
-                  <PatientModal
-                    showModal={this.state.showModal}
-                    handleCloseModal={this.handleCloseModal}
-                    activeProfile={patient.Last_Name}
-                    activeInfo={[patient]}
-                  />
+                <div>
+                  {!!doctor ? (
+                    <div className={css(styles.info)}>
+                      <div>
+                        <div> Doctor {doctor.Last_Name}</div>
+                        <div> Hospital: {doctor.Hospital} </div>
+                      </div>
+                      <div>
+                        Time:
+                        {moment
+                          .utc(appointment.bdate, "YYYY-MM-DD")
+                          .format("MM-DD-YYYY")}{" "}
+                        •{" "}
+                        {moment
+                          .utc(appointment.btime[0].substring(0, 5), "HH:mm")
+                          .format("HH:mm")}
+                        -
+                        {moment
+                          .utc(appointment.btime[0].substring(0, 5), "HH:mm")
+                          .add(1, "hour")
+                          .format("HH:mm")}
+                      </div>
+                      <div className={css(styles.modal)}>
+                        <a onClick={() => this.handleOpenModal()}>• More •</a>
+                      </div>
+                      <DoctorModal
+                        showModal={this.state.showModal}
+                        handleCloseModal={this.handleCloseModal}
+                        activeInfo={[doctor]}
+                        showAppt={false}
+                      />
+                    </div>
+                  ) : (
+                    <div />
+                  )}
+                  {!!patient ? (
+                    <div className={css(styles.info)}>
+                      <div>
+                        Name: {patient.First_name} {patient.Last_Name}
+                      </div>
+                      <div>
+                        Time:
+                        {moment
+                          .utc(appointment.bdate, "YYYY-MM-DD")
+                          .format("MM-DD-YYYY")}{" "}
+                        •{" "}
+                        {moment
+                          .utc(appointment.btime[0].substring(0, 5), "HH:mm")
+                          .format("HH:mm")}
+                        -
+                        {moment
+                          .utc(appointment.btime[0].substring(0, 5), "HH:mm")
+                          .add(1, "hour")
+                          .format("HH:mm")}
+                      </div>
+                      <div className={css(styles.modal)}>
+                        <a onClick={() => this.handleOpenModal()}>• More •</a>
+                      </div>
+                      <PatientModal
+                        showModal={this.state.showModal}
+                        handleCloseModal={this.handleCloseModal}
+                        activeProfile={patient.Last_Name}
+                        activeInfo={[patient]}
+                      />
+                    </div>
+                  ) : (
+                    <div />
+                  )}
                 </div>
-              ) : (
-                <div />
               )}
             </Col>
           </Row>
