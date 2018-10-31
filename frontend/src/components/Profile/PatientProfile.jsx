@@ -71,6 +71,7 @@ class PatientProfile extends React.Component {
           <Row>
             <Col xs={12} md={8}>
               <h1>Welcome Back {user.First_name}</h1>
+              <br />
               <div className={css(styles.patientInfo)}>
                 <div>
                   Name: {user.First_name} {user.Last_Name}
