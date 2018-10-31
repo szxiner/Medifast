@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Doctor_profile,Doctor_appointments,Doctor_reviews,Booking
 from Patient_profile.models import Patient_profile
+from users.models import Account
+from users.serializers import AccountSerializer
 from .serializers import Doctor_profile_serializer,Doctor_appointment_serializer,Doctor_reviews_serializer,Bookings_serializer
 from Patient_profile.serializers import Patient_profile_serializer
 from rest_framework.response import Response
