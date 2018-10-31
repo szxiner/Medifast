@@ -9,7 +9,7 @@ import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import Button from "../../common/Button";
-import { FormGroup, FormControl } from "react-bootstrap";
+import { FormGroup, FormControl, Grid, Row, Col } from "react-bootstrap";
 import GoogleLoginButton from "./GoogleLoginButton";
 
 const styles = StyleSheet.create({
@@ -88,7 +88,7 @@ export class Login extends React.Component {
     const user = {
       username: this.state.username,
       password: this.state.password
-      };
+    };
 
     axios
       .get(`http://127.0.0.1:8000/users-api/?username=${user.username}`)
@@ -119,7 +119,7 @@ export class Login extends React.Component {
     this.setState({ primaryColor: !this.state.primaryColor });
   };
 
-    render() {
+  render() {
     console.log(this.props);
     const { primaryColor } = this.state;
     return (
@@ -128,41 +128,64 @@ export class Login extends React.Component {
           Medifast
         </h1>
         <br />
-        <form onSubmit={this.onSubmit}>
-          <FormGroup>
-            <label>Username:</label>
-            <FormControl
-              className={css(styles.inputBox)}
-              type="text"
-              name="username"
-              label="Username"
-              placeholder="Username"
-              value={this.state.username}
-              onChange={this.onChange}
-            />
-            <br />
-            <label>Password:</label>
-            <FormControl
-              className={css(styles.inputBox)}
-              type="password"
-              name="password"
-              label="Password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.onChange}
-            />
-            <br />
-            <br />
-            <Button name="Log in" type="submit" />    
-            <GoogleLoginButton history={this.props.history} />
-          </FormGroup>
-        </form>
-        <div className={css(styles.error)}>{this.state.errorMsg}</div>
+        <Grid style={{ width: "100%" }}>
+          <Row bsStyle="visibleMdBlock" className="show-grid">
+            <Col xs={11} md={6}>
+              <form onSubmit={this.onSubmit}>
+                <FormGroup>
+                  <label>Username:</label>
+                  <FormControl
+                    className={css(styles.inputBox)}
+                    type="text"
+                    name="username"
+                    label="Username"
+                    placeholder="Username"
+                    value={this.state.username}
+                    onChange={this.onChange}
+                  />
+                  <br />
+                  <label>Password:</label>
+                  <FormControl
+                    className={css(styles.inputBox)}
+                    type="password"
+                    name="password"
+                    label="Password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                  />
+                  <br />
+                  <br />
+                  <Button name="Log in" type="submit" />
+                  <div className={css(styles.error)}>{this.state.errorMsg}</div>
 
-        <div align="Center" className={css(styles.forgotpassword)}>
-              <a href="/ResetOption">Forgot Password?</a>
-            </div>
-        </div>
+                  <div align="Center" className={css(styles.forgotpassword)}>
+                    <a href="/ResetOption">Forgot Password?</a>
+                  </div>
+                </FormGroup>
+              </form>
+            </Col>
+            <Col xs={5} md={4}>
+              <div
+                align="center"
+                justify-self="center"
+                position="absolute"
+                padding="50"
+                borderRadius="100"
+                border-left="1px solid"
+                borderColor="#32a1ce"
+              >
+                <br />
+                <br />
+                <br />
+                <form>
+                  <GoogleLoginButton history={this.props.history} />
+                </form>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
     );
   }
 }

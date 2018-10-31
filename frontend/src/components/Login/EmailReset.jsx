@@ -189,7 +189,7 @@ export default class EmailReset extends React.Component {
         {this.state.username_entered ? (
           <div className={css(styles.box)}>
             <div className={css(styles.resetmessage)}>
-              <Alert bsStyle="info">
+              <Alert bsStyle="warning">
                 <strong>
                   A new password has been sent to registered email address.
                   Please login{" "}
