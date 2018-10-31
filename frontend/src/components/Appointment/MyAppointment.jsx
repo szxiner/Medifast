@@ -1,6 +1,8 @@
 import React from "react";
 import _ from "lodash";
 import axios from "axios";
+import moment from "moment";
+
 import { Icon } from "antd";
 import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
@@ -37,13 +39,19 @@ class MyAppointment extends React.Component {
     const { auth } = this.props;
     const { type, username } = auth.user;
     axios.get("http://localhost:8000/doctor/bookings").then(res => {
-      let list = [];
+      let sort = [];
       if (type === "Doctor") {
-        list = _.filter(res.data, { docusername: username });
+        const list = _.filter(res.data, { docusername: username });
+        sort = _.sortBy(list, o => {
+          return new moment(o.bdate);
+        });
       } else if (type === "Patient") {
-        list = _.filter(res.data, { patientusername: username });
+        const list = _.filter(res.data, { patientusername: username });
+        sort = _.sortBy(list, o => {
+          return new moment(o.bdate);
+        });
       }
-      this.setState({ myAppts: list });
+      this.setState({ myAppts: sort });
     });
   };
 

@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import { themeColor } from "../../theme/colors";
+import { List } from "react-content-loader";
 
 import InsuranceProfile from "./InsuranceProfile";
 import PatientProfile from "./PatientProfile";
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
   container: {
     width: "90%",
     margin: "4%",
-    backgroundColor: themeColor.white,
+    backgroundImage: "linear-gradient(top, white 96%, #1890ff 4%)",
     borderRadius: 8,
     padding: 36
   },
@@ -42,7 +43,8 @@ class Profile extends React.Component {
     this.state = {
       user: undefined,
       firstName: "",
-      lastName: ""
+      lastName: "",
+      loading: true
     };
     this.update = this.update.bind(this);
   }
@@ -61,8 +63,11 @@ class Profile extends React.Component {
           .get(`http://localhost:8000/doctor/profile?username=${username}`)
           .then(res => {
             if (res.status === 200 && res.data.length !== 0) {
-              this.setState({ user: res.data[0] });
+              this.setState({ user: res.data[0], loading: false });
             }
+          })
+          .catch(() => {
+            this.setState({ loading: false });
           });
       } else if (type === "Patient") {
         axios
@@ -70,9 +75,11 @@ class Profile extends React.Component {
           .then(res => {
             console.log(res);
             if (res.status === 200 && res.data.length !== 0) {
-              console.log("I am here");
-              this.setState({ user: res.data[0] });
+              this.setState({ user: res.data[0], loading: false });
             }
+          })
+          .catch(() => {
+            this.setState({ loading: false });
           });
       }
     }
@@ -86,28 +93,32 @@ class Profile extends React.Component {
     console.log("user", user);
     return (
       <div className={css(styles.container)}>
-        <div>
-          {!!user ? (
-            <div>
-              {type === "Patient" ? <PatientProfile user={user} /> : <div />}
-              {type === "Doctor" ? <DoctorProfile user={user} /> : <div />}
-            </div>
-          ) : (
-            <div className={css(styles.forms)}>
-              {type === "Patient" ? (
-                <PatientProfileForm callBack={this.update()} />
-              ) : (
-                <div />
-              )}
-              {type === "Doctor" ? (
-                <DoctorProfileForm callBack={this.update()} />
-              ) : (
-                <div />
-              )}
-            </div>
-          )}
-          {type === "Insurance" ? <InsuranceProfile /> : <div />}
-        </div>
+        {this.state.loading ? (
+          <List />
+        ) : (
+          <div>
+            {!!user ? (
+              <div>
+                {type === "Patient" ? <PatientProfile user={user} /> : <div />}
+                {type === "Doctor" ? <DoctorProfile user={user} /> : <div />}
+              </div>
+            ) : (
+              <div className={css(styles.forms)}>
+                {type === "Patient" ? (
+                  <PatientProfileForm callBack={this.update()} />
+                ) : (
+                  <div />
+                )}
+                {type === "Doctor" ? (
+                  <DoctorProfileForm callBack={this.update()} />
+                ) : (
+                  <div />
+                )}
+              </div>
+            )}
+            {type === "Insurance" ? <InsuranceProfile /> : <div />}
+          </div>
+        )}
       </div>
     );
   }

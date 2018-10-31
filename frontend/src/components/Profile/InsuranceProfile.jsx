@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   insuranceContainer: {
     marginTop: "8%",
-    marginBottom: "8%"
+    marginBottom: "14%"
   }
 });
 
