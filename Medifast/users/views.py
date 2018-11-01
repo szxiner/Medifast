@@ -82,6 +82,8 @@ class AuthAccount(APIView):
             global the_Username
             the_Username = request.data['username']
             authy_id = user.authy_id
+            print(the_Username)
+            print(authy_id)
             return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
@@ -178,10 +180,9 @@ class AccountList(APIView):
             if authy_user.ok():
                 #Update the user's authy id
                 #serializer.save(authy_id=authy_user.id)
-                
+                serializer.validated_data['authy_id'] = authy_user.id
                 #Create User in our db
                 serializer.save()
-                serializer.validated_data['authy_id'] = authy_user.id
                 global authy_id
                 global the_Username
                 the_Username = serializer.validated_data['username']
