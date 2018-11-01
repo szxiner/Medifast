@@ -110,6 +110,7 @@ export class Login extends React.Component {
       .then(res => {
         if (res.status === 200) {
           this.props.history.push("/2fa");
+          // this.props.history.push("/dashboard");
         }
       })
       .catch(() => {
