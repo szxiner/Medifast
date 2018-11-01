@@ -65,7 +65,7 @@ export default class Landing extends React.Component {
         <div className={css(styles.indexContent)}>
           <div className={css(styles.logo)}>Medifast</div>
           <div className={css(styles.slogan)}>
-            Digital software to elevate your health care experience.
+            Digital platform to elevate your health care experience.
           </div>
         </div>
         <div className={css(styles.img1)}>

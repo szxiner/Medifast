@@ -159,11 +159,14 @@ class MyCalendar extends React.Component {
                         }}
                         value={key}
                       >
-                        {timeSlot.substring(0, 5)} -
+                        {moment
+                          .utc(timeSlot.substring(0, 5), "HH:mm")
+                          .format("hh:mm a")}{" "}
+                        -{" "}
                         {moment
                           .utc(timeSlot.substring(0, 5), "HH:mm")
                           .add(1, "hour")
-                          .format("HH:mm")}
+                          .format("hh:mm a")}
                       </Radio>
                     );
                   })}
@@ -198,12 +201,16 @@ class MyCalendar extends React.Component {
             {!!value ? value.format("MM-DD-YYYY") : "ERROR"}
             <br />
             Time: &nbsp;
-            {available[time] && available[time].substring(0, 5)}-
+            {available[time] &&
+              moment
+                .utc(available[time].substring(0, 5), "HH:mm")
+                .format("hh:mm a")}{" "}
+            -{" "}
             {available[time] &&
               moment
                 .utc(available[time].substring(0, 5), "HH:mm")
                 .add(1, "hour")
-                .format("HH:mm")}
+                .format("hh:mm a")}
             <br />
             <Button
               type="primary"
