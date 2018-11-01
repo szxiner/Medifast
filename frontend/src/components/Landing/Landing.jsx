@@ -65,13 +65,9 @@ export default class Landing extends React.Component {
         <div className={css(styles.indexContent)}>
           <div className={css(styles.logo)}>Medifast</div>
           <div className={css(styles.slogan)}>
-            Digital software to elevate your health care experience{" "}
+            Digital software to elevate your health care experience.
           </div>
-          {/*TODO: This button won't do anything, just a placeholder for now*/}
-          {/* <button className={css(styles.indexButton)}>Learn more</button> */}
         </div>
-        {/*TODO: Plan to put a screenshot of the dash board here and some svg img*/}
-        {/* <div className={css(styles.indexDemo)} /> */}
         <div className={css(styles.img1)}>
           <img src={browser1} width="280%" />
         </div>
