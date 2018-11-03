@@ -6,8 +6,6 @@ import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import { themeColor } from "../../theme/colors";
 import { Icon } from "antd";
-import PatientModal from "./PatientModal";
-import DoctorModal from "./DoctorModal";
 import UserCard from "./UserCard";
 
 const styles = StyleSheet.create({

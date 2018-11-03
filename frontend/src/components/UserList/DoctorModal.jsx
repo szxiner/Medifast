@@ -2,7 +2,7 @@ import React from "react";
 import _ from "lodash";
 import ReactModal from "react-modal";
 import { StyleSheet, css } from "aphrodite";
-import { Icon, Button } from "antd";
+import { Icon, Button, Rate } from "antd";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Map from "../../common/Map";
@@ -111,9 +111,7 @@ class DoctorModal extends React.Component {
             <div>
               <div>
                 REVIEW: &nbsp; &nbsp;
-                {_.times(star, () => {
-                  return <Icon type="star" theme="filled" />;
-                })}
+                <Rate disabled defaultValue={star} />
                 <br />
               </div>
               <div>Insurance Company: {insurance}</div>

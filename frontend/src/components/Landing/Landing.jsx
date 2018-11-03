@@ -270,7 +270,7 @@ export default class Landing extends React.Component {
           </svg>
           <div className={css(styles.ourTeam)}>
             <Plx className="TitleParallax" parallaxData={titleParallax}>
-              OUR TEAM
+              PLACEHOLDER
             </Plx>
             {/* Our Team */}
           </div>
