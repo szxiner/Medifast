@@ -12,18 +12,18 @@ import Button from "../../common/Button";
 import { FormGroup, FormControl, Grid, Row, Col } from "react-bootstrap";
 import GoogleLoginButton from "./GoogleLoginButton";
 import browser from "../../images/browser.svg";
+import coffee from "./coffee.png";
+import holdhand from "./holdhand.png";
 
 const styles = StyleSheet.create({
   box: {
     margin: "auto",
-    marginTop: "8%",
-    width: "60%",
-    height: "70%",
-    padding: 50,
-    backgroundColor: themeColor.white,
+    marginTop: "5%",
+    width: "70%",
+    height: "80%",
+    backgroundColor: "#fff",
     color: themeColor.aegean2,
     borderColor: themeColor.grey3,
-    borderRadius: 8,
     "@media (max-width: 600px)": {
       // TODO: Not responsive for mobile. Will Fix later
     }
@@ -39,28 +39,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: themeColor.red1
   },
-  box1: {
-    margin: "auto",
-    marginTop: "8%",
-    width: "60%",
-    height: "70%",
-    padding: 50,
-    backgroundColor: SecondaryThemeColor.white,
-    color: SecondaryThemeColor.aegean2,
-    borderColor: SecondaryThemeColor.grey3,
-    borderRadius: 8,
-    "@media (max-width: 600px)": {
-      // TODO: Not responsive for mobile. Will Fix later
-    }
-  },
-  logo1: {
-    textAlign: "center"
-  },
-  error1: {
-    fontWeight: "bold",
-    textAlign: "center",
-    color: SecondaryThemeColor.red1
-  },
   forgotpassword: {
     marginTop: 12,
     fontWeight: "bold",
@@ -68,11 +46,12 @@ const styles = StyleSheet.create({
     text: "Bold"
   },
   img: {
-    paddingLeft: 72,
-    paddingTop: 44,
-    paddingBottom: 44,
-    borderLeft: "1px solid",
-    borderColor: "#E9EBEC"
+    height: "100%"
+  },
+  login: {
+    paddingTop: "15%",
+    paddingLeft: "15%",
+    paddingRight: "15%"
   }
 });
 
@@ -132,51 +111,67 @@ export class Login extends React.Component {
     console.log(this.props);
     const { primaryColor } = this.state;
     return (
-      <div className={css(primaryColor ? styles.box : styles.box1)}>
-        <h1 className={css(primaryColor ? styles.logo : styles.logo1)}>
-          Medifast
-        </h1>
-        <br />
+      <div className={css(styles.box)}>
+        {/* <h1 className={css(styles.logo)}>Medifast</h1>
+        <br /> */}
         <Grid style={{ width: "100%" }}>
           <Row bsStyle="visibleMdBlock" className="show-grid">
-            <Col xs={11} md={6}>
-              <GoogleLoginButton history={this.props.history} />
-              <hr />
-              <form onSubmit={this.onSubmit}>
-                <FormGroup>
-                  <label>Username:</label>
-                  <FormControl
-                    className={css(styles.inputBox)}
-                    type="text"
-                    name="username"
-                    label="Username"
-                    placeholder="Username"
-                    value={this.state.username}
-                    onChange={this.onChange}
-                  />
-                  <br />
-                  <label>Password:</label>
-                  <FormControl
-                    className={css(styles.inputBox)}
-                    type="password"
-                    name="password"
-                    label="Password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  <br />
-                  <Button name="Log in" type="submit" />
-                  <div className={css(styles.error)}>{this.state.errorMsg}</div>
-                  <div align="Center" className={css(styles.forgotpassword)}>
-                    <a href="/ResetOption">Forgot Password?</a>
-                  </div>
-                </FormGroup>
-              </form>
+            <Col xs={12} md={7}>
+              <div className={css(styles.login)}>
+                <h1 style={{ fontSize: 60, textAlign: "center" }}>Medifast</h1>
+                <br />
+                <GoogleLoginButton history={this.props.history} />
+                <hr />
+                <form onSubmit={this.onSubmit}>
+                  <FormGroup>
+                    <label>Username:</label>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="text"
+                      name="username"
+                      label="Username"
+                      placeholder="Username"
+                      value={this.state.username}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <label>Password:</label>
+                    <FormControl
+                      className={css(styles.inputBox)}
+                      type="password"
+                      name="password"
+                      label="Password"
+                      placeholder="Password"
+                      value={this.state.password}
+                      onChange={this.onChange}
+                    />
+                    <br />
+                    <div className={css(styles.error)}>
+                      {this.state.errorMsg}
+                    </div>
+
+                    <Col xs={10} md={6}>
+                      <div align="Left" className={css(styles.forgotpassword)}>
+                        <a href="/ResetOption">Forgot Password?</a>
+                      </div>
+                    </Col>
+                    <Col xs={10} md={6}>
+                      <Button name="Log in" type="submit" />
+                    </Col>
+                  </FormGroup>
+                </form>
+                <br />
+                <br />
+                <br />
+                <div style={{ bottom: 0, textAlign: "center" }}>
+                  Do not have an account?
+                  <a href="/Register"> Sign up.</a>
+                </div>
+              </div>
             </Col>
-            <Col xs={7} md={6}>
+            <Col xs={6} md={5}>
               <div className={css(styles.img)}>
-                <img src={browser} width="85%" />
+                <img src={holdhand} width="105%" height="100%" />
               </div>
             </Col>
           </Row>

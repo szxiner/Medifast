@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
     width: "100%",
     fontWeight: "bold",
     color: themeColor.white,
-    backgroundColor: "#1890ff",
+    backgroundColor: "#3c6382",
     borderRadius: 5,
-    height: 36,
+    height: 44,
     ":hover": {
-      backgroundColor: "#40a9ff"
+      backgroundColor: "#3c6389"
     }
   }
 });
