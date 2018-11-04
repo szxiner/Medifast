@@ -1,30 +1,4 @@
 /* @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700,900"); */
-button {
-  -webkit-appearance: none;
-  appearance: none;
-  -webkit-filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.1));
-  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.1));
-  -webkit-transition: all 0.5s ease;
-  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.1));
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  border: none;
-  background: #ffd800;
-  border-radius: 30px;
-  text-transform: uppercase;
-  box-sizing: border-box;
-  padding: 15px 40px;
-  font-weight: 400;
-  font-size: 13px;
-  cursor: cursor;
-}
-
-button:hover {
-  color: #ffffff;
-  background: #222222;
-  -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
-  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
-}
 
 .wrapper {
   max-width: 1335px;

@@ -88,13 +88,13 @@ const styles = StyleSheet.create({
     height: 600,
     zIndex: -1,
     backgroundImage:
-      "linear-gradient(150deg, #53f 15%,  #05d5ff 70%, #a6ffcb 15%)"
+      "linear-gradient(150deg, #0a3d62 15%,  #60a3bc 70%, #82ccdd 15%)"
   },
   ourTeam: {
     marginTop: "4%",
     width: "100%",
     textAlign: "center",
-    color: "#0c2461",
+    color: "#fff",
     fontWeight: "bold",
     textDecoration: "underline",
     fontStyle: "italic"
@@ -262,6 +262,12 @@ export default class Landing extends React.Component {
         </div>
         <div className={css(styles.backgroundSec)}>
           <svg
+            style={{
+              position: "relative",
+              bottom: 0,
+              width: "100%",
+              height: "10vw"
+            }}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
@@ -277,6 +283,12 @@ export default class Landing extends React.Component {
         </div>
         <div style={{ marginTop: -100 }}>
           <svg
+            style={{
+              position: "relative",
+              bottom: 0,
+              width: "100%",
+              height: "10vw"
+            }}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
