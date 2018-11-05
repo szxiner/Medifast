@@ -54,9 +54,9 @@ const styles = StyleSheet.create({
     color: SecondaryThemeColor.red1
   },
   wellStyles: { maxWidth: 400, margin: "0 auto 10px" },
-  expanded: {
-    height: 150
-  },
+  // expanded: {
+  //   height: 150
+  // },
   unexpanded: {
     height: 0,
     overflow: "hidden"
@@ -155,11 +155,7 @@ class pwdchange extends React.Component {
     return (
       <div>
         <div className={css(styles.box)}>
-          <div
-            className={
-              this.state.show ? css(styles.expanded) : css(styles.unexpanded)
-            }
-          >
+          <div className={this.state.show ? "" : css(styles.unexpanded)}>
             <div align="Center">
               <h2>Password Change</h2>
             </div>
@@ -192,11 +188,7 @@ class pwdchange extends React.Component {
             </form>
           </div>
         </div>
-        <div
-          className={
-            this.state.showmsg ? css(styles.expanded) : css(styles.unexpanded)
-          }
-        >
+        <div className={this.state.showmsg ? "" : css(styles.unexpanded)}>
           <div align="center">
             <p1>Pasword changed Successfully</p1>
             <form onSubmit={this.onclick}>

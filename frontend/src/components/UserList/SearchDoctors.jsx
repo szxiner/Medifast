@@ -229,23 +229,6 @@ export default class SearchDoctors extends React.Component {
                     </Button>
                   </InputGroup.Button>
                 </InputGroup>
-                <div
-                  className={
-                    this.state.showIcon
-                      ? css(styles.showIcon)
-                      : css(styles.noIcon)
-                  }
-                  align="center"
-                >
-                  <br />
-                  <br />
-                  <br />
-                  <Icon
-                    type="search"
-                    theme="outlined"
-                    style={{ fontSize: 66, margin: 10 }}
-                  />
-                </div>
               </FormGroup>
             </form>
             {/* <form onSubmit={this.onSubmit2}>
