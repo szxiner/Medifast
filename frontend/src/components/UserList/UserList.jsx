@@ -5,8 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import { themeColor } from "../../theme/colors";
-import PatientModal from "./PatientModal";
-import DoctorModal from "./DoctorModal";
+import { Icon } from "antd";
 import UserCard from "./UserCard";
 
 const styles = StyleSheet.create({
@@ -15,6 +14,17 @@ const styles = StyleSheet.create({
     margin: 24
     // padding: 24
     // background: themeColor.white
+  },
+  error: {
+    width: "85%",
+    backgroundColor: themeColor.white,
+    borderRadius: 8,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingTop: 120,
+    paddingBottom: 120,
+    fontSize: 28,
+    margin: "5%"
   },
   userList: {
     background: themeColor.snow0,
@@ -131,10 +141,23 @@ class UserList extends React.Component {
     }
     return (
       <div className={css(styles.innerComponent)}>
-        <h3>Available {viewType}</h3>
-        {_.map(this.state.userList, user => {
-          return <UserCard type={viewType} currentUser={user} />;
-        })}
+        {this.state.userList.length === 0 ? (
+          <div>
+            <div className={css(styles.error)}>
+              <Icon type="book" theme="outlined" />
+              <span style={{ marginLeft: 15 }}>
+                No available appointment found.
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <h3>Available {viewType}s</h3>
+            {_.map(this.state.userList, user => {
+              return <UserCard type={viewType} currentUser={user} />;
+            })}
+          </div>
+        )}
       </div>
     );
   }

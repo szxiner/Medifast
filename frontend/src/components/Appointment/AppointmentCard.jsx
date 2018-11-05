@@ -4,18 +4,29 @@ import axios from "axios";
 import moment from "moment";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Icon } from "antd";
+import { Icon, Button } from "antd";
 import { Grid, Row, Col } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
 import { List } from "react-content-loader";
 
 import DoctorModal from "../UserList/DoctorModal";
 import PatientModal from "../UserList/PatientModal";
+import calendar from "../../images/calendar.svg";
 
+const weekdays = [
+  "null",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
+];
 const styles = StyleSheet.create({
   container: {
-    width: "88%",
-    backgroundImage: "linear-gradient(right, white 75%, #E9EBEC 25%)",
+    width: "92%",
+    backgroundImage: "linear-gradient(right, white 80%, #E9EBEC 20%)",
     borderRadius: 8,
     border: "1px solid",
     borderColor: "#E9EBEC",
@@ -30,6 +41,8 @@ const styles = StyleSheet.create({
     borderColor: "#1890ff"
   },
   modal: {
+    position: "relative",
+    textAlign: "right",
     right: 0,
     top: 0
   },
@@ -93,28 +106,36 @@ class AppointmentCard extends React.Component {
       <div className={css(styles.container)}>
         <Grid style={{ width: "100%" }}>
           <Row>
-            <Col xs={4} md={3}>
-              <Icon
-                type="schedule"
-                theme="outlined"
-                style={{ fontSize: 100, marginTop: 24, marginLeft: 22 }}
-              />
+            <Col xs={3} md={2}>
+              <div style={{ marginTop: "2%" }}>
+                <img src={calendar} width="100%" />
+              </div>
             </Col>
-            <Col xs={14} md={9}>
+            <Col xs={15} md={10}>
               {!doctor && !patient ? (
-                <List height={80} />
+                <div style={{ marginLeft: 24 }}>
+                  <List height={80} />
+                </div>
               ) : (
                 <div>
                   {!!doctor ? (
                     <div className={css(styles.info)}>
                       <div className={css(styles.name)}>
-                        Doctor {doctor.Last_Name}
+                        Doctor {doctor.First_name} {doctor.Last_Name}
                       </div>
                       <div>
                         <div className={css(styles.info)}>
                           Hospital: {doctor.Hospital}{" "}
                           <div>
                             Time:
+                            {
+                              weekdays[
+                                moment
+                                  .utc(appointment.bdate, "YYYY-MM-DD")
+                                  .weekday()
+                              ]
+                            }{" "}
+                            •{" "}
                             {moment
                               .utc(appointment.bdate, "YYYY-MM-DD")
                               .format("MM-DD-YYYY")}{" "}
@@ -124,7 +145,7 @@ class AppointmentCard extends React.Component {
                                 appointment.btime[0].substring(0, 5),
                                 "HH:mm"
                               )
-                              .format("HH:mm")}
+                              .format("hh:mm a")}
                             -
                             {moment
                               .utc(
@@ -132,11 +153,13 @@ class AppointmentCard extends React.Component {
                                 "HH:mm"
                               )
                               .add(1, "hour")
-                              .format("HH:mm")}
+                              .format("hh:mm a")}
                           </div>
                           <div className={css(styles.modal)}>
                             <a onClick={() => this.handleOpenModal()}>
-                              • More •
+                              <Button type="primary" icon="car" size="large">
+                                Get Direction
+                              </Button>
                             </a>
                           </div>
                         </div>
@@ -164,15 +187,19 @@ class AppointmentCard extends React.Component {
                         •{" "}
                         {moment
                           .utc(appointment.btime[0].substring(0, 5), "HH:mm")
-                          .format("HH:mm")}
+                          .format("hh:mm a")}
                         -
                         {moment
                           .utc(appointment.btime[0].substring(0, 5), "HH:mm")
                           .add(1, "hour")
-                          .format("HH:mm")}
+                          .format("hh:mm a")}
                       </div>
                       <div className={css(styles.modal)}>
-                        <a onClick={() => this.handleOpenModal()}>• More •</a>
+                        <a onClick={() => this.handleOpenModal()}>
+                          <Button type="primary" icon="user" size="large">
+                            View Medical History
+                          </Button>
+                        </a>
                       </div>
                       <PatientModal
                         showModal={this.state.showModal}

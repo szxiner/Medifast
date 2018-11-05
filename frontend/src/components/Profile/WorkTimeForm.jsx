@@ -128,7 +128,7 @@ class WorkTimeForm extends React.Component {
             </div>
             <div className="select">
               <div className={css(styles.questions)}>
-                When is your working days?
+                What are your working days?
               </div>
               <Select
                 mode="multiple"
@@ -152,7 +152,7 @@ class WorkTimeForm extends React.Component {
               {showSecondStep ? (
                 <div>
                   <div className={css(styles.questions)}>
-                    When is your working time?
+                    What are your working time?
                   </div>
                   <Select
                     mode="multiple"

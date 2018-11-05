@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Doctor_profile,Doctor_appointments,Doctor_reviews,Booking
 from Patient_profile.models import Patient_profile
+from users.models import Account
+from users.serializers import AccountSerializer
 from .serializers import Doctor_profile_serializer,Doctor_appointment_serializer,Doctor_reviews_serializer,Bookings_serializer
 from Patient_profile.serializers import Patient_profile_serializer
 from rest_framework.response import Response
@@ -98,8 +100,8 @@ class Doctor_bookings_view(APIView):
             time = serializer.data['btime']
             date = serializer.data['bdate']
             message = 'Congratulations! Your appointment is confirmed for ' + str(date) + ' at ' + str(time[0])
-            profile = Account.objects.filter(username=request.data['docusername'])
-            D_serial = AccountSerializer(profile, many=True)
+            profile = Doctor_profile.objects.filter(username=request.data['docusername'])
+            D_serial = Doctor_profile_serializer(profile, many=True)
             patient = Account.objects.filter(username=request.data['patientusername'])
             P_serial = AccountSerializer(patient, many=True)
             # email_id = [D_serial.data[0]['email'],P_serial.data[0]['email']]

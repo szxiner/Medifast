@@ -4,9 +4,12 @@
     "\\frontend",
     "\\frontend\\src",
     "\\frontend\\src\\components",
+    "\\frontend\\src\\components\\Login",
     "\\Medifast",
+    "\\Medifast\\Doctor_profile",
+    "\\Medifast\\Patient_profile",
     "\\Medifast\\users"
   ],
-  "SelectedNode": "\\Medifast\\users\\views.py",
+  "SelectedNode": "\\Medifast\\Doctor_profile\\views.py",
   "PreviewInSolutionExplorer": false
 }

@@ -82,17 +82,15 @@ class UserCard extends React.Component {
                 {type === "Patient" ? (
                   <div>
                     <div>
-                      <span style={{ fontWeight: "bold" }}>Name : </span>
+                      <span style={{ fontWeight: "bold" }}>Name: </span>
                       {currentUser.First_name} {currentUser.Last_Name}
                     </div>
                     <div>
-                      <span style={{ fontWeight: "bold" }}>Gender : </span>
+                      <span style={{ fontWeight: "bold" }}>Gender: </span>
                       {currentUser.gender}
                     </div>
                     <div>
-                      <span style={{ fontWeight: "bold" }}>
-                        Date of Birth:{" "}
-                      </span>
+                      <span style={{ fontWeight: "bold" }}>Date of Birth:</span>
                       {currentUser.DOB}
                     </div>
                   </div>
@@ -106,7 +104,7 @@ class UserCard extends React.Component {
                     </div>
                     <div>
                       <span style={{ fontWeight: "bold" }}>
-                        Specialization :
+                        Specialization:
                       </span>
                       {currentUser.specialization}
                     </div>
