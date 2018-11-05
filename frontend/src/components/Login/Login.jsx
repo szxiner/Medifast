@@ -4,16 +4,14 @@ import axios from "axios";
 
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
+import { FormGroup, FormControl, Grid, Row, Col } from "react-bootstrap";
+
+import Button from "../../common/Button";
+import GoogleLoginButton from "./GoogleLoginButton";
+import holdhand from "./holdhand.png";
 
 import { storeUser } from "../../actions/authActions";
 import { themeColor } from "../../theme/colors";
-import { SecondaryThemeColor } from "../../theme/secondaryColor";
-import Button from "../../common/Button";
-import { FormGroup, FormControl, Grid, Row, Col } from "react-bootstrap";
-import GoogleLoginButton from "./GoogleLoginButton";
-import browser from "../../images/browser.svg";
-import coffee from "./coffee.png";
-import holdhand from "./holdhand.png";
 
 const styles = StyleSheet.create({
   box: {
@@ -29,9 +27,6 @@ const styles = StyleSheet.create({
     }
   },
   logo: {
-    textAlign: "center"
-  },
-  clickMe: {
     textAlign: "center"
   },
   error: {
@@ -108,12 +103,8 @@ export class Login extends React.Component {
   };
 
   render() {
-    console.log(this.props);
-    const { primaryColor } = this.state;
     return (
       <div className={css(styles.box)}>
-        {/* <h1 className={css(styles.logo)}>Medifast</h1>
-        <br /> */}
         <Grid style={{ width: "100%" }}>
           <Row bsStyle="visibleMdBlock" className="show-grid">
             <Col xs={12} md={7}>
