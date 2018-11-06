@@ -14,11 +14,11 @@ import DoctorProfileForm from "./DoctorProfileForm";
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
-    margin: "4%",
-    backgroundImage: "linear-gradient(top, white 97%, #1890ff 3%)",
-    borderRadius: 8,
-    padding: 36
+    width: "96%",
+    margin: "2%"
+    // backgroundImage: "linear-gradient(top, white 97%, #1890ff 3%)",
+    // borderRadius: 8,
+    // padding: 36
   },
   forms: {
     padding: 16
