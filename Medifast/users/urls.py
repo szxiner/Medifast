@@ -7,6 +7,7 @@ from rest_framework import routers
 
 
 urlpatterns = [
+    path('social/<backend>/', views.oauth2),
     path('<username>/<password>/', views.AccountDetail.as_view()),
     path('<username>/', views.AccountDetail.as_view()),
     path('', views.AccountList.as_view()),
@@ -17,7 +18,7 @@ urlpatterns = [
     path('token/voice/', views.token_voice, name='token-voice'),
     path('token/onetouch/', views.token_onetouch, name='token-onetouch'),
     path('onetouch-status/', views.onetouch_status, name='onetouch-status'),
-    path('forgot_password', views.forgot_password.as_view()),
+	path('forgot_password', views.forgot_password.as_view()),
 
     #For testing
 #    path('register/', views.register, name='register'),
