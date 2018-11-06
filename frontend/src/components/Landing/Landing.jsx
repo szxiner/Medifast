@@ -91,9 +91,10 @@ const styles = StyleSheet.create({
       "linear-gradient(150deg, #0a3d62 15%,  #60a3bc 70%, #82ccdd 15%)"
   },
   ourTeam: {
+    fontSize: 44,
     marginTop: "4%",
-    width: "100%",
     textAlign: "center",
+    maxWidth: "100%",
     color: "#fff",
     fontWeight: "bold",
     textDecoration: "underline",
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
 const parallaxData = [
   {
     start: 0,
-    duration: 100,
+    duration: 600,
     properties: [
       {
         startValue: 0,
@@ -112,7 +113,7 @@ const parallaxData = [
         property: "translateY"
       },
       {
-        startValue: 0.7,
+        startValue: 0.3,
         endValue: 1,
         property: "opacity"
       }
@@ -123,11 +124,11 @@ const parallaxData = [
 const titleParallax = [
   {
     start: 400,
-    duration: 500,
+    duration: 600,
     properties: [
       {
-        startValue: 1,
-        endValue: 3,
+        startValue: 0.3,
+        endValue: 1,
         property: "scale"
       },
       {
@@ -282,11 +283,13 @@ export default class Landing extends React.Component {
               <div className={css(styles.ourTeam)}> PLACEHOLDER</div>
               <div
                 style={{
+                  marginTop: "2%",
                   textAlign: "center",
                   color: "#fff",
                   fontWeight: "normal",
-                  fontSize: 6,
-                  fontStyle: "italic"
+                  fontSize: 24,
+                  fontStyle: "italic",
+                  maxWidth: "100%"
                 }}
               >
                 "Aenean eu leo quam. Pellentesque ornare sem lacinia quam
