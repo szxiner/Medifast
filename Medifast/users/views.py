@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Account
 from .serializers import AccountSerializer
-from .serializers import SocialSerializer
 from django.core import serializers
 from rest_framework import viewsets
 from rest_framework.views import APIView
@@ -21,11 +20,6 @@ from django.shortcuts import render, redirect
 from .forms import TokenVerificationForm
 from .decorators import twofa_required
 from rest_framework.test import APIRequestFactory
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny
-from social_django.utils import psa
-from requests.exceptions import HTTPError
 from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password
 from Doctor_profile.email_info import *
@@ -37,40 +31,7 @@ import smtplib
 # /users
 authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
 authy_id = None
-the_Username = None
-
-@api_view(http_method_names=['POST'])
-#@permission_classes([AllowAny])
-#@psa()
-def oauth2(request, backend):
-    pass
-    
-    #Get Google info
-    profile = request.data['profileObj']
-    email = profile['email']
-    name = profile['givenName']
-    googleId = profile['googleId']
-    user = str(name)+str(googleId)
-    serializer = AccountSerializer(data={"username":user, "email":email})
-
-    a = Account.objects.filter(username=user)
-
-    #Check to see if new or returning user
-    if serializer.is_valid() & len(a)==0:
-        pass
-        ##Save user
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    elif serializer.is_valid() & len(a) != 0:
-        pass
-        theuser = a.first()
-        global authy_id
-        global the_Username
-        the_Username = user
-        authy_id = theuser.authy_id
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    return Response(False, status=status.HTTP_400_BAD_REQUEST)
+username = None
 
 # API to authorize user when logging in
 class AuthAccount(APIView):
@@ -79,11 +40,9 @@ class AuthAccount(APIView):
             users = Account.objects.filter(username=request.data['username'])
             user = users.first()
             global authy_id
-            global the_Username
-            the_Username = request.data['username']
+            global username
+            username = request.data['username']
             authy_id = user.authy_id
-            print(the_Username)
-            print(authy_id)
             return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
@@ -104,50 +63,48 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     lookup_field = 'username'
-
+    
     def post(self, request, username, format=None):
+        print(request.data,"checking")
+        print(Account.objects.filter(username=username),"users")
 
         users = Account.objects.filter(username=username)
         print(Account.objects.filter(username=username),"users")
-  
         if len(users) != 0:
-            print("Ok")
             user = users.first()
             serializer = AccountSerializer(user, data=request.data, partial=True)
-            print(serializer)
             if serializer.is_valid():
-                print("valid")
-                try:
-                    serializer.validated_data['phone_number']
-                    print("Gooogle")
-                    authy_user = authy_api.users.create(
-                    serializer.validated_data['email'],
-                    serializer.validated_data['phone_number'],
-                    #serializer.validated_data['country_code'],
-                    '+1'
-                    )
-                    if authy_user.ok():
-                        print(authy_user.id)
-                        #Update the user's authy id
-                        serializer.save(authy_id=authy_user.id)
-                        print(serializer.validated_data['authy_id'])
-                        #Create User in our db
-                        serialized_data = serializer.validated_data
-                        serialized_data['authy_id'] = authy_user.id
-                        print(serializer.validated_data['authy_id'])
-                        serializer.save()
-                        global authy_id
-                        global the_Username
-                        the_Username = serializer.validated_data['username']
-                        authy_id = authy_user.id
-                        return Response(True, status=status.HTTP_200_OK)
-                except:
-                    print("Not goog")
-                    serializer.save()
-                    return Response(True, status=status.HTTP_200_OK)
+                serializer.save()
+                return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
+    # def get_object(self, pk):
+    #     return Account.objects.get(pk=pk)
 
+    # def patch(self, request, pk):
+    #     testmodel = self.get_object(pk)
+    #     serializer = AccountSerializer(testmodel, data=request.data, partial=True) # set partial=True to update a data partially
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return JsonReponse(code=201, data=serializer.data)
+    #     return JsonResponse(code=400, data="wrong parameters")
+
+
+'''
+    def put(self, request, format=None):
+        users = Account.objects.filter(username=request.data['username'])
+        if len(users) != 0:
+            user = users.first()
+            serializer = AccountSerializer(user, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(True, status=status.HTTP_200_OK)
+        return Response(False, status=status.HTTP_400_BAD_REQUEST)
+'''
+
+
+
+#class AccountUpdate():
 
 
 # API to register new user to the database
@@ -165,10 +122,8 @@ class AccountList(APIView):
 
         serializer = AccountSerializer(data=request.data)
         a = Account.objects.filter(username=request.data['username'])
-        
         if serializer.is_valid() & len(a)==0:
-            #print(serializer.data)
-            print(serializer.validated_data['email'])
+
             #Create authy user
             authy_user = authy_api.users.create(
                 serializer.validated_data['email'],
@@ -179,13 +134,12 @@ class AccountList(APIView):
             #If the user is okay, we redirect to duo auth
             if authy_user.ok():
                 #Update the user's authy id
-                #serializer.save(authy_id=authy_user.id)
-                serializer.validated_data['authy_id'] = authy_user.id
+                serializer.save(authy_id=authy_user.id)
                 #Create User in our db
                 serializer.save()
                 global authy_id
-                global the_Username
-                the_Username = serializer.validated_data['username']
+                global username
+                username = serializer.validated_data['username']
                 authy_id = authy_user.id
                 return Response(False, status=status.HTTP_201_CREATED)
                 # return redirect('2fa')
@@ -196,17 +150,15 @@ class twofa(APIView):
     def post(self, request, format=None):
         pass
         global authy_id
-        global the_Username
+        global username
         verification = authy_api.tokens.verify(authy_id, request.data["token"])
-        try: 
-            verification.ok()
+        if verification.ok():
             request.session['authy'] = True
             #Return true for Frontend to take over
             authy_id = None
-            the_Username = None
+            username = None
             return Response(True, status=status.HTTP_200_OK)
-        except Exception as e:
-            print(e)
+        else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -285,7 +237,7 @@ def onetouch_status(request,):
         )
     else:
         return HttpResponse(approval_status.errros(), status=503)
-		
+
 class forgot_password(APIView):
     def post(self, request):
         profile = Account.objects.get(username=request.GET['username'])

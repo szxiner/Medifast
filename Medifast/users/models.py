@@ -14,7 +14,6 @@ class Account(models.Model):
     securityQ = models.CharField(max_length=5000, default='What is your username?1')
     securityQ2 = models.CharField(max_length=5000, default='What is your username?1')
     securityAns = models.CharField(max_length=5000, default='DEFAULT VALUE1')
-    securityQ2 = models.CharField(max_length=5000, default='What is your username?1')
     securityAns2 = models.CharField(max_length=5000, default='DEFAULT VALUE1')
     #country_code = models.IntegerField(default='+1')
 
