@@ -274,9 +274,24 @@ export default class Landing extends React.Component {
           >
             <polygon fill="#f4f5f5" points="0,0 100,0 100,100" />
           </svg>
-          <div className={css(styles.ourTeam)}>
+          <div>
+            <br />
+            <br />
+            <br />
             <Plx className="TitleParallax" parallaxData={titleParallax}>
-              PLACEHOLDER
+              <div className={css(styles.ourTeam)}> PLACEHOLDER</div>
+              <div
+                style={{
+                  textAlign: "center",
+                  color: "#fff",
+                  fontWeight: "normal",
+                  fontSize: 6,
+                  fontStyle: "italic"
+                }}
+              >
+                "Aenean eu leo quam. Pellentesque ornare sem lacinia quam
+                venenatis vestibulum."
+              </div>
             </Plx>
             {/* Our Team */}
           </div>
