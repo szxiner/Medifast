@@ -4,7 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Icon, Button } from "antd";
+import { Button } from "antd";
 import { Grid, Row, Col } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
 import { List } from "react-content-loader";
@@ -33,6 +33,14 @@ const styles = StyleSheet.create({
     margin: "2%",
     padding: "2%"
   },
+  containerSmall: {
+    width: "100%",
+    height: "60%",
+    borderRadius: 8,
+    border: "1px solid",
+    borderColor: "#E9EBEC",
+    padding: "2%"
+  },
   name: {
     fontSize: 28,
     paddingRight: 12,
@@ -40,16 +48,30 @@ const styles = StyleSheet.create({
     borderBottom: "1px solid",
     borderColor: "#1890ff"
   },
+  nameSmall: {
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingBottom: 4,
+    borderBottom: "1px solid",
+    borderColor: "#1890ff"
+  },
   modal: {
-    position: "relative",
+    position: "absolute",
     textAlign: "right",
     right: 0,
-    top: 0
+    bottom: 0,
+    padding: 4
   },
   info: {
     marginLeft: 24,
     paddingTop: 4,
     fontSize: 18,
+    lineHeight: "2em"
+  },
+  infoSmall: {
+    marginLeft: 12,
+    paddingTop: 4,
+    fontSize: 16,
     lineHeight: "2em"
   }
 });
@@ -100,18 +122,25 @@ class AppointmentCard extends React.Component {
   render() {
     const { appointment } = this.props;
     const { doctor, patient } = this.state;
-    const { auth } = this.props;
+    const { auth, size } = this.props;
     const { type } = auth.user;
     return (
-      <div className={css(styles.container)}>
+      <div
+        className={!size ? css(styles.container) : css(styles.containerSmall)}
+      >
         <Grid style={{ width: "100%" }}>
           <Row>
-            <Col xs={3} md={2}>
-              <div style={{ marginTop: "2%" }}>
-                <img src={calendar} width="100%" />
-              </div>
+            <Col xs={!size ? 3 : 0} md={!size ? 2 : 0}>
+              {!size ? (
+                <div style={{ marginTop: "6%" }}>
+                  <img src={calendar} width="100%" />
+                </div>
+              ) : (
+                <div />
+              )}
             </Col>
-            <Col xs={15} md={10}>
+
+            <Col xs={!size ? 15 : 18} md={!size ? 10 : 12}>
               {!doctor && !patient ? (
                 <div style={{ marginLeft: 24 }}>
                   <List height={80} />
@@ -119,15 +148,27 @@ class AppointmentCard extends React.Component {
               ) : (
                 <div>
                   {!!doctor ? (
-                    <div className={css(styles.info)}>
-                      <div className={css(styles.name)}>
+                    <div
+                      className={
+                        !size ? css(styles.info) : css(styles.infoSmall)
+                      }
+                    >
+                      <div
+                        className={
+                          !size ? css(styles.name) : css(styles.nameSmall)
+                        }
+                      >
                         Doctor {doctor.First_name} {doctor.Last_Name}
                       </div>
                       <div>
-                        <div className={css(styles.info)}>
+                        <div
+                          className={
+                            !size ? css(styles.info) : css(styles.infoSmall)
+                          }
+                        >
                           Hospital: {doctor.Hospital}{" "}
                           <div>
-                            Time:
+                            Date:{" "}
                             {
                               weekdays[
                                 moment
@@ -139,14 +180,16 @@ class AppointmentCard extends React.Component {
                             {moment
                               .utc(appointment.bdate, "YYYY-MM-DD")
                               .format("MM-DD-YYYY")}{" "}
-                            •{" "}
+                          </div>
+                          <div>
+                            Time:{" "}
                             {moment
                               .utc(
                                 appointment.btime[0].substring(0, 5),
                                 "HH:mm"
                               )
-                              .format("hh:mm a")}
-                            -
+                              .format("hh:mm a")}{" "}
+                            -{" "}
                             {moment
                               .utc(
                                 appointment.btime[0].substring(0, 5),
@@ -157,9 +200,17 @@ class AppointmentCard extends React.Component {
                           </div>
                           <div className={css(styles.modal)}>
                             <a onClick={() => this.handleOpenModal()}>
-                              <Button type="primary" icon="car" size="large">
-                                Get Direction
-                              </Button>
+                              {!size ? (
+                                <Button type="primary" icon="car" size="large">
+                                  Get Direction
+                                </Button>
+                              ) : (
+                                <Button
+                                  type="primary"
+                                  icon="car"
+                                  shape="circle"
+                                />
+                              )}
                             </a>
                           </div>
                         </div>

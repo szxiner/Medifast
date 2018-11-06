@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     height: "100%"
   },
   register: {
-    width: "100%",
     paddingTop: "15%",
     paddingLeft: "15%",
     paddingRight: "15%"
@@ -154,22 +153,18 @@ export class Register extends React.Component {
     const { stageOne } = this.state;
     return (
       <div className={css(styles.box)}>
-        <Grid style={{ width: "100$" }}>
-          <Row
-            bsStyle="visibleMdBlock"
-            className="show-grid"
-            style={{ width: "100%" }}
-          >
+        <Grid style={{ width: "100%" }}>
+          <Row bsStyle="visibleMdBlock" className="show-grid">
             <Col xs={6} md={5} style={{ padding: 0 }}>
               <div className={css(styles.img)}>
                 <img src={coffee} width="100%" height="100%" />
               </div>
             </Col>
-            <Col xs={12} md={7} style={{ padding: 0 }}>
+            <Col xs={12} md={7}>
               <div className={css(styles.register)}>
                 <h1 style={{ fontSize: 60, textAlign: "center" }}>Medifast</h1>
                 <br />
-                <div className={css(styles.form)}>
+                <div>
                   {stageOne ? (
                     <div>
                       <form onSubmit={this.nextPage}>
