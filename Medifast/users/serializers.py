@@ -45,4 +45,3 @@ class SocialSerializer(serializers.Serializer):
         trim_whitespace=True,
     )
 
-

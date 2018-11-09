@@ -98,8 +98,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework.authtoken',
-    'social_django',
     'phone_verification',
+    'channels',
+    'chat'
 ]
 
 MIDDLEWARE = [
@@ -233,3 +234,17 @@ django_heroku.settings(locals())
 
 import dj_database_url
 #DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+# Channel layer definitions
+# http://channels.readthedocs.org/en/latest/deploying.html#setting-up-a-channel-backend
+ 
+ASGI_APPLICATION = "chat.routing.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": ['redis://localhost:6379/4']
+        }
+    },
+}
