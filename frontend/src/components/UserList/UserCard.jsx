@@ -143,6 +143,7 @@ class UserCard extends React.Component {
                 <div>
                   <div className={css(styles.modal)}>
                     <Button
+                      type="primary"
                       shape="circle"
                       icon="plus"
                       onClick={() => this.handleOpenModal()}
