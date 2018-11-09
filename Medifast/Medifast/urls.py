@@ -31,6 +31,8 @@ urlpatterns = [
     path('users-api/', include('users.urls')),
     path('patient/',include('Patient_profile.urls')),
     path('doctor/',include('Doctor_profile.urls')),
+    path('chat/',include('chat.urls')),
+
 
 
     path('phone/', include('phone_verification.urls'))
