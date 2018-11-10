@@ -1,8 +1,15 @@
 import React from "react";
+import axios from "axios";
+import _ from "lodash";
+
+import { List, Avatar, Input, Button, Drawer } from "antd";
 import { StyleSheet, css } from "aphrodite";
-import { Button, Drawer } from "antd";
-import DashboardSideBar from "./DashboardSideBar";
+import { connect } from "react-redux";
+
 import Chat from "../Chat/Chat";
+import DashboardSideBar from "./DashboardSideBar";
+
+const Search = Input.Search;
 
 const styles = StyleSheet.create({
   chat: {
@@ -11,15 +18,53 @@ const styles = StyleSheet.create({
     bottom: 40
   }
 });
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      drawer: false
+      userList: [],
+      searchedList: [],
+      drawer: false,
+      childrenDrawer: false,
+      activeChat: null
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { auth } = this.props;
+    const { username, type } = auth.user;
+    if (type === "Doctor") {
+      axios
+        .get(`http://127.0.0.1:8000/doctor/bookings?docusername=${username}`)
+        .then(res => {
+          if (res.status === 200) {
+            console.log(res.data);
+            this.setState({ userList: res.data, searchedList: res.data });
+          }
+        });
+    } else if (type === "Patient") {
+      axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
+        if (res.status === 200) {
+          this.setState({ userList: res.data, searchedList: res.data });
+        }
+      });
+    } else {
+      axios.get(`http://127.0.0.1:8000/patient/profile`).then(res => {
+        if (res.status === 200) {
+          console.log(res.data);
+          this.setState({ userList: res.data, searchedList: res.data });
+        }
+      });
+    }
+  }
+
+  onSearch = value => {
+    if (value === "") {
+      this.setState({ searchedList: this.state.userList });
+    }
+    const filteredList = _.filter(this.state.userList, { Last_Name: value });
+    this.setState({ searchedList: filteredList });
+  };
 
   showDrawer = () => {
     this.setState({
@@ -33,7 +78,37 @@ export default class Dashboard extends React.Component {
     });
   };
 
+  showChildrenDrawer = item => {
+    this.setState(
+      {
+        activeChat: item
+      },
+      () => {
+        this.setState({
+          childrenDrawer: true
+        });
+      }
+    );
+    console.log(this.state.activeChat);
+  };
+
+  onChildrenDrawerClose = () => {
+    this.setState({
+      childrenDrawer: false
+    });
+  };
+
   render() {
+    const { auth } = this.props;
+    const { username, type } = auth.user;
+    const {
+      drawer,
+      childrenDrawer,
+      userList,
+      activeChat,
+      searchedList
+    } = this.state;
+    console.log("userList", userList);
     return (
       <div>
         <DashboardSideBar />
@@ -48,18 +123,81 @@ export default class Dashboard extends React.Component {
           </Button>
         </div>
         <Drawer
-          title="Messages"
-          placement="right"
-          width={440}
+          title="Chats"
+          width={520}
           closable={false}
           onClose={this.onClose}
-          visible={this.state.drawer}
+          visible={drawer}
         >
-          <div style={{ width: "100%", height: "100%" }}>
-            <Chat />
+          <Search
+            placeholder="Search"
+            onSearch={value => this.onSearch(value)}
+            enterButton
+          />
+          <br />
+          <br />
+          <List
+            itemLayout="horizontal"
+            dataSource={searchedList}
+            renderItem={item => (
+              <List.Item onClick={() => this.showChildrenDrawer(item)}>
+                <List.Item.Meta
+                  avatar={<Avatar size={48} icon="user" />}
+                  title={`${item.First_name} ${item.Last_Name}`}
+                />
+              </List.Item>
+            )}
+          />
+          <Drawer
+            title="Messages"
+            placement="right"
+            width={440}
+            closable={false}
+            onClose={this.onChildrenDrawerClose}
+            visible={childrenDrawer}
+          >
+            <div style={{ width: "100%", height: "100%" }}>
+              <Chat
+                sender={username}
+                receiver={!!activeChat ? activeChat.username : ""}
+              />
+            </div>
+          </Drawer>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              width: "100%",
+              borderTop: "1px solid #e8e8e8",
+              padding: "10px 16px",
+              textAlign: "right",
+              left: 0,
+              background: "#fff",
+              borderRadius: "0 0 4px 4px"
+            }}
+          >
+            <Button
+              style={{
+                marginRight: 8
+              }}
+              onClick={() => {
+                this.setState({ searchedList: userList });
+              }}
+            >
+              Show All
+            </Button>
           </div>
         </Drawer>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Dashboard);

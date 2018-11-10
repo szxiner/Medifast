@@ -44,7 +44,6 @@ class Message extends React.Component {
     const { message, auth } = this.props;
     const { username } = auth.user;
     const self = username === message.author ? true : false;
-    console.log("hey lol", message);
     return (
       <div style={{ width: "100%", height: 60 }}>
         <div style={self ? { textAlign: "right" } : { textAlign: "left" }}>
