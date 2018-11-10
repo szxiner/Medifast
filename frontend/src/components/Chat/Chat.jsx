@@ -94,8 +94,10 @@ class Chat extends React.Component {
     const { messages, sendMessage } = this.state;
     console.log("messages", messages);
     console.log("sendMessage", sendMessage);
+    console.log(this.props);
     return (
       <div>
+        {this.props.sender} chating with {this.props.receiver}
         <div className={css(styles.chatMain)}>
           <MessageList messages={messages} />
         </div>
