@@ -31,5 +31,5 @@ class Message(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     def last_50_messages():
-        return Message.objects.order_by('-created_at').all()[:50]
+        return Message.objects.order_by('-created_at').all()[:10]
 
