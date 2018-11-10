@@ -41,6 +41,7 @@ class Chat extends React.Component {
     this.waitForSocketConnection(() => {
       const username = !!this.props.auth ? this.props.auth.user.username : "";
       WebSocketInstance.initChatUser(username);
+      console.log("ho");
       WebSocketInstance.addCallbacks(
         this.setMessages.bind(this),
         this.addMessage.bind(this)
@@ -91,9 +92,10 @@ class Chat extends React.Component {
 
   render() {
     const { messages, sendMessage } = this.state;
+    console.log("messages", messages);
+    console.log("sendMessage", sendMessage);
     return (
       <div>
-        <div className={css(styles.chatHeader)}>In chat</div>
         <div className={css(styles.chatMain)}>
           <MessageList messages={messages} />
         </div>
