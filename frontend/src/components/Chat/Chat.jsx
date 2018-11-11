@@ -49,7 +49,7 @@ class Chat extends React.Component {
         this.setMessages.bind(this),
         this.addMessage.bind(this)
       );
-      WebSocketInstance.fetchMessages(username);
+      WebSocketInstance.fetchMessages(this.props.sender,this.props.receiver);
     });
   }
 

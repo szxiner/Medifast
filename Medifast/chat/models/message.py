@@ -29,7 +29,8 @@ class Message(models.Model):
     )
     content = models.TextField(validators=[validate_message_content])
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    room_name = models.TextField(max_length=100, blank=False, default='chat_room')    
 
-    def last_50_messages():
-        return Message.objects.order_by('-created_at').all()[:10]
+    def last_50_messages(roomname):
+        return Message.objects.order_by('-created_at').filter(room_name=roomname)[:10]
 

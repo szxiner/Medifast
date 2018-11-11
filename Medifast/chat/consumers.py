@@ -21,7 +21,14 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def fetch_messages(self, data):
-        messages = Message.last_50_messages()
+        sender = data['sender']
+        receiver = data['receiver']
+        if sender >= receiver:
+            room_name = 'room_' + sender + '_' + receiver
+        else:
+            room_name = 'room_' + receiver + '_' + sender
+
+        messages = Message.last_50_messages(room_name)
         content = {
             'command': 'messages',
             'messages': self.messages_to_json(messages)
