@@ -53,13 +53,12 @@ class ChatConsumer(WebsocketConsumer):
             'created_at': str(message.created_at)
         }
 
-    commands = {
-        'init_chat': init_chat,
-        'fetch_messages': fetch_messages,
-        'new_message': new_message
-    }
-
     def connect(self):
+        sender = self.scope['url_route']['kwargs']['sender']
+        receiver = self.scope['url_route']['kwargs']['receiver']
+        print("sender: " + sender)
+        print("receiver: " + receiver)
+
         self.room_name = 'room'
         self.room_group_name = 'chat_%s' % self.room_name
 
@@ -69,6 +68,14 @@ class ChatConsumer(WebsocketConsumer):
             self.channel_name
         )
         self.accept()
+
+    commands = {
+        'init_chat': init_chat,
+        'fetch_messages': fetch_messages,
+        'new_message': new_message,
+        'connect': connect
+    }
+
 
     def disconnect(self, close_code):
         # leave group room
