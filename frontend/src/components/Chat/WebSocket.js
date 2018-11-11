@@ -95,7 +95,7 @@ class WebSocketService {
         console.log("wait for connection...");
         recursion(callback);
       }
-    }, 1); // wait 5 milisecond for the connection...
+    }, 1000); // wait 5 milisecond for the connection...
   }
 }
 
