@@ -149,7 +149,7 @@ class Dashboard extends React.Component {
             )}
           />
           <Drawer
-            title="Messages"
+            title={`${!!activeChat ? activeChat.Last_Name : ""} (Online)`}
             placement="right"
             width={440}
             closable={false}
