@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
+import moment from "moment";
 
 import { List, Avatar, Input, Button, Drawer } from "antd";
 import { StyleSheet, css } from "aphrodite";
@@ -26,7 +27,8 @@ class Dashboard extends React.Component {
       searchedList: [],
       drawer: false,
       childrenDrawer: false,
-      activeChat: null
+      activeChat: null,
+      onlineStatus: false
     };
   }
 
@@ -79,6 +81,17 @@ class Dashboard extends React.Component {
   };
 
   showChildrenDrawer = item => {
+    axios
+      .get(`http://127.0.0.1:8000/users-api/${item.username}`)
+      .then(res => {
+        const onlineStatus = moment(res.data.lastLogin).isAfter(
+          moment().subtract(30, "m")
+        );
+        console.log("onlineStatus", onlineStatus);
+        this.setState({ onlineStatus: onlineStatus });
+      })
+      .catch(e => console.log("Error", e));
+
     this.setState(
       {
         activeChat: item
@@ -106,7 +119,8 @@ class Dashboard extends React.Component {
       childrenDrawer,
       userList,
       activeChat,
-      searchedList
+      searchedList,
+      onlineStatus
     } = this.state;
     console.log("userList", userList);
     return (
@@ -149,7 +163,9 @@ class Dashboard extends React.Component {
             )}
           />
           <Drawer
-            title={`${!!activeChat ? activeChat.Last_Name : ""} (Online)`}
+            title={`${!!activeChat ? activeChat.Last_Name : ""} (${
+              onlineStatus ? "Online" : "Offline"
+            })`}
             placement="right"
             width={440}
             closable={false}

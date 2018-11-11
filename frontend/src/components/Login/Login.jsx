@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-
+import moment from "moment";
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 import { FormGroup, FormControl, Grid, Row, Col } from "react-bootstrap";
@@ -92,6 +92,10 @@ export class Login extends React.Component {
           errorMsg: "Username and password does not match. Please try again"
         });
       });
+
+    axios.post(`http://127.0.0.1:8000/users-api/${user.username}/`, {
+      lastLogin: moment().format("YYYY-MM-DD HH:mm:ss")
+    });
   };
 
   onChange = e => {
