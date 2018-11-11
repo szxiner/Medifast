@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Account
 from .serializers import AccountSerializer
-from .serializers import SocialSerializer
 from django.core import serializers
 from rest_framework import viewsets
 from rest_framework.views import APIView
@@ -82,8 +81,6 @@ class AuthAccount(APIView):
             global the_Username
             the_Username = request.data['username']
             authy_id = user.authy_id
-            print(the_Username)
-            print(authy_id)
             return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 

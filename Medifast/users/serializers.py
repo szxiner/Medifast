@@ -7,6 +7,7 @@ from authy.api import AuthyApiClient
 from django import forms
 from django.conf import settings
 from phonenumbers.phonenumberutil import NumberParseException
+from django.utils import timezone
 
 from .models import Account
 
@@ -36,12 +37,5 @@ class AccountSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class SocialSerializer(serializers.Serializer):
-    """
-    Serializer which accepts an OAuth2 access token.
-    """
-    access_token = serializers.CharField(
-        allow_blank=False,
-        trim_whitespace=True,
-    )
+    
 
