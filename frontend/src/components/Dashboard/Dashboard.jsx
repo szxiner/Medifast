@@ -26,7 +26,8 @@ class Dashboard extends React.Component {
       searchedList: [],
       drawer: false,
       childrenDrawer: false,
-      activeChat: null
+      activeChat: null,
+      online: false
     };
   }
 
@@ -79,6 +80,9 @@ class Dashboard extends React.Component {
   };
 
   showChildrenDrawer = item => {
+    axios
+      .get(`http://127.0.0.1:8000/users-api/?username=${item.username}`)
+      .then(res => console.log(res));
     this.setState(
       {
         activeChat: item
