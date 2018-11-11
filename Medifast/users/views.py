@@ -39,8 +39,6 @@ authy_id = None
 the_Username = None
 
 @api_view(http_method_names=['POST'])
-#@permission_classes([AllowAny])
-#@psa()
 def oauth2(request, backend):
     pass
     
@@ -108,15 +106,12 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
         print(Account.objects.filter(username=username),"users")
   
         if len(users) != 0:
-            print("Ok")
             user = users.first()
             serializer = AccountSerializer(user, data=request.data, partial=True)
             print(serializer)
             if serializer.is_valid():
-                print("valid")
                 try:
                     serializer.validated_data['phone_number']
-                    print("Gooogle")
                     authy_user = authy_api.users.create(
                     serializer.validated_data['email'],
                     serializer.validated_data['phone_number'],
@@ -124,7 +119,6 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
                     '+1'
                     )
                     if authy_user.ok():
-                        print(authy_user.id)
                         #Update the user's authy id
                         serializer.save(authy_id=authy_user.id)
                         print(serializer.validated_data['authy_id'])
