@@ -1,4 +1,4 @@
-const API_PATH = "ws://localhost:8000/ws/chat/a/b";
+// const API_PATH = "ws://localhost:8000/ws/chat/a/b";
 
 class WebSocketService {
   static instance = null;
