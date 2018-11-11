@@ -7,6 +7,19 @@ import { List } from "react-content-loader";
 import { Upload, message, Avatar, Button } from "antd";
 import { StyleSheet, css } from "aphrodite";
 import AppointmentCard from "../Appointment/AppointmentCard";
+import TextField from "@material-ui/core/TextField";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { withStyles } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import { FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
+import { themeColor } from "../../theme/colors";
 
 const styles = StyleSheet.create({
   patientInfo: {
@@ -79,6 +92,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: "3vw",
     textAlign: "center"
+  },
+  modal: {
+    backgroundColor: themeColor.white,
+    position: "relative",
+    border: "1px solid",
+    borderRadius: 3,
+    //borderColor: themeColor.grey0,
+    padding: 40,
+    marginTop: "10%",
+    marginLeft: "20%",
+    marginRight: "20%",
+    marginBottom: "10%",
+    width: "auto",
+    height: "auto"
   }
 });
 
@@ -107,9 +134,18 @@ class PatientProfile extends React.Component {
     this.state = {
       nextAppointment: undefined,
       loading: true,
-      imageUrl: undefined
+      imageUrl: undefined,
+      open: false
     };
   }
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   handleChange = info => {
     if (info.file.status === "done") {
@@ -143,6 +179,7 @@ class PatientProfile extends React.Component {
 
   render() {
     const { user } = this.props;
+    const { classes } = this.props;
     const { loading, imageUrl } = this.state;
     return (
       <div className={css(styles.flexBody)}>
@@ -223,6 +260,7 @@ class PatientProfile extends React.Component {
                 <br />
                 <Button
                   type="primary"
+                  onClick={this.handleClickOpen}
                   style={{
                     width: "80%",
                     height: 36,
@@ -232,8 +270,89 @@ class PatientProfile extends React.Component {
                     backgroundColor: "#1e3799"
                   }}
                 >
-                  Set Security Question
+                  Update Security Question
                 </Button>
+                <Modal show={this.state.open} onHide={this.handleClose}>
+                  <div className={css(styles.modal)}>
+                    <form>
+                      <div align="center">
+                        <ControlLabel>Security Question</ControlLabel>
+                      </div>
+                      <br />
+                      <FormControl
+                        componentClass="select"
+                        placeholder="select"
+                        onChange={this.onChange}
+                        name="securityQ"
+                      >
+                        <option>Select Securtiy Question 1</option>
+                        <option value="What's the name of your first teacher?">
+                          What's the name of your first teacher?
+                        </option>
+                        <option value="What is your dream job?">
+                          What is your dream job?
+                        </option>
+                        <option value="What is your favourite color?">
+                          What is your favourite color?
+                        </option>
+                      </FormControl>
+                      <br />
+                      <FormControl
+                        className={css(styles.inputBox)}
+                        type="text"
+                        name="securityAns"
+                        label="Security Answer"
+                        placeholder="Enter your answer here."
+                        value={this.state.securityAns}
+                        onChange={this.onChange}
+                      />
+                      <br />
+                      <FormControl
+                        componentClass="select"
+                        placeholder="select"
+                        onChange={this.onChange}
+                        name="securityQ2"
+                      >
+                        <option>Select Securtiy Question 2</option>
+                        <option value="What's the name of your first school?">
+                          What's the name of your first school?
+                        </option>
+                        <option value="What's the name of your first pet?">
+                          What's the name of your first pet?
+                        </option>
+                        <option value="What is your favourite food?">
+                          What is your favourite food?
+                        </option>
+                      </FormControl>
+                      <br />
+                      <FormControl
+                        className={css(styles.inputBox)}
+                        type="text"
+                        name="securityAns2"
+                        label="Security Answer"
+                        placeholder="Enter your answer here."
+                        value={this.state.securityAns2}
+                        onChange={this.onChange}
+                      />
+                      <div align="center">
+                        <Button
+                          type="primary"
+                          style={{
+                            width: "80%",
+                            marginTop: 24,
+                            height: 36,
+                            borderRadius: 20,
+                            borderColor: "#fff",
+                            fontWeight: "bold",
+                            backgroundColor: "#4a69bd"
+                          }}
+                        >
+                          Save
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                </Modal>
                 <br />
                 <Button
                   type="primary"
