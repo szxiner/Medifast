@@ -1,4 +1,4 @@
-const API_PATH = "ws://localhost:8000/ws/chat/a/b";
+// const API_PATH = "ws://localhost:8000/ws/chat/a/b";
 
 class WebSocketService {
   static instance = null;
@@ -52,15 +52,21 @@ class WebSocketService {
     this.sendMessage({ command: "init_chat", username: username });
   }
 
-  fetchMessages(username) {
-    this.sendMessage({ command: "fetch_messages", username: username });
+  fetchMessages(sender, receiver) {
+    this.sendMessage({
+      command: "fetch_messages",
+      username: { sender: sender, receiver: receiver }
+    });
   }
 
   newChatMessage(message) {
     this.sendMessage({
       command: "new_message",
-      from: message.from,
-      text: message.text
+      data: {
+        sender: message.sender,
+        receiver: message.receiver,
+        text: message.text
+      }
     });
   }
 

@@ -40,7 +40,7 @@ class Chat extends React.Component {
       this.props.sender,
       this.props.receiver
     );
-
+    this.setState({ message: [] });
     this.waitForSocketConnection(() => {
       const username = !!this.props.auth ? this.props.auth.user.username : "";
       WebSocketInstance.initChatUser(username);
@@ -49,7 +49,7 @@ class Chat extends React.Component {
         this.setMessages.bind(this),
         this.addMessage.bind(this)
       );
-      WebSocketInstance.fetchMessages(username);
+      WebSocketInstance.fetchMessages(this.props.sender, this.props.receiver);
     });
   }
 
@@ -79,7 +79,8 @@ class Chat extends React.Component {
     e.preventDefault();
     const username = !!this.props.auth ? this.props.auth.user.username : "";
     const messageObject = {
-      from: username,
+      sender: username,
+      receiver: this.props.receiver,
       text: this.state.sendMessage
     };
     WebSocketInstance.newChatMessage(messageObject);

@@ -21,7 +21,14 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def fetch_messages(self, data):
-        messages = Message.last_50_messages()
+        sender = data['username']['sender']
+        receiver = data['username']['receiver']
+        if sender >= receiver:
+            room_name = 'room_' + sender + '_' + receiver
+        else:
+            room_name = 'room_' + receiver + '_' + sender
+
+        messages = Message.last_50_messages(room_name)
         content = {
             'command': 'messages',
             'messages': self.messages_to_json(messages)
@@ -29,10 +36,18 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def new_message(self, data):
-        author = data['from']
-        text = data['text']
-        author_user, created = User.objects.get_or_create(username=author)
-        message = Message.objects.create(author=author_user, content=text)
+        print(data['data'])
+        text = data['data']['text']
+        sender = data['data']['sender']
+        receiver = data['data']['receiver']
+        author_user, created = User.objects.get_or_create(username=sender)
+
+        if sender >= receiver:
+            room_name = 'room_' + sender + '_' + receiver
+        else:
+            room_name = 'room_' + receiver + '_' + sender
+
+        message = Message.objects.create(author=author_user, content=text, room_name=room_name)
         content = {
             'command': 'new_message',
             'message': self.message_to_json(message)
@@ -59,7 +74,11 @@ class ChatConsumer(WebsocketConsumer):
         print("sender: " + sender)
         print("receiver: " + receiver)
 
-        self.room_name = 'room'
+        if sender >= receiver:
+            self.room_name = 'room_' + sender + '_' + receiver
+        else:
+            self.room_name = 'room_' + receiver + '_' + sender
+
         self.room_group_name = 'chat_%s' % self.room_name
 
         # Join room group
