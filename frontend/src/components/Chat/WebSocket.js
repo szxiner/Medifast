@@ -52,18 +52,21 @@ class WebSocketService {
     this.sendMessage({ command: "init_chat", username: username });
   }
 
-  fetchMessages(sender,receiver) {
-    this.sendMessage({ 
-      command: "fetch_messages", 
-      username: {sender: sender, receiver: receiver} });
+  fetchMessages(sender, receiver) {
+    this.sendMessage({
+      command: "fetch_messages",
+      username: { sender: sender, receiver: receiver }
+    });
   }
 
   newChatMessage(message) {
     this.sendMessage({
       command: "new_message",
-      sender: message.sender,
-      receiver:message.receiver,
-      text: message.text
+      data: {
+        sender: message.sender,
+        receiver: message.receiver,
+        text: message.text
+      }
     });
   }
 
