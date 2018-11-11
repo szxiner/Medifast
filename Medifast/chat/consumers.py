@@ -39,7 +39,15 @@ class ChatConsumer(WebsocketConsumer):
         author = data['from']
         text = data['text']
         author_user, created = User.objects.get_or_create(username=author)
-        message = Message.objects.create(author=author_user, content=text)
+
+        sender = data['sender']
+        receiver = data['receiver']
+        if sender >= receiver:
+            room_name = 'room_' + sender + '_' + receiver
+        else:
+            room_name = 'room_' + receiver + '_' + sender
+
+        message = Message.objects.create(author=author_user, content=text, room_name=room_name)
         content = {
             'command': 'new_message',
             'message': self.message_to_json(message)

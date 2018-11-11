@@ -61,7 +61,8 @@ class WebSocketService {
   newChatMessage(message) {
     this.sendMessage({
       command: "new_message",
-      from: message.from,
+      sender: message.sender,
+      receiver:message.receiver,
       text: message.text
     });
   }

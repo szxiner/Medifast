@@ -79,7 +79,8 @@ class Chat extends React.Component {
     e.preventDefault();
     const username = !!this.props.auth ? this.props.auth.user.username : "";
     const messageObject = {
-      from: username,
+      sender: username,
+      receiver: this.props.receiver,
       text: this.state.sendMessage
     };
     WebSocketInstance.newChatMessage(messageObject);
