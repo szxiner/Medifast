@@ -24,7 +24,7 @@ from rest_framework.test import APIRequestFactory
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
-from social_django.utils import psa
+#from social_django.utils import psa
 from requests.exceptions import HTTPError
 from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password
