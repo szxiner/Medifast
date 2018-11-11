@@ -9,8 +9,6 @@ import MessageList from "./MessageList";
 
 const { TextArea } = Input;
 
-WebSocketInstance.connect();
-
 const styles = StyleSheet.create({
   chatBox: {},
   chatForm: {
@@ -38,6 +36,11 @@ class Chat extends React.Component {
   }
 
   componentWillMount() {
+    WebSocketInstance.connect(
+      this.props.sender,
+      this.props.receiver
+    );
+
     this.waitForSocketConnection(() => {
       const username = !!this.props.auth ? this.props.auth.user.username : "";
       WebSocketInstance.initChatUser(username);
