@@ -20,6 +20,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
 import { themeColor } from "../../theme/colors";
+import Button1 from "../../common/Button";
 
 const styles = StyleSheet.create({
   patientInfo: {
@@ -135,7 +136,12 @@ class PatientProfile extends React.Component {
       nextAppointment: undefined,
       loading: true,
       imageUrl: undefined,
-      open: false
+      open: false,
+      securityAns: "",
+      securityAns2: "",
+      securityQ: "",
+      securityQ2: "",
+      username: ""
     };
   }
 
@@ -177,9 +183,75 @@ class PatientProfile extends React.Component {
     });
   };
 
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    const { auth } = this.props;
+    this.state.username = auth.user.username;
+    //this.setState({ user: this.state.username });
+
+    console.log(this.state.user, "user");
+    // this.setState({ username: username });
+    console.log(this.state.username, "username");
+
+    // this.props.authenticateUser(user);
+    // console.log(`http://127.0.0.1:8000/users-api/${this.state.username}`);
+    //const password;
+    this.setState({ password: this.state.password });
+    if (
+      this.state.securityQ === "Select Security Question 1" ||
+      this.state.securityQ2 === "Select Security Question 2"
+    ) {
+      this.setState({
+        errorMsg_onSubmit1: "Please Select Security Question"
+      });
+    } else {
+      //is this right way to define not equal to?
+      if (this.state.securityAns === "" || this.state.Ans2 === "") {
+        this.setState({ errorMsg_onSubmit2: "Please enter answers." });
+      } else {
+        const user = {
+          username: this.state.username,
+          securityQ: this.state.securityQ,
+          securityAns: this.state.securityAns,
+          securityQ2: this.state.securityQ2,
+          securityAns2: this.state.securityAns2
+        };
+        axios
+          .post(
+            `http://127.0.0.1:8000/users-api/${this.state.username}/`,
+            //password
+            {
+              securityQ: this.state.securityQ,
+              securityQ2: this.state.securityQ2,
+              securityAns: this.state.securityAns,
+              securityAns2: this.state.securityAns2
+            }
+          )
+          .then(res => {
+            console.log(res.status);
+            console.log(this.state.password);
+            console.log(res.data.securityQ);
+            if (res.status === 200) {
+              console.log("success");
+              this.setState({ show: false });
+              this.setState({ showmsg: true });
+            } else {
+              this.setState({
+                errorMsg: "Error"
+              });
+            }
+          });
+      }
+    }
+  };
+
   render() {
-    const { user } = this.props;
-    const { classes } = this.props;
+    // const { auth } = this.props;
+    // this.state.username = auth.user;
     const { loading, imageUrl } = this.state;
     return (
       <div className={css(styles.flexBody)}>
@@ -274,7 +346,7 @@ class PatientProfile extends React.Component {
                 </Button>
                 <Modal show={this.state.open} onHide={this.handleClose}>
                   <div className={css(styles.modal)}>
-                    <form>
+                    <form onSubmit={this.onSubmit}>
                       <div align="center">
                         <ControlLabel>Security Question</ControlLabel>
                       </div>
@@ -336,7 +408,7 @@ class PatientProfile extends React.Component {
                       />
                       <div align="center">
                         <Button
-                          type="primary"
+                          type="submit"
                           style={{
                             width: "80%",
                             marginTop: 24,
@@ -346,6 +418,8 @@ class PatientProfile extends React.Component {
                             fontWeight: "bold",
                             backgroundColor: "#4a69bd"
                           }}
+                          onChange={this.onChange}
+                          onClick={this.onSubmit}
                         >
                           Save
                         </Button>
