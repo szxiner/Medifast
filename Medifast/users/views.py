@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Account
 from .serializers import AccountSerializer
-from .serializers import SocialSerializer
 from django.core import serializers
 from rest_framework import viewsets
 from rest_framework.views import APIView
@@ -40,8 +39,6 @@ authy_id = None
 the_Username = None
 
 @api_view(http_method_names=['POST'])
-#@permission_classes([AllowAny])
-#@psa()
 def oauth2(request, backend):
     pass
     
@@ -82,8 +79,6 @@ class AuthAccount(APIView):
             global the_Username
             the_Username = request.data['username']
             authy_id = user.authy_id
-            print(the_Username)
-            print(authy_id)
             return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
@@ -111,15 +106,12 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
         print(Account.objects.filter(username=username),"users")
   
         if len(users) != 0:
-            print("Ok")
             user = users.first()
             serializer = AccountSerializer(user, data=request.data, partial=True)
             print(serializer)
             if serializer.is_valid():
-                print("valid")
                 try:
                     serializer.validated_data['phone_number']
-                    print("Gooogle")
                     authy_user = authy_api.users.create(
                     serializer.validated_data['email'],
                     serializer.validated_data['phone_number'],
@@ -127,7 +119,6 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
                     '+1'
                     )
                     if authy_user.ok():
-                        print(authy_user.id)
                         #Update the user's authy id
                         serializer.save(authy_id=authy_user.id)
                         print(serializer.validated_data['authy_id'])

@@ -9,8 +9,6 @@ import MessageList from "./MessageList";
 
 const { TextArea } = Input;
 
-WebSocketInstance.connect();
-
 const styles = StyleSheet.create({
   chatBox: {},
   chatForm: {
@@ -38,9 +36,15 @@ class Chat extends React.Component {
   }
 
   componentWillMount() {
+    WebSocketInstance.connect(
+      this.props.sender,
+      this.props.receiver
+    );
+
     this.waitForSocketConnection(() => {
       const username = !!this.props.auth ? this.props.auth.user.username : "";
       WebSocketInstance.initChatUser(username);
+      console.log("ho");
       WebSocketInstance.addCallbacks(
         this.setMessages.bind(this),
         this.addMessage.bind(this)
@@ -91,9 +95,12 @@ class Chat extends React.Component {
 
   render() {
     const { messages, sendMessage } = this.state;
+    console.log("messages", messages);
+    console.log("sendMessage", sendMessage);
+    console.log(this.props);
     return (
       <div>
-        <div className={css(styles.chatHeader)}>In chat</div>
+        {this.props.sender} chating with {this.props.receiver}
         <div className={css(styles.chatMain)}>
           <MessageList messages={messages} />
         </div>

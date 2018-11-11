@@ -1,4 +1,4 @@
-const API_PATH = "ws://localhost:8000/ws/chat";
+const API_PATH = "ws://localhost:8000/ws/chat/a/b";
 
 class WebSocketService {
   static instance = null;
@@ -15,8 +15,8 @@ class WebSocketService {
     this.socketRef = null;
   }
 
-  connect() {
-    const path = API_PATH;
+  connect(sender, receiver) {
+    const path = `ws://localhost:8000/ws/chat/${sender}/${receiver}`;
     this.socketRef = new WebSocket(path);
     this.socketRef.onopen = () => {
       console.log("WebSocket open");
@@ -78,8 +78,6 @@ class WebSocketService {
   }
 
   state() {
-    console.log("I am here");
-    console.log(this.socketRef);
     return this.socketRef.readyState;
   }
 
@@ -89,7 +87,6 @@ class WebSocketService {
     const recursion = this.waitForSocketConnection;
     setTimeout(function() {
       if (socket.readyState === 1) {
-        console.log("Connection is made");
         if (callback != null) {
           callback();
         }
@@ -98,10 +95,9 @@ class WebSocketService {
         console.log("wait for connection...");
         recursion(callback);
       }
-    }, 1); // wait 5 milisecond for the connection...
+    }, 1000); // wait 5 milisecond for the connection...
   }
 }
 
 const WebSocketInstance = WebSocketService.getInstance();
-console.log(WebSocketInstance);
 export default WebSocketInstance;

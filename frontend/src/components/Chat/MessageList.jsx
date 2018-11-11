@@ -1,11 +1,13 @@
 import React from "react";
 import _ from "lodash";
 import { StyleSheet, css } from "aphrodite";
-import { Button } from "antd";
+import Message from "./Message";
 
 const styles = StyleSheet.create({
-  receiveMessage: {},
-  sendMessage: {}
+  messageList: {
+    height: 600,
+    overflow: "scroll"
+  }
 });
 export default class MessageList extends React.Component {
   constructor(props) {
@@ -13,19 +15,13 @@ export default class MessageList extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {}
-
   render() {
     const { messages } = this.props;
-    console.log(messages);
+    console.log("Messages", messages);
     return (
-      <div>
+      <div className={css(styles.messageList)}>
         {_.map(messages, message => {
-          return (
-            <div>
-              {message.author}: {message.content}
-            </div>
-          );
+          return <Message message={message} />;
         })}
       </div>
     );
