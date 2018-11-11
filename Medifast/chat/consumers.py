@@ -59,7 +59,11 @@ class ChatConsumer(WebsocketConsumer):
         print("sender: " + sender)
         print("receiver: " + receiver)
 
-        self.room_name = 'room'
+        if sender >= receiver:
+            self.room_name = 'room_' + sender + '_' + receiver
+        else:
+            self.room_name = 'room_' + receiver + '_' + sender
+
         self.room_group_name = 'chat_%s' % self.room_name
 
         # Join room group
