@@ -23,6 +23,7 @@ class ChatConsumer(WebsocketConsumer):
     def fetch_messages(self, data):
         sender = data['username']['sender']
         receiver = data['username']['receiver']
+        user, created = User.objects.get_or_create(username=sender)
         if sender >= receiver:
             room_name = 'room_' + sender + '_' + receiver
         else:
