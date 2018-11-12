@@ -36,7 +36,7 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def new_message(self, data):
-        author = data['from']
+        author = data['sender']
         text = data['text']
         author_user, created = User.objects.get_or_create(username=author)
 
