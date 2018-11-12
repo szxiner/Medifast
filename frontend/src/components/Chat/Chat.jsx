@@ -28,7 +28,8 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      sendMessage: ""
+      sendMessage: "",
+      typing: false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -44,7 +45,6 @@ class Chat extends React.Component {
     this.waitForSocketConnection(() => {
       const username = !!this.props.auth ? this.props.auth.user.username : "";
       WebSocketInstance.initChatUser(username);
-      console.log("ho");
       WebSocketInstance.addCallbacks(
         this.setMessages.bind(this),
         this.addMessage.bind(this)
@@ -67,9 +67,19 @@ class Chat extends React.Component {
     }, 100);
   }
 
-  addMessage(message) {
-    this.setState({ messages: [...this.state.messages, message] });
-  }
+  addMessage = message => {
+    this.setState({ typing: true }, () => {
+      setTimeout(
+        function() {
+          this.setState({
+            typing: false,
+            messages: [...this.state.messages, message]
+          });
+        }.bind(this),
+        1500
+      );
+    });
+  };
 
   setMessages(messages) {
     this.setState({ messages: messages.reverse() });
@@ -95,13 +105,14 @@ class Chat extends React.Component {
   };
 
   render() {
-    const { messages, sendMessage } = this.state;
+    const { messages, sendMessage, typing } = this.state;
     console.log("messages", messages);
     console.log("sendMessage", sendMessage);
     console.log(this.props);
+    console.log("typing", typing);
     return (
       <div>
-        {this.props.sender} chating with {this.props.receiver}
+        {typing ? <div>typing...</div> : <div />}
         <div className={css(styles.chatMain)}>
           <MessageList messages={messages} />
         </div>
