@@ -21,8 +21,8 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def fetch_messages(self, data):
-        sender = data['sender']
-        receiver = data['receiver']
+        sender = data['username']['sender']
+        receiver = data['username']['receiver']
         if sender >= receiver:
             room_name = 'room_' + sender + '_' + receiver
         else:
@@ -36,12 +36,13 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def new_message(self, data):
-        author = data['sender']
-        text = data['text']
-        author_user, created = User.objects.get_or_create(username=author)
 
-        sender = data['sender']
-        receiver = data['receiver']
+        print(data['data'])
+        text = data['data']['text']
+        sender = data['data']['sender']
+        receiver = data['data']['receiver']
+        author_user, created = User.objects.get_or_create(username=sender)
+
         if sender >= receiver:
             room_name = 'room_' + sender + '_' + receiver
         else:
