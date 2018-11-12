@@ -16,6 +16,7 @@ class WebSocketService {
   }
 
   connect(sender, receiver) {
+    console.log(`In sokect connect ${sender} ${receiver}`);
     const path = `ws://localhost:8000/ws/chat/${sender}/${receiver}`;
     this.socketRef = new WebSocket(path);
     this.socketRef.onopen = () => {
@@ -32,6 +33,11 @@ class WebSocketService {
       console.log("WebSocket closed let's reopen");
       this.connect();
     };
+  }
+
+  disconnect() {
+    console.log("Disconnectting");
+    this.socketRef.close();
   }
 
   socketNewMessage(data) {

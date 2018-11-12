@@ -7,6 +7,7 @@ import { List, Avatar, Input, Button, Drawer } from "antd";
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 
+import WebSocketInstance from "../Chat/WebSocket";
 import Chat from "../Chat/Chat";
 import DashboardSideBar from "./DashboardSideBar";
 
@@ -81,6 +82,8 @@ class Dashboard extends React.Component {
   };
 
   showChildrenDrawer = item => {
+    const { auth } = this.props;
+    const { username, type } = auth.user;
     axios
       .get(`http://127.0.0.1:8000/users-api/${item.username}`)
       .then(res => {
@@ -97,6 +100,11 @@ class Dashboard extends React.Component {
         activeChat: item
       },
       () => {
+        console.log(`Here ${username} and ${this.state.activeChat.username}`);
+        WebSocketInstance.connect(
+          username,
+          this.state.activeChat.username
+        );
         this.setState({
           childrenDrawer: true
         });
@@ -106,6 +114,7 @@ class Dashboard extends React.Component {
   };
 
   onChildrenDrawerClose = () => {
+    WebSocketInstance.disconnect();
     this.setState({
       childrenDrawer: false
     });
