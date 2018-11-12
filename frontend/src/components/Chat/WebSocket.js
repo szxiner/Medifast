@@ -59,6 +59,7 @@ class WebSocketService {
   }
 
   fetchMessages(sender, receiver) {
+    console.log(`Fetching message between ${sender} and ${receiver}`);
     this.sendMessage({
       command: "fetch_messages",
       username: { sender: sender, receiver: receiver }

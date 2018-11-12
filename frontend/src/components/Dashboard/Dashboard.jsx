@@ -48,7 +48,24 @@ class Dashboard extends React.Component {
     } else if (type === "Patient") {
       axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
         if (res.status === 200) {
-          this.setState({ userList: res.data, searchedList: res.data });
+          this.setState({
+            userList: [
+              {
+                username: "medicareProvider",
+                First_name: "Medicare",
+                Last_Name: "Officer"
+              },
+              ...res.data
+            ],
+            searchedList: [
+              {
+                username: "medicareProvider",
+                First_name: "Medicare",
+                Last_Name: "Officer"
+              },
+              ...res.data
+            ]
+          });
         }
       });
     } else {
@@ -114,6 +131,8 @@ class Dashboard extends React.Component {
   };
 
   onChildrenDrawerClose = () => {
+    this.forceUpdate();
+
     WebSocketInstance.disconnect();
     this.setState({
       childrenDrawer: false
@@ -183,6 +202,8 @@ class Dashboard extends React.Component {
           >
             <div style={{ width: "100%", height: "100%" }}>
               <Chat
+                onlineStatus={onlineStatus}
+                messages={[]}
                 sender={username}
                 receiver={!!activeChat ? activeChat.username : ""}
               />

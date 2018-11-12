@@ -1,6 +1,5 @@
 import React from "react";
 import _ from "lodash";
-import axios from "axios";
 import moment from "moment";
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
@@ -41,16 +40,16 @@ class Message extends React.Component {
   }
 
   componentDidMount() {
-    const { message, auth, receiver } = this.props;
-    console.log("receiver", receiver);
-    const createdAt = moment(
-      message.created_at,
-      "YYYY-MM-DD HH:mm:ss.SSSSZ"
-    ).subtract(5, "hours");
-    console.log("created at: ", createdAt);
-    console.log("lastRead", this.props.lastRead);
-    const isRead = moment(this.props.lastRead).isAfter(createdAt);
-    this.setState({ read: isRead });
+    // const { message, auth, receiver } = this.props;
+    // console.log("receiver", receiver);
+    // const createdAt = moment(
+    //   message.created_at,
+    //   "YYYY-MM-DD HH:mm:ss.SSSSZ"
+    // ).subtract(5, "hours");
+    // console.log("created at: ", createdAt);
+    // console.log("lastRead", this.props.lastRead);
+    // const isRead = moment(this.props.lastRead).isAfter(createdAt);
+    // this.setState({ read: isRead });
   }
 
   render() {
@@ -65,7 +64,7 @@ class Message extends React.Component {
         <div>
           {!!self && this.state.read !== null ? (
             <div style={{ textAlign: "right" }}>
-              {!!this.state.read ? "Read" : "Not Seen Yet"}
+              {/* {!!this.state.read ? "Read" : "Not Seen Yet"} */}
             </div>
           ) : (
             <div />

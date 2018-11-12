@@ -38,8 +38,8 @@ class Chat extends React.Component {
 
   componentWillMount() {
     // console.log(`Here ${this.props.sender} and ${this.props.receiver}`);
-
-    this.setState({ message: [] });
+    this.forceUpdate();
+    this.setState({ message: this.props.messages });
     this.waitForSocketConnection(() => {
       const username = !!this.props.auth ? this.props.auth.user.username : "";
       WebSocketInstance.initChatUser(username);
@@ -114,11 +114,16 @@ class Chat extends React.Component {
       <div>
         {typing ? <div>typing...</div> : <div />}
         <div className={css(styles.chatMain)}>
-          <MessageList
-            messages={messages}
-            sender={this.props.sender}
-            receiver={this.props.receiver}
-          />
+          {messages.length !== 0 ? (
+            <MessageList
+              onlineStatus={this.props.onlineStatus}
+              messages={messages}
+              sender={this.props.sender}
+              receiver={this.props.receiver}
+            />
+          ) : (
+            <div />
+          )}
         </div>
         <div className={css(styles.chatForm)}>
           <TextArea
