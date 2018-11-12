@@ -104,8 +104,8 @@ class Doctor_bookings_view(APIView):
             D_serial = Doctor_profile_serializer(profile, many=True)
             patient = Account.objects.filter(username=request.data['patientusername'])
             P_serial = AccountSerializer(patient, many=True)
-            email_id = [D_serial.data[0]['email'],P_serial.data[0]['email']]
-            self.send_email(message,email_id)
+            # email_id = [D_serial.data[0]['email'],P_serial.data[0]['email']]
+            # self.send_email(message,email_id)
             return Response(True, status=status.HTTP_201_CREATED)
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
