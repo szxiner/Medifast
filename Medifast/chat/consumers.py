@@ -4,6 +4,7 @@ from channels.generic.websocket import WebsocketConsumer
 import json
 from chat.models.user import User
 from chat.models.message import Message
+from datetime import datetime
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -11,6 +12,8 @@ class ChatConsumer(WebsocketConsumer):
     def init_chat(self, data):
         username = data['username']
         user, created = User.objects.get_or_create(username=username)
+        user.last_read_date = datetime.now()
+        user.save()
         content = {
             'command': 'init_chat'
         }
@@ -21,7 +24,17 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def fetch_messages(self, data):
-        messages = Message.last_50_messages()
+        sender = data['username']['sender']
+        receiver = data['username']['receiver']
+        user, created = User.objects.get_or_create(username=sender)
+        user.last_read_date = datetime.now()
+        user.save()
+        if sender >= receiver:
+            room_name = 'room_' + sender + '_' + receiver
+        else:
+            room_name = 'room_' + receiver + '_' + sender
+
+        messages = Message.last_50_messages(room_name)
         content = {
             'command': 'messages',
             'messages': self.messages_to_json(messages)
@@ -29,10 +42,29 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def new_message(self, data):
-        author = data['from']
-        text = data['text']
-        author_user, created = User.objects.get_or_create(username=author)
-        message = Message.objects.create(author=author_user, content=text)
+        print(data['data'])
+        text = data['data']['text']
+        sender = data['data']['sender']
+        receiver = data['data']['receiver']
+        author_user, created = User.objects.get_or_create(username=sender)
+        print(author_user.last_read_date)
+        author_user.last_read_date = datetime.now()
+        print(author_user.last_read_date)
+        author_user.save()
+
+        author_user, created = User.objects.get_or_create(username=sender)
+        print(author_user.last_read_date)
+        author_user.last_read_date = datetime.now()
+        print(author_user.last_read_date)
+        author_user.save()
+
+
+        if sender >= receiver:
+            room_name = 'room_' + sender + '_' + receiver
+        else:
+            room_name = 'room_' + receiver + '_' + sender
+
+        message = Message.objects.create(author=author_user, content=text, room_name=room_name)
         content = {
             'command': 'new_message',
             'message': self.message_to_json(message)
@@ -59,7 +91,11 @@ class ChatConsumer(WebsocketConsumer):
         print("sender: " + sender)
         print("receiver: " + receiver)
 
-        self.room_name = 'room'
+        if sender >= receiver:
+            self.room_name = 'room_' + sender + '_' + receiver
+        else:
+            self.room_name = 'room_' + receiver + '_' + sender
+
         self.room_group_name = 'chat_%s' % self.room_name
 
         # Join room group
