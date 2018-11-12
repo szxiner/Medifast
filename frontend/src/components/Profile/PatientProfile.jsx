@@ -107,6 +107,12 @@ const styles = StyleSheet.create({
     marginBottom: "10%",
     width: "auto",
     height: "auto"
+  },
+  heading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    lineHeight: "3em",
+    marginBottom: "3%"
   }
 });
 
@@ -141,7 +147,8 @@ class PatientProfile extends React.Component {
       securityAns2: "",
       securityQ: "",
       securityQ2: "",
-      username: ""
+      username: "",
+      pwd: false
     };
   }
 
@@ -149,8 +156,13 @@ class PatientProfile extends React.Component {
     this.setState({ open: true });
   };
 
+  handleClickOpen1 = () => {
+    this.setState({ pwd: true });
+  };
+
   handleClose = () => {
     this.setState({ open: false });
+    this.setState({ pwd: false });
   };
 
   handleChange = info => {
@@ -191,15 +203,9 @@ class PatientProfile extends React.Component {
     e.preventDefault();
     const { auth } = this.props;
     this.state.username = auth.user.username;
-    //this.setState({ user: this.state.username });
-
     console.log(this.state.user, "user");
-    // this.setState({ username: username });
     console.log(this.state.username, "username");
 
-    // this.props.authenticateUser(user);
-    // console.log(`http://127.0.0.1:8000/users-api/${this.state.username}`);
-    //const password;
     this.setState({ password: this.state.password });
     if (
       this.state.securityQ === "Select Security Question 1" ||
@@ -209,7 +215,6 @@ class PatientProfile extends React.Component {
         errorMsg_onSubmit1: "Please Select Security Question"
       });
     } else {
-      //is this right way to define not equal to?
       if (this.state.securityAns === "" || this.state.Ans2 === "") {
         this.setState({ errorMsg_onSubmit2: "Please enter answers." });
       } else {
@@ -221,16 +226,52 @@ class PatientProfile extends React.Component {
           securityAns2: this.state.securityAns2
         };
         axios
-          .post(
-            `http://127.0.0.1:8000/users-api/${this.state.username}/`,
-            //password
-            {
-              securityQ: this.state.securityQ,
-              securityQ2: this.state.securityQ2,
-              securityAns: this.state.securityAns,
-              securityAns2: this.state.securityAns2
+          .post(`http://127.0.0.1:8000/users-api/${this.state.username}/`, {
+            securityQ: this.state.securityQ,
+            securityQ2: this.state.securityQ2,
+            securityAns: this.state.securityAns,
+            securityAns2: this.state.securityAns2
+          })
+          .then(res => {
+            console.log(res.status);
+            console.log(this.state.password);
+            console.log(res.data.securityQ);
+            if (res.status === 200) {
+              console.log("success");
+              this.setState({ show: false });
+              this.setState({ showmsg: true });
+            } else {
+              this.setState({
+                errorMsg: "Error"
+              });
             }
-          )
+          });
+      }
+    }
+  };
+
+  onSubmit_pwd = e => {
+    e.preventDefault();
+    const { auth } = this.props;
+    this.state.username = auth.user.username;
+    console.log(this.state.user, "user");
+    console.log(this.state.username, "username");
+    console.log(this.state.user, "this is user");
+    console.log(this.state.username, "this is username");
+
+    this.setState({ password: this.state.password });
+    if (this.state.password === "" || this.state.confirmPassword === "") {
+      this.setState({
+        errorMsg_onSubmit3: "Please complete all the fields."
+      });
+    } else {
+      if (this.state.password != this.state.confirmPassword) {
+        this.setState({ errorMsg_onSubmit4: "Passwords do not match" });
+      } else {
+        axios
+          .post(`http://127.0.0.1:8000/users-api/${this.state.username}/`, {
+            password: this.state.password
+          })
           .then(res => {
             console.log(res.status);
             console.log(this.state.password);
@@ -347,10 +388,9 @@ class PatientProfile extends React.Component {
                 <Modal show={this.state.open} onHide={this.handleClose}>
                   <div className={css(styles.modal)}>
                     <form onSubmit={this.onSubmit}>
-                      <div align="center">
+                      <div align="center" className={css(styles.heading)}>
                         <ControlLabel>Security Question</ControlLabel>
                       </div>
-                      <br />
                       <FormControl
                         componentClass="select"
                         placeholder="select"
@@ -406,7 +446,7 @@ class PatientProfile extends React.Component {
                         value={this.state.securityAns2}
                         onChange={this.onChange}
                       />
-                      <div align="center">
+                      <div align="center" flex-direction="row">
                         <Button
                           type="submit"
                           style={{
@@ -423,6 +463,22 @@ class PatientProfile extends React.Component {
                         >
                           Save
                         </Button>
+                        <Button
+                          type="second"
+                          style={{
+                            width: "80%",
+                            marginTop: 24,
+                            height: 36,
+                            borderRadius: 20,
+                            borderColor: "#fff",
+                            fontWeight: "bold",
+                            backgroundColor: "#4a69bd"
+                          }}
+                          onChange={this.onChange}
+                          onClick={this.handleClose}
+                        >
+                          Cancel
+                        </Button>
                       </div>
                     </form>
                   </div>
@@ -430,6 +486,7 @@ class PatientProfile extends React.Component {
                 <br />
                 <Button
                   type="primary"
+                  onClick={this.handleClickOpen1}
                   style={{
                     width: "80%",
                     marginTop: 24,
@@ -442,6 +499,72 @@ class PatientProfile extends React.Component {
                 >
                   Change Password
                 </Button>
+                <Modal show={this.state.pwd} onHide={this.handleClose}>
+                  <div className={css(styles.modal)}>
+                    <form onSubmit={this.onSubmit}>
+                      <div align="center" className={css(styles.heading)}>
+                        <ControlLabel>Update Password</ControlLabel>
+                      </div>
+                      <FormGroup>
+                        <ControlLabel>Enter New Password:</ControlLabel>
+                        <FormControl
+                          className={css(styles.inputBox)}
+                          type="password"
+                          name="password"
+                          label="Password"
+                          placeholder="Password"
+                          value={this.state.password}
+                          onChange={this.onChange}
+                        />
+                        <br />
+                        <ControlLabel>Confirm Password:</ControlLabel>
+                        <FormControl
+                          className={css(styles.inputBox)}
+                          type="password"
+                          name="confirmPassword"
+                          label="Confirm Password"
+                          placeholder="Confirm Password"
+                          value={this.state.confirmPassword}
+                          onChange={this.onChange}
+                        />
+                      </FormGroup>
+                      <div align="center">
+                        <Button
+                          type="primary"
+                          style={{
+                            width: "80%",
+                            marginTop: 24,
+                            height: 36,
+                            borderRadius: 20,
+                            borderColor: "#fff",
+                            fontWeight: "bold",
+                            backgroundColor: "#4a69bd"
+                          }}
+                          onChange={this.onChange}
+                          onClick={this.onSubmit_pwd}
+                        >
+                          Save
+                        </Button>
+                        <Button
+                          type="second"
+                          style={{
+                            width: "80%",
+                            marginTop: 24,
+                            height: 36,
+                            borderRadius: 20,
+                            borderColor: "#fff",
+                            fontWeight: "bold",
+                            backgroundColor: "#4a69bd"
+                          }}
+                          onChange={this.onChange}
+                          onClick={this.handleClose}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                </Modal>
               </div>
             </div>
           </div>
