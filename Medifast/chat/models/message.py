@@ -27,6 +27,7 @@ class Message(models.Model):
         related_name='author_messages',
         on_delete=models.CASCADE
     )
+    
     content = models.TextField(validators=[validate_message_content])
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     room_name = models.TextField(max_length=100, blank=False, default='chat_room')    

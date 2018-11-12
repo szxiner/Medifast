@@ -101,7 +101,7 @@ class Chat extends React.Component {
     console.log(this.props);
     return (
       <div>
-        {this.props.sender} chating with {this.props.receiver}
+        {this.props.sender} chatting with {this.props.receiver}
         <div className={css(styles.chatMain)}>
           <MessageList messages={messages} />
         </div>
