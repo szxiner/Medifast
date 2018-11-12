@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     fontWeight: "normal"
   },
   modal: {
-    backgroundColor: themeColor.white,
     position: "absolute",
     border: "1px solid",
     borderRadius: 5,

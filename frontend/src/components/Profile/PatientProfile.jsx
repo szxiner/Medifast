@@ -7,6 +7,20 @@ import { List } from "react-content-loader";
 import { Upload, message, Avatar, Button } from "antd";
 import { StyleSheet, css } from "aphrodite";
 import AppointmentCard from "../Appointment/AppointmentCard";
+import TextField from "@material-ui/core/TextField";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { withStyles } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import { FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
+import { themeColor } from "../../theme/colors";
+import Button1 from "../../common/Button";
 
 const styles = StyleSheet.create({
   patientInfo: {
@@ -79,6 +93,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: "3vw",
     textAlign: "center"
+  },
+  modal: {
+    backgroundColor: themeColor.white,
+    position: "relative",
+    border: "1px solid",
+    borderRadius: 3,
+    //borderColor: themeColor.grey0,
+    padding: 40,
+    marginTop: "10%",
+    marginLeft: "20%",
+    marginRight: "20%",
+    marginBottom: "10%",
+    width: "auto",
+    height: "auto"
+  },
+  heading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    lineHeight: "3em",
+    marginBottom: "3%"
   }
 });
 
@@ -107,9 +141,29 @@ class PatientProfile extends React.Component {
     this.state = {
       nextAppointment: undefined,
       loading: true,
-      imageUrl: undefined
+      imageUrl: undefined,
+      open: false,
+      securityAns: "",
+      securityAns2: "",
+      securityQ: "",
+      securityQ2: "",
+      username: "",
+      pwd: false
     };
   }
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClickOpen1 = () => {
+    this.setState({ pwd: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+    this.setState({ pwd: false });
+  };
 
   handleChange = info => {
     if (info.file.status === "done") {
@@ -141,8 +195,104 @@ class PatientProfile extends React.Component {
     });
   };
 
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    const { auth } = this.props;
+    this.state.username = auth.user.username;
+    console.log(this.state.user, "user");
+    console.log(this.state.username, "username");
+
+    this.setState({ password: this.state.password });
+    if (
+      this.state.securityQ === "Select Security Question 1" ||
+      this.state.securityQ2 === "Select Security Question 2"
+    ) {
+      this.setState({
+        errorMsg_onSubmit1: "Please Select Security Question"
+      });
+    } else {
+      if (this.state.securityAns === "" || this.state.Ans2 === "") {
+        this.setState({ errorMsg_onSubmit2: "Please enter answers." });
+      } else {
+        const user = {
+          username: this.state.username,
+          securityQ: this.state.securityQ,
+          securityAns: this.state.securityAns,
+          securityQ2: this.state.securityQ2,
+          securityAns2: this.state.securityAns2
+        };
+        axios
+          .post(`http://127.0.0.1:8000/users-api/${this.state.username}/`, {
+            securityQ: this.state.securityQ,
+            securityQ2: this.state.securityQ2,
+            securityAns: this.state.securityAns,
+            securityAns2: this.state.securityAns2
+          })
+          .then(res => {
+            console.log(res.status);
+            console.log(this.state.password);
+            console.log(res.data.securityQ);
+            if (res.status === 200) {
+              console.log("success");
+              this.setState({ show: false });
+              this.setState({ showmsg: true });
+            } else {
+              this.setState({
+                errorMsg: "Error"
+              });
+            }
+          });
+      }
+    }
+  };
+
+  onSubmit_pwd = e => {
+    e.preventDefault();
+    const { auth } = this.props;
+    this.state.username = auth.user.username;
+    console.log(this.state.user, "user");
+    console.log(this.state.username, "username");
+    console.log(this.state.user, "this is user");
+    console.log(this.state.username, "this is username");
+
+    this.setState({ password: this.state.password });
+    if (this.state.password === "" || this.state.confirmPassword === "") {
+      this.setState({
+        errorMsg_onSubmit3: "Please complete all the fields."
+      });
+    } else {
+      if (this.state.password != this.state.confirmPassword) {
+        this.setState({ errorMsg_onSubmit4: "Passwords do not match" });
+      } else {
+        axios
+          .post(`http://127.0.0.1:8000/users-api/${this.state.username}/`, {
+            password: this.state.password
+          })
+          .then(res => {
+            console.log(res.status);
+            console.log(this.state.password);
+            console.log(res.data.securityQ);
+            if (res.status === 200) {
+              console.log("success");
+              this.setState({ show: false });
+              this.setState({ showmsg: true });
+            } else {
+              this.setState({
+                errorMsg: "Error"
+              });
+            }
+          });
+      }
+    }
+  };
+
   render() {
-    const { user } = this.props;
+    // const { auth } = this.props;
+    // this.state.username = auth.user;
     const { loading, imageUrl } = this.state;
     return (
       <div className={css(styles.flexBody)}>
@@ -223,6 +373,7 @@ class PatientProfile extends React.Component {
                 <br />
                 <Button
                   type="primary"
+                  onClick={this.handleClickOpen}
                   style={{
                     width: "80%",
                     height: 36,
@@ -232,11 +383,110 @@ class PatientProfile extends React.Component {
                     backgroundColor: "#1e3799"
                   }}
                 >
-                  Set Security Question
+                  Update Security Question
                 </Button>
+                <Modal show={this.state.open} onHide={this.handleClose}>
+                  <div className={css(styles.modal)}>
+                    <form onSubmit={this.onSubmit}>
+                      <div align="center" className={css(styles.heading)}>
+                        <ControlLabel>Security Question</ControlLabel>
+                      </div>
+                      <FormControl
+                        componentClass="select"
+                        placeholder="select"
+                        onChange={this.onChange}
+                        name="securityQ"
+                      >
+                        <option>Select Securtiy Question 1</option>
+                        <option value="What's the name of your first teacher?">
+                          What's the name of your first teacher?
+                        </option>
+                        <option value="What is your dream job?">
+                          What is your dream job?
+                        </option>
+                        <option value="What is your favourite color?">
+                          What is your favourite color?
+                        </option>
+                      </FormControl>
+                      <br />
+                      <FormControl
+                        className={css(styles.inputBox)}
+                        type="text"
+                        name="securityAns"
+                        label="Security Answer"
+                        placeholder="Enter your answer here."
+                        value={this.state.securityAns}
+                        onChange={this.onChange}
+                      />
+                      <br />
+                      <FormControl
+                        componentClass="select"
+                        placeholder="select"
+                        onChange={this.onChange}
+                        name="securityQ2"
+                      >
+                        <option>Select Securtiy Question 2</option>
+                        <option value="What's the name of your first school?">
+                          What's the name of your first school?
+                        </option>
+                        <option value="What's the name of your first pet?">
+                          What's the name of your first pet?
+                        </option>
+                        <option value="What is your favourite food?">
+                          What is your favourite food?
+                        </option>
+                      </FormControl>
+                      <br />
+                      <FormControl
+                        className={css(styles.inputBox)}
+                        type="text"
+                        name="securityAns2"
+                        label="Security Answer"
+                        placeholder="Enter your answer here."
+                        value={this.state.securityAns2}
+                        onChange={this.onChange}
+                      />
+                      <div align="center" flex-direction="row">
+                        <Button
+                          type="submit"
+                          style={{
+                            width: "80%",
+                            marginTop: 24,
+                            height: 36,
+                            borderRadius: 20,
+                            borderColor: "#fff",
+                            fontWeight: "bold",
+                            backgroundColor: "#4a69bd"
+                          }}
+                          onChange={this.onChange}
+                          onClick={this.onSubmit}
+                        >
+                          Save
+                        </Button>
+                        <Button
+                          type="second"
+                          style={{
+                            width: "80%",
+                            marginTop: 24,
+                            height: 36,
+                            borderRadius: 20,
+                            borderColor: "#fff",
+                            fontWeight: "bold",
+                            backgroundColor: "#4a69bd"
+                          }}
+                          onChange={this.onChange}
+                          onClick={this.handleClose}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                </Modal>
                 <br />
                 <Button
                   type="primary"
+                  onClick={this.handleClickOpen1}
                   style={{
                     width: "80%",
                     marginTop: 24,
@@ -249,6 +499,72 @@ class PatientProfile extends React.Component {
                 >
                   Change Password
                 </Button>
+                <Modal show={this.state.pwd} onHide={this.handleClose}>
+                  <div className={css(styles.modal)}>
+                    <form onSubmit={this.onSubmit}>
+                      <div align="center" className={css(styles.heading)}>
+                        <ControlLabel>Update Password</ControlLabel>
+                      </div>
+                      <FormGroup>
+                        <ControlLabel>Enter New Password:</ControlLabel>
+                        <FormControl
+                          className={css(styles.inputBox)}
+                          type="password"
+                          name="password"
+                          label="Password"
+                          placeholder="Password"
+                          value={this.state.password}
+                          onChange={this.onChange}
+                        />
+                        <br />
+                        <ControlLabel>Confirm Password:</ControlLabel>
+                        <FormControl
+                          className={css(styles.inputBox)}
+                          type="password"
+                          name="confirmPassword"
+                          label="Confirm Password"
+                          placeholder="Confirm Password"
+                          value={this.state.confirmPassword}
+                          onChange={this.onChange}
+                        />
+                      </FormGroup>
+                      <div align="center">
+                        <Button
+                          type="primary"
+                          style={{
+                            width: "80%",
+                            marginTop: 24,
+                            height: 36,
+                            borderRadius: 20,
+                            borderColor: "#fff",
+                            fontWeight: "bold",
+                            backgroundColor: "#4a69bd"
+                          }}
+                          onChange={this.onChange}
+                          onClick={this.onSubmit_pwd}
+                        >
+                          Save
+                        </Button>
+                        <Button
+                          type="second"
+                          style={{
+                            width: "80%",
+                            marginTop: 24,
+                            height: 36,
+                            borderRadius: 20,
+                            borderColor: "#fff",
+                            fontWeight: "bold",
+                            backgroundColor: "#4a69bd"
+                          }}
+                          onChange={this.onChange}
+                          onClick={this.handleClose}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                </Modal>
               </div>
             </div>
           </div>

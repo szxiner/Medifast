@@ -4,6 +4,7 @@ from channels.generic.websocket import WebsocketConsumer
 import json
 from chat.models.user import User
 from chat.models.message import Message
+from datetime import datetime
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -11,6 +12,8 @@ class ChatConsumer(WebsocketConsumer):
     def init_chat(self, data):
         username = data['username']
         user, created = User.objects.get_or_create(username=username)
+        user.last_read_date = datetime.now()
+        user.save()
         content = {
             'command': 'init_chat'
         }
@@ -24,6 +27,8 @@ class ChatConsumer(WebsocketConsumer):
         sender = data['username']['sender']
         receiver = data['username']['receiver']
         user, created = User.objects.get_or_create(username=sender)
+        user.last_read_date = datetime.now()
+        user.save()
         if sender >= receiver:
             room_name = 'room_' + sender + '_' + receiver
         else:
@@ -42,6 +47,17 @@ class ChatConsumer(WebsocketConsumer):
         sender = data['data']['sender']
         receiver = data['data']['receiver']
         author_user, created = User.objects.get_or_create(username=sender)
+        print(author_user.last_read_date)
+        author_user.last_read_date = datetime.now()
+        print(author_user.last_read_date)
+        author_user.save()
+
+        author_user, created = User.objects.get_or_create(username=sender)
+        print(author_user.last_read_date)
+        author_user.last_read_date = datetime.now()
+        print(author_user.last_read_date)
+        author_user.save()
+
 
         if sender >= receiver:
             room_name = 'room_' + sender + '_' + receiver
