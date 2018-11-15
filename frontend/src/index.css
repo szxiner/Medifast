@@ -35,14 +35,12 @@ p {
 .navbar,
 .navbar-default {
   margin: 0;
+  background-color: #fa8f42;
 }
+
 .Alert,
 .Alert-default {
   background-color: aliceblue;
-}
-
-.navbar {
-  background-color: #f16e10;
 }
 p1 {
   font-family: "Patrick Hand", cursive;

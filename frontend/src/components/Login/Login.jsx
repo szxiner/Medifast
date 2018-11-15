@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     margin: "auto",
     marginTop: "5%",
     width: "70%",
-    height: "80%",
+    height: "90%",
     backgroundColor: "#fff",
     color: themeColor.aegean2,
     borderColor: themeColor.grey3,

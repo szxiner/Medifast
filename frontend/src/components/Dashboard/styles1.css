@@ -5,7 +5,7 @@
 
 .rwt__tablist:not([aria-orientation="vertical"]) {
   border-bottom: 1px solid #ddd;
-  height: 100px;
+  height: 100%;
 }
 
 .rwt__tablist[aria-orientation="vertical"] {
@@ -19,7 +19,7 @@
 }
 
 .rwt__tab {
-  background: transparent;
+  background: #fcf7e0;
   border: 0;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-weight: 600;
@@ -27,26 +27,25 @@
   padding: 1rem 6rem;
   color: #001f3f;
   transition: background 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-  height: 100px;
+  height: 100%;
 }
 
 .rwt__tab[aria-selected="false"]:hover,
 .rwt__tab:focus {
   outline: 0;
-  background-color: #e3f2fd;
-  /* background-color: rgba(0, 0, 0, 0.05); */
-  height: 100px;
+  background-color: #fad746;
+  height: 100%;
 }
 
 .rwt__tab[aria-selected="true"] {
   position: relative;
-  height: 100px;
+  height: 100%;
 }
 
 .rwt__tab[aria-selected="true"]:after {
   content: "";
   position: absolute;
-  height: 100px;
+  height: 100%;
 }
 
 .rwt__tablist:not([aria-orientation="vertical"])
@@ -63,10 +62,10 @@
   right: -1px;
   top: 0;
   height: 100%;
-  border-right: 3px solid #00d8ff;
+  border-right: 3px solid #fb7805;
 }
 
 .rwt__tabpanel {
-  height: 100px;
+  height: 100%;
   width: 100%;
 }

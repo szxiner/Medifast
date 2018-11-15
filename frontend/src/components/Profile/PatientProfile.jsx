@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     //borderColor: themeColor.grey0,
     padding: 40,
     marginTop: "10%",
-    marginLeft: "20%",
-    marginRight: "20%",
+    marginLeft: "10%",
+    marginRight: "10%",
     marginBottom: "10%",
     width: "auto",
     height: "auto"
@@ -280,8 +280,8 @@ class PatientProfile extends React.Component {
   };
 
   render() {
-    // const { auth } = this.props;
-    // this.state.username = auth.user;
+    const { auth } = this.props;
+    this.state.username = auth.user;
     const { loading, imageUrl } = this.state;
     return (
       <div className={css(styles.flexBody)}>
@@ -352,7 +352,7 @@ class PatientProfile extends React.Component {
               </div>
               <div className={css(styles.profileInfo)}>
                 <span style={{ fontWeight: "bold" }}>Name: </span>
-                Xiner Zhang
+                Bindu Mareedu
                 {/* {user.First_name} {user.Last_Name} */}
                 <br />
                 <span style={{ fontWeight: "bold" }}>Current Plan: </span>
@@ -437,7 +437,7 @@ class PatientProfile extends React.Component {
                       />
                       <div align="center" flex-direction="row">
                         <Button
-                          type="submit"
+                          type="primary"
                           style={{
                             width: "80%",
                             marginTop: 24,
@@ -445,7 +445,7 @@ class PatientProfile extends React.Component {
                             borderRadius: 20,
                             borderColor: "#fff",
                             fontWeight: "bold",
-                            backgroundColor: "#4a69bd"
+                            backgroundColor: "#1e3799"
                           }}
                           onChange={this.onChange}
                           onClick={this.onSubmit}
@@ -453,7 +453,7 @@ class PatientProfile extends React.Component {
                           Save
                         </Button>
                         <Button
-                          type="second"
+                          type="primary"
                           style={{
                             width: "80%",
                             marginTop: 24,
@@ -527,7 +527,7 @@ class PatientProfile extends React.Component {
                             borderRadius: 20,
                             borderColor: "#fff",
                             fontWeight: "bold",
-                            backgroundColor: "#4a69bd"
+                            backgroundColor: "#1e3799"
                           }}
                           onChange={this.onChange}
                           onClick={this.onSubmit_pwd}
@@ -535,7 +535,7 @@ class PatientProfile extends React.Component {
                           Save
                         </Button>
                         <Button
-                          type="second"
+                          type="primary"
                           style={{
                             width: "80%",
                             marginTop: 24,
