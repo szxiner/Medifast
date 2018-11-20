@@ -3,8 +3,7 @@ import store from "../../store";
 import StickyFooter from "react-sticky-footer";
 import { themeColor } from "../../theme/colors";
 import { StyleSheet, css } from "aphrodite";
-import fb from "./fb.png";
-import insta from "./insta.svg";
+
 import { Icon } from "antd";
 
 const styles = StyleSheet.create({

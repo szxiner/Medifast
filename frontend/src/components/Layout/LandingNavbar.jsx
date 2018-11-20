@@ -27,12 +27,12 @@ export default class LandingNavbar extends React.Component {
               <Navbar.Brand />
               <Navbar.Brand>
                 <Link to="/dashboard">
-                  <h1 style={{ fontSize: 24 }}>Medifast</h1>
+                  <h1 style={{ fontSize: 28 }}>Medifast</h1>
                 </Link>
               </Navbar.Brand>
             </Navbar.Header>
             <Nav pullRight>
-              <Navbar.Brand eventKey={2} href="#">
+              <Navbar.Brand eventKey={2} href="#" color="#000">
                 <Link to="/">Log out</Link>
               </Navbar.Brand>
             </Nav>
@@ -52,9 +52,11 @@ export default class LandingNavbar extends React.Component {
             </Navbar.Header>
             <Nav pullRight>
               <Navbar.Brand eventKey={1} href="#">
-                <Link to="/login">Log in</Link>
+                <Link to="/login" color="#000">
+                  Log in
+                </Link>
               </Navbar.Brand>
-              <Navbar.Brand eventKey={2} href="#">
+              <Navbar.Brand eventKey={2} href="#" color="#000">
                 <Link to="/register">Sign up</Link>
               </Navbar.Brand>
             </Nav>

@@ -150,12 +150,16 @@ export default class SearchDoctors extends React.Component {
             return o;
           }
         });
-        if (arr.includes(this.state.search.toLowerCase())) {
+        // if (arr.includes("/this.state.search.toLowerCase()*/")) {
+        if (_.includes(this.state.search.toLowerCase())) {
+          // if (s.test(/adh*/)) {
           return true;
         } else {
           return false;
         }
       });
+
+      console.log(filteredList, "this is filtered list");
 
       this.setState({ searchList: filteredList });
 

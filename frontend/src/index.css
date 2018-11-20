@@ -34,8 +34,8 @@ p {
 
 .navbar,
 .navbar-default {
-  margin: 0;
-  background-color: #fa8f42;
+  background-image: linear-gradient(to bottom, #ffffff 0, ffff 100%);
+  background-color: #5176c3;
 }
 
 .Alert,

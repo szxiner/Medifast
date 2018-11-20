@@ -4,7 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import { connect } from "react-redux";
 import { List } from "react-content-loader";
-import { Upload, message, Avatar, Button } from "antd";
+import { Upload, message, Avatar, Button, Alert } from "antd";
 import { StyleSheet, css } from "aphrodite";
 import AppointmentCard from "../Appointment/AppointmentCard";
 
@@ -97,11 +97,34 @@ const styles = StyleSheet.create({
     width: "auto",
     height: "auto"
   },
+  small_modal: {
+    backgroundColor: themeColor.white,
+    position: "relative",
+    borderRadius: 3,
+    //borderColor: themeColor.grey0,
+    padding: 10,
+    marginTop: "10%",
+    marginLeft: "10%",
+    marginRight: "10%",
+    marginBottom: "10%",
+    width: "auto",
+    height: "auto"
+  },
   heading: {
     fontSize: 20,
     fontWeight: "bold",
     lineHeight: "3em",
     marginBottom: "3%"
+  },
+  expanded: {
+    height: "auto"
+  },
+  unexpanded: {
+    height: 0,
+    overflow: "hidden"
+  },
+  alert: {
+    fontSize: "30"
   }
 });
 
@@ -137,16 +160,20 @@ class PatientProfile extends React.Component {
       securityQ: "",
       securityQ2: "",
       username: "",
-      pwd: false
+      pwd: false,
+      pwd_changed: false,
+      set_ques: false
     };
   }
 
   handleClickOpen = () => {
     this.setState({ open: true });
+    this.setState({ pwd_changed: false });
   };
 
   handleClickOpen1 = () => {
     this.setState({ pwd: true });
+    this.setState({ set_ques: false });
   };
 
   handleClose = () => {
@@ -229,6 +256,7 @@ class PatientProfile extends React.Component {
               console.log("success");
               this.setState({ show: false });
               this.setState({ showmsg: true });
+              this.setState({ set_ques: true });
             } else {
               this.setState({
                 errorMsg: "Error"
@@ -269,6 +297,7 @@ class PatientProfile extends React.Component {
               console.log("success");
               this.setState({ show: false });
               this.setState({ showmsg: true });
+              this.setState({ pwd_changed: true });
             } else {
               this.setState({
                 errorMsg: "Error"
@@ -280,8 +309,7 @@ class PatientProfile extends React.Component {
   };
 
   render() {
-    const { auth } = this.props;
-    this.state.username = auth.user;
+    const { user } = this.props;
     const { loading, imageUrl } = this.state;
     return (
       <div className={css(styles.flexBody)}>
@@ -352,8 +380,7 @@ class PatientProfile extends React.Component {
               </div>
               <div className={css(styles.profileInfo)}>
                 <span style={{ fontWeight: "bold" }}>Name: </span>
-                Bindu Mareedu
-                {/* {user.First_name} {user.Last_Name} */}
+                {user.First_name} {user.Last_Name}
                 <br />
                 <span style={{ fontWeight: "bold" }}>Current Plan: </span>
                 Medicare Standard
@@ -375,101 +402,126 @@ class PatientProfile extends React.Component {
                   Update Security Question
                 </Button>
                 <Modal show={this.state.open} onHide={this.handleClose}>
-                  <div className={css(styles.modal)}>
-                    <form onSubmit={this.onSubmit}>
-                      <div align="center" className={css(styles.heading)}>
-                        <ControlLabel>Security Question</ControlLabel>
-                      </div>
-                      <FormControl
-                        componentClass="select"
-                        placeholder="select"
-                        onChange={this.onChange}
-                        name="securityQ"
-                      >
-                        <option>Select Securtiy Question 1</option>
-                        <option value="What's the name of your first teacher?">
-                          What's the name of your first teacher?
-                        </option>
-                        <option value="What is your dream job?">
-                          What is your dream job?
-                        </option>
-                        <option value="What is your favourite color?">
-                          What is your favourite color?
-                        </option>
-                      </FormControl>
-                      <br />
-                      <FormControl
-                        className={css(styles.inputBox)}
-                        type="text"
-                        name="securityAns"
-                        label="Security Answer"
-                        placeholder="Enter your answer here."
-                        value={this.state.securityAns}
-                        onChange={this.onChange}
-                      />
-                      <br />
-                      <FormControl
-                        componentClass="select"
-                        placeholder="select"
-                        onChange={this.onChange}
-                        name="securityQ2"
-                      >
-                        <option>Select Securtiy Question 2</option>
-                        <option value="What's the name of your first school?">
-                          What's the name of your first school?
-                        </option>
-                        <option value="What's the name of your first pet?">
-                          What's the name of your first pet?
-                        </option>
-                        <option value="What is your favourite food?">
-                          What is your favourite food?
-                        </option>
-                      </FormControl>
-                      <br />
-                      <FormControl
-                        className={css(styles.inputBox)}
-                        type="text"
-                        name="securityAns2"
-                        label="Security Answer"
-                        placeholder="Enter your answer here."
-                        value={this.state.securityAns2}
-                        onChange={this.onChange}
-                      />
-                      <div align="center" flex-direction="row">
-                        <Button
-                          type="primary"
-                          style={{
-                            width: "80%",
-                            marginTop: 24,
-                            height: 36,
-                            borderRadius: 20,
-                            borderColor: "#fff",
-                            fontWeight: "bold",
-                            backgroundColor: "#1e3799"
-                          }}
+                  <div
+                    className={
+                      !this.state.set_ques
+                        ? css(styles.expanded)
+                        : css(styles.unexpanded)
+                    }
+                  >
+                    <div className={css(styles.modal)}>
+                      <form onSubmit={this.onSubmit}>
+                        <div align="center" className={css(styles.heading)}>
+                          <ControlLabel>Security Question</ControlLabel>
+                        </div>
+                        <FormControl
+                          componentClass="select"
+                          placeholder="select"
                           onChange={this.onChange}
-                          onClick={this.onSubmit}
+                          name="securityQ"
                         >
-                          Save
-                        </Button>
-                        <Button
-                          type="primary"
-                          style={{
-                            width: "80%",
-                            marginTop: 24,
-                            height: 36,
-                            borderRadius: 20,
-                            borderColor: "#fff",
-                            fontWeight: "bold",
-                            backgroundColor: "#4a69bd"
-                          }}
+                          <option>Select Securtiy Question 1</option>
+                          <option value="What's the name of your first teacher?">
+                            What's the name of your first teacher?
+                          </option>
+                          <option value="What is your dream job?">
+                            What is your dream job?
+                          </option>
+                          <option value="What is your favourite color?">
+                            What is your favourite color?
+                          </option>
+                        </FormControl>
+                        <br />
+                        <FormControl
+                          className={css(styles.inputBox)}
+                          type="text"
+                          name="securityAns"
+                          label="Security Answer"
+                          placeholder="Enter your answer here."
+                          value={this.state.securityAns}
                           onChange={this.onChange}
-                          onClick={this.handleClose}
+                        />
+                        <br />
+                        <FormControl
+                          componentClass="select"
+                          placeholder="select"
+                          onChange={this.onChange}
+                          name="securityQ2"
                         >
-                          Cancel
-                        </Button>
-                      </div>
-                    </form>
+                          <option>Select Securtiy Question 2</option>
+                          <option value="What's the name of your first school?">
+                            What's the name of your first school?
+                          </option>
+                          <option value="What's the name of your first pet?">
+                            What's the name of your first pet?
+                          </option>
+                          <option value="What is your favourite food?">
+                            What is your favourite food?
+                          </option>
+                        </FormControl>
+                        <br />
+                        <FormControl
+                          className={css(styles.inputBox)}
+                          type="text"
+                          name="securityAns2"
+                          label="Security Answer"
+                          placeholder="Enter your answer here."
+                          value={this.state.securityAns2}
+                          onChange={this.onChange}
+                        />
+                        <div align="center" flex-direction="row">
+                          <Button
+                            type="primary"
+                            style={{
+                              width: "80%",
+                              marginTop: 24,
+                              height: 36,
+                              borderRadius: 20,
+                              borderColor: "#fff",
+                              fontWeight: "bold",
+                              backgroundColor: "#1e3799"
+                            }}
+                            onChange={this.onChange}
+                            onClick={this.onSubmit}
+                          >
+                            Save
+                          </Button>
+                          <Button
+                            type="primary"
+                            style={{
+                              width: "80%",
+                              marginTop: 24,
+                              height: 36,
+                              borderRadius: 20,
+                              borderColor: "#fff",
+                              fontWeight: "bold",
+                              backgroundColor: "#4a69bd"
+                            }}
+                            onChange={this.onChange}
+                            onClick={this.handleClose}
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div className={css(styles.small_modal)}>
+                    <div
+                      className={
+                        this.state.set_ques
+                          ? css(styles.expanded)
+                          : css(styles.unexpanded)
+                      }
+                    >
+                      <Alert
+                        message="Updated Security Questions."
+                        description="You can reset your forgotten password using these security questions. "
+                        type="success"
+                        showIcon
+                        fontSize="30"
+                      />
+                    </div>
                   </div>
                 </Modal>
                 <br />
@@ -489,69 +541,94 @@ class PatientProfile extends React.Component {
                   Change Password
                 </Button>
                 <Modal show={this.state.pwd} onHide={this.handleClose}>
-                  <div className={css(styles.modal)}>
-                    <form onSubmit={this.onSubmit}>
-                      <div align="center" className={css(styles.heading)}>
-                        <ControlLabel>Update Password</ControlLabel>
-                      </div>
-                      <FormGroup>
-                        <ControlLabel>Enter New Password:</ControlLabel>
-                        <FormControl
-                          className={css(styles.inputBox)}
-                          type="password"
-                          name="password"
-                          label="Password"
-                          placeholder="Password"
-                          value={this.state.password}
-                          onChange={this.onChange}
-                        />
-                        <br />
-                        <ControlLabel>Confirm Password:</ControlLabel>
-                        <FormControl
-                          className={css(styles.inputBox)}
-                          type="password"
-                          name="confirmPassword"
-                          label="Confirm Password"
-                          placeholder="Confirm Password"
-                          value={this.state.confirmPassword}
-                          onChange={this.onChange}
-                        />
-                      </FormGroup>
-                      <div align="center">
-                        <Button
-                          type="primary"
-                          style={{
-                            width: "80%",
-                            marginTop: 24,
-                            height: 36,
-                            borderRadius: 20,
-                            borderColor: "#fff",
-                            fontWeight: "bold",
-                            backgroundColor: "#1e3799"
-                          }}
-                          onChange={this.onChange}
-                          onClick={this.onSubmit_pwd}
-                        >
-                          Save
-                        </Button>
-                        <Button
-                          type="primary"
-                          style={{
-                            width: "80%",
-                            marginTop: 24,
-                            height: 36,
-                            borderRadius: 20,
-                            borderColor: "#fff",
-                            fontWeight: "bold",
-                            backgroundColor: "#4a69bd"
-                          }}
-                          onChange={this.onChange}
-                          onClick={this.handleClose}
-                        >
-                          Cancel
-                        </Button>
-                      </div>
-                    </form>
+                  <div
+                    className={
+                      !this.state.pwd_changed
+                        ? css(styles.expanded)
+                        : css(styles.unexpanded)
+                    }
+                  >
+                    <div className={css(styles.modal)}>
+                      <form onSubmit={this.onSubmit}>
+                        <div align="center" className={css(styles.heading)}>
+                          <ControlLabel>Update Password</ControlLabel>
+                        </div>
+                        <FormGroup>
+                          <ControlLabel>Enter New Password:</ControlLabel>
+                          <FormControl
+                            className={css(styles.inputBox)}
+                            type="password"
+                            name="password"
+                            label="Password"
+                            placeholder="Password"
+                            value={this.state.password}
+                            onChange={this.onChange}
+                          />
+                          <br />
+                          <ControlLabel>Confirm Password:</ControlLabel>
+                          <FormControl
+                            className={css(styles.inputBox)}
+                            type="password"
+                            name="confirmPassword"
+                            label="Confirm Password"
+                            placeholder="Confirm Password"
+                            value={this.state.confirmPassword}
+                            onChange={this.onChange}
+                          />
+                        </FormGroup>
+                        <div align="center">
+                          <Button
+                            type="primary"
+                            style={{
+                              width: "80%",
+                              marginTop: 24,
+                              height: 36,
+                              borderRadius: 20,
+                              borderColor: "#fff",
+                              fontWeight: "bold",
+                              backgroundColor: "#1e3799"
+                            }}
+                            onChange={this.onChange}
+                            onClick={this.onSubmit_pwd}
+                          >
+                            Save
+                          </Button>
+                          <Button
+                            type="primary"
+                            style={{
+                              width: "80%",
+                              marginTop: 24,
+                              height: 36,
+                              borderRadius: 20,
+                              borderColor: "#fff",
+                              fontWeight: "bold",
+                              backgroundColor: "#4a69bd"
+                            }}
+                            onChange={this.onChange}
+                            onClick={this.handleClose}
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div className={css(styles.small_modal)}>
+                    <div
+                      className={
+                        this.state.pwd_changed
+                          ? css(styles.expanded)
+                          : css(styles.unexpanded)
+                      }
+                    >
+                      <Alert
+                        message="Password updated successfully!"
+                        description="Please use new password from next login"
+                        type="success"
+                        showIcon
+                        fontSize="30"
+                      />
+                    </div>
                   </div>
                 </Modal>
               </div>

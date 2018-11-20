@@ -247,9 +247,13 @@ class AppointmentCard extends React.Component {
                       </div>
                       <div className={css(styles.modal)}>
                         <a onClick={() => this.handleOpenModal()}>
-                          <Button type="primary" icon="user" size="large">
-                            View Medical History
-                          </Button>
+                          {!size ? (
+                            <Button type="primary" icon="car" size="large">
+                              View Medical History
+                            </Button>
+                          ) : (
+                            <Button type="primary" icon="plus" shape="circle" />
+                          )}
                         </a>
                       </div>
                       <PatientModal

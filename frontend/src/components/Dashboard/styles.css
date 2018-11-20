@@ -1,11 +1,11 @@
 .rwt__tabs[data-rwt-vertical="true"] {
   display: flex;
-  height: 100%;
+  height: 125%;
 }
 
 .rwt__tablist:not([aria-orientation="vertical"]) {
   border-bottom: 1px solid #ddd;
-  height: 100px;
+  height: 125px;
 }
 
 .rwt__tablist[aria-orientation="vertical"] {
@@ -15,7 +15,7 @@
   flex-grow: 0;
   border-right: 1px solid #ddd;
   margin-right: 1rem;
-  height: 100%;
+  height: 125%;
 }
 
 .rwt__tab {
@@ -23,30 +23,31 @@
   border: 0;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-weight: 600;
-  font-size: inherit;
+  font-size: 16px;
   padding: 1rem 6rem;
   color: #001f3f;
   transition: background 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-  height: 100px;
+  height: 125px;
 }
 
 .rwt__tab[aria-selected="false"]:hover,
 .rwt__tab:focus {
   outline: 0;
-  background-color: #e3f2fd;
+  background-color: #e6f1fc;
+  /* #e3f2fd; */
   /* background-color: rgba(0, 0, 0, 0.05); */
-  height: 100px;
+  height: 125px;
 }
 
 .rwt__tab[aria-selected="true"] {
   position: relative;
-  height: 100px;
+  height: 125px;
 }
 
 .rwt__tab[aria-selected="true"]:after {
   content: "";
   position: absolute;
-  height: 100px;
+  height: 125px;
 }
 
 .rwt__tablist:not([aria-orientation="vertical"])
@@ -54,8 +55,8 @@
   bottom: -1px;
   left: 0;
   width: 100%;
-  border-bottom: 3px solid #00d8ff;
-  height: 100%;
+  border-bottom: 3px solid #e6f1fc;
+  height: 125%;
 }
 
 .rwt__tablist[aria-orientation="vertical"]
@@ -63,10 +64,10 @@
   right: -1px;
   top: 0;
   height: 100%;
-  border-right: 3px solid #00d8ff;
+  border-right: 4px solid #2a45cf;
 }
 
 .rwt__tabpanel {
   height: 100px;
-  width: 100%;
+  width: 120%;
 }
