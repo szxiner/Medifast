@@ -1,17 +1,35 @@
 .navbar-default {
-  background-image: linear-gradient(to bottom, #3a66afe8 0, #3a66afe8 100%);
-  background-color: #3a66afe8;
+  background-image: linear-gradient(to bottom, #092e6b 0, #092e6b 100%);
+  background-color: #092e6b;
+}
+.navbar {
+  margin-bottom: 0px;
 }
 
 .navbar-default .navbar-brand {
-  color: #000;
+  color: #f4f5f5;
   font-size: 20px;
   font-weight: 300;
 }
 
 .navbar-brand,
 .navbar-nav > li > a {
-  text-shadow: 0 1px 0 #4d4d4d;
+  text-shadow: white;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .navbar-collapse.collapse {
+    display: none !important;
+  }
+  .navbar-collapse.collapse.in {
+    display: block !important;
+  }
+  .navbar-header .collapse,
+  .navbar-toggle {
+    display: block !important;
+  }
+  .navbar-header {
+    float: none;
+  }
 }
 
 /* .navbar-default {

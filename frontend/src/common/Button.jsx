@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     width: "100%",
     fontWeight: "bold",
     color: themeColor.white,
-    backgroundColor: "#2557ab",
+    backgroundColor: "#092e6b",
     //"#3c6382",
     borderRadius: 5,
     height: 44,

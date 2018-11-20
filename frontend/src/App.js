@@ -58,7 +58,7 @@ class App extends React.Component {
                 <Route exact path="/dashboard" component={Dashboard} />
               </Switch>
             </div>
-            <FooterBar />
+            {/* <FooterBar /> */}
           </div>
         </Router>
       </Provider>

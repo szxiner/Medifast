@@ -38,9 +38,8 @@ const Styles = StyleSheet.create({
     borderColor: "#1A237E",
     border: "auto"
   },
-  tablist:{
-    fontSize:"22",
-    
+  tablist: {
+    fontSize: "22"
   }
 });
 
@@ -87,9 +86,9 @@ class DashboardSideBar extends Component {
 
     const { primaryColor } = this.state;
     return (
-      <Tabs defaultTab="vertical-tab-one" vertical>
+      <Tabs defaultTab="vertical-tab-one">
         <TabList className={css(styles.tablist)}>
-          <Tab tabFor="vertical-tab-one">Profile</Tab>
+          <Tab tabFor="vertical-tab-one">My Profile</Tab>
           <Tab tabFor="vertical-tab-two">
             {type === "Patient"
               ? "Show all Doctors"

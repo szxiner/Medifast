@@ -21,13 +21,14 @@
 .rwt__tab {
   background: transparent;
   border: 0;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  padding: 1rem 6rem;
-  color: #001f3f;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 20px;
+  padding: 1rem 3rem;
   transition: background 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
   height: 125px;
+  text-align: left;
+  color: #092e6b;
 }
 
 .rwt__tab[aria-selected="false"]:hover,
@@ -37,6 +38,7 @@
   /* #e3f2fd; */
   /* background-color: rgba(0, 0, 0, 0.05); */
   height: 125px;
+  font-weight: 600;
 }
 
 .rwt__tab[aria-selected="true"] {
@@ -55,7 +57,7 @@
   bottom: -1px;
   left: 0;
   width: 100%;
-  border-bottom: 3px solid #e6f1fc;
+  border-bottom: 4px solid #092e6b;
   height: 125%;
 }
 
@@ -69,5 +71,5 @@
 
 .rwt__tabpanel {
   height: 100px;
-  width: 120%;
+  width: 100%;
 }

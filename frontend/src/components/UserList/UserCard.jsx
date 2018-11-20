@@ -7,6 +7,7 @@ import { Grid, Row, Col } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
 import doctor2 from "../../images/doctor2.svg";
+import userstyles from "./userstyles.css";
 
 const styles = StyleSheet.create({
   container: {
@@ -68,7 +69,7 @@ class UserCard extends React.Component {
                   <Icon
                     type="user"
                     theme="outlined"
-                    style={{ fontSize: 66, margin: 10 }}
+                    style={{ fontSize: 50, margin: 10 }}
                   />
                 ) : (
                   <div style={{ marginTop: 12 }}>
@@ -81,7 +82,7 @@ class UserCard extends React.Component {
               <div className={css(styles.info)}>
                 {type === "Patient" ? (
                   <div>
-                    <div>
+                    <div fontSize="24px">
                       <span style={{ fontWeight: "bold" }}>Name: </span>
                       {currentUser.First_name} {currentUser.Last_Name}
                     </div>

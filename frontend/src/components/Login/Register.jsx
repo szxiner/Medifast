@@ -162,7 +162,15 @@ export class Register extends React.Component {
             </Col>
             <Col xs={12} md={7}>
               <div className={css(styles.register)}>
-                <h1 style={{ fontSize: 60, textAlign: "center" }}>Medifast</h1>
+                <h1
+                  style={{
+                    fontSize: 60,
+                    textAlign: "center",
+                    color: "#000"
+                  }}
+                >
+                  Medifast
+                </h1>
                 <br />
                 <div>
                   {stageOne ? (

@@ -44,11 +44,13 @@ export default class LandingNavbar extends React.Component {
         <div>
           <Navbar>
             <Navbar.Header>
-              <Navbar.Brand>
-                <Link to="/">
-                  <h1 style={{ fontSize: 24 }}>Medifast</h1>
-                </Link>
-              </Navbar.Brand>
+              <Nav pullLeft>
+                <Navbar.Brand>
+                  <Link to="/">
+                    <h1 style={{ fontSize: 26 }}>Medifast</h1>
+                  </Link>
+                </Navbar.Brand>
+              </Nav>
             </Navbar.Header>
             <Nav pullRight>
               <Navbar.Brand eventKey={1} href="#">

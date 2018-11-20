@@ -1,0 +1,13 @@
+.container_4ycl42 {
+  width: auto;
+  background-image: -webkit-linear-gradient(
+    right,
+    white 87%,
+    rgb(233, 235, 236) 13%
+  ) !important;
+  font-size: 16px !important;
+  line-height: 2 !important;
+  border-radius: 8px !important;
+  margin: 2% !important;
+  padding: 1% !important;
+}
