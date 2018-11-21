@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
 import store from "../../store";
 import nav from "./nav.css";
-import { css } from "aphrodite";
+import { StyleSheet, css } from "aphrodite";
+
+const styles = StyleSheet.create({
+  container: {
+    width: "auto",
+    "@media (min-width: 992px)": {}
+  }
+});
 
 export default class LandingNavbar extends React.Component {
   constructor(props) {
@@ -41,7 +48,7 @@ export default class LandingNavbar extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div style={{ containterWidth: "auto" }}>
           <Navbar>
             <Navbar.Header>
               <Nav pullLeft>
@@ -58,7 +65,12 @@ export default class LandingNavbar extends React.Component {
                   Log in
                 </Link>
               </Navbar.Brand>
-              <Navbar.Brand eventKey={2} href="#" color="#000">
+              <Navbar.Brand
+                eventKey={2}
+                href="#"
+                color="#000"
+                borderColor="white"
+              >
                 <Link to="/register">Sign up</Link>
               </Navbar.Brand>
             </Nav>

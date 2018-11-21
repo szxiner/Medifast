@@ -8,6 +8,7 @@ import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
 import doctor2 from "../../images/doctor2.svg";
 import userstyles from "./userstyles.css";
+import { Navbar, FormGroup, FormControl } from "react-bootstrap";
 
 const styles = StyleSheet.create({
   container: {

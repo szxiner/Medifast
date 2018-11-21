@@ -63,7 +63,9 @@ const styles = StyleSheet.create({
     display: "flex"
   },
   flexBody: {
-    display: "flex"
+    display: "flex",
+    //marginRight: "0px"
+    justifyContent: "center"
   },
   header: {
     textAlign: "center",
@@ -72,7 +74,6 @@ const styles = StyleSheet.create({
     backgroundImage: "linear-gradient(#82ccdd, #4a69bd)",
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-
     borderBottomLeftRadius: "70% 20%",
     borderBottomRightRadius: "70% 20%"
   },
@@ -125,6 +126,11 @@ const styles = StyleSheet.create({
   },
   alert: {
     fontSize: "30"
+  },
+  flex: {
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center"
   }
 });
 
@@ -314,7 +320,7 @@ class PatientProfile extends React.Component {
     return (
       <div className={css(styles.flexBody)}>
         <div className={css(styles.flexColumn)}>
-          <div style={{ flex: "1 1 360px", width: "520px" }}>
+          <div style={{ flex: "1 1 250px", width: "700px" }}>
             <div className={css(styles.appointment)}>
               <span style={{ fontWeight: "bold" }}>Upcoming Appointments:</span>
               <hr />
@@ -341,14 +347,14 @@ class PatientProfile extends React.Component {
               )}
             </div>
           </div>
-          <div style={{ flex: "1 1 360px", width: "520px" }}>
+          <div style={{ flex: "1 1 250px", width: "700px" }}>
             <div className={css(styles.billing)}>
               <span style={{ fontWeight: "bold" }}>Billing:</span>
             </div>
           </div>
         </div>
         <div className={css(styles.flexRow)}>
-          <div style={{ flex: "1 1 360px", width: "520px" }}>
+          <div style={{ flex: "1 1 250px", width: "600px" }}>
             <div className={css(styles.profile)}>
               <div className={css(styles.header)}>
                 <div

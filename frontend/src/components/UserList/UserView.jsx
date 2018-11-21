@@ -3,6 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import UserList from "./UserList";
+import { Navbar, FormGroup, FormControl, Button } from "react-bootstrap";
 
 const styles = StyleSheet.create({});
 
@@ -16,6 +17,7 @@ class UserView extends React.Component {
       const type = auth.user.type;
       if (type === "Doctor" || type === "Patient") {
         userDisplay = <UserList userType={type} />;
+      } else if (type === "Doctor") {
       } else {
         userDisplay = (
           <div>

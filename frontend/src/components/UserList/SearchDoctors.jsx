@@ -7,6 +7,7 @@ import { Input, Icon } from "antd";
 import axios from "axios";
 import PatientModal from "./PatientModal";
 import UserList from "./UserList";
+import button from "./button.css";
 
 import {
   FormGroup,
@@ -23,10 +24,10 @@ import SearchDocModal from "./SearchDocModal";
 const styles = StyleSheet.create({
   box: {
     margin: "auto",
-    marginTop: "8%",
+    marginTop: "5%",
     width: "80%",
     // height: "100%",
-    padding: 50,
+    padding: 30,
     backgroundColor: themeColor.white,
     color: themeColor.aegean2,
     borderColor: themeColor.grey3,
@@ -152,7 +153,7 @@ export default class SearchDoctors extends React.Component {
         });
         // if (arr.includes("/this.state.search.toLowerCase()*/")) {
         if (_.includes(this.state.search.toLowerCase())) {
-          // if (s.test(/adh*/)) {
+          // if (arr.includes(this.state.search.toLowerCase())) {
           return true;
         } else {
           return false;
@@ -210,9 +211,31 @@ export default class SearchDoctors extends React.Component {
     return (
       <div className={css(styles.box)}>
         {this.state.searchbar ? (
-          <div>
+          <div textAlign="center">
             <form onSubmit={this.onSubmit}>
               <FormGroup className={css(styles.FormGroup)}>
+                <h2
+                  style={{
+                    fontSize: 40,
+                    textAlign: "center"
+                  }}
+                >
+                  Find a Doctor
+                </h2>
+                <br />
+                <h3
+                  style={{
+                    textAlign: "center",
+                    Color: themeColor.grey1,
+                    fontSize: 22
+                  }}
+                >
+                  Our find a doctor tool assists you in choosing from our
+                  diverse pool of health specialists. Discover better health &
+                  wellness by using our doctor ratings & reviews to make your
+                  choice.
+                </h3>
+                <br />
                 <InputGroup>
                   <FormControl
                     type="text"
@@ -241,8 +264,19 @@ export default class SearchDoctors extends React.Component {
               </Button>
               {this.state.isshowall ? this.showall : ""}
             </form> */}
-
             <br />
+            <div style={{ alignItems: "center", textAlign: "center" }}>
+              <h3
+                style={{
+                  display: "inline-block",
+                  fontSize: 22
+                }}
+              >
+                Not sure which doctor you are looking for?
+              </h3>
+              &nbsp; &nbsp;
+              <Button type="submit">Show All Doctors </Button>
+            </div>
           </div>
         ) : (
           ""
