@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Button } from "antd";
+import { Button, Rate } from "antd";
 import { Grid, Row, Col } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
@@ -96,7 +96,15 @@ class UserCard extends React.Component {
 
   render() {
     const { type, currentUser } = this.props;
-    const loading = true;
+
+    const name = currentUser.First_name + "  " + currentUser.Last_Name; //need to place space between first and last names
+    const specialization = currentUser.specialization;
+    const address =
+      currentUser.Hospital +
+      "  " +
+      currentUser.city_name +
+      " " +
+      currentUser.state_name;
 
     return (
       <div
@@ -104,19 +112,44 @@ class UserCard extends React.Component {
         style={{ justifyContent: "center" }}
       >
         <div className={css(styles.flex)}>
-          <div display="inline=block" justifyContent="center">
+          <div display="inline-block" justifyContent="center">
             <Card
-              style={{ width: 300, marginTop: 16 }}
+              style={{ width: 350, marginTop: 20 }}
               actions={[
-                <Icon type="setting" />,
-                <Icon type="edit" />,
-                <Icon type="ellipsis" />
+                <div style={{ display: "inline-block" }}>
+                  <Button
+                    shape="circle"
+                    icon="plus"
+                    onClick={() => this.handleOpenModal()}
+                  />
+                  <DoctorModal
+                    showModal={this.state.showModal}
+                    handleCloseModal={this.handleCloseModal}
+                    activeProfile={currentUser.Last_Name}
+                    activeInfo={[currentUser]}
+                    className={css(styles.modal)}
+                  />
+                </div>
               ]}
             >
               <Meta
                 avatar={<Avatar src={docmale} />}
-                title="Card title"
-                description="This is the description"
+                title={name}
+                description={
+                  <div>
+                    <span
+                      style={{ fontWeight: "bold", display: "inline-block" }}
+                    >
+                      Specialization:
+                    </span>
+                    <span> {specialization} </span>
+                    <br />
+                    <span style={{ fontWeight: "bold" }}>Hospital: </span>
+                    {address}
+                  </div>
+                }
+                // <span style={{ fontWeight: "bold" }}>Hospital: </span>+
+                // {address}
               />
             </Card>
           </div>
