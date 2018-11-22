@@ -9,21 +9,16 @@
   color: #fff;
   background-color: #092e6b;
   border-color: #092e6b;
-  background-image: -webkit-linear-gradient(top, #092e6b 0, #092e6b 100%);
-  background-image: -o-linear-gradient(top, #092e6b 0, #092e6b 100%);
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#092e6b),
-    to(#092e6b)
-  );
-  background-image: linear-gradient(to bottom, #092e6b 0, #092e6b 100%);
+  background-image: none;
+  background-image: none;
+  background-image: none;
   font-weight: 700;
 }
 
 .btn-default:focus,
 .btn-default:hover {
   background-color: #0d316bb7;
-  /* background-position: 0 -15px; */
+  background-position: none;
+  color: #fff;
+  font-weight: 600;
 }
