@@ -41,6 +41,10 @@ const Styles = StyleSheet.create({
   tablist: {
     fontSize: "22"
   },
+  tab: {
+    fontFamily: "Courgette, cursive"
+  },
+
   flex: {
     justifyContent: "center",
     alignItems: "center",

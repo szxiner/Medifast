@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     marginLeft: "20%",
     marginRight: "20%",
     marginBottom: "1%",
-    width: "60%"
+    width: "60%",
+    backgroundColor: themeColor.white
   },
   close: {
     right: 25,

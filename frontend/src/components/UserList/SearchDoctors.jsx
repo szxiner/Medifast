@@ -8,6 +8,8 @@ import axios from "axios";
 import PatientModal from "./PatientModal";
 import UserList from "./UserList";
 import button from "./button.css";
+import UserView from "./UserView";
+import UserCard from "./UserCard";
 
 import {
   FormGroup,
@@ -52,6 +54,20 @@ const styles = StyleSheet.create({
     width: "100%",
     color: themeColor.dark1
   },
+  box2: {
+    margin: "auto",
+    marginTop: "3%",
+    width: "100%",
+    // height: "100%",
+    padding: 10,
+    backgroundColor: themeColor.white,
+    color: themeColor.aegean2,
+    borderColor: themeColor.grey3,
+    borderRadius: 5,
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
+  },
   tr: {
     fontWeight: "normal",
     padding: 4,
@@ -71,7 +87,8 @@ const styles = StyleSheet.create({
   p: {
     font: "Cagliostro",
     fontWeight: "bold",
-    fontSize: 20
+    fontSize: 20,
+    color: "#FF0000"
   },
   icon: {
     size: 100
@@ -138,6 +155,7 @@ export default class SearchDoctors extends React.Component {
       if (res.status === 200) {
         console.log(res.data);
         this.setState({ userList: res.data });
+        this.setState({ isshowall: false });
       }
       this.state.userList_lower = JSON.stringify(
         this.state.userList
@@ -152,8 +170,8 @@ export default class SearchDoctors extends React.Component {
           }
         });
         // if (arr.includes("/this.state.search.toLowerCase()*/")) {
-        if (_.includes(this.state.search.toLowerCase())) {
-          // if (arr.includes(this.state.search.toLowerCase())) {
+        // if (_.includes(this.state.search.toLowerCase())) {
+        if (arr.includes(this.state.search.toLowerCase())) {
           return true;
         } else {
           return false;
@@ -166,7 +184,8 @@ export default class SearchDoctors extends React.Component {
 
       if (this.state.searchList.length > 0) {
         this.setState({
-          show: true
+          show: true,
+          noresults: false
 
           //activeProfile: user.search
         });
@@ -185,16 +204,17 @@ export default class SearchDoctors extends React.Component {
   onSubmit2 = e => {
     e.preventDefault();
 
-    this.showall = <UserList userType={"Patient"} />;
+    // this.showall = <UserList userType={"Patient"} />;
     this.setState({ isshowall: true });
+    this.setState({ show: false });
     // this.setState({ searchbar: false });
   };
 
   handleOpenModal(user) {
     const { userType } = this.props;
     this.state.viewType = "Doctor";
-    this.state.searchbar = false;
     this.state.showModal = true;
+    this.setState({ searchbar: false });
 
     const docInfo = _.filter(this.state.userList, {
       search: user.search
@@ -203,11 +223,12 @@ export default class SearchDoctors extends React.Component {
   }
 
   handleCloseModal() {
-    this.setState({ showModal: false, activeInfo: [] });
-    this.state.searchbar = true;
+    this.setState({ showModal: false, activeInfo: [], searchbar: true });
   }
 
   render() {
+    const { type, currentUser } = this.props;
+
     return (
       <div className={css(styles.box)}>
         {this.state.searchbar ? (
@@ -217,7 +238,8 @@ export default class SearchDoctors extends React.Component {
                 <h2
                   style={{
                     fontSize: 40,
-                    textAlign: "center"
+                    textAlign: "center",
+                    fontFamily: "Acme, sans-serif"
                   }}
                 >
                   Find a Doctor
@@ -265,57 +287,79 @@ export default class SearchDoctors extends React.Component {
               {this.state.isshowall ? this.showall : ""}
             </form> */}
             <br />
-            <div style={{ alignItems: "center", textAlign: "center" }}>
+            <div
+              style={{
+                alignItems: "center",
+                textAlign: "center"
+              }}
+            >
               <h3
                 style={{
                   display: "inline-block",
-                  fontSize: 22
+                  fontSize: 18
                 }}
               >
                 Not sure which doctor you are looking for?
               </h3>
               &nbsp; &nbsp;
-              <Button type="submit">Show All Doctors </Button>
+              <form
+                onSubmit={this.onSubmit2}
+                style={{ display: "inline-block" }}
+              >
+                <Button
+                  type="submit"
+                  onSubmit={this.onSubmit2}
+                  style={{ fontSize: "30" }}
+                >
+                  Show All Doctors{" "}
+                </Button>
+              </form>
             </div>
           </div>
         ) : (
           ""
         )}
         {this.state.show ? (
-          <div className={css(styles.innerComponent)}>
-            <div className={css(styles.userList)}>
-              <table className={css(styles.table)}>
-                <tr className={css(styles.tr)}>
-                  <th className={css(styles.th)}>ID</th>
-                  <th className={css(styles.th)}>NAME </th>
-                  <th className={css(styles.th)}>SPECIALIZATION</th>
-                  <th className={css(styles.th)}>HOSPITAL</th>
-                  <th className={css(styles.th)}>INSURANCE INFORMATION</th>
-                  <th className={css(styles.th)}>CITY</th>
-                  <th className={css(styles.th)}>STATE</th>
-                  <th className={css(styles.th)}>MORE</th>
-                </tr>
-                {_.map(this.state.searchList, (user, key) => {
-                  return (
-                    <tr className={css(styles.tr)}>
-                      <th className={css(styles.th)}>{key + 1}</th>
-                      <th className={css(styles.th)}>{user.Last_Name}</th>
-                      <th className={css(styles.th)}>{user.specialization}</th>
-                      <th className={css(styles.th)}>{user.Hospital}</th>
-                      <th className={css(styles.th)}>{user.insurance_name}</th>
-                      <th className={css(styles.th)}>{user.city_name}</th>
-                      <th className={css(styles.th)}>{user.state_name}</th>
+          // <div className={css(styles.innerComponent)}>
+          //   <div className={css(styles.userList)}>
+          //     <table className={css(styles.table)}>
+          //       <tr className={css(styles.tr)}>
+          //         <th className={css(styles.th)}>ID</th>
+          //         <th className={css(styles.th)}>NAME </th>
+          //         <th className={css(styles.th)}>SPECIALIZATION</th>
+          //         <th className={css(styles.th)}>HOSPITAL</th>
+          //         <th className={css(styles.th)}>INSURANCE INFORMATION</th>
+          //         <th className={css(styles.th)}>CITY</th>
+          //         <th className={css(styles.th)}>STATE</th>
+          //         <th className={css(styles.th)}>MORE</th>
+          //       </tr>
+          //     {_.map(this.state.searchList, (user, key) => {
+          //       return (
+          //         <tr className={css(styles.tr)}>
+          //           <th className={css(styles.th)}>{key + 1}</th>
+          //           <th className={css(styles.th)}>{user.Last_Name}</th>
+          //           <th className={css(styles.th)}>{user.specialization}</th>
+          //           <th className={css(styles.th)}>{user.Hospital}</th>
+          //           <th className={css(styles.th)}>{user.insurance_name}</th>
+          //           <th className={css(styles.th)}>{user.city_name}</th>
+          //           <th className={css(styles.th)}>{user.state_name}</th>
 
-                      <th className={css(styles.more)}>
-                        <a onClick={() => this.handleOpenModal(user)}>
-                          <Icon type="down" theme="outlined" />
-                        </a>
-                      </th>
-                    </tr>
-                  );
-                })}
-              </table>
-            </div>
+          //           <th className={css(styles.more)}>
+          //             <a onClick={() => this.handleOpenModal(user)}>
+          //               <Icon type="down" theme="outlined" />
+          //             </a>
+          //           </th>
+          //         </tr>
+          //       );
+          //     })}
+          //   </table>
+          // </div>
+          // </div>
+          <div>
+            {/* <h3>Available {viewType}s</h3> */}
+            {_.map(this.state.searchList, user => {
+              return <UserCard type={"Patient"} currentUser={user} />;
+            })}
           </div>
         ) : (
           ""
@@ -323,7 +367,8 @@ export default class SearchDoctors extends React.Component {
         {this.state.noresults ? (
           <div align="center">
             <p className={css(styles.p)}>
-              {" "}
+              <br />
+              <br />{" "}
               <Icon
                 className={css(styles.icon)}
                 type="exclamation-circle"
@@ -331,6 +376,15 @@ export default class SearchDoctors extends React.Component {
               />{" "}
               Oops! No Results!
             </p>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {this.state.isshowall ? (
+          <div className={css(styles.box2)}>
+            {" "}
+            <UserList userType={"Patient"} />;
           </div>
         ) : (
           ""

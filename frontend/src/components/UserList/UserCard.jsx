@@ -97,7 +97,7 @@ class UserCard extends React.Component {
   render() {
     const { type, currentUser } = this.props;
 
-    const name = currentUser.First_name + "  " + currentUser.Last_Name; //need to place space between first and last names
+    const name = currentUser.First_name + "  " + currentUser.Last_Name;
     const specialization = currentUser.specialization;
     const address =
       currentUser.Hospital +

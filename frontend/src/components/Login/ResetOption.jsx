@@ -103,11 +103,14 @@ export default class ResetOption extends React.Component {
           </div>
         </form>
         <br />
-        <p align="center">OR</p>
+        <p align="center" fontWeight="700">
+          OR
+        </p>
         <br />
         <form onSubmit={this.onSubmit2}>
           <div className="wellStyles">
             <Button
+              bsStyle="primary"
               bsSize="large"
               onSubmit={this.onSubmit1}
               type="submit"
