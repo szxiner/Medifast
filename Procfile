@@ -1,0 +1,1 @@
+web: gunicorn Medifast.wsgi --log-file -
