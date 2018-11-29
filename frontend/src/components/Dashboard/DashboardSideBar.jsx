@@ -20,6 +20,7 @@ import Map from "../../common/Map";
 import SearchDoctors from "../UserList/SearchDoctors";
 import pwdchange from "../Login/pwdchange";
 import PropTypes from "prop-types";
+import Billing from "../Billing/Billing";
 
 const Styles = StyleSheet.create({
   clickMe: {
@@ -96,30 +97,30 @@ class DashboardSideBar extends Component {
     const { primaryColor } = this.state;
     if (type === "Patient")
       return (
-        <Tabs className={css(styles.flex)} defaultTab="vertical-tab-one">
+        <Tabs className={css(styles.flex)} defaultTab="one">
           <TabList className={css(styles.tablist)}>
-            <Tab tabFor="vertical-tab-one">My Profile</Tab>
-            <Tab tabFor="vertical-tab-two">Show all Doctors </Tab>
-            <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
-            <Tab tabFor="vertical-tab-four">My Appointments</Tab>
-            <Tab tabFor="vertical-tab-5">Find a Doctor</Tab>
+            <Tab tabFor="one">My Profile</Tab>
+            <Tab tabFor="three">Insurance Information</Tab>
+            <Tab tabFor="four">My Appointments</Tab>
+            <Tab tabFor="5">Find a Doctor</Tab>
+            <Tab tabFor="6">Billing</Tab>
           </TabList>
-          <TabPanel tabId="vertical-tab-one" component={Profile} />
-          <TabPanel tabId="vertical-tab-two" component={UserView} />
-          <TabPanel tabId="vertical-tab-three">TBD</TabPanel>
-          <TabPanel tabId="vertical-tab-four" component={MyAppointment} />
-          <TabPanel tabId="vertical-tab-5" component={SearchDoctors} />
+          <TabPanel tabId="one" component={Profile} />
+          <TabPanel tabId="three">TBD</TabPanel>
+          <TabPanel tabId="four" component={MyAppointment} />
+          <TabPanel tabId="5" component={SearchDoctors} />
+          <TabPanel tabId="6" component={Billing} />
         </Tabs>
       );
     else if (type === "Doctor")
       return (
-        <Tabs defaultTab="vertical-tab-one">
+        <Tabs defaultTab="one">
           <TabList className={css(styles.tablist)}>
-            <Tab tabFor="vertical-tab-one">My Profile</Tab>
-            <Tab tabFor="vertical-tab-two">Show all Doctors </Tab>
-            <Tab tabFor="vertical-tab-three">Insurance Information</Tab>
-            <Tab tabFor="vertical-tab-four">My Appointments</Tab>
-            <Tab tabFor="vertical-tab-5">Search Doctors</Tab>
+            <Tab tabFor="one">My Profile</Tab>
+            <Tab tabFor="two">View Patients </Tab>
+            <Tab tabFor="three">Insurance Information</Tab>
+            <Tab tabFor="four">My Appointments</Tab>
+            <Tab tabFor="5">Search Doctors</Tab>
           </TabList>
           <TabPanel tabId="vertical-tab-one" component={Profile} />
           <TabPanel tabId="vertical-tab-two" component={UserView} />
@@ -130,17 +131,17 @@ class DashboardSideBar extends Component {
       );
     else
       return (
-        <Tabs defaultTab="vertical-tab-one">
+        <Tabs defaultTab="one">
           <TabList className={css(styles.tablist)}>
-            <Tab tabFor="vertical-tab-one">My Profile</Tab>
-            <Tab tabFor="vertical-tab-two">Manage Claims </Tab>
-            <Tab tabFor="vertical-tab-three">Statistics</Tab>
-            <Tab tabFor="vertical-tab-5">Search Doctors</Tab>
+            <Tab tabFor="one">My Profile</Tab>
+            <Tab tabFor="two">Manage Claims </Tab>
+            <Tab tabFor="three">Statistics</Tab>
+            <Tab tabFor="5">Search Doctors</Tab>
           </TabList>
-          <TabPanel tabId="vertical-tab-one" component={Profile} />
-          <TabPanel tabId="vertical-tab-two" component={UserView} />
-          <TabPanel tabId="vertical-tab-three">TBD</TabPanel>
-          <TabPanel tabId="vertical-tab-5" component={SearchDoctors} />
+          <TabPanel tabId="one" component={Profile} />
+          <TabPanel tabId="two" component={UserView} />
+          <TabPanel tabId="three">TBD</TabPanel>
+          <TabPanel tabId="5" component={SearchDoctors} />
         </Tabs>
       );
   }

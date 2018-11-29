@@ -207,6 +207,7 @@ export default class SearchDoctors extends React.Component {
     // this.showall = <UserList userType={"Patient"} />;
     this.setState({ isshowall: true });
     this.setState({ show: false });
+    this.setState({ noresults: false });
     // this.setState({ searchbar: false });
   };
 

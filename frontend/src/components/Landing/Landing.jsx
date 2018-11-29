@@ -144,21 +144,21 @@ const content = [
   {
     title: "Medifast",
     description:
-      "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras justo odio, dapibus ac facilisis.",
+      "Caring for you and your families. We strive in providing effective healthcare at excellent value and to be the preferred choice for families and businesses.",
     image:
       "https://images.unsplash.com/photo-1496163668521-39614a16b23f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4ffc1585e1d793f0b0f33d16d1a7fe01&auto=format&fit=crop&w=2089&q=80"
   },
   {
     title: "Medifast",
     description:
-      "Nullam id dolor id nibh ultricies vehicula ut id elit. Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec sed odio dui.",
+      "For years, we have helped build healthier, stronger communities. Let us be your partner in good health - at your doctor's office, at your workplace, at home and in your community",
     image:
       "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=be4042f7cc4661f473ebc3edcdb9765a&auto=format&fit=crop&w=2089&q=80"
   },
   {
     title: "Medifast",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.",
+      "If you need an all-in-one Medicare Advantage plan or supplemental coverage, we can help you find the right plan.",
     image:
       "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c1b566f6cf95b8fe438961fd065158cd&auto=format&fit=crop&w=1950&q=80"
   }
@@ -198,14 +198,11 @@ export default class Landing extends React.Component {
                         marginLeft: "15%"
                       }}
                     />
-                    <div className={css(styles.subTitle)}>PlaceHolder</div>
+                    <div className={css(styles.subTitle)}>Our Plans</div>
                     <hr />
                     <div>
-                      Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-                      venenatis vestibulum. Fusce dapibus, tellus ac cursus
-                      commodo, tortor mauris condimentum nibh, ut fermentum
-                      massa justo sit amet risus. Cras justo odio, dapibus ac
-                      facilisis.
+                      Stay on top of your health with Medicare plans that may
+                      include prescription, dental and vision coverage.
                     </div>
                   </div>
                 </Plx>
@@ -221,14 +218,12 @@ export default class Landing extends React.Component {
                         marginLeft: "15%"
                       }}
                     />
-                    <div className={css(styles.subTitle)}>PlaceHolder</div>
+                    <div className={css(styles.subTitle)}>Our Doctors</div>
                     <hr />
                     <div>
-                      Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-                      venenatis vestibulum. Fusce dapibus, tellus ac cursus
-                      commodo, tortor mauris condimentum nibh, ut fermentum
-                      massa justo sit amet risus. Cras justo odio, dapibus ac
-                      facilisis.
+                      Virtually all medical services you may need — doctor
+                      visits, testing, surgery, hospital care — are available
+                      "under one roof" at Medifast.
                     </div>
                   </div>
                 </Plx>
@@ -245,7 +240,9 @@ export default class Landing extends React.Component {
                           marginLeft: "15%"
                         }}
                       />
-                      <div className={css(styles.subTitle)}>PlaceHolder</div>
+                      <div className={css(styles.subTitle)}>
+                        We value your money
+                      </div>
                       <hr />
                       <div>
                         Aenean eu leo quam. Pellentesque ornare sem lacinia quam
