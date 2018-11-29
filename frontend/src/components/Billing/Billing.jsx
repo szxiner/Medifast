@@ -55,8 +55,7 @@ class Billing extends React.Component {
               style={{
                 fontSize: 32,
                 textAlign: "left",
-                fontFamily: "Acme, sans-serif",
-                paddingTop: 30
+                fontFamily: "Acme, sans-serif"
               }}
             >
               Outstanding Bills

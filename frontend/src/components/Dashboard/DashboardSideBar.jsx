@@ -21,6 +21,7 @@ import SearchDoctors from "../UserList/SearchDoctors";
 import pwdchange from "../Login/pwdchange";
 import PropTypes from "prop-types";
 import Billing from "../Billing/Billing";
+import { Icon } from "antd";
 
 const Styles = StyleSheet.create({
   clickMe: {
@@ -99,11 +100,26 @@ class DashboardSideBar extends Component {
       return (
         <Tabs className={css(styles.flex)} defaultTab="one">
           <TabList className={css(styles.tablist)}>
-            <Tab tabFor="one">My Profile</Tab>
-            <Tab tabFor="three">Insurance Information</Tab>
-            <Tab tabFor="four">My Appointments</Tab>
-            <Tab tabFor="5">Find a Doctor</Tab>
-            <Tab tabFor="6">Billing</Tab>
+            <Tab tabFor="one">
+              {" "}
+              <Icon type="user" /> &nbsp;&nbsp; My Profile
+            </Tab>
+            <Tab tabFor="three">
+              <Icon type="solution" />
+              &nbsp; Insurance Information
+            </Tab>
+            <Tab tabFor="four">
+              <Icon type="idcard" />
+              &nbsp; My Appointments
+            </Tab>
+            <Tab tabFor="5">
+              <Icon type="user-add" />
+              &nbsp; Find a Doctor
+            </Tab>
+            <Tab tabFor="6">
+              <Icon type="dollar" />
+              &nbsp; Billing
+            </Tab>
           </TabList>
           <TabPanel tabId="one" component={Profile} />
           <TabPanel tabId="three">TBD</TabPanel>
