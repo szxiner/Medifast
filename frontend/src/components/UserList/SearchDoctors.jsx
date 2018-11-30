@@ -22,7 +22,6 @@ import {
 } from "react-bootstrap";
 import SearchDocModal from "./SearchDocModal";
 //import Button from "../../common/Button";
-
 const styles = StyleSheet.create({
   box: {
     margin: "auto",
@@ -308,6 +307,7 @@ export default class SearchDoctors extends React.Component {
                 style={{ display: "inline-block" }}
               >
                 <Button
+                  bsStyle="primary"
                   type="submit"
                   onSubmit={this.onSubmit2}
                   style={{ fontSize: "30" }}

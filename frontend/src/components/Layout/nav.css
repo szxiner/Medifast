@@ -49,11 +49,11 @@
   border-color: white;
   border-style: 2px solid;
 }
-.container {
+/* .container {
   margin-left: 80px;
   margin-right: 40px;
   width: auto;
-}
+} */
 
 .navbar-default .navbar-brand:hover {
   /* color: #5e5e5e; */

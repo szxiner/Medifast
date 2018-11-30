@@ -23,9 +23,7 @@ const styles = StyleSheet.create({
       // TODO: Not responsive for mobile. Will Fix later
     }
   },
-  logo: {
-    textAlign: "center"
-  },
+
   clickMe: {
     textAlign: "center"
   },
@@ -48,12 +46,11 @@ const styles = StyleSheet.create({
       // TODO: Not responsive for mobile. Will Fix later
     },
     logo: {
-      textAlign: "center"
+      textAlign: "center",
+      color: "#000"
     }
   },
-  logo1: {
-    textAlign: "center"
-  },
+
   error1: {
     fontWeight: 600,
     textAlign: "center",

@@ -2,3 +2,41 @@
   width: 62px;
   height: 62px;
 }
+
+.ant-card-actions {
+  border-top: 1px solid #e8e8e8;
+  background: #fafafa;
+  zoom: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.btn-default:hover {
+  background-color: #0d316bb7;
+  /* background-position: 0 -15px; */
+}
+
+btn-default:focus {
+  background-color: #286090;
+  /* background-position: 0 -15px; */
+}
+
+.flex_10aqamz {
+  -webkit-box-align: center !important;
+  -webkit-box-pack: justify !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+  align-content: center !important;
+  /* -webkit-box-shadow: 3px 3px 5px 6px #ccc; */
+  /* box-shadow: 3px 3px 5px 6px #ccc;  */
+}
+
+.flexBody_vpyskp {
+  -webkit-box-pack: justify !important;
+  display: inline-flex !important;
+  flex-wrap: wrap !important;
+  justify-content: space-around !important;
+  padding: 10px !important;
+}

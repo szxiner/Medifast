@@ -1,18 +1,18 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Button, Rate } from "antd";
 import { Grid, Row, Col } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
 import doctor2 from "../../images/doctor2.svg";
 import userstyles from "./userstyles.css";
 import { Navbar, FormGroup, FormControl } from "react-bootstrap";
-import { Skeleton, Switch, Card, Icon, Avatar } from "antd";
 import { themeColor } from "../../theme/colors";
-import doc from "./doc.png";
+import docmale from "./docmale.png";
 import ant from "./ant.css";
+import PropTypes from "prop-types";
+import { View, Text, Image } from "react-native";
+import { Card, ListItem, Button, Icon } from "react-native-elements";
 
 const { Meta } = Card;
 
@@ -64,13 +64,18 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     flexflow: "row wrap",
     //marginRight: "0px",
-    justifyContent: "space-around",
-    padding: "10px"
+    justifyContent: "center"
   },
   flex: {
-    justifyContent: "space-around",
+    justifyContent: "center",
     alignItems: "center",
     alignContent: "center"
+  },
+  card: {
+    maxWidth: 345
+  },
+  media: {
+    height: 140
   }
 });
 
@@ -97,6 +102,13 @@ class UserCard extends React.Component {
 
   render() {
     const { type, currentUser } = this.props;
+    const { classes } = this.props;
+    const users = [
+      {
+        name: "brynn",
+        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg"
+      }
+    ];
 
     const name = currentUser.First_name + "  " + currentUser.Last_Name;
     const specialization = currentUser.specialization;
@@ -108,48 +120,27 @@ class UserCard extends React.Component {
       currentUser.state_name;
 
     return (
-      <div className={css(styles.flexBody)}>
+      <div
+        className={css(styles.flexBody)}
+        style={{ justifyContent: "center" }}
+      >
         <div className={css(styles.flex)}>
-          <div display="inline-block">
-            <Card
-              style={{ width: 350, marginTop: 20 }}
-              actions={[
-                <div style={{ display: "inline-block" }}>
-                  <Button
-                    shape="circle"
-                    icon="plus"
-                    onClick={() => this.handleOpenModal()}
-                  />
-                  <DoctorModal
-                    showModal={this.state.showModal}
-                    handleCloseModal={this.handleCloseModal}
-                    activeProfile={currentUser.Last_Name}
-                    activeInfo={[currentUser]}
-                    className={css(styles.modal)}
-                  />
-                </div>
-              ]}
-            >
-              <Meta
-                avatar={
-                  <Avatar style={{ width: 100, height: 120 }} src={doc} />
-                }
-                title={name}
-                description={
-                  <div>
-                    <span
-                      style={{ fontWeight: "bold", display: "inline-block" }}
-                    >
-                      Specialization:
-                    </span>
-                    <span> {specialization} </span>
-                    <br />
-                    <span style={{ fontWeight: "bold" }}>Hospital: </span>
-                    {address}
-                  </div>
-                }
-                // <span style={{ fontWeight: "bold" }}>Hospital: </span>+
-                // {address}
+          <div display="inline-block" justifyContent="center">
+            <Card title="HELLO WORLD" image={require("./doc.jpg")}>
+              <Text style={{ marginBottom: 10 }}>
+                The idea with React Native Elements is more about component
+                structure than actual design.
+              </Text>
+              <Button
+                icon={<Icon name="code" color="#ffffff" />}
+                backgroundColor="#03A9F4"
+                buttonStyle={{
+                  borderRadius: 0,
+                  marginLeft: 0,
+                  marginRight: 0,
+                  marginBottom: 0
+                }}
+                title="VIEW NOW"
               />
             </Card>
           </div>

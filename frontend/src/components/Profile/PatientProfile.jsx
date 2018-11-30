@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     //borderColor: themeColor.grey0,
     padding: 10,
     marginTop: "10%",
-    marginLeft: "10%",
+    //marginLeft: "10%",
     marginRight: "10%",
     marginBottom: "10%",
     width: "auto",
