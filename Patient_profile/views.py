@@ -5,6 +5,10 @@ from .serializers import Patient_profile_serializer, Patient_history_serializer
 from rest_framework.response import Response
 from django.http import Http404
 from rest_framework import status
+from Doctor_profile.models import Booking, Doctor_profile
+from Doctor_profile.serializers import Bookings_serializer, Doctor_profile_serializer
+from django.http import HttpResponse
+from rest_framework import status
 
 class Patient_profile_view(APIView):
     def get(self, request, format=None):
@@ -47,3 +51,32 @@ class Patient_history_view(APIView):
             return Response(True, status=status.HTTP_201_CREATED)
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
+
+# Patient Booking History
+class Patient_booking_history(APIView):
+    def get(self, request, format=None):
+        if request.GET !={}:
+            history = Booking.objects.filter(patientusername=request.GET['username'])
+            appointments_serializer = Bookings_serializer(history, many=True)
+            charge_sheet = list()
+            total_charge = 0
+            for each in appointments_serializer.data:
+                doctor_names = Doctor_profile.objects.filter(username=each['docusername'])
+                doctor_names_serialzer = Doctor_profile_serializer(doctor_names, many=True)
+                temp = [doctor_names_serialzer.data[0]['First_name'],doctor_names_serialzer.data[0]['Last_Name'],each['bdate'],each['btime'],doctor_names_serialzer.data[0]['hourly_charge']]
+                charge_sheet.append(temp)
+                total_charge +=  doctor_names_serialzer.data[0]['hourly_charge']
+            return Response({'charge_sheet':charge_sheet, 'total_charge':total_charge})
+        else:
+            return Response("Invalid username")
+def delete_booking(request):
+    if request.GET != {}:
+        appointment = Booking.objects.filter(bdate=request.GET['bdate'],patientusername=request.GET['patientusername'],docusername=request.GET['docusername'])#,btime=request.GET['btime'])
+        serializer = Bookings_serializer(appointment, many=True)
+        for each in serializer.data:
+            if str(each['btime']) == request.GET['btime']:
+                print(serializer.data)
+                appointment.delete()
+        return HttpResponse('Success', status=status.HTTP_200_OK)
+    else:
+        return HttpResponse('Failure', status=status.HTTP_400_BAD_REQUEST)
