@@ -2,11 +2,19 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Button, Icon } from "antd";
+import { Button, Rate } from "antd";
 import { Grid, Row, Col } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
 import doctor2 from "../../images/doctor2.svg";
+import userstyles from "./userstyles.css";
+import { Navbar, FormGroup, FormControl } from "react-bootstrap";
+import { Skeleton, Switch, Card, Icon, Avatar } from "antd";
+import { themeColor } from "../../theme/colors";
+import doc from "./doc.png";
+import ant from "./ant.css";
+
+const { Meta } = Card;
 
 const styles = StyleSheet.create({
   container: {
@@ -18,6 +26,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 2
   },
+  box: {
+    margin: "auto",
+    marginTop: "8%",
+    width: "60%",
+    height: "70%",
+    padding: 50,
+    backgroundColor: themeColor.white,
+    color: themeColor.aegean2,
+    borderColor: themeColor.grey3,
+    borderRadius: 8,
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
+  },
+
   info: {},
   modal: {
     position: "absolute",
@@ -31,6 +54,23 @@ const styles = StyleSheet.create({
     paddingBottom: 1,
     borderBottom: "1px solid",
     borderColor: "#1890ff"
+  },
+  flexRow: {
+    flexDirection: "row",
+    display: "flex"
+  },
+  flexBody: {
+    display: "inline-flex",
+    flexWrap: "wrap",
+    flexflow: "row wrap",
+    //marginRight: "0px",
+    justifyContent: "space-around",
+    padding: "10px"
+  },
+  flex: {
+    justifyContent: "space-around",
+    alignItems: "center",
+    alignContent: "center"
   }
 });
 
@@ -58,110 +98,62 @@ class UserCard extends React.Component {
   render() {
     const { type, currentUser } = this.props;
 
+    const name = currentUser.First_name + "  " + currentUser.Last_Name;
+    const specialization = currentUser.specialization;
+    const address =
+      currentUser.Hospital +
+      "  " +
+      currentUser.city_name +
+      " " +
+      currentUser.state_name;
+
     return (
-      <div className={css(styles.container)}>
-        <Grid style={{ width: "100%" }}>
-          <Row>
-            <Col xs={3} md={2}>
-              <div>
-                {type === "Patient" ? (
-                  <Icon
-                    type="user"
-                    theme="outlined"
-                    style={{ fontSize: 66, margin: 10 }}
+      <div className={css(styles.flexBody)}>
+        <div className={css(styles.flex)}>
+          <div display="inline-block">
+            <Card
+              style={{ width: 350, marginTop: 20 }}
+              actions={[
+                <div style={{ display: "inline-block" }}>
+                  <Button
+                    shape="circle"
+                    icon="plus"
+                    onClick={() => this.handleOpenModal()}
                   />
-                ) : (
-                  <div style={{ marginTop: 12 }}>
-                    <img src={doctor2} width="60%" />
-                  </div>
-                )}
-              </div>
-            </Col>
-            <Col xs={11} md={7}>
-              <div className={css(styles.info)}>
-                {type === "Patient" ? (
-                  <div>
-                    <div>
-                      <span style={{ fontWeight: "bold" }}>Name: </span>
-                      {currentUser.First_name} {currentUser.Last_Name}
-                    </div>
-                    <div>
-                      <span style={{ fontWeight: "bold" }}>Gender: </span>
-                      {currentUser.gender}
-                    </div>
-                    <div>
-                      <span style={{ fontWeight: "bold" }}>Date of Birth:</span>
-                      {currentUser.DOB}
-                    </div>
-                  </div>
-                ) : (
-                  <div />
-                )}
-                {type === "Doctor" ? (
-                  <div>
-                    <div className={css(styles.name)}>
-                      Doctor: {currentUser.First_name} {currentUser.Last_Name}
-                    </div>
-                    <div>
-                      <span style={{ fontWeight: "bold" }}>
-                        Specialization:
-                      </span>
-                      {currentUser.specialization}
-                    </div>
-                    <div>
-                      <span style={{ fontWeight: "bold" }}>Hospital: </span>
-                      {currentUser.Hospital}, {currentUser.city_name},
-                      {currentUser.state_name}
-                    </div>
-                  </div>
-                ) : (
-                  <div />
-                )}
-              </div>
-            </Col>
-            <Col xs={4} md={3}>
-              {type === "Patient" ? (
-                <div>
-                  <div className={css(styles.modal)}>
-                    <Button
-                      shape="circle"
-                      icon="plus"
-                      onClick={() => this.handleOpenModal()}
-                    />
-                  </div>
-                  <PatientModal
+                  <DoctorModal
                     showModal={this.state.showModal}
                     handleCloseModal={this.handleCloseModal}
                     activeProfile={currentUser.Last_Name}
                     activeInfo={[currentUser]}
+                    className={css(styles.modal)}
                   />
                 </div>
-              ) : (
-                <div />
-              )}
-              {type === "Doctor" ? (
-                <div>
-                  <div className={css(styles.modal)}>
-                    <Button
-                      type="primary"
-                      shape="circle"
-                      icon="plus"
-                      onClick={() => this.handleOpenModal()}
-                    />
+              ]}
+            >
+              <Meta
+                avatar={
+                  <Avatar style={{ width: 100, height: 120 }} src={doc} />
+                }
+                title={name}
+                description={
+                  <div>
+                    <span
+                      style={{ fontWeight: "bold", display: "inline-block" }}
+                    >
+                      Specialization:
+                    </span>
+                    <span> {specialization} </span>
+                    <br />
+                    <span style={{ fontWeight: "bold" }}>Hospital: </span>
+                    {address}
                   </div>
-                  <DoctorModal
-                    showModal={this.state.showModal}
-                    handleCloseModal={this.handleCloseModal}
-                    activeInfo={[currentUser]}
-                    showAppt={this.props.auth.user.type === "Patient"}
-                  />
-                </div>
-              ) : (
-                <div />
-              )}
-            </Col>
-          </Row>
-        </Grid>
+                }
+                // <span style={{ fontWeight: "bold" }}>Hospital: </span>+
+                // {address}
+              />
+            </Card>
+          </div>
+        </div>
       </div>
     );
   }

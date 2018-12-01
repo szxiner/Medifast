@@ -152,7 +152,7 @@ class UserList extends React.Component {
           </div>
         ) : (
           <div>
-            <h3>Available {viewType}s</h3>
+            {/* <h3>Available {viewType}s</h3> */}
             {_.map(this.state.userList, user => {
               return <UserCard type={viewType} currentUser={user} />;
             })}

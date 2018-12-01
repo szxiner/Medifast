@@ -21,10 +21,11 @@ a {
 h1 {
   font-family: "Pacifico", cursive;
   size: 48;
+  color: #f4f5f5;
 }
 
 h2 {
-  font-family: "Patrick Hand", cursive;
+  font-family: "Oswald", sans-serif;
   size: 20;
 }
 
@@ -34,15 +35,13 @@ p {
 
 .navbar,
 .navbar-default {
-  margin: 0;
+  background-image: linear-gradient(to bottom, #ffffff 0, ffff 100%);
+  background-color: #5176c3;
 }
+
 .Alert,
 .Alert-default {
   background-color: aliceblue;
-}
-
-.navbar {
-  background-color: #f16e10;
 }
 p1 {
   font-family: "Patrick Hand", cursive;

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     margin: "auto",
     marginTop: "5%",
     width: "70%",
-    height: "80%",
+    height: "90%",
     backgroundColor: "#fff",
     color: themeColor.aegean2,
     borderColor: themeColor.grey3,
@@ -113,7 +113,15 @@ export class Login extends React.Component {
           <Row bsStyle="visibleMdBlock" className="show-grid">
             <Col xs={12} md={7}>
               <div className={css(styles.login)}>
-                <h1 style={{ fontSize: 60, textAlign: "center" }}>Medifast</h1>
+                <h1
+                  style={{
+                    fontSize: 60,
+                    textAlign: "center",
+                    color: "#000"
+                  }}
+                >
+                  Medifast
+                </h1>
                 <br />
                 <GoogleLoginButton history={this.props.history} />
                 <hr />

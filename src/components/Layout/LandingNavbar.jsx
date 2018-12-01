@@ -3,6 +3,14 @@ import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
 import store from "../../store";
 import nav from "./nav.css";
+import { StyleSheet, css } from "aphrodite";
+
+const styles = StyleSheet.create({
+  container: {
+    width: "auto",
+    "@media (min-width: 992px)": {}
+  }
+});
 
 export default class LandingNavbar extends React.Component {
   constructor(props) {
@@ -26,12 +34,12 @@ export default class LandingNavbar extends React.Component {
               <Navbar.Brand />
               <Navbar.Brand>
                 <Link to="/dashboard">
-                  <h1 style={{ fontSize: 24 }}>Medifast</h1>
+                  <h1 style={{ fontSize: 28 }}>Medifast</h1>
                 </Link>
               </Navbar.Brand>
             </Navbar.Header>
             <Nav pullRight>
-              <Navbar.Brand eventKey={2} href="#">
+              <Navbar.Brand eventKey={2} href="#" color="#000">
                 <Link to="/">Log out</Link>
               </Navbar.Brand>
             </Nav>
@@ -40,20 +48,29 @@ export default class LandingNavbar extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div style={{ containterWidth: "auto" }}>
           <Navbar>
             <Navbar.Header>
-              <Navbar.Brand>
-                <Link to="/">
-                  <h1 style={{ fontSize: 24 }}>Medifast</h1>
-                </Link>
-              </Navbar.Brand>
+              <Nav pullLeft>
+                <Navbar.Brand>
+                  <Link to="/">
+                    <h1 style={{ fontSize: 26 }}>Medifast</h1>
+                  </Link>
+                </Navbar.Brand>
+              </Nav>
             </Navbar.Header>
             <Nav pullRight>
               <Navbar.Brand eventKey={1} href="#">
-                <Link to="/login">Log in</Link>
+                <Link to="/login" color="#000">
+                  Log in
+                </Link>
               </Navbar.Brand>
-              <Navbar.Brand eventKey={2} href="#">
+              <Navbar.Brand
+                eventKey={2}
+                href="#"
+                color="#000"
+                borderColor="white"
+              >
                 <Link to="/register">Sign up</Link>
               </Navbar.Brand>
             </Nav>

@@ -19,6 +19,8 @@ import SearchDoctors from "./components/UserList/SearchDoctors";
 import ResetOption from "./components/Login/ResetOption";
 import EmailReset from "./components/Login/EmailReset";
 import pwdchange from "./components/Login/pwdchange";
+import FooterBar from "./components/Footer/FooterBar";
+import Billing from "./components/Billing/Billing";
 const styles = StyleSheet.create({
   app: {
     position: "absolute",
@@ -39,7 +41,11 @@ class App extends React.Component {
             <Route exact path="/" component={Landing} />
             <div className="componentRoutings">
               <Route exact path="/register" component={Register} />
-              <Route exact path="/completeRegistration" component={GoogleFinishRegister} />
+              <Route
+                exact
+                path="/completeRegistration"
+                component={GoogleFinishRegister}
+              />
               <Route exact path="/login" component={Login} />
               <Route exact path="/2fa" component={TwoFactor} />
               <Route path="/callback/:accessToken" component={GoogleCallback} />
@@ -48,10 +54,13 @@ class App extends React.Component {
               <Route exact path="/ResetOption" component={ResetOption} />
               <Route exact path="/EmailReset" component={EmailReset} />
               <Route exact path="/pwdchange" component={pwdchange} />
+              <Route exact path="/Billing" component={Billing} />
+              {/* <Route exact path="/footer" component={footer} /> */}
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
               </Switch>
             </div>
+            {/* <FooterBar /> */}
           </div>
         </Router>
       </Provider>

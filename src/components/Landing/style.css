@@ -4,7 +4,7 @@
   max-width: 1335px;
   box-sizing: border-box;
   padding: 0 20px;
-  margin: auto;
+  margin: 0;
 }
 
 .wrapper a {
@@ -20,6 +20,7 @@
   position: relative;
   height: 70vh;
   overflow: hidden;
+  padding: 0;
 }
 
 .slide {

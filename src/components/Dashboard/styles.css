@@ -1,12 +1,38 @@
+.container {
+  justify-content: center;
+  align-items: center;
+}
+
 .rwt__tabs[data-rwt-vertical="true"] {
   display: flex;
-  height: 100%;
+  height: 125%;
+  position: -webkit-sticky;
+  position: sticky;
+  width: auto;
 }
 
 .rwt__tablist:not([aria-orientation="vertical"]) {
-  border-bottom: 1px solid #ddd;
-  height: 100%;
+  border-bottom: 1px solid #092e6b;
+  height: 125px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* width: 50px; */
 }
+
+/* .rwt__tablist:not([aria-orientation="vertical"]) {
+  border-bottom: 1px solid #092e6b;
+  height: 125px;
+  position: -webkit-sticky;
+  position: sticky;
+  flex-basis: 25em;
+  flex-shrink: 0;
+  flex-grow: 0;
+  width: auto;
+  flex-direction: row;
+  min-width: 70;
+} */
 
 .rwt__tablist[aria-orientation="vertical"] {
   display: flex;
@@ -15,37 +41,41 @@
   flex-grow: 0;
   border-right: 1px solid #ddd;
   margin-right: 1rem;
-  height: 100%;
+  height: 125%;
 }
 
 .rwt__tab {
-  background: #fcf7e0;
+  background: transparent;
   border: 0;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  font-weight: 600;
-  font-size: inherit;
-  padding: 1rem 6rem;
-  color: #001f3f;
+  font-family: "Courgette, cursive";
+  font-weight: 500;
+  font-size: 22px;
+  padding: 1rem 3rem;
   transition: background 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-  height: 100%;
+  height: 125px;
+  text-align: left;
+  color: #092e6b;
 }
 
 .rwt__tab[aria-selected="false"]:hover,
 .rwt__tab:focus {
   outline: 0;
-  background-color: #fad746;
-  height: 100%;
+  background-color: #e6f1fc;
+  /* #e3f2fd; */
+  /* background-color: rgba(0, 0, 0, 0.05); */
+  height: 125px;
+  font-weight: 600;
 }
 
 .rwt__tab[aria-selected="true"] {
   position: relative;
-  height: 100%;
+  height: 125px;
 }
 
 .rwt__tab[aria-selected="true"]:after {
   content: "";
   position: absolute;
-  height: 100%;
+  height: 125px;
 }
 
 .rwt__tablist:not([aria-orientation="vertical"])
@@ -53,8 +83,8 @@
   bottom: -1px;
   left: 0;
   width: 100%;
-  border-bottom: 3px solid #00d8ff;
-  height: 100%;
+  border-bottom: 4px solid #092e6b;
+  height: 125%;
 }
 
 .rwt__tablist[aria-orientation="vertical"]
@@ -62,10 +92,10 @@
   right: -1px;
   top: 0;
   height: 100%;
-  border-right: 3px solid #fb7805;
+  border-right: 4px solid #2a45cf;
 }
 
 .rwt__tabpanel {
-  height: 100%;
+  height: 100px;
   width: 100%;
 }

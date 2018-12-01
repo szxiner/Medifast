@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     }
   },
   logo: {
-    textAlign: "center"
+    textAlign: "center",
+    color: "#000"
   },
   clickMe: {
     textAlign: "center"

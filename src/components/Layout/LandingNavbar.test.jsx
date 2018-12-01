@@ -5,6 +5,7 @@ import { StyleSheetTestUtils } from "aphrodite";
 
 import LandingNavBar from "./LandingNavBar";
 import { Link } from "react-router-dom";
+import nav from "./nav.css";
 
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();

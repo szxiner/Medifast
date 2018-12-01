@@ -3,5 +3,8 @@
 __pycache__
 *.pyc
 Medifast/dump.rdb
+<<<<<<< HEAD
 node_modules/
 node_modules/
+=======
+>>>>>>> b459a3569973bfca71603c240e35e58e012ef16f
