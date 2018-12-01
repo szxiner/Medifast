@@ -120,13 +120,13 @@ class UserCard extends React.Component {
                     icon="plus"
                     onClick={() => this.handleOpenModal()}
                   />
-                  <DoctorModal
+                  {/* <DoctorModal
                     showModal={this.state.showModal}
                     handleCloseModal={this.handleCloseModal}
                     activeProfile={currentUser.Last_Name}
                     activeInfo={[currentUser]}
                     className={css(styles.modal)}
-                  />
+                  /> */}
                 </div>
               ]}
             >
