@@ -19,6 +19,7 @@ import { connect } from "react-redux";
 import Map from "../../common/Map";
 import SearchDoctors from "../UserList/SearchDoctors";
 import pwdchange from "../Login/pwdchange";
+import Insurance from "../Insurance/Insurance";
 import PropTypes from "prop-types";
 
 const Styles = StyleSheet.create({
@@ -90,31 +91,31 @@ class DashboardSideBar extends Component {
             {type === "Patient"
               ? "Show all Doctors"
               : type === "Doctor"
-                ? "View your Patients"
-                : "View Patients and Doctors"}
+              ? "View your Patients"
+              : "View Patients and Doctors"}
           </Tab>
           <Tab tabFor="vertical-tab-three">
             {type === "Patient"
               ? "Insurance Information"
               : type === "Doctor"
-                ? "Insurance Information"
-                : "My Information"}
+              ? "Insurance Information"
+              : "My Information"}
           </Tab>
           <Tab tabFor="vertical-tab-four">
             {" "}
             {type === "Patient"
               ? "My Appointments"
               : type === "Doctor"
-                ? "My Appointments"
-                : "Account Settings"}
+              ? "My Appointments"
+              : "Account Settings"}
           </Tab>
 
           <Tab tabFor="vertical-tab-5">
             {type === "Patient"
               ? "Search Doctors"
               : type === "Doctor"
-                ? "Account Settings"
-                : ""}
+              ? "Account Settings"
+              : ""}
           </Tab>
           <Tab tabFor="vertical-tab-6">
             {type === "Patient" ? "Account Settings" : ""}
@@ -122,7 +123,8 @@ class DashboardSideBar extends Component {
         </TabList>
         <TabPanel tabId="vertical-tab-one" component={Profile} />
         <TabPanel tabId="vertical-tab-two" component={UserView} />
-        <TabPanel tabId="vertical-tab-three">
+        <TabPanel tabId="vertical-tab-three" component={Insurance} />
+        {/* <TabPanel tabId="vertical-tab-three">
           <Jumbotron className={css(Styles.jumbotron)}>
             <h1 color="#FAFAFA">Medicare Gold Plus®</h1>
             <p1>
@@ -191,15 +193,15 @@ class DashboardSideBar extends Component {
               <Map lat={40.0287983} lng={-105.2524828} />
             </div>
           </Jumbotron>
-        </TabPanel>
+        </TabPanel> */}
         <TabPanel
           tabId="vertical-tab-four"
           component={
             type === "Patient"
               ? MyAppointment
               : type === "Doctor"
-                ? MyAppointment
-                : pwdchange
+              ? MyAppointment
+              : pwdchange
           }
         />
 
@@ -209,8 +211,8 @@ class DashboardSideBar extends Component {
             type === "Patient"
               ? SearchDoctors
               : type === "Doctor"
-                ? pwdchange
-                : SearchDoctors
+              ? pwdchange
+              : SearchDoctors
           }
         />
         <TabPanel

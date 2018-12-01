@@ -74,7 +74,7 @@ export default class Map extends Component {
   };
 
   render() {
-    const { lat, lng } = this.props;
+    const { lat, lng, w } = this.props;
     const { addressFinished } = this.state;
     const DoctorMap = withGoogleMap(props => (
       <GoogleMap defaultCenter={{ lat: lat, lng: lng }} defaultZoom={14}>
@@ -110,16 +110,20 @@ export default class Map extends Component {
         {addressFinished ? (
           <DoctorMapWithDirection
             containerElement={
-              <div style={{ height: `480px`, width: "480px" }} />
+              <div
+                style={{ height: `${w || 480}px`, width: `${w || 480}px` }}
+              />
             }
             mapElement={<div style={{ height: `100%` }} />}
           />
         ) : (
           <DoctorMap
             containerElement={
-              <div style={{ height: `480px`, width: "480px" }} />
+              <div
+                style={{ height: `${w || 480}px`, width: `${w || 480}px` }}
+              />
             }
-            mapElement={<div style={{ height: `480px` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
           />
         )}
       </div>
