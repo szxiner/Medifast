@@ -123,7 +123,7 @@ class DoctorModal extends React.Component {
                 />
               </div>
               <br />
-              {showAppt && this.props.auth.user.type === "Patient" ? (
+              {this.props.auth.user.type === "Patient" ? ( //button is being displayed after removing "showAppt &&" part from the condition
                 <Button
                   type="primary"
                   icon="calendar"
