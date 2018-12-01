@@ -112,7 +112,7 @@ class UserCard extends React.Component {
         <div className={css(styles.flex)}>
           <div display="inline-block">
             <Card
-              style={{ width: 350, marginTop: 20 }}
+              style={{ width: 350, height: 1000, marginTop: 20 }}
               actions={[
                 <div style={{ display: "inline-block" }}>
                   <Button
@@ -131,6 +131,7 @@ class UserCard extends React.Component {
               ]}
             >
               <Meta
+                style={{ height: 900 }}
                 avatar={
                   <Avatar style={{ width: 100, height: 120 }} src={doc} />
                 }
