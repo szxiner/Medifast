@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     }
   },
   logo: {
-    textAlign: "center"
+    textAlign: "center",
+    color: "#000"
   },
   clickMe: {
     textAlign: "center"
@@ -51,7 +52,8 @@ const styles = StyleSheet.create({
       // TODO: Not responsive for mobile. Will Fix later
     },
     logo: {
-      textAlign: "center"
+      textAlign: "center",
+      color: "#000"
     }
   },
   logo1: {
@@ -103,11 +105,14 @@ export default class ResetOption extends React.Component {
           </div>
         </form>
         <br />
-        <p align="center">OR</p>
+        <p align="center" fontWeight="700">
+          OR
+        </p>
         <br />
         <form onSubmit={this.onSubmit2}>
           <div className="wellStyles">
             <Button
+              bsStyle="primary"
               bsSize="large"
               onSubmit={this.onSubmit1}
               type="submit"

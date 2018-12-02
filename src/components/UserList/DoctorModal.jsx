@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     marginLeft: "20%",
     marginRight: "20%",
     marginBottom: "1%",
-    width: "60%"
+    width: "60%",
+    backgroundColor: themeColor.white
   },
   close: {
     right: 25,
@@ -122,7 +123,7 @@ class DoctorModal extends React.Component {
                 />
               </div>
               <br />
-              {showAppt && this.props.auth.user.type === "Patient" ? (
+              {this.props.auth.user.type === "Patient" ? ( //button is being displayed after removing "showAppt &&" part from the condition
                 <Button
                   type="primary"
                   icon="calendar"

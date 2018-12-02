@@ -1,0 +1,24 @@
+.btn-default {
+  text-shadow: none;
+  background-image: -webkit-linear-gradient(top, #092e6b 0, #092e6b 100%);
+  color: white;
+  font-weight: 500;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #092e6b;
+  border-color: #092e6b;
+  background-image: none;
+  background-image: none;
+  background-image: none;
+  font-weight: 700;
+}
+
+.btn-default:focus,
+.btn-default:hover {
+  background-color: #0d316bb7;
+  background-position: none;
+  color: #fff;
+  font-weight: 600;
+}

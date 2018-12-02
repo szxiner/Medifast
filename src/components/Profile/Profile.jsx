@@ -14,7 +14,7 @@ import DoctorProfileForm from "./DoctorProfileForm";
 
 const styles = StyleSheet.create({
   container: {
-    width: "96%",
+    width: "100%",
     margin: "2%"
     // backgroundImage: "linear-gradient(top, white 97%, #1890ff 3%)",
     // borderRadius: 8,
