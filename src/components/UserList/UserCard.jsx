@@ -2,14 +2,14 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Button, Rate } from "antd";
-import { Grid, Row, Col } from "react-bootstrap";
+import { Button, Rate, Divider } from "antd";
+// import { Grid, Row, Col } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
 import doctor2 from "../../images/doctor2.svg";
 import userstyles from "./userstyles.css";
 import { Navbar, FormGroup, FormControl } from "react-bootstrap";
-import { Skeleton, Switch, Card, Icon, Avatar } from "antd";
+import { Skeleton, Switch, Card, Icon, Avatar, Row, Col } from "antd";
 import { themeColor } from "../../theme/colors";
 import doc from "./doc.png";
 import ant from "./ant.css";
@@ -78,13 +78,16 @@ class UserCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      appointment: false
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
-
+  onClick = () => {
+    this.setState({ appointment: !this.state.appointment });
+  };
   handleOpenModal() {
     this.setState({
       showModal: true
@@ -96,7 +99,13 @@ class UserCard extends React.Component {
   }
 
   render() {
-    const { type, currentUser } = this.props;
+    const { type, currentUser, activeInfo } = this.props;
+    let activeProfile = currentUser.Last_Name;
+    let star;
+    let lastName;
+    let location;
+    let username;
+    let insurance;
 
     const name = currentUser.First_name + "  " + currentUser.Last_Name;
     const specialization = currentUser.specialization;
@@ -106,53 +115,219 @@ class UserCard extends React.Component {
       currentUser.city_name +
       " " +
       currentUser.state_name;
+    const gender = currentUser.gender;
+    const dob = currentUser.DOB;
+    //Patient viewwww
+    // if (type === "Patient")
+    //   return (
+    //     <div className={css(styles.flexBody)}>
+    //       <div className={css(styles.flex)}>
+    //         <div display="inline-block">
+    //           <Card
+    //             style={{ width: 350, marginTop: 20 }}
+    //             actions={[
+    //               <div style={{ display: "inline-block" }}>
+    //                 <Button
+    //                   shape="circle"
+    //                   icon="plus"
+    //                   onClick={() => this.handleOpenModal()}
+    //                 />
+    //                 <PatientModal
+    //                   showModal={this.state.showModal}
+    //                   handleCloseModal={this.handleCloseModal}
+    //                   activeProfile={currentUser.Last_Name}
+    //                   activeInfo={[currentUser]}
+    //                   className={css(styles.modal)}
+    //                 />
+    //               </div>
+    //             ]}
+    //           >
+    //             <Meta
+    //               style={{ height: 400 }}
+    //               // avatar={
+    //               //   <Avatar style={{ width: 100, height: 120 }} src={doc} />
+    //               // }
+    //               //title={name}
+    //               description={
+    //                 <div>
+    //                   <Row>
+    //                     <Col span={12}>
+    //                       <Avatar
+    //                         style={{ width: 100, height: 120 }}
+    //                         src={doc}
+    //                       />
+    //                     </Col>
+    //                     <Col span={12}>{name}</Col>
+    //                   </Row>
+    //                   <br />
+    //                   <Row>Gender: {gender}</Row>
+    //                   <Row>Date of Birth: {dob}</Row>
+    //                 </div>
+    //               }
+    //             />
+    //           </Card>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   );
+    // if (type === "Doctor")
+    //   return (
+    //     <div className={css(styles.flexBody)}>
+    //       <div className={css(styles.flex)}>
+    //         {console.log(currentUser, "current userrrrr")}
 
+    //         <div display="inline-block">
+    //           <Card
+    //             style={{ width: 350, height: 1000, marginTop: 20 }}
+    //             actions={[
+    //               <div style={{ display: "inline-block" }}>
+    //                 <Button
+    //                   shape="circle"
+    //                   icon="plus"
+    //                   onClick={() => this.handleOpenModal()}
+    //                 />
+    //                 <DoctorModal
+    //                   showModal={this.state.showModal}
+    //                   handleCloseModal={this.handleCloseModal}
+    //                   activeProfile={currentUser.Last_Name}
+    //                   activeInfo={[currentUser]}
+    //                   className={css(styles.modal)}
+    //                 />
+    //               </div>
+    //             ]}
+    //           >
+    //             <Meta
+    //               style={{ height: 400 }}
+    //               // avatar={
+    //               //   <Avatar style={{ width: 100, height: 120 }} src={doc} />
+    //               // }
+    //               //title={name}
+    //               description={
+    //                 <div>
+    //                   <Row>
+    //                     <Col span={12}>
+    //                       <Avatar
+    //                         style={{ width: 100, height: 120 }}
+    //                         src={doc}
+    //                       />
+    //                     </Col>
+    //                     <Col span={12}>{name}</Col>
+    //                   </Row>
+    //                   <br />
+    //                   <Row> Specialization: {specialization}</Row>
+    //                   <Row>Hospital: {address}</Row>
+    //                   <Row>
+    //                     REVIEW: &nbsp; &nbsp;
+    //                     <Rate disabled defaultValue={star} />
+    //                     <br />
+    //                   </Row>
+    //                 </div>
+    //               }
+    //             />
+    //           </Card>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   );
+    // if (type === "provider")
     return (
-      <div className={css(styles.flexBody)}>
-        <div className={css(styles.flex)}>
-          <div display="inline-block">
-            <Card
-              style={{ width: 350, height: 1000, marginTop: 20 }}
-              actions={[
-                <div style={{ display: "inline-block" }}>
-                  <Button
-                    shape="circle"
-                    icon="plus"
-                    onClick={() => this.handleOpenModal()}
-                  />
-                  <DoctorModal
-                    showModal={this.state.showModal}
-                    handleCloseModal={this.handleCloseModal}
-                    activeProfile={currentUser.Last_Name}
-                    activeInfo={[currentUser]}
-                    className={css(styles.modal)}
-                  />
-                </div>
-              ]}
-            >
-              <Meta
-                style={{ height: 900 }}
-                avatar={
-                  <Avatar style={{ width: 100, height: 120 }} src={doc} />
-                }
-                title={name}
-                description={
-                  <div>
-                    <span
-                      style={{ fontWeight: "bold", display: "inline-block" }}
-                    >
-                      Specialization:
-                    </span>
-                    <span> {specialization} </span>
-                    <br />
-                    <span style={{ fontWeight: "bold" }}>Hospital: </span>
-                    {address}
+      //patient view
+      <div>
+        <div className={css(styles.flexBody)}>
+          <div className={css(styles.flex)}>
+            {console.log(currentUser, "current userrrrr")}
+
+            <div display="inline-block">
+              <Card
+                style={{ width: 350, height: 1000, marginTop: 20 }}
+                actions={[
+                  <div style={{ display: "inline-block" }}>
+                    <Button
+                      shape="circle"
+                      icon="plus"
+                      onClick={() => this.handleOpenModal()}
+                    />
+                    <PatientModal
+                      showModal={this.state.showModal}
+                      handleCloseModal={this.handleCloseModal}
+                      activeProfile={currentUser.Last_Name}
+                      activeInfo={[currentUser]}
+                      className={css(styles.modal)}
+                    />
                   </div>
-                }
-                // <span style={{ fontWeight: "bold" }}>Hospital: </span>+
-                // {address}
-              />
-            </Card>
+                ]}
+              >
+                <Meta
+                  style={{ height: 900 }}
+                  avatar={
+                    <Avatar style={{ width: 100, height: 120 }} src={doc} />
+                  }
+                  title={name}
+                  description={
+                    <div>
+                      <span style={{ fontWeight: "bold" }}>Gender: </span>
+                      {gender}
+                      <span style={{ fontWeight: "bold" }}>Date of Birth:</span>
+                      {dob}
+                    </div>
+                  }
+                  // <span style={{ fontWeight: "bold" }}>Hospital: </span>+
+                  // {address}
+                />
+              </Card>
+            </div>
+          </div>
+        </div>
+        //doctor view
+        <div className={css(styles.flexBody)}>
+          <div className={css(styles.flex)}>
+            {console.log(currentUser, "current userrrrr")}
+
+            <div display="inline-block">
+              <Card
+                style={{ width: 350, height: 1000, marginTop: 20 }}
+                actions={[
+                  <div style={{ display: "inline-block" }}>
+                    <Button
+                      shape="circle"
+                      icon="plus"
+                      onClick={() => this.handleOpenModal()}
+                    />
+                    <DoctorModal
+                      showModal={this.state.showModal}
+                      handleCloseModal={this.handleCloseModal}
+                      activeProfile={currentUser.Last_Name}
+                      activeInfo={[currentUser]}
+                      className={css(styles.modal)}
+                    />
+                  </div>
+                ]}
+              >
+                <Meta
+                  style={{ height: 900 }}
+                  avatar={
+                    <Avatar style={{ width: 100, height: 120 }} src={doc} />
+                  }
+                  title={name}
+                  description={
+                    <div>
+                      <span
+                        style={{
+                          fontWeight: "bold",
+                          display: "inline-block"
+                        }}
+                      >
+                        Specialization:
+                      </span>
+                      <span> {specialization} </span>
+                      <br />
+                      <span style={{ fontWeight: "bold" }}>Hospital: </span>
+                      {address}
+                    </div>
+                  }
+                />
+              </Card>
+            </div>
           </div>
         </div>
       </div>

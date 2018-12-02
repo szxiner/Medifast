@@ -40,3 +40,14 @@ btn-default:focus {
   justify-content: space-around !important;
   padding: 10px !important;
 }
+
+.ant-col-12 {
+  font-family: "Crimson Text", serif;
+  font-size: 20px;
+  color: black;
+}
+
+.ant-row {
+  font-size: 13px;
+  font-family: "Muli", sans-serif;
+}

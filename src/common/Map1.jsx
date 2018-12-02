@@ -7,8 +7,6 @@ import {
   DirectionsRenderer
 } from "react-google-maps";
 import { Icon } from "antd";
-import { Clickable, StopPropagation } from "react-clickable";
-
 const google = window.google;
 
 export default class Map extends Component {
@@ -28,10 +26,6 @@ export default class Map extends Component {
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onClick = () => {
-    const { count } = this.props;
   };
 
   onSubmit = e => {
@@ -92,21 +86,46 @@ export default class Map extends Component {
         <DirectionsRenderer directions={this.state.directions} />
       </GoogleMap>
     ));
-    var link = "https:maps.google.com/?q=" + lat + "," + lng;
     return (
       <div>
-        <a href={link} target="_blank">
-          <Clickable>
-            <DoctorMap
-              containerElement={
-                <div
-                  style={{ height: `${w || 180}px`, width: `${w || 180}px` }}
-                />
-              }
-              mapElement={<div style={{ height: `100%` }} />}
-            />
-          </Clickable>
-        </a>
+        <form onSubmit={this.onSubmit}>
+          <FormGroup>
+            <InputGroup>
+              <FormControl
+                type="text"
+                name="address"
+                label="address"
+                placeholder="Enter your address to get direction. We won't store this data."
+                value={this.state.address}
+                onChange={this.onChange}
+              />
+              <InputGroup.Button>
+                <Button type={this.onSubmit}>
+                  <Icon type="car" theme="outlined" />
+                </Button>
+              </InputGroup.Button>
+            </InputGroup>
+          </FormGroup>
+        </form>
+        {addressFinished ? (
+          <DoctorMapWithDirection
+            containerElement={
+              <div
+                style={{ height: `${w || 480}px`, width: `${w || 480}px` }}
+              />
+            }
+            mapElement={<div style={{ height: `100%` }} />}
+          />
+        ) : (
+          <DoctorMap
+            containerElement={
+              <div
+                style={{ height: `${w || 480}px`, width: `${w || 480}px` }}
+              />
+            }
+            mapElement={<div style={{ height: `100%` }} />}
+          />
+        )}
       </div>
     );
   }
