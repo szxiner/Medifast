@@ -29,7 +29,7 @@ SECRET_KEY = 'k(0ef=k5oqzcny!gdcj57=-64if2#=!%&x7i**c_2z=w_au1sf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['react-django.herokuapp.com', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['medifast.herokuapp.com', '127.0.0.1:8000']
 
 #######
 # Oauth Stuff
@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'users.apps.UsersConfig',
+    'Insurance_recommendation',
 
     'django.contrib.admin',
     'django.contrib.auth',
