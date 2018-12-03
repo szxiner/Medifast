@@ -27,10 +27,13 @@ class Doctor_appointments(models.Model):
     time = ArrayField(models.TimeField(),null=True)
 
 class Booking(models.Model):
+    ref_no = models.AutoField(primary_key = True)
     docusername = models.CharField(max_length=100, null=True)
     patientusername = models.CharField(max_length=100, null=True)
     bdate = models.DateField(null=True)
     btime = ArrayField(models.TimeField(),null=True)
+    status = (('P','Paid'),('UP','Unpaid')) # Not a field/column
+    bill = models.CharField(max_length=10, default = 'UP', choices = status)
 
 class Doctor_reviews(models.Model):
     username = models.CharField(max_length=100, null=True)

@@ -1,100 +1,106 @@
 import React from "react";
-import _ from "lodash";
 import axios from "axios";
-import moment from "moment";
-import { Divider } from "antd";
+import _ from "lodash";
 
-import { Icon } from "antd";
-import { connect } from "react-redux";
+import { Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
-import { themeColor } from "../../theme/colors";
-import billing from "./billing.css";
-const styles = StyleSheet.create({
-  box: {
-    margin: "auto",
-    marginTop: "5%",
-    width: "80%",
-    height: "90%",
-    backgroundColor: "#fff",
-    color: themeColor.aegean2,
-    borderColor: themeColor.grey3,
-    "@media (max-width: 600px)": {
-      // TODO: Not responsive for mobile. Will Fix later
-    }
+import BillingCard from "./BillingCard";
+import Bill from "./Bill";
+const dummyBills = [
+  {
+    id: 1,
+    doctor: "T.J. Miller",
+    amount: "$223.12",
+    oop: "$151.69",
+    date: "May 24, 2018",
+    status: "Pending"
   },
-  innerbox: {
-    width: "auto",
-    height: "auto",
-    backgroundColor: "#fff",
-    color: themeColor.aegean2,
-    padding: "18px",
-    borderColor: themeColor.grey3,
-    "@media (max-width: 600px)": {
-      // TODO: Not responsive for mobile. Will Fix later
-    }
+  {
+    id: 2,
+    doctor: "T.J. Miller",
+    amount: "$123.81",
+    oop: "$76.12",
+    date: "July 12, 2018",
+    status: "Open"
+  },
+  {
+    id: 3,
+    doctor: "Travis Brooks",
+    amount: "$450.89",
+    oop: "$112.30",
+    date: "March 09, 2018",
+    status: "Closed"
+  },
+  {
+    id: 4,
+    doctor: "Xiner Zhang",
+    amount: "$704.99",
+    oop: "$271.54",
+    date: "March 24, 2018",
+    status: "Closed"
+  },
+  {
+    id: 5,
+    doctor: "Xiner Zhang",
+    amount: "$111.94",
+    oop: "$98.39",
+    date: "October 11, 2018",
+    status: "Open"
+  }
+];
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: "2%",
+    marginLeft: "4%",
+    marginRight: "4%"
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold"
   }
 });
-
-class Billing extends React.Component {
+export default class Billing extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      myAppts: []
+      loading: false,
+      activeBill: undefined
     };
   }
 
+  componentDidMount() {}
+
+  handleClick = bill => {
+    this.setState({ loading: true }, () => {
+      this.setState({ activeBill: bill });
+    });
+  };
+
   render() {
-    const { auth } = this.props;
-    const { myAppts } = this.state;
+    const { activeBill, loading } = this.state;
+
     return (
-      <div>
-        <div className={css(styles.box)}>
-          <div className={css(styles.innerbox)}>
-            <h2
-              style={{
-                fontSize: 32,
-                textAlign: "left",
-                fontFamily: "Acme, sans-serif"
-              }}
-            >
-              Outstanding Bills
-            </h2>
-            <Divider />
-            <p>the outstanding bills will be displayed here</p>
-            <br />
-            <br />
-            <br />
+      <div className={css(styles.container)}>
+        {loading && !activeBill ? (
+          //   <GridLoader />
+          <div />
+        ) : activeBill ? (
+          <div>
+            <Bill />
           </div>
-        </div>
-        <div className={css(styles.box)}>
-          <div className={css(styles.innerbox)}>
-            <h2
-              style={{
-                fontSize: 32,
-                textAlign: "left",
-                fontFamily: "Acme, sans-serif"
-              }}
-            >
-              Previous Bills
-            </h2>
-            <Divider />
-            <p>the outstanding bills will be displayed here</p>
+        ) : (
+          <div>
+            <div className={css(styles.title)}>Claims</div>
             <br />
-            <br />
-            <br />
+            {_.map(dummyBills, bill => {
+              return (
+                <BillingCard bill={bill} click={() => this.handleClick(bill)} />
+              );
+            })}
           </div>
-        </div>
+        )}
       </div>
     );
   }
 }
-
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default connect(
-  mapStateToProps,
-  {}
-)(Billing);

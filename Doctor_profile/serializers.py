@@ -14,7 +14,7 @@ class Doctor_appointment_serializer(serializers.ModelSerializer):
 class Bookings_serializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ('docusername','patientusername','bdate','btime')
+        fields = ('ref_no','docusername','patientusername','bdate','btime','bill')
 
 class Doctor_reviews_serializer(serializers.ModelSerializer):
     class Meta:
