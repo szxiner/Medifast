@@ -55,20 +55,25 @@ class Patient_history_view(APIView):
 # Patient Booking History
 class Patient_booking_history(APIView):
     def get(self, request, format=None):
+        todays_date = datetime.date.today()
         if request.GET !={}:
             history = Booking.objects.filter(patientusername=request.GET['username'])
             appointments_serializer = Bookings_serializer(history, many=True)
             charge_sheet = list()
             total_charge = 0
+            total_charge1 = 0
             for each in appointments_serializer.data:
                 doctor_names = Doctor_profile.objects.filter(username=each['docusername'])
                 doctor_names_serialzer = Doctor_profile_serializer(doctor_names, many=True)
                 temp = [doctor_names_serialzer.data[0]['First_name'],doctor_names_serialzer.data[0]['Last_Name'],each['bdate'],each['btime'],doctor_names_serialzer.data[0]['hourly_charge']]
-                charge_sheet.append(temp)
-                total_charge +=  doctor_names_serialzer.data[0]['hourly_charge']
+                if datetime.datetime.strptime(temp[2],'%Y-%m-%d').date() < todays_date:
+                    total_charge +=  doctor_names_serialzer.data[0]['hourly_charge']
+                    charge_sheet.append(temp)
             return Response({'charge_sheet':charge_sheet, 'total_charge':total_charge})
         else:
             return Response("Invalid username")
+
+# Deleting an appointment
 def delete_booking(request):
     if request.GET != {}:
         appointment = Booking.objects.filter(bdate=request.GET['bdate'],patientusername=request.GET['patientusername'],docusername=request.GET['docusername'])#,btime=request.GET['btime'])
