@@ -51,3 +51,11 @@ btn-default:focus {
   font-size: 13px;
   font-family: "Muli", sans-serif;
 }
+
+.ant-btn-lg {
+  padding: 0 15px;
+  font-size: 12px;
+  border-radius: 4px;
+  height: 25px;
+  width: auto;
+}

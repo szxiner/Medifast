@@ -8,12 +8,14 @@ import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
 import doctor2 from "../../images/doctor2.svg";
 import userstyles from "./userstyles.css";
-import { Navbar, FormGroup, FormControl } from "react-bootstrap";
+import ReactModal from "react-modal";
 import { Skeleton, Switch, Card, Icon, Avatar, Row, Col } from "antd";
 import { themeColor } from "../../theme/colors";
 import doc from "./doc.png";
 import ant from "./ant.css";
 import Map from "../../common/Map";
+import Badge from "../../components/Insurance/Badge";
+import MyCalendar from "./Calendar";
 
 const { Meta } = Card;
 
@@ -91,7 +93,8 @@ class UserCardDoc extends React.Component {
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
   onClick = () => {
-    this.setState({ appointment: !this.state.appointment });
+    this.setState({ appointment: true });
+    this.setState({ showModal: true });
   };
   handleOpenModal() {
     this.setState({
@@ -104,14 +107,21 @@ class UserCardDoc extends React.Component {
   }
 
   render() {
-    const { type, currentUser, activeInfo } = this.props;
+    const {
+      type,
+      currentUser,
+      activeInfo,
+      showModal,
+      handleCloseModal,
+      showAppt
+    } = this.props;
     let activeProfile = currentUser.Last_Name;
     let star;
     let lastName;
     let location;
     let username;
     let insurance;
-    console.log("activeInfooooo", activeInfo[0]);
+    //console.log("activeInfooooo", activeInfo[0]);
     if (currentUser) {
       star = currentUser.rating;
       username = currentUser.username;
@@ -138,6 +148,7 @@ class UserCardDoc extends React.Component {
       currentUser.state_name;
     const gender = currentUser.gender;
     const dob = currentUser.DOB;
+    //showAppt = true;
 
     if (type === "Doctor")
       return (
@@ -192,6 +203,16 @@ class UserCardDoc extends React.Component {
                             {address}
                           </Row> */}
                           </Row>
+                          <Row style={{ alignItems: "center" }}>
+                            <Button
+                              type="primary"
+                              icon="calendar"
+                              size="large"
+                              onClick={() => this.handleOpenModal()}
+                            >
+                              Book an Appointment
+                            </Button>
+                          </Row>
                         </Col>
                       </Row>
                       <Divider />
@@ -234,18 +255,9 @@ class UserCardDoc extends React.Component {
                           textAlign: "center"
                         }}
                       >
-                        {insurance}
+                        <Badge content={insurance} />
                       </Row>
-                      <Row style={{ alignItems: "center" }}>
-                        <Button
-                          type="primary"
-                          icon="calendar"
-                          size="large"
-                          onClick={this.onClick}
-                        >
-                          Book an Appointment
-                        </Button>
-                      </Row>
+
                       <Divider />
                       <Row>
                         <Col span={15}>
@@ -259,6 +271,39 @@ class UserCardDoc extends React.Component {
                         &nbsp;
                         <Col span={8}>Address</Col>
                       </Row>
+                      <DoctorModal
+                        showModal={this.state.showModal}
+                        handleCloseModal={this.handleCloseModal}
+                        // activeInfo={[currentUser]}
+                        showAppt={this.props.auth.user.type === "Patient"}
+                        user={currentUser}
+                      />
+
+                      {/* <ReactModal
+                        showModal={this.state.showModal}
+                        contentLabel="Doctor Detail"
+                        onRequestClose={handleCloseModal}
+                        className={css(styles.modal)}
+                      >
+                        <a
+                          onClick={handleCloseModal}
+                          className={css(styles.close)}
+                        >
+                          <Icon type="close" theme="outlined" />
+                        </a>
+                        <br />
+                        <h3>Doctor {lastName}</h3>
+                        <br />
+                        <div>
+                          <a
+                            onClick={this.onClick}
+                            className={css(styles.left)}
+                          >
+                            <Icon type="left" theme="outlined" />
+                          </a>
+                          <MyCalendar username={username} />
+                        </div>
+                      </ReactModal> */}
                     </div>
                   }
                 />

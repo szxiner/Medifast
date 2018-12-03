@@ -22,6 +22,7 @@ import pwdchange from "../Login/pwdchange";
 import PropTypes from "prop-types";
 import Billing from "../Billing/Billing";
 import { Icon } from "antd";
+import UserList from "../UserList/UserList";
 
 const Styles = StyleSheet.create({
   clickMe: {
@@ -33,7 +34,7 @@ const Styles = StyleSheet.create({
     width: "80%",
     height: "auto",
     padding: 50,
-    backgroundColor: "#FFFFFF",
+    background: "linear-gradient(#000046, #1CB5E0)",
     fontFamily: " Pacifico",
     fontSize: 18,
     color: "#000000	    ",
@@ -136,7 +137,7 @@ class DashboardSideBar extends Component {
             <Tab tabFor="two">View Patients </Tab>
             <Tab tabFor="three">Insurance Information</Tab>
             <Tab tabFor="four">My Appointments</Tab>
-            <Tab tabFor="5">Search Doctors</Tab>
+            <Tab tabFor="5">TBD</Tab>
           </TabList>
           <TabPanel tabId="vertical-tab-one" component={Profile} />
           <TabPanel tabId="vertical-tab-two" component={UserView} />
@@ -150,13 +151,17 @@ class DashboardSideBar extends Component {
         <Tabs defaultTab="one">
           <TabList className={css(styles.tablist)}>
             <Tab tabFor="one">My Profile</Tab>
-            <Tab tabFor="two">Manage Claims </Tab>
-            <Tab tabFor="three">Statistics</Tab>
+            <Tab tabFor="two">View Doctors </Tab>
+            <Tab tabFor="three">View Patients</Tab>
             <Tab tabFor="5">Search Doctors</Tab>
           </TabList>
           <TabPanel tabId="one" component={Profile} />
-          <TabPanel tabId="two" component={UserView} />
-          <TabPanel tabId="three">TBD</TabPanel>
+          <TabPanel tabId="two">
+            <UserList userType={"Patient"} />;
+          </TabPanel>
+          <TabPanel tabId="three">
+            <UserList userType={"Doctor"} />;
+          </TabPanel>
           <TabPanel tabId="5" component={SearchDoctors} />
         </Tabs>
       );

@@ -60,7 +60,7 @@ class Profile extends React.Component {
     const { type, username } = auth.user;
     if (type === "Doctor") {
       axios
-        .get(`http://localhost:8000/doctor/profile?username=${username}`)
+        .get(`http://localhost:8000/doctor/profile?username=${username} `)
         .then(res => {
           if (res.status === 200 && res.data.length !== 0) {
             this.setState({ user: res.data[0], loading: false });
@@ -98,6 +98,8 @@ class Profile extends React.Component {
     const { auth, render } = this.props;
     const { type } = auth.user;
     const { user } = this.state;
+    console.log(type, "type of userrrr");
+    console.log(user, "userrrrrrrr");
 
     return (
       <div className={css(styles.container)}>

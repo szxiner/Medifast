@@ -141,7 +141,7 @@ class UserCardPat extends React.Component {
               ]}
             >
               <Meta
-                style={{ height: 150 }}
+                style={{ height: 165 }}
                 // avatar={
                 //   <Avatar style={{ width: 100, height: 120 }} src={doc} />
                 // }
