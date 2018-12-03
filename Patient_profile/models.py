@@ -9,8 +9,6 @@ class Patient_profile(models.Model):
     gender = models.CharField(max_length=10, null=True)
     DOB = models.DateField(null=True)
 
-    salary = models.BigIntegerField(null=True)
-
     def __str__(self):
         return self.username
 

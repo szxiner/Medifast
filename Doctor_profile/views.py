@@ -97,8 +97,6 @@ class Doctor_bookings_view(APIView):
         serializer = Bookings_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            
-            
             time = serializer.data['btime']
             date = serializer.data['bdate']
             message = 'Congratulations! Your appointment is confirmed for ' + str(date) + ' at ' + str(time[0])
@@ -108,10 +106,6 @@ class Doctor_bookings_view(APIView):
             P_serial = AccountSerializer(patient, many=True)
             # email_id = [D_serial.data[0]['email'],P_serial.data[0]['email']]
             # self.send_email(message,email_id)
-            history = {'username':request.data['patientusername'],'issue':request.data['issue'],'date':request.data['bdate'],'expenditure':D_serial.data[0]['hourly_charge'],'doctor':request.data['docusername']}
-            patient_history_serializer = Patient_history_serializer(data=history)
-            if patient_history_serializer.is_valid():
-                patient_history_serializer.save()
             return Response(True, status=status.HTTP_201_CREATED)
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)

@@ -43,7 +43,6 @@
     "react-scripts": "1.1.5",
     "react-sidebar": "^3.0.2",
     "react-sidemenu": "^1.0.4",
-    "react-sticky-footer": "0.1.0-rc3",
     "react-web-tabs": "^1.0.1",
     "reactstrap": "^6.5.0",
     "redux": "^4.0.0",
@@ -67,6 +66,8 @@
   "engines": {
     "npm": "6.4.1",
     "node": "8.12.0"
+
+
   },
   "proxy": "http://localhost:8000/"
 }
