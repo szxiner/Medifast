@@ -33,8 +33,9 @@ urlpatterns = [
     path('patient/',include('Patient_profile.urls')),
     path('doctor/',include('Doctor_profile.urls')),
     path('chat/',include('chat.urls')),
+    path('insRec/',include('Insurance_recommendation.urls')),
     path('phone/', include('phone_verification.urls')),
-    re_path('.*', TemplateView.as_view(template_name='index.html')),
+    #re_path('.*', TemplateView.as_view(template_name='index.html')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

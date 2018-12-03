@@ -4,5 +4,5 @@ from django.db import models
 class Insurance_recommendation(models.Model):
 
     #insurance_name = models.CharField(max_length=100, null=True)
-    patient_username = models.CharField(max_length=100, primary_key=True)
+    username = models.CharField(max_length=100, primary_key=True)
     insurance_plan = models.CharField(max_length=100, null=True)
