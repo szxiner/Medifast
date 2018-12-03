@@ -20,6 +20,7 @@ import Map from "../../common/Map";
 import SearchDoctors from "../UserList/SearchDoctors";
 import pwdchange from "../Login/pwdchange";
 import PropTypes from "prop-types";
+import Insurance from "../Insurance/Insurance";
 import Billing from "../Billing/Billing";
 import { Icon } from "antd";
 
@@ -153,11 +154,15 @@ class DashboardSideBar extends Component {
             <Tab tabFor="two">Manage Claims </Tab>
             <Tab tabFor="three">Statistics</Tab>
             <Tab tabFor="5">Search Doctors</Tab>
+            <Tab tabFor="6">Insurance</Tab>
+            <Tab tabFor="7">Billing</Tab>
           </TabList>
           <TabPanel tabId="one" component={Profile} />
           <TabPanel tabId="two" component={UserView} />
           <TabPanel tabId="three">TBD</TabPanel>
           <TabPanel tabId="5" component={SearchDoctors} />
+          <TabPanel tabId="6" component={Insurance} />
+          <TabPanel tabId="7" component={Billing} />
         </Tabs>
       );
   }

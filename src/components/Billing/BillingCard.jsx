@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "lodash";
 
-import { Row, Col } from "antd";
+import { Button, Tooltip, Icon, Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
 
 import Badge from "../Insurance/Badge";
@@ -9,9 +9,10 @@ import Badge from "../Insurance/Badge";
 const styles = StyleSheet.create({
   container: {
     padding: 4,
-    height: 52,
+    height: 68,
     marginBottom: 4,
-    paddingTop: 8,
+    paddingTop: 12,
+    paddingLeft: 12,
     alignItems: "center",
     transition: "all 0.3s ease",
     ":hover": {
@@ -26,14 +27,15 @@ const styles = StyleSheet.create({
   containerEven: {
     backgroundColor: "#F9FFFE"
   },
-  doctorName: {
+  doctor: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap"
   },
   doctorInit: {
-    width: 32,
-    height: 32,
+    width: 36,
+    height: 36,
+    paddingTop: 8,
     fontWeight: "bold",
     fontSize: 18,
     textAlign: "center",
@@ -42,6 +44,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#99e6ff",
     color: "#005c99",
     marginRight: 8
+  },
+  doctorName: {
+    paddingTop: 8
+  },
+  tooltip: {
+    marginTop: 6,
+    marginLeft: 16
   }
 });
 export default class BillingCard extends React.Component {
@@ -56,8 +65,54 @@ export default class BillingCard extends React.Component {
     return num % 2;
   };
 
+  statusButton = () => {
+    switch (this.props.bill.status) {
+      case "Open":
+        return (
+          <Button
+            style={{ borderRadius: 4 }}
+            icon="check-circle"
+            type="primary"
+            onClick={this.props.click}
+          >
+            Make Payment
+          </Button>
+        );
+      case "Pending":
+        return (
+          <div className={css(styles.doctor)}>
+            <Button
+              style={{ borderRadius: 4 }}
+              icon="clock-circle"
+              type="dashed"
+              disabled
+            >
+              Claim Pending
+            </Button>
+            <div className={css(styles.tooltip)}>
+              <Tooltip title="Waiting for your insurance officer to approve">
+                <Icon type="question-circle" />
+              </Tooltip>
+            </div>
+          </div>
+        );
+      case "Closed":
+        return (
+          <Button style={{ borderRadius: 4 }} icon="close-circle" disabled>
+            Claim Closed
+          </Button>
+        );
+      default:
+        return (
+          <Button style={{ borderRadius: 4 }} disabled>
+            Primary
+          </Button>
+        );
+    }
+  };
+
   render() {
-    const { id, doctor, amount, date, status } = this.props.bill;
+    const { id, doctor, amount, date, oop, status } = this.props.bill;
     return (
       <div
         className={
@@ -68,22 +123,28 @@ export default class BillingCard extends React.Component {
       >
         <Row style={{ height: "100%" }}>
           <Col span={4} style={{ height: "100%" }}>
-            <div style={{ top: "50%" }}>{id}</div>
+            <b>{date}</b>
+            <div>0000{id}</div>
           </Col>
-          <Col span={8} style={{ height: "100%" }}>
-            <div className={css(styles.doctorName)}>
+          <Col span={8}>
+            <div className={css(styles.doctor)}>
               <div className={css(styles.doctorInit)}>{doctor.charAt(0)}</div>
-              {doctor}
+              <div className={css(styles.doctorName)}>{doctor}</div>
             </div>
           </Col>
           <Col span={4} style={{ height: "100%" }}>
             <b>{amount}</b>
+            <br />
+            Total Charge
           </Col>
           <Col span={4} style={{ height: "100%" }}>
-            {date}
+            <b>{oop}</b>
+            <br />
+            After Deductible
           </Col>
           <Col span={4} style={{ height: "100%" }}>
-            <Badge content={status} style={status.toLowerCase()} />
+            {/* <Badge content={status} style={status.toLowerCase()} /> */}
+            {this.statusButton()}
           </Col>
         </Row>
       </div>

@@ -5,40 +5,45 @@ import _ from "lodash";
 import { Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
 import BillingCard from "./BillingCard";
-
+import Bill from "./Bill";
 const dummyBills = [
   {
     id: 1,
     doctor: "T.J. Miller",
-    amount: "$151.69",
+    amount: "$223.12",
+    oop: "$151.69",
     date: "May 24, 2018",
     status: "Pending"
   },
   {
     id: 2,
     doctor: "T.J. Miller",
-    amount: "$76.12",
+    amount: "$123.81",
+    oop: "$76.12",
     date: "July 12, 2018",
     status: "Open"
   },
   {
     id: 3,
     doctor: "Travis Brooks",
-    amount: "$112.30",
+    amount: "$450.89",
+    oop: "$112.30",
     date: "March 09, 2018",
     status: "Closed"
   },
   {
     id: 4,
     doctor: "Xiner Zhang",
-    amount: "$271.54",
+    amount: "$704.99",
+    oop: "$271.54",
     date: "March 24, 2018",
     status: "Closed"
   },
   {
     id: 5,
     doctor: "Xiner Zhang",
-    amount: "$98.39",
+    amount: "$111.94",
+    oop: "$98.39",
     date: "October 11, 2018",
     status: "Open"
   }
@@ -58,27 +63,43 @@ const styles = StyleSheet.create({
 export default class Billing extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      loading: false,
+      activeBill: undefined
+    };
   }
 
   componentDidMount() {}
 
+  handleClick = bill => {
+    this.setState({ loading: true }, () => {
+      this.setState({ activeBill: bill });
+    });
+  };
+
   render() {
+    const { activeBill, loading } = this.state;
+
     return (
       <div className={css(styles.container)}>
-        <div className={css(styles.title)}>Claims</div>
-        <br />
-        <Row>
-          <Col span={4}>Claim ID</Col>
-          <Col span={8}>Doctor</Col>
-          <Col span={4}>Amount</Col>
-          <Col span={4}>Date</Col>
-          <Col span={4}>Status</Col>
-        </Row>
-        <br />
-        {_.map(dummyBills, bill => {
-          return <BillingCard bill={bill} />;
-        })}
+        {loading && !activeBill ? (
+          //   <GridLoader />
+          <div />
+        ) : activeBill ? (
+          <div>
+            <Bill />
+          </div>
+        ) : (
+          <div>
+            <div className={css(styles.title)}>Claims</div>
+            <br />
+            {_.map(dummyBills, bill => {
+              return (
+                <BillingCard bill={bill} click={() => this.handleClick(bill)} />
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
