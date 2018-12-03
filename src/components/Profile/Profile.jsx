@@ -64,9 +64,12 @@ class Profile extends React.Component {
         .then(res => {
           if (res.status === 200 && res.data.length !== 0) {
             this.setState({ user: res.data[0], loading: false });
+            console.log("im here in true");
           } else {
             this.setState({ loading: false });
+            console.log("im here in true");
           }
+          //console.log("im here");
         })
         .catch(e => {
           this.setState({ loading: false });
