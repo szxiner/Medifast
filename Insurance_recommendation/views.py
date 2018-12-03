@@ -13,18 +13,21 @@ class Insurance_recommendation_view(APIView):
     def get(self, request, format=None):
         if request.GET != {}:
             recommendation = Insurance_recommendation.objects.filter(username=request.GET['username'])
-            serializer = Insurance_recommendation_serializer(history, many=True)
+            serializer = Insurance_recommendation_serializer(recommendation, many=True)
             return Response(serializer.data)
         else :
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
-        serializer = insurance_serializer(data=request.data)
+
+        serializer = Insurance_recommendation_serializer(data=request.data)
         if serializer.is_valid():
 
-            past_appts = Patient_history.objects.filter(username=request.GET['username'])
+            user = request.GET.get('username')
+            past_appts = Patient_history.objects.filter(username=user)
             number_of_appts = len(past_appts)
-            patient = Patient_profile.objects.filter(username=request.GET['username'])
+            patients = Patient_profile.objects.filter(username=user)
+            patient = patients.first()
 
             non_physicians = 0
 
@@ -36,22 +39,33 @@ class Insurance_recommendation_view(APIView):
             score = 0
 
             ###AGE
-            age = date.today() - patient.DOB
+            try:
+                age = date.today() - patient.DOB
 
-            if age <= 27:
-                score += 0.3
-            elif age <= 54:
-                score += 1
-            elif age > 54:
-                score += 2
+                print(age)
+
+
+                if age <= 27:
+                    score += 0.3
+                elif age <= 54:
+                    score += 1
+                elif age > 54:
+                    score += 2
+            except:
+                pass
+                score += 0.5
+
 
             ###Past Doctors
-            if float(non_physicians)/float(number_of_appts) <= 0.25:
+            try:
+                if float(non_physicians)/float(number_of_appts) <= 0.25:
+                    score += 0.5
+                elif float(non_physicians)/float(number_of_appts) > .25 and float(non_physicians)/float(number_of_appts) < 0.75:
+                    score += 1.5
+                elif float(non_physicians)/float(number_of_appts) >= 0.75:
+                    score += 2.5
+            except:
                 score += 0.5
-            elif float(non_physicians)/float(number_of_appts) > .25 and float(non_physicians)/float(number_of_appts) < 0.75:
-                score += 1.5
-            elif float(non_physicians)/float(number_of_appts) >= 0.75:
-                2.5
 
             
             ###Salary
@@ -64,6 +78,7 @@ class Insurance_recommendation_view(APIView):
                     score += 1.25
             except:
                 pass
+                score += 0.5
 
             ###Number of appts
             if number_of_appts <= 5:
@@ -80,12 +95,15 @@ class Insurance_recommendation_view(APIView):
                 plan = 'Gold'
             elif score > 4:
                 plan = 'Platinum'
+
+            
         
             serializer.save(insurance_plan=plan)
             #serialized_data = serializer.validated_data
             #serialized_data['insurance_plan'] = 'Platinum'
 
             serializer.save()
+            
 
             return Response(True, status=status.HTTP_201_CREATED)
         else:
