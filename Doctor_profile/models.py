@@ -17,7 +17,8 @@ class Doctor_profile(models.Model):
     insurance_name = models.CharField(max_length=100, default='Medi Care Gold Plus')
     city_name = models.CharField(max_length=100, default='Bloomington')
     state_name = models.CharField(max_length=100, default='IN')
-
+    Zip_code = models.IntegerField(default=47405)
+    Address = models.CharField(max_length=200, default='900 E. Seventh Street')
     def __str__(self):
         return self.username
 
