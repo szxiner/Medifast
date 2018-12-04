@@ -108,3 +108,9 @@ class Insurance_recommendation_view(APIView):
             return Response(True, status=status.HTTP_201_CREATED)
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
+			
+class Insurance_details_view(APIView):
+    def get(self, request, format=None):
+        details = Insurance_details.objects.all()
+        details_serializer = Insurance_details_serializer(details, many=True)
+        return Response(details_serializer.data)
