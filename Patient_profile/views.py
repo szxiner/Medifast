@@ -91,12 +91,9 @@ class Patient_booking_history(APIView):
 # Deleting an appointment
 def delete_booking(request):
     if request.GET != {}:
-        appointment = Booking.objects.filter(bdate=request.GET['bdate'],patientusername=request.GET['patientusername'],docusername=request.GET['docusername'])#,btime=request.GET['btime'])
+        appointment = Booking.objects.filter(ref_no=request.GET['ref_no'])
         serializer = Bookings_serializer(appointment, many=True)
-        for each in serializer.data:
-            if str(each['btime']) == request.GET['btime']:
-                print(serializer.data)
-                appointment.delete()
+        appointment.delete()
         return HttpResponse('Success', status=status.HTTP_200_OK)
     else:
         return HttpResponse('Failure', status=status.HTTP_400_BAD_REQUEST)
