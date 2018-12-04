@@ -10,7 +10,6 @@ class Patient_profile(models.Model):
     DOB = models.DateField(null=True)
     company = models.CharField(max_length=100, default = 'Medicare')
     plan = models.CharField(max_length=100, default = 'standard')
-
     salary = models.BigIntegerField(null=True)
     def __str__(self):
         return self.username

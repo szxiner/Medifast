@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Insurance_recommendation
+from .models import Insurance_recommendation, Insurance_details
 
 class Insurance_recommendation_serializer(serializers.ModelSerializer):
     class Meta:

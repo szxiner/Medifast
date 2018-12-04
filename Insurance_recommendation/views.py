@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Insurance_recommendation
-from .serializers import Insurance_recommendation_serializer
+from .models import Insurance_recommendation, Insurance_details
+from .serializers import Insurance_recommendation_serializer, Insurance_details_serializer
 from rest_framework.response import Response
 from rest_framework import status
 from Patient_profile.models import Patient_history, Patient_profile
