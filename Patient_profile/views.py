@@ -61,11 +61,18 @@ class Patient_booking_history(APIView):
         if request.GET !={}:
             history = Booking.objects.filter(patientusername=request.GET['username'])
             appointments_serializer = Bookings_serializer(history, many=True)
+            patient = Patient_profile.objects.filter(username=request.GET['username'])
+            Patient_serializer = Patient_profile_serializer(patient, many=True)
             charge_sheet = list()
             for each in appointments_serializer.data:
                 doctor_names = Doctor_profile.objects.filter(username=each['docusername'])
                 doctor_names_serialzer = Doctor_profile_serializer(doctor_names, many=True)
-                temp = [each['ref_no'],doctor_names_serialzer.data[0]['First_name'],doctor_names_serialzer.data[0]['Last_Name'],each['bdate'],doctor_names_serialzer.data[0]['hourly_charge'],each['bill']]
+                temp = [each['ref_no'],doctor_names_serialzer.data[0]['First_name'],
+                        doctor_names_serialzer.data[0]['Last_Name'],each['bdate'],
+                        doctor_names_serialzer.data[0]['hourly_charge'],
+                        each['bill'],
+                        Patient_serializer.data[0]['company'],
+                        Patient_serializer.data[0]['plan']]
                 charge_sheet.append(temp)
             return Response({'charge_sheet':charge_sheet})
         else:
@@ -73,14 +80,9 @@ class Patient_booking_history(APIView):
     def post(self, request, format=None):
         todays_date = datetime.date.today()
         if request.GET !={}:
-            history = Booking.objects.filter(patientusername=request.GET['username'])
-            appointments_serializer = Bookings_serializer(history, many=True)
-            for each in appointments_serializer.data:
-                if datetime.datetime.strptime(each['bdate'],'%Y-%m-%d').date() < todays_date:
-                    each['bill'] = 'P'
-                    serializer = Bookings_serializer(data=each)
-                    if serializer.is_valid():
-                        serializer.save()
+            booking = Booking.objects.get(ref_no=request.GET['ref_no'])
+            booking.bill = 'P'
+            booking.save()
             return HttpResponse('Success', status=status.HTTP_200_OK)
         else:
             return HttpResponse('Failure', status=status.HTTP_400_BAD_REQUEST)

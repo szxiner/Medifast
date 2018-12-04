@@ -84,6 +84,7 @@ SOCIAL_AUTH_PIPELINE = (
 # Application definition
 
 INSTALLED_APPS = [
+	'Insurance_recommendation',
     'Doctor_profile',
     'Patient_profile',
     'rest_framework',
