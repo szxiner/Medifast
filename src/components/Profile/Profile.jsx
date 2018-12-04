@@ -129,7 +129,7 @@ class Profile extends React.Component {
                 )}
               </div>
             )}
-            {type === "Insurance" ? <InsuranceProfile /> : <div />}
+            <InsuranceProfile />
           </div>
         )}
       </div>

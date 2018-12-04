@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 
-import { Row, Col } from "antd";
+import { Button, Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
 import BillingCard from "./BillingCard";
 import Bill from "./Bill";
@@ -67,9 +67,14 @@ export default class Billing extends React.Component {
       loading: false,
       activeBill: undefined
     };
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {}
+
+  onClick = () => {
+    this.setState({ activeBill: undefined });
+  };
 
   handleClick = bill => {
     this.setState({ loading: true }, () => {
@@ -82,12 +87,9 @@ export default class Billing extends React.Component {
 
     return (
       <div className={css(styles.container)}>
-        {loading && !activeBill ? (
-          //   <GridLoader />
-          <div />
-        ) : activeBill ? (
+        {activeBill ? (
           <div>
-            <Bill />
+            <Bill activeBill={this.state.activeBill} />
           </div>
         ) : (
           <div>
@@ -100,6 +102,8 @@ export default class Billing extends React.Component {
             })}
           </div>
         )}
+        <br />
+        <Button onClick={this.onClick} shape="circle" icon="redo" />
       </div>
     );
   }

@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     flexflow: "row wrap",
     //marginRight: "0px",
     justifyContent: "space-around",
-    padding: "10px",
+    padding: "15px",
     ":hover": {
       "-webkit-transform": "scale(1.05)",
       " -ms-transform": "scale(1.05)",

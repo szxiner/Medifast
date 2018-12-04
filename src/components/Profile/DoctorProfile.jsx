@@ -315,6 +315,7 @@ class DoctorProfile extends React.Component {
     {
       console.log(user, "doc userrr");
     }
+    console.log("in doc profile", user);
     return (
       <div className={css(styles.flexBody)}>
         <div className={css(styles.flexColumn)}>
