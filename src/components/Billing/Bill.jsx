@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import moment from "moment";
+import axios from "axios";
 
 import { StyleSheet, css } from "aphrodite";
 import { Button, Row, Col } from "antd";
@@ -11,6 +12,7 @@ import PaymentForm from "./PaymentForm";
 import business from "./business.svg";
 import notes from "./notes.svg";
 import loading from "./loading.gif";
+import Axios from "axios";
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +55,7 @@ export class Bill extends Component {
   componentDidMount() {
     console.log(this.props.activeBill);
     this.setState({
-      amount: parseFloat(this.props.activeBill.oop.substring(1))
+      amount: this.props.activeBill.oop
     });
     this.payWithCard = this.payWithCard.bind(this);
   }
@@ -71,6 +73,7 @@ export class Bill extends Component {
     };
 
     const onSuccess = payment => {
+      axios.post("/patient/bill", { ref_no: this.props.activeBill.id });
       this.setState({ processing: true }, () => {
         sleep(5000).then(() => {
           this.setState({ paid: true, processing: false });
@@ -125,7 +128,7 @@ export class Bill extends Component {
                   </Col>
                   <Col span={5}>
                     <div className={css(styles.amount)}>
-                      {activeBill.amount}
+                      $ {activeBill.amount.toFixed(2)}
                     </div>
                   </Col>
                   <Col span={3} />
@@ -136,7 +139,9 @@ export class Bill extends Component {
                     <b>Insurance Deductible:</b>
                   </Col>
                   <Col span={5}>
-                    <div className={css(styles.amount)}>- $47.69</div>
+                    <div className={css(styles.amount)}>
+                      - ${(activeBill.amount * 0.5).toFixed(2)}
+                    </div>
                   </Col>
                   <Col span={3} />
                 </Row>
@@ -147,7 +152,7 @@ export class Bill extends Component {
                   </Col>
                   <Col span={5}>
                     <div className={css(styles.amount, styles.oop)}>
-                      {activeBill.oop}
+                      $ {activeBill.oop.toFixed(2)}
                     </div>
                   </Col>
                   <Col span={3} />

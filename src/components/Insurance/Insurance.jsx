@@ -8,6 +8,45 @@ import { StyleSheet, css } from "aphrodite";
 import InsurancePlans from "./InsurancePlans";
 import InsuranceProvider from "./InsuranceProvider";
 
+const dummyPlans = [
+  {
+    name: "Standard",
+    price: "32.99",
+    recommended: false,
+    currentPlan: true,
+    info: [
+      { content: "Access to Network", help: "" },
+      { content: "$2500 Deductible", help: "" },
+      { content: "Full price primary care", help: "" },
+      { content: "Full price specialists", help: "" }
+    ]
+  },
+  {
+    name: "Gold",
+    price: "55.99",
+    recommended: true,
+    currentPlan: false,
+    info: [
+      { content: "Access to Network", help: "" },
+      { content: "$1500 Deductible", help: "" },
+      { content: "$40 Primary care before deductible", help: "" },
+      { content: "$80 Specialists before deductible", help: "" }
+    ]
+  },
+  {
+    name: "Platinum",
+    price: "99.99",
+    recommended: false,
+    currentPlan: false,
+    info: [
+      { content: "Access to Network", help: "" },
+      { content: "$1500 Deductible", help: "" },
+      { content: "$15 Primary care before deductible", help: "" },
+      { content: "$80 Specialists before deductible", help: "" }
+    ]
+  }
+];
+
 const styles = StyleSheet.create({
   container: {
     width: "94%",
@@ -69,7 +108,7 @@ export default class Insurance extends React.Component {
                   You can upgrade or downgrade at any time.
                 </div>
               </div>
-              <InsurancePlans />
+              <InsurancePlans plans={dummyPlans} recomanded="standard" />
             </div>
           </Col>
           <Col span={8}>

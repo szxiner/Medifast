@@ -6,45 +6,6 @@ import { StyleSheet, css } from "aphrodite";
 
 import Badge from "./Badge";
 
-const dummyPlans = [
-  {
-    name: "Standard",
-    price: "32.99",
-    recommended: false,
-    currentPlan: true,
-    info: [
-      { content: "Access to Network", help: "" },
-      { content: "$2500 Deductible", help: "" },
-      { content: "Full price primary care", help: "" },
-      { content: "Full price specialists", help: "" }
-    ]
-  },
-  {
-    name: "Gold",
-    price: "55.99",
-    recommended: true,
-    currentPlan: false,
-    info: [
-      { content: "Access to Network", help: "" },
-      { content: "$1500 Deductible", help: "" },
-      { content: "$40 Primary care before deductible", help: "" },
-      { content: "$80 Specialists before deductible", help: "" }
-    ]
-  },
-  {
-    name: "Platinum",
-    price: "99.99",
-    recommended: false,
-    currentPlan: false,
-    info: [
-      { content: "Access to Network", help: "" },
-      { content: "$1500 Deductible", help: "" },
-      { content: "$15 Primary care before deductible", help: "" },
-      { content: "$80 Specialists before deductible", help: "" }
-    ]
-  }
-];
-
 const styles = StyleSheet.create({
   plan: {
     transition: "all 0.3s ease",
@@ -92,7 +53,7 @@ export default class InsurancePlans extends React.Component {
   render() {
     return (
       <div className={css(styles.container)}>
-        {_.map(dummyPlans, plan => {
+        {_.map(this.props.plans, plan => {
           return (
             <div className={css(styles.plan)}>
               <Row style={{ height: "100%" }}>
@@ -104,7 +65,11 @@ export default class InsurancePlans extends React.Component {
                   </div>
                   per month
                   <br />
-                  {plan.recommended ? <Badge content="recommended" /> : <br />}
+                  {this.props.recommended === plan.name ? (
+                    <Badge content="recommended" />
+                  ) : (
+                    <br />
+                  )}
                 </Col>
                 <Col span={12}>
                   <div className={css(styles.infos)}>
