@@ -124,48 +124,25 @@ class Insurance extends React.Component {
     });
 
     axios
-      .get(`http://127.0.0.1:8000/insRec/recommend?username=${username}`)
+      .get(`http://127.0.0.1:8000/insRec/recommend/${username}`)
       .then(res => {
         if (res.status === 200) {
           console.log(res.insurance_plan);
-          this.setState({ recommend: res.insurance_plan });
-          this.setState({ recommended: true });
-          this.setState({
-            recommendedplan: this.state.recommend.insurance_plan
-          });
+          this.setState({ recommendplan: res.data.insurance_plan });
 
           console.log("recommend plan isss", this.state.recommend);
           console.log("Im connected");
         } else {
           console.log(" No Recommendations");
         }
-        // if (this.state.recommended) {
-        //   for (let i = 0; i < recommend.length; i++) {
-        //     if (
-        //       this.state.userplan.plan === this.state.recommend.insurance_plan
-        //     ) {
-        //       this.setState({ recommended: true });
-        //       this.state.userplan.push(this.state.recommend.insurance_plan);
-        //       this.setState(
-        //         (this.state.userplan.company = recommend.insurance_plan)
-        //       );
-        //     } else {
-        //       this.setState({ recommended: false });
-        //     }
-        //   }
-        //}
-        console.log(this.state.userplan.company, "updated user plannnn");
       });
   }
 
   render() {
     const { auth, currentUser, username } = this.props;
-    // let username;
-    // if (currentUser) {
-    //   username = currentUser.username;
-    // } else {
-    //   username = undefined;
-    // }
+    {
+      console.log("All Plasssss", this.state.AllPlans);
+    }
     return (
       <div className={css(styles.container)}>
         <Row style={{ width: "100%" }}>
@@ -177,7 +154,10 @@ class Insurance extends React.Component {
                   You can upgrade or downgrade at any time.
                 </div>
               </div>
-              <InsurancePlans plans={dummyPlans} recommended="standard" />
+              <InsurancePlans
+                plans={this.state.AllPlans}
+                recommended={this.state.recommendedplan}
+              />
             </div>
           </Col>
           <Col span={8}>
