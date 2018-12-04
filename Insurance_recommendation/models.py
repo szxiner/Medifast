@@ -6,3 +6,8 @@ class Insurance_recommendation(models.Model):
     #insurance_name = models.CharField(max_length=100, null=True)
     username = models.CharField(max_length=100, primary_key=True)
     insurance_plan = models.CharField(max_length=100, null=True)
+	
+class Insurance_details(models.Model):
+    company = models.CharField(max_length=100, null = True)
+    plan = models.CharField(max_length=100, null = True)
+    coverage = models.IntegerField()

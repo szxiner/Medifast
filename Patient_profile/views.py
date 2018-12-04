@@ -9,6 +9,8 @@ from Doctor_profile.models import Booking, Doctor_profile
 from Doctor_profile.serializers import Bookings_serializer, Doctor_profile_serializer
 from django.http import HttpResponse
 from rest_framework import status
+import datetime
+import calendar
 
 class Patient_profile_view(APIView):
     def get(self, request, format=None):
@@ -55,28 +57,43 @@ class Patient_history_view(APIView):
 # Patient Booking History
 class Patient_booking_history(APIView):
     def get(self, request, format=None):
+        todays_date = datetime.date.today()
         if request.GET !={}:
             history = Booking.objects.filter(patientusername=request.GET['username'])
             appointments_serializer = Bookings_serializer(history, many=True)
+            patient = Patient_profile.objects.filter(username=request.GET['username'])
+            Patient_serializer = Patient_profile_serializer(patient, many=True)
             charge_sheet = list()
-            total_charge = 0
             for each in appointments_serializer.data:
                 doctor_names = Doctor_profile.objects.filter(username=each['docusername'])
                 doctor_names_serialzer = Doctor_profile_serializer(doctor_names, many=True)
-                temp = [doctor_names_serialzer.data[0]['First_name'],doctor_names_serialzer.data[0]['Last_Name'],each['bdate'],each['btime'],doctor_names_serialzer.data[0]['hourly_charge']]
+                temp = [each['ref_no'],doctor_names_serialzer.data[0]['First_name'],
+                        doctor_names_serialzer.data[0]['Last_Name'],each['bdate'],
+                        doctor_names_serialzer.data[0]['hourly_charge'],
+                        each['bill'],
+                        Patient_serializer.data[0]['company'],
+                        Patient_serializer.data[0]['plan']]
                 charge_sheet.append(temp)
-                total_charge +=  doctor_names_serialzer.data[0]['hourly_charge']
-            return Response({'charge_sheet':charge_sheet, 'total_charge':total_charge})
+            return Response({'charge_sheet':charge_sheet})
         else:
             return Response("Invalid username")
+    def post(self, request, format=None):
+        todays_date = datetime.date.today()
+        if request.GET !={}:
+            booking = Booking.objects.get(ref_no=request.GET['ref_no'])
+            booking.bill = 'P'
+            booking.save()
+            return HttpResponse('Success', status=status.HTTP_200_OK)
+        else:
+            return HttpResponse('Failure', status=status.HTTP_400_BAD_REQUEST)
+
+
+# Deleting an appointment
 def delete_booking(request):
     if request.GET != {}:
-        appointment = Booking.objects.filter(bdate=request.GET['bdate'],patientusername=request.GET['patientusername'],docusername=request.GET['docusername'])#,btime=request.GET['btime'])
+        appointment = Booking.objects.filter(ref_no=request.GET['ref_no'])
         serializer = Bookings_serializer(appointment, many=True)
-        for each in serializer.data:
-            if str(each['btime']) == request.GET['btime']:
-                print(serializer.data)
-                appointment.delete()
+        appointment.delete()
         return HttpResponse('Success', status=status.HTTP_200_OK)
     else:
         return HttpResponse('Failure', status=status.HTTP_400_BAD_REQUEST)
