@@ -2,14 +2,29 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 
-import { Doughnut } from "react-chartjs-2";
+import { Bar, Doughnut } from "react-chartjs-2";
 import { Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
+
+import loading from "./loading.gif";
+
+const barData = {
+  labels: ["Standard", "Gold", "Platinum"],
+  datasets: [
+    {
+      label: "Plan Subscription",
+      backgroundColor: "#2191FB",
+      borderWidth: 1,
+      hoverBackgroundColor: "#1C77CE",
+      data: [16, 1, 1]
+    }
+  ]
+};
 
 const styles = StyleSheet.create({
   insuranceContainer: {},
   numberStat: {
-    margin: 16,
+    margin: 8,
     backgroundColor: "#fff",
     borderRadius: 4,
     fontSize: 16,
@@ -18,16 +33,20 @@ const styles = StyleSheet.create({
     flexWrap: "wrap"
   },
   mainStat: {
-    margin: 16,
+    margin: 8,
     backgroundColor: "#fff",
     borderRadius: 4,
-    height: 500,
+    height: 520,
     padding: 12
   },
   insuranceStat: {
-    margin: 16,
+    margin: 8,
     backgroundColor: "#fff",
-    borderRadius: 4
+    borderRadius: 4,
+    padding: 12,
+    height: 520,
+
+    fontSize: 16
   },
   numberCirclePatient: {
     borderRadius: "50%",
@@ -57,9 +76,36 @@ const styles = StyleSheet.create({
     margin: "9%"
   },
   apptTitle: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
     margin: 12
+  },
+  bookingTotal: {
+    fontSize: 24,
+    textAlign: "center"
+  },
+  insuranceTitle: {
+    fontSize: 20,
+    textAlign: "center"
+  },
+  welcome: {
+    margin: 8,
+    borderRadius: 4,
+    color: "#fff",
+    height: 83.22,
+    padding: 20,
+    textAlign: "right",
+    background: "linear-gradient(to bottom right, #A5FECB, #20BDFF, #5433FF)"
+  },
+  loading: {
+    textAlign: "center",
+    fontSize: 16,
+    margin: "2%",
+    height: "70%",
+    width: "90%",
+    paddingTop: 50,
+    borderRadius: 4,
+    backgroundColor: "#fff"
   }
 });
 
@@ -70,7 +116,9 @@ export default class InsuranceProfile extends React.Component {
       patientNum: 0,
       docNum: 0,
       bookings: [],
-      donutChat: undefined
+      bookingNum: 0,
+      donutChat: undefined,
+      donutChat2: undefined
     };
   }
 
@@ -146,63 +194,184 @@ export default class InsuranceProfile extends React.Component {
         });
       });
     });
+    axios.get("/patient/bill").then(res => {
+      const length = res.data.length;
+      let paid = 0;
+      _.forEach(res.data, book => {
+        if (book.bill === "P") {
+          paid = paid + 1;
+        }
+        const data = {
+          labels: ["Paid Claims", "Unpaid Claims"],
+          datasets: [
+            {
+              data: [paid, length - paid],
+              backgroundColor: ["#E3B505", "#2191FB"],
+              hoverBackgroundColor: ["#E3B505", "#2191FB"]
+            }
+          ]
+        };
+        this.setState({
+          bookingNum: length,
+          donutChat2: data
+        });
+      });
+    });
   };
 
   render() {
-    const { patientNum, docNum, donutChat } = this.state;
+    const {
+      patientNum,
+      docNum,
+      bookingNum,
+      donutChat,
+      donutChat2
+    } = this.state;
     return (
       <div className={css(styles.insuranceContainer)}>
-        <Row>
-          <Col span={6}>
-            <div className={css(styles.numberStat)}>
-              <div className={css(styles.numTitle)}>Patient Numbers:</div>
-              <div className={css(styles.numberCirclePatient)}>
-                {patientNum}
-              </div>
-            </div>
-          </Col>
-          <Col span={6}>
-            <div className={css(styles.numberStat)}>
-              <div className={css(styles.numTitle)}>Doctor Numbers:</div>
-              <div className={css(styles.numberCircleDoc)}>{docNum}</div>
-            </div>
-          </Col>
-          <Col span={12}>{/* <h1>Welcome back to Medifast!</h1> */}</Col>
-        </Row>
-        <Row>
-          <Col span={18}>
-            <div className={css(styles.mainStat)}>
-              <Row>
-                <Col span={12}>
-                  <div>
-                    <div className={css(styles.apptTitle)}>
-                      Appointments - Specialization by Counts:
+        {donutChat && donutChat2 ? (
+          <div>
+            <Row>
+              <Col span={1} />
+              <Col span={6}>
+                <div className={css(styles.numberStat)}>
+                  <div className={css(styles.numTitle)}>Patient Numbers:</div>
+                  <div className={css(styles.numberCirclePatient)}>
+                    {patientNum}
+                  </div>
+                </div>
+              </Col>
+              <Col span={6}>
+                <div className={css(styles.numberStat)}>
+                  <div className={css(styles.numTitle)}>Doctor Numbers:</div>
+                  <div className={css(styles.numberCircleDoc)}>{docNum}</div>
+                </div>
+              </Col>
+              <Col span={10}>
+                <div className={css(styles.welcome)}>
+                  <h1>Welcome Back to Medifast!</h1>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={1} />
+              <Col span={17}>
+                <div className={css(styles.mainStat)}>
+                  <Row>
+                    <Col span={11}>
+                      <div>
+                        <div className={css(styles.apptTitle)}>
+                          Appointments - Specialization by Counts:
+                          <br />
+                        </div>
+                        {donutChat ? (
+                          <div>
+                            <Doughnut
+                              width={300}
+                              height={390}
+                              options={{
+                                maintainAspectRatio: false
+                              }}
+                              data={donutChat}
+                            />
+                          </div>
+                        ) : (
+                          <div />
+                        )}
+                      </div>
+                    </Col>
+                    <Col span={2} />
+                    <Col span={11}>
+                      <div>
+                        <div className={css(styles.apptTitle)}>
+                          Claims - Paid and Unpaid:
+                          <br />
+                        </div>
+                        {donutChat2 ? (
+                          <div>
+                            <Doughnut
+                              width={300}
+                              height={390}
+                              options={{
+                                maintainAspectRatio: false
+                              }}
+                              data={donutChat2}
+                            />
+                          </div>
+                        ) : (
+                          <div />
+                        )}
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <div className={css(styles.bookingTotal)}>
+                      <br />
+                      Total Booking Amount: <b>{bookingNum}</b>
                       <br />
                     </div>
-                    {donutChat ? (
-                      <div>
-                        <Doughnut
-                          width={300}
-                          height={390}
-                          options={{
-                            maintainAspectRatio: false
-                          }}
-                          data={donutChat}
-                        />
-                      </div>
-                    ) : (
-                      <div />
-                    )}
+                  </Row>
+                </div>
+              </Col>
+              <Col span={5}>
+                <div className={css(styles.insuranceStat)}>
+                  <div className={css(styles.insuranceTitle)}>
+                    <br />
+                    Total Subscribers: <b>{patientNum}</b>
+                    <br />
+                    <br />
                   </div>
-                </Col>
-                <Col span={12}>Claim Number</Col>
-              </Row>
-            </div>
-          </Col>
-          <Col span={5}>
-            <div className={css(styles.insuranceStat)}>Insurance Plan</div>
-          </Col>
-        </Row>
+
+                  <Row>
+                    <Col span={2} />
+                    <Col span={10}>Standard: </Col>
+                    <Col span={10}>
+                      <div style={{ textAlign: "right" }}>16</div>
+                    </Col>
+                    <Col span={2} />
+                  </Row>
+                  <br />
+
+                  <Row>
+                    <Col span={2} />
+                    <Col span={10}>Gold: </Col>
+                    <Col span={10}>
+                      <div style={{ textAlign: "right" }}>1</div>
+                    </Col>
+                    <Col span={2} />
+                  </Row>
+                  <br />
+
+                  <Row>
+                    <Col span={2} />
+                    <Col span={10}>Platinum: </Col>
+                    <Col span={10}>
+                      <div style={{ textAlign: "right" }}>1</div>
+                    </Col>
+                    <Col span={2} />
+                  </Row>
+                  <br />
+                  <hr />
+                  <div>
+                    <Bar
+                      data={barData}
+                      width={250}
+                      height={250}
+                      options={{
+                        maintainAspectRatio: false
+                      }}
+                    />
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        ) : (
+          <div className={css(styles.loading)}>
+            Loading <br />
+            <img src={loading} width="40%" />
+          </div>
+        )}
       </div>
     );
   }
