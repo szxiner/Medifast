@@ -136,13 +136,13 @@ class DashboardSideBar extends Component {
           <TabList className={css(styles.tablist)}>
             <Tab tabFor="one">My Profile</Tab>
             <Tab tabFor="two">View Patients </Tab>
-            <Tab tabFor="three">Insurance Information</Tab>
+            {/* <Tab tabFor="three">Insurance Information</Tab> */}
             <Tab tabFor="four">My Appointments</Tab>
             <Tab tabFor="5">TBD</Tab>
           </TabList>
           <TabPanel tabId="vertical-tab-one" component={Profile} />
           <TabPanel tabId="vertical-tab-two" component={UserView} />
-          <TabPanel tabId="vertical-tab-three">TBD</TabPanel>
+          {/* <TabPanel tabId="vertical-tab-three">TBD</TabPanel> */}
           <TabPanel tabId="vertical-tab-four" component={MyAppointment} />
           <TabPanel tabId="vertical-tab-5" component={SearchDoctors} />
         </Tabs>

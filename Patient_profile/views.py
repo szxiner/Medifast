@@ -76,7 +76,10 @@ class Patient_booking_history(APIView):
                 charge_sheet.append(temp)
             return Response({'charge_sheet':charge_sheet})
         else:
-            return Response("Invalid username")
+            history = Booking.objects.all()
+            serializer = Bookings_serializer(history, many=True)
+            return Response(serializer.data)
+            
     def post(self, request, format=None):
         todays_date = datetime.date.today()
         if request.GET !={}:

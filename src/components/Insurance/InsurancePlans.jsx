@@ -86,41 +86,78 @@ const styles = StyleSheet.create({
 class InsurancePlans extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    const { Plans } = [];
+    this.state = {
+      AllPlans: [],
+      Plans: [],
+      recommend: [],
+      getplans: false,
+      thisplan: false
+    };
   }
 
   componentDidMount() {
     const { auth } = this.props;
     const { username } = auth.user;
+
+    console.log("am i mounting?");
+    console.log("is this a userrr", username);
     axios.get("http://127.0.0.1:8000/insRec/details").then(res => {
-      if (res.status === 200) {
-        this.setState({ getplans: true });
-        const list = _.filter(res.data, { company: "Medifast" });
-        if (list.length !== 0) {
-          this.setState({
-            Plans: res.data
-          });
-          console.log("Imgetting plans");
-        }
-      }
+      //const list = _.filter(res.data, { company: "Medifast" });
+      this.setState({
+        AllPlans: res.data
+      });
+      this.setState({ getplans: true });
+
+      console.log("All Plans", this.state.AllPlans);
+      console.log("state of get plans", this.state.getplans);
+
+      const userplan = _.filter(this.state.AllPlans, {
+        company: "Medicare"
+      });
+      this.setState({ Plans: userplan });
+      console.log("so user plans areeee", userplan);
+      // if (list.length !== 0) {
+      //   this.setState({
+      //     Plans: res.data
+      //   });
+      //   console.log("Imgetting plans");
+      //   this.setState({ getplans: true });
+      // }
     });
-    if (this.getplans) {
-      axios
-        .get(
-          `http://127.0.0.1:8000/insRec/recommend?username=${
-            this.state.username
-          }`
-        )
-        .then(res => {
-          if (res.status === 200) {
-            console.log(res.data);
-            this.setState({ userList: res.data });
-            this.setState({ recommended: true });
-            console.log("Im connected");
+
+    axios
+      .get(`http://127.0.0.1:8000/insRec/recommend?username=${username}`)
+      .then(res => {
+        if (res.status === 200) {
+          console.log(res.data);
+          this.setState({ recommend: res.data });
+          this.setState({ recommended: true });
+          // const recommendedPlan = _.filter(recommend, {
+          //   search: user.search
+          // });
+
+          console.log("recommend", this.state.recommend);
+          console.log("Im connected");
+        } else {
+          console.log(" No Recommendations");
+        }
+        if (this.state.recommended) {
+          for (let i = 0; i < recommend.length; i++) {
+            if (
+              this.state.userplan.plan === this.state.recommend.insurance_plan
+            ) {
+              this.setState({ recommended: true });
+              this.state.userplan.push(this.state.recommend.insurance_plan);
+              this.setState(
+                (this.state.userplan.company = recommend.insurance_plan)
+              );
+            } else {
+              this.setState({ recommended: false });
+            }
           }
-        });
-    }
+        }
+        console.log(this.state.userplan.company, "updated user plannnn");
+      });
   }
 
   render() {
@@ -139,7 +176,12 @@ class InsurancePlans extends React.Component {
             <div className={css(styles.plan)}>
               <Row style={{ height: "100%" }}>
                 <Col span={6}>
-                  <div className={css(styles.planName)}>{plan.name}</div>
+                  <div className={css(styles.planName)}>
+                    {/* {this.state.userplan.company} */}
+                  </div>
+                  <div className={css(styles.planName)}>
+                    {/* {this.state.userplan.plan} */}
+                  </div>
                   <div className={css(styles.price)}>
                     <span style={{ fontSize: 12 }}>$</span>
                     {plan.price}
