@@ -89,7 +89,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'users.apps.UsersConfig',
-
+    'Insurance_recommendation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
