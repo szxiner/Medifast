@@ -28,6 +28,7 @@
     "react-bootstrap-button-loader": "^1.0.12",
     "react-bootstrap-sidebar": "0.0.1",
     "react-chartjs-2": "^2.7.4",
+    "react-clickable": "^1.1.0",
     "react-container": "^0.3.1",
     "react-content-loader": "^3.2.0",
     "react-day-picker": "^7.2.4",

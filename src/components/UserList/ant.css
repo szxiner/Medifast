@@ -40,3 +40,29 @@ btn-default:focus {
   justify-content: space-around !important;
   padding: 10px !important;
 }
+
+.ant-col-12 {
+  font-family: "Crimson Text", serif;
+  font-size: 20px;
+  color: black;
+}
+
+.ant-row {
+  font-size: 13px;
+  font-family: "Muli", sans-serif;
+}
+
+.ant-btn-lg {
+  padding: 0 15px;
+  font-size: 12px;
+  border-radius: 4px;
+  height: 25px;
+  width: 100%;
+}
+
+.innerComponent_1evxck6 {
+  border-radius: 5px !important;
+  margin: 24px !important;
+  padding-left: 10%;
+  padding-right: 10%;
+}

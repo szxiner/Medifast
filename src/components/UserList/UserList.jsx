@@ -7,6 +7,8 @@ import { StyleSheet, css } from "aphrodite";
 import { themeColor } from "../../theme/colors";
 import { Icon } from "antd";
 import UserCard from "./UserCard";
+import UserCardDoc from "./UserCardDoc";
+import UserCardPat from "./UserCardPat";
 
 const styles = StyleSheet.create({
   innerComponent: {
@@ -69,7 +71,7 @@ class UserList extends React.Component {
   }
 
   handleOpenModal(user) {
-    const { userType } = this.props;
+    const { userType, currentUser } = this.props;
     let viewType;
     if (userType === "Doctor") {
       viewType = "Patient";
@@ -139,27 +141,87 @@ class UserList extends React.Component {
     } else {
       viewType = "Doctor";
     }
-    return (
-      <div className={css(styles.innerComponent)}>
-        {this.state.userList.length === 0 ? (
-          <div>
-            <div className={css(styles.error)}>
-              <Icon type="book" theme="outlined" />
-              <span style={{ marginLeft: 15 }}>
-                No available appointment found.
-              </span>
+    {
+      console.log("user type", userType);
+    }
+    if (userType === "Doctor")
+      return (
+        <div className={css(styles.innerComponent)}>
+          {/* {this.state.userList.length === 0 ? (
+            <div>
+              <div className={css(styles.error)}>
+                <Icon type="book" theme="outlined" />
+                <span style={{ marginLeft: 15 }}>
+                  No available appointment found.
+                </span>
+              </div>
             </div>
-          </div>
-        ) : (
+          ) : ( */}
           <div>
             {/* <h3>Available {viewType}s</h3> */}
             {_.map(this.state.userList, user => {
-              return <UserCard type={viewType} currentUser={user} />;
+              return (
+                <UserCardPat
+                  type={"Patient"}
+                  currentUser={user}
+                  activeInfo={user}
+                />
+              );
             })}
           </div>
-        )}
-      </div>
-    );
+          {/* )} */}
+        </div>
+      );
+    if (userType === "Patient")
+      return (
+        <div className={css(styles.innerComponent)}>
+          {/* {this.state.userList.length === 0 ? (
+            <div>
+              <div className={css(styles.error)}>
+                <Icon type="book" theme="outlined" />
+                <span style={{ marginLeft: 15 }}>
+                  No available appointment found.
+                </span>
+              </div>
+            </div>
+          ) : ( */}
+          <div>
+            {/* <h3>Available {viewType}s</h3> */}
+            {_.map(this.state.userList, user => {
+              return (
+                <UserCardDoc
+                  type={"Doctor"}
+                  currentUser={user}
+                  activeInfo={user}
+                />
+              );
+            })}
+          </div>
+          {/* )} */}
+        </div>
+      );
+    if (userType === "Insurance")
+      return (
+        <div className={css(styles.innerComponent)}>
+          {/* {this.state.userList.length === 0 ? (
+            <div>
+              <div className={css(styles.error)}>
+                <Icon type="book" theme="outlined" />
+                <span style={{ marginLeft: 15 }}>
+                  No available appointment found.
+                </span>
+              </div>
+            </div>
+          ) : ( */}
+          <div>
+            {/* <h3>Available {viewType}s</h3> */}
+            {_.map(this.state.userList, user => {
+              return <UserCard type={"provider"} currentUser={user} />;
+            })}
+          </div>
+          )
+        </div>
+      );
   }
 }
 

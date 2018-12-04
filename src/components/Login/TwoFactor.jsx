@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
   // TODO: Change button style
   loginButton: { width: 80 },
   logo: {
-    textAlign: "center"
+    textAlign: "center",
+    color: "#000"
   }
 });
 export class Register extends React.Component {

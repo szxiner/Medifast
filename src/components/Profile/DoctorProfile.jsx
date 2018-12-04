@@ -312,6 +312,9 @@ class DoctorProfile extends React.Component {
   render() {
     const { user } = this.props;
     const { loading, imageUrl } = this.state;
+    {
+      console.log(user, "doc userrr");
+    }
     console.log("in doc profile", user);
     return (
       <div className={css(styles.flexBody)}>

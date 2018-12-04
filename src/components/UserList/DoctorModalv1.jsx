@@ -65,15 +65,25 @@ class DoctorModal extends React.Component {
   };
 
   render() {
-    const { showModal, handleCloseModal, user } = this.props;
+    const { showModal, handleCloseModal, activeInfo, showAppt } = this.props;
+
+    let star;
     let lastName;
+    let location;
     let username;
-    if (user) {
-      username = user.username;
-      lastName = user.Last_Name;
+    let insurance;
+
+    if (activeInfo[0]) {
+      star = activeInfo[0].rating;
+      username = activeInfo[0].username;
+      lastName = activeInfo[0].Last_Name;
+      insurance = activeInfo[0].insurance_name;
+      location = activeInfo[0].location.split(" ");
     } else {
+      star = 0;
       lastName = "";
       username = "";
+      location = ["12.222", "-86.111"];
     }
 
     return (
@@ -88,11 +98,45 @@ class DoctorModal extends React.Component {
             <Icon type="close" theme="outlined" />
           </a>
           <br />
-          <h3>You are booking an appointment with Dr. {lastName}</h3>
+          <h3>Doctor {lastName}</h3>
           <br />
-          <div>
-            <MyCalendar username={username} />
-          </div>
+          {this.state.appointment ? (
+            <div>
+              <a onClick={this.onClick} className={css(styles.left)}>
+                <Icon type="left" theme="outlined" />
+              </a>
+              <MyCalendar username={username} />
+            </div>
+          ) : (
+            <div>
+              <div>
+                REVIEW: &nbsp; &nbsp;
+                <Rate disabled defaultValue={star} />
+                <br />
+              </div>
+              <div>Insurance Company: {insurance}</div>
+              <br />
+              <div className={css(styles.map)}>
+                <Map
+                  lat={parseFloat(location[0])}
+                  lng={parseFloat(location[1])}
+                />
+              </div>
+              <br />
+              {this.props.auth.user.type === "Patient" ? ( //button is being displayed after removing "showAppt &&" part from the condition
+                <Button
+                  type="primary"
+                  icon="calendar"
+                  size="large"
+                  onClick={this.onClick}
+                >
+                  Book an Appointment
+                </Button>
+              ) : (
+                <div />
+              )}
+            </div>
+          )}
         </ReactModal>
       </div>
     );
