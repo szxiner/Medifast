@@ -12,7 +12,6 @@ import PaymentForm from "./PaymentForm";
 import business from "./business.svg";
 import notes from "./notes.svg";
 import loading from "./loading.gif";
-import Axios from "axios";
 
 const styles = StyleSheet.create({
   container: {

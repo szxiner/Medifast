@@ -4,8 +4,10 @@ import axios from "axios";
 import moment from "moment";
 import { connect } from "react-redux";
 import { List } from "react-content-loader";
-import { Upload, message, Avatar, Button, Alert } from "antd";
+import { Upload, message, Avatar, Button, Alert, Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
+import { Doughnut } from "react-chartjs-2";
+
 import AppointmentCard from "../Appointment/AppointmentCard";
 
 import { FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
@@ -159,6 +161,9 @@ class PatientProfile extends React.Component {
     this.state = {
       nextAppointment: undefined,
       bills: [],
+      total: 0,
+      paid: 0,
+      donut: {},
       loading: true,
       imageUrl: undefined,
       open: false,
@@ -218,6 +223,8 @@ class PatientProfile extends React.Component {
     });
     axios.get(`/patient/bill?username=${username}`).then(res => {
       let data = [];
+      let total = 0;
+      let paid = 0;
       _.forEach(res.data.charge_sheet, sheet => {
         if (sheet[5] === "UP") {
           const charge = {
@@ -229,9 +236,21 @@ class PatientProfile extends React.Component {
             status: sheet[5]
           };
           data = [...data, charge];
+          paid = paid + sheet[4] * 0.5;
         }
+        total = total + sheet[4] * 0.5;
       });
-      this.setState({ bills: data });
+      const barData = {
+        labels: ["Paid", "Unpaid"],
+        datasets: [
+          {
+            data: [paid, total],
+            backgroundColor: ["#E3B505", "#2191FB"],
+            hoverBackgroundColor: ["#E3B505", "#2191FB"]
+          }
+        ]
+      };
+      this.setState({ bills: data, donut: barData, total: total });
     });
   };
 
@@ -327,7 +346,7 @@ class PatientProfile extends React.Component {
 
   render() {
     const { user } = this.props;
-    const { loading, imageUrl } = this.state;
+    const { loading, imageUrl, donut, total } = this.state;
     return (
       <div className={css(styles.flexBody)}>
         <div className={css(styles.flexColumn)}>
@@ -362,7 +381,37 @@ class PatientProfile extends React.Component {
             <div className={css(styles.billing)}>
               <span style={{ fontWeight: "bold" }}>Billing:</span>
               {this.state.bills.length !== 0 ? (
-                <div>You have {this.state.bills.length} open bills.</div>
+                <div>
+                  <Row>
+                    <Col span={12}>
+                      {donut ? (
+                        <div>
+                          <Doughnut
+                            width={250}
+                            height={250}
+                            options={{
+                              maintainAspectRatio: false
+                            }}
+                            data={donut}
+                          />
+                        </div>
+                      ) : (
+                        <div />
+                      )}
+                    </Col>
+                    <Col>
+                      <div style={{ fontSize: 18, paddingTop: 60 }}>
+                        <div>
+                          You have <b>{this.state.bills.length}</b> open bills.
+                        </div>
+                        <br />
+                        <div>
+                          Saved <b>${total} </b>since you choose Medifast.
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
               ) : (
                 <div className={css(styles.healthy)}>
                   <br />
