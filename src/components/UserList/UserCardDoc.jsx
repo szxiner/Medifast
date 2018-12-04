@@ -68,7 +68,12 @@ const styles = StyleSheet.create({
     flexflow: "row wrap",
     //marginRight: "0px",
     justifyContent: "space-around",
-    padding: "10px"
+    padding: "10px",
+    ":hover": {
+      "-webkit-transform": "scale(1.05)",
+      " -ms-transform": "scale(1.05)",
+      transform: "scale(1.05)"
+    }
   },
   flex: {
     justifyContent: "space-around",
@@ -121,12 +126,19 @@ class UserCardDoc extends React.Component {
     let location;
     let username;
     let insurance;
+    let docaddress;
+    let city_name;
+    let Zip_code;
     //console.log("activeInfooooo", activeInfo[0]);
     if (currentUser) {
       star = currentUser.rating;
       username = currentUser.username;
       lastName = currentUser.Last_Name;
       insurance = currentUser.insurance_name;
+      docaddress = currentUser.Address;
+      city_name = currentUser.city_name;
+      Zip_code = currentUser.Zip_code;
+
       {
         console.log("insurance", currentUser.insurance_name);
       }
@@ -148,6 +160,7 @@ class UserCardDoc extends React.Component {
       currentUser.state_name;
     const gender = currentUser.gender;
     const dob = currentUser.DOB;
+    const docadrs = docaddress + " " + city_name + " " + Zip_code;
     //showAppt = true;
 
     if (type === "Doctor")
@@ -157,7 +170,14 @@ class UserCardDoc extends React.Component {
             {console.log(currentUser, "current userrrrr")}
 
             <div display="inline-block">
-              <Card style={{ width: 350, marginTop: 20 }}>
+              <Card
+                style={{
+                  width: 400,
+                  marginTop: 20,
+                  boxShadow:
+                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+                }}
+              >
                 <Meta
                   style={{ height: 500 }}
                   // avatar={
@@ -269,7 +289,32 @@ class UserCardDoc extends React.Component {
                           </div>
                         </Col>
                         &nbsp;
-                        <Col span={8}>Address</Col>
+                        <Col
+                          // span={15}
+                          style={{
+                            fontSize: "19px",
+                            fontFamily: "font-family: 'Muli', sans-serif  ",
+                            color: "#505050",
+                            textAlign: "center"
+                          }}
+                        >
+                          {docadrs}
+                        </Col>
+                        {/* <Row
+                            span={8}
+                            style={{
+                              fontSize: "19px",
+                              fontFamily: "font-family: 'Muli', sans-serif  ",
+                              color: "#505050",
+                              textAlign: "center"
+                              // top: "50%",
+                              // left: "50%",
+                              // width: "200px",
+                              // height: "200px",
+                              // margin: "-100px 0 0 -100px"
+                            }}
+                          >
+                          </Row> */}
                       </Row>
                       <DoctorModal
                         showModal={this.state.showModal}

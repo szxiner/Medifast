@@ -91,12 +91,8 @@ class DoctorModal extends React.Component {
           <h3>You are booking an appointment with Dr. {lastName}</h3>
           <br />
           <div>
-            <a onClick={this.onClick} className={css(styles.left)}>
-              <Icon type="left" theme="outlined" />
-            </a>
             <MyCalendar username={username} />
           </div>
-          )}
         </ReactModal>
       </div>
     );

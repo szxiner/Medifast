@@ -355,39 +355,47 @@ export default class SearchDoctors extends React.Component {
         ) : (
           ""
         )}
-
-        {this.state.show ? (
-          <div>
-            {/* <h3>Available {viewType}s</h3> */}
-            {_.map(this.state.searchList, user => {
-              return (
-                <UserCardDoc
-                  type={"Doctor"}
-                  currentUser={user}
-                  activeInfo={user}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          ""
-        )}
-        {this.state.noresults ? (
-          <div align="center">
-            <p className={css(styles.p)}>
-              <br />
-              <br />{" "}
-              <Icon
-                className={css(styles.icon)}
-                type="exclamation-circle"
-                theme="filled"
-              />{" "}
-              Oops! No Results!
-            </p>
-          </div>
-        ) : (
-          ""
-        )}
+        <div
+          style={{
+            //paddingTop: "5%",
+            paddingLeft: "10%",
+            paddingRight: "5%",
+            paddingBottom: "2%"
+          }}
+        >
+          {this.state.show ? (
+            <div>
+              {/* <h3>Available {viewType}s</h3> */}
+              {_.map(this.state.searchList, user => {
+                return (
+                  <UserCardDoc
+                    type={"Doctor"}
+                    currentUser={user}
+                    activeInfo={user}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            ""
+          )}
+          {this.state.noresults ? (
+            <div align="center">
+              <p className={css(styles.p)}>
+                <br />
+                <br />{" "}
+                <Icon
+                  className={css(styles.icon)}
+                  type="exclamation-circle"
+                  theme="filled"
+                />{" "}
+                Oops! No Results!
+              </p>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
 
         {this.state.isshowall ? (
           <div className={css(styles.box2)}>
@@ -397,6 +405,7 @@ export default class SearchDoctors extends React.Component {
         ) : (
           ""
         )}
+
         <SearchDocModal
           showModal={this.state.showModal}
           handleCloseModal={this.handleCloseModal}
