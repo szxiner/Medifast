@@ -3,14 +3,16 @@ import _ from "lodash";
 
 import { Button, Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
+import axios from "axios";
 
 import Badge from "./Badge";
+import { connect } from "react-redux";
 
 const dummyPlans = [
   {
     name: "Standard",
     price: "32.99",
-    recommended: false,
+    //recommended: false,
     currentPlan: true,
     info: [
       { content: "Access to Network", help: "" },
@@ -44,7 +46,7 @@ const dummyPlans = [
     ]
   }
 ];
-
+const recommend = false;
 const styles = StyleSheet.create({
   plan: {
     transition: "all 0.3s ease",
@@ -81,15 +83,55 @@ const styles = StyleSheet.create({
     textAlign: "left"
   }
 });
-export default class InsurancePlans extends React.Component {
+class InsurancePlans extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    const { Plans } = [];
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { auth } = this.props;
+    const { username } = auth.user;
+    axios.get("http://127.0.0.1:8000/insRec/details").then(res => {
+      if (res.status === 200) {
+        this.setState({ getplans: true });
+        const list = _.filter(res.data, { company: "Medifast" });
+        if (list.length !== 0) {
+          this.setState({
+            Plans: res.data
+          });
+          console.log("Imgetting plans");
+        }
+      }
+    });
+    if (this.getplans) {
+      axios
+        .get(
+          `http://127.0.0.1:8000/insRec/recommend?username=${
+            this.state.username
+          }`
+        )
+        .then(res => {
+          if (res.status === 200) {
+            console.log(res.data);
+            this.setState({ userList: res.data });
+            this.setState({ recommended: true });
+            console.log("Im connected");
+          }
+        });
+    }
+  }
 
   render() {
+    const { userType, currentUser } = this.props;
+
+    let username;
+    if (currentUser) {
+      username = currentUser.username;
+    } else {
+      username = undefined;
+    }
     return (
       <div className={css(styles.container)}>
         {_.map(dummyPlans, plan => {
@@ -104,7 +146,7 @@ export default class InsurancePlans extends React.Component {
                   </div>
                   per month
                   <br />
-                  {plan.recommended ? <Badge content="recommended" /> : <br />}
+                  {recommend ? <Badge content="recommended" /> : <br />}
                 </Col>
                 <Col span={12}>
                   <div className={css(styles.infos)}>
@@ -146,3 +188,12 @@ export default class InsurancePlans extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(InsurancePlans);

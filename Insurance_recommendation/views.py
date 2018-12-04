@@ -74,7 +74,7 @@ class Insurance_recommendation_view(APIView):
                     score -= 0.5
                 elif patient.salary < 50000:
                     score += 0.5
-                elif patien.salary >= 50000:
+                elif patient.salary >= 50000:
                     score += 1.25
             except:
                 pass

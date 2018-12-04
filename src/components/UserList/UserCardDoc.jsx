@@ -68,7 +68,9 @@ const styles = StyleSheet.create({
     flexflow: "row wrap",
     //marginRight: "0px",
     justifyContent: "space-around",
-    padding: "15px",
+    padding: "50px",
+    paddingLeft: "20px",
+    paddingRight: "20px",
     ":hover": {
       "-webkit-transform": "scale(1.05)",
       " -ms-transform": "scale(1.05)",
@@ -172,7 +174,7 @@ class UserCardDoc extends React.Component {
             <div display="inline-block">
               <Card
                 style={{
-                  width: 400,
+                  width: 500,
                   marginTop: 20,
                   boxShadow:
                     "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"

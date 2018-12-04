@@ -124,7 +124,7 @@ class DashboardSideBar extends Component {
             </Tab>
           </TabList>
           <TabPanel tabId="one" component={Profile} />
-          <TabPanel tabId="three">TBD</TabPanel>
+          <TabPanel tabId="three" component={Insurance} />
           <TabPanel tabId="four" component={MyAppointment} />
           <TabPanel tabId="5" component={SearchDoctors} />
           <TabPanel tabId="6" component={Billing} />
