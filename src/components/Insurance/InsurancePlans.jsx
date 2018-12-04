@@ -3,9 +3,50 @@ import _ from "lodash";
 
 import { Button, Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
+import axios from "axios";
 
 import Badge from "./Badge";
+import { connect } from "react-redux";
 
+const dummyPlans = [
+  {
+    name: "Standard",
+    price: "32.99",
+    //recommended: false,
+    currentPlan: true,
+    info: [
+      { content: "Access to Network", help: "" },
+      { content: "$2500 Deductible", help: "" },
+      { content: "Full price primary care", help: "" },
+      { content: "Full price specialists", help: "" }
+    ]
+  },
+  {
+    name: "Gold",
+    price: "55.99",
+    recommended: true,
+    currentPlan: false,
+    info: [
+      { content: "Access to Network", help: "" },
+      { content: "$1500 Deductible", help: "" },
+      { content: "$40 Primary care before deductible", help: "" },
+      { content: "$80 Specialists before deductible", help: "" }
+    ]
+  },
+  {
+    name: "Platinum",
+    price: "99.99",
+    recommended: false,
+    currentPlan: false,
+    info: [
+      { content: "Access to Network", help: "" },
+      { content: "$1500 Deductible", help: "" },
+      { content: "$15 Primary care before deductible", help: "" },
+      { content: "$80 Specialists before deductible", help: "" }
+    ]
+  }
+];
+const recommend = false;
 const styles = StyleSheet.create({
   plan: {
     transition: "all 0.3s ease",
@@ -42,15 +83,31 @@ const styles = StyleSheet.create({
     textAlign: "left"
   }
 });
-export default class InsurancePlans extends React.Component {
+class InsurancePlans extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      AllPlans: [],
+      Plans: [],
+      recommend: [],
+      getplans: false,
+      thisplan: false
+    };
   }
 
   componentDidMount() {}
 
   render() {
+    const { userType, currentUser, plans } = this.props;
+    {
+      console.log(plans, "this si plans");
+    }
+    let username;
+    if (currentUser) {
+      username = currentUser.username;
+    } else {
+      username = undefined;
+    }
     return (
       <div className={css(styles.container)}>
         {_.map(this.props.plans, plan => {
@@ -58,18 +115,15 @@ export default class InsurancePlans extends React.Component {
             <div className={css(styles.plan)}>
               <Row style={{ height: "100%" }}>
                 <Col span={6}>
-                  <div className={css(styles.planName)}>{plan.name}</div>
+                  <div className={css(styles.planName)}>{plans.company}</div>
+                  <div className={css(styles.planName)}>{plans.plan}</div>
                   <div className={css(styles.price)}>
                     <span style={{ fontSize: 12 }}>$</span>
-                    {plan.price}
+                    {plans.price}
                   </div>
                   per month
                   <br />
-                  {this.props.recommended === plan.name ? (
-                    <Badge content="recommended" />
-                  ) : (
-                    <br />
-                  )}
+                  {recommend ? <Badge content="recommended" /> : <br />}
                 </Col>
                 <Col span={12}>
                   <div className={css(styles.infos)}>
@@ -111,3 +165,12 @@ export default class InsurancePlans extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(InsurancePlans);

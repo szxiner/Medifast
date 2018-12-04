@@ -1,0 +1,12 @@
+.input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+  width: 100%;
+}
+
+.hover {
+  -webkit-transform: "scale(1.05)";
+  -ms-transform: "scale(1.05)";
+  transform: "scale(1.05)";
+}

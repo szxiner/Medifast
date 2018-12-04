@@ -32,11 +32,10 @@ class UserView extends React.Component {
       const { auth } = this.props;
       const type = auth.user.type;
       if (type === "Doctor" || type === "Patient") {
-        //<div className={css(styles.box)}>
         userDisplay = <UserList userType={type} />;
-        //</div>;
-      } else if (type === "Doctor") {
-      } else {
+      }
+      //else if (type === "Doctor") { }
+      else {
         userDisplay = (
           <div>
             <UserList userType="Doctor" />

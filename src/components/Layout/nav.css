@@ -36,6 +36,8 @@
 .navbar-default .navbar-brand:hover {
   /* color: #5e5e5e; */
   color: #f4f5f5;
+  font-weight: 600;
+  text-decoration: underline;
 }
 .navbar-brand {
   float: left;
