@@ -12,6 +12,9 @@ import ReactModal from "react-modal";
 import { Skeleton, Switch, Card, Icon, Avatar, Row, Col } from "antd";
 import { themeColor } from "../../theme/colors";
 import doc from "./doc.png";
+import christina from "./christina.png";
+import adheel from "./adheel.png";
+import jackson from "./jackson.png";
 import ant from "./ant.css";
 import Map from "../../common/Map";
 import Badge from "../../components/Insurance/Badge";
@@ -69,9 +72,9 @@ const styles = StyleSheet.create({
     flexflow: "row wrap",
     //marginRight: "0px",
     justifyContent: "space-around",
-    padding: "50px",
+    //padding: "50px",
     paddingLeft: "20px",
-    paddingRight: "20px",
+    paddingRight: "10px",
     ":hover": {
       "-webkit-transform": "scale(1.05)",
       " -ms-transform": "scale(1.05)",
@@ -94,7 +97,24 @@ class UserCardDoc extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      appointment: false
+      appointment: false,
+      docimages: [
+        { adheel },
+        { christina },
+        { jackson },
+        { doc },
+        { doc },
+        { doc },
+        { doc },
+        { doc },
+        { doc },
+        { doc },
+        { doc },
+        { doc },
+        { doc },
+        { doc },
+        { doc }
+      ]
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -175,7 +195,7 @@ class UserCardDoc extends React.Component {
             <div display="inline-block">
               <Card
                 style={{
-                  width: 500,
+                  width: 400,
                   marginTop: 20,
                   boxShadow:
                     "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
