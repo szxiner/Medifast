@@ -8,5 +8,5 @@ class Insurance_recommendation_serializer(serializers.ModelSerializer):
 		
 class Insurance_details_serializer(serializers.ModelSerializer):
     class Meta:
-        model = Insurance_details
+        # model = Insurance_details
         fields = ('company','plan','coverage')
