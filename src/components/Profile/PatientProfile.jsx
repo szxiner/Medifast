@@ -158,6 +158,7 @@ class PatientProfile extends React.Component {
 
     this.state = {
       nextAppointment: undefined,
+      bills: [],
       loading: true,
       imageUrl: undefined,
       open: false,
@@ -214,6 +215,23 @@ class PatientProfile extends React.Component {
       } else {
         this.setState({ loading: false });
       }
+    });
+    axios.get(`/patient/bill?username=${username}`).then(res => {
+      let data = [];
+      _.forEach(res.data.charge_sheet, sheet => {
+        if (sheet[5] === "UP") {
+          const charge = {
+            id: sheet[0],
+            doctor: sheet[1] + " " + sheet[2],
+            date: sheet[3],
+            amount: sheet[4],
+            oop: sheet[4] * 0.5,
+            status: sheet[5]
+          };
+          data = [...data, charge];
+        }
+      });
+      this.setState({ bills: data });
     });
   };
 
@@ -277,10 +295,6 @@ class PatientProfile extends React.Component {
     e.preventDefault();
     const { auth } = this.props;
     this.state.username = auth.user.username;
-    console.log(this.state.user, "user");
-    console.log(this.state.username, "username");
-    console.log(this.state.user, "this is user");
-    console.log(this.state.username, "this is username");
 
     this.setState({ password: this.state.password });
     if (this.state.password === "" || this.state.confirmPassword === "") {
@@ -296,9 +310,6 @@ class PatientProfile extends React.Component {
             password: this.state.password
           })
           .then(res => {
-            console.log(res.status);
-            console.log(this.state.password);
-            console.log(res.data.securityQ);
             if (res.status === 200) {
               console.log("success");
               this.setState({ show: false });
@@ -350,6 +361,16 @@ class PatientProfile extends React.Component {
           <div style={{ flex: "1 1 250px", width: "700px" }}>
             <div className={css(styles.billing)}>
               <span style={{ fontWeight: "bold" }}>Billing:</span>
+              {this.state.bills.length !== 0 ? (
+                <div>You have {this.state.bills.length} open bills.</div>
+              ) : (
+                <div className={css(styles.healthy)}>
+                  <br />
+                  <span style={{ fontSize: 36 }}>👏</span>
+                  <br />
+                  <br />- No open bill found. -
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -375,14 +396,14 @@ class PatientProfile extends React.Component {
                 )}
                 <br />
                 <br />
-                <Upload
+                {/* <Upload
                   action="//jsonplaceholder.typicode.com/posts/"
                   showUploadList={false}
                   beforeUpload={beforeUpload}
                   onChange={this.handleChange}
                 >
                   <Button>Change Avatar</Button>
-                </Upload>
+                </Upload> */}
               </div>
               <div className={css(styles.profileInfo)}>
                 <span style={{ fontWeight: "bold" }}>Name: </span>
@@ -654,42 +675,3 @@ export default connect(
   mapStateToProps,
   {}
 )(PatientProfile);
-
-/* <Grid style={{ width: "100%" }}>
-<Row>
-  <Col xs={12} md={8}>
-    <h1>Welcome Back {user.First_name}</h1>
-    <br />
-    <div className={css(styles.patientInfo)}>
-      <div>
-        Name: {user.First_name} {user.Last_Name}
-      </div>
-      <div>Date of Birth: {user.DOB}</div>
-    </div>
-  </Col>
-  <Col xs={6} md={4}>
-    <img src={medical} width="80%" />
-  </Col>
-</Row>
-<Row>
-  {loading ? (
-    <List />
-  ) : (
-    <div>
-      {!!this.state.nextAppointment ? (
-        <div>
-          <hr />
-          <div className={css(styles.appt)}>
-            Your Upcoming Appointment:
-          </div>
-          <AppointmentCard appointment={this.state.nextAppointment} />
-        </div>
-      ) : (
-        <div className={css(styles.healthy)}>
-          - No appointment found. Stay healthy! -
-        </div>
-      )}
-    </div>
-  )}
-</Row>
-</Grid> */

@@ -7,9 +7,15 @@ from rest_framework import status
 from Patient_profile.models import Patient_history, Patient_profile
 from Doctor_profile.models import Doctor_profile
 from datetime import date
+from rest_framework import generics
 
 # Create your views here.
-class Insurance_recommendation_view(APIView):
+class Insurance_recommendation_view(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = Insurance_recommendation.objects.all()
+    serializer_class = Insurance_recommendation_serializer
+    lookup_field = 'username'
+    '''
     def get(self, request, format=None):
         if request.GET != {}:
             recommendation = Insurance_recommendation.objects.filter(username=request.GET['username'])
@@ -17,24 +23,42 @@ class Insurance_recommendation_view(APIView):
             return Response(serializer.data)
         else :
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
+    '''
 
-    def post(self, request, format=None):
+    def post(self, request, username, format=None, ):
 
-        serializer = Insurance_recommendation_serializer(data=request.data)
+        users = Insurance_recommendation.objects.filter(username=username)
+        user = users.first()
+        serializer = Insurance_recommendation_serializer(user, data=request.data, partial=True)
         if serializer.is_valid():
 
-            user = request.GET.get('username')
-            past_appts = Patient_history.objects.filter(username=user)
+            #user = request['username']
+            past_appts = Patient_history.objects.filter(username=username)
             number_of_appts = len(past_appts)
-            patients = Patient_profile.objects.filter(username=user)
+            patients = Patient_profile.objects.filter(username=username)
             patient = patients.first()
 
             non_physicians = 0
 
+            lifetime = 0
+            medicare = 0
+
             for appt in past_appts:
-                doc = Doctor_profile.objects.filter(username=appt.doctor)
+                docs = Doctor_profile.objects.filter(username=appt.doctor)
+                doc = docs.first()
                 if doc.specialization != 'Physician':
                     non_physicians += 1
+
+                if doc.insurance_name == 'Medicare':
+                    medicare += 1
+                if doc.insurance_name == 'Lifetime':
+                    lifetime += 1
+
+            if medicare >= lifetime:
+                serializer.save(insurance_name='Medicare')
+            else:
+                serializer.save(insurance_name='Lifetime')
+
 
             score = 0
 
@@ -96,6 +120,7 @@ class Insurance_recommendation_view(APIView):
             elif score > 4:
                 plan = 'Platinum'
 
+        
             
         
             serializer.save(insurance_plan=plan)
