@@ -67,7 +67,7 @@ export default class BillingCard extends React.Component {
 
   statusButton = () => {
     switch (this.props.bill.status) {
-      case "Open":
+      case "UP":
         return (
           <Button
             style={{ borderRadius: 4 }}
@@ -78,25 +78,7 @@ export default class BillingCard extends React.Component {
             Make Payment
           </Button>
         );
-      case "Pending":
-        return (
-          <div className={css(styles.doctor)}>
-            <Button
-              style={{ borderRadius: 4 }}
-              icon="clock-circle"
-              type="dashed"
-              disabled
-            >
-              Claim Pending
-            </Button>
-            <div className={css(styles.tooltip)}>
-              <Tooltip title="Waiting for your insurance officer to approve">
-                <Icon type="question-circle" />
-              </Tooltip>
-            </div>
-          </div>
-        );
-      case "Closed":
+      case "P":
         return (
           <Button style={{ borderRadius: 4 }} icon="close-circle" disabled>
             Claim Closed
@@ -124,7 +106,7 @@ export default class BillingCard extends React.Component {
         <Row style={{ height: "100%" }}>
           <Col span={4} style={{ height: "100%" }}>
             <b>{date}</b>
-            <div>0000{id}</div>
+            <div>00{id}</div>
           </Col>
           <Col span={8}>
             <div className={css(styles.doctor)}>
@@ -133,12 +115,12 @@ export default class BillingCard extends React.Component {
             </div>
           </Col>
           <Col span={4} style={{ height: "100%" }}>
-            <b>{amount}</b>
+            <b>$ {amount}.00</b>
             <br />
             Total Charge
           </Col>
           <Col span={4} style={{ height: "100%" }}>
-            <b>{oop}</b>
+            <b>$ {oop}.00</b>
             <br />
             After Deductible
           </Col>

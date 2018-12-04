@@ -59,9 +59,9 @@ class Patient_booking_history(APIView):
     def get(self, request, format=None):
         todays_date = datetime.date.today()
         if request.GET !={}:
-            history = Booking.objects.filter(patientusername=request.GET['username'])
+            history = Booking.objects.filter(patientusername=request.GET.get('username'))
             appointments_serializer = Bookings_serializer(history, many=True)
-            patient = Patient_profile.objects.filter(username=request.GET['username'])
+            patient = Patient_profile.objects.filter(username=request.GET.get('username'))
             Patient_serializer = Patient_profile_serializer(patient, many=True)
             charge_sheet = list()
             for each in appointments_serializer.data:

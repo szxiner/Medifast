@@ -12,7 +12,7 @@ from datetime import date
 class Insurance_recommendation_view(APIView):
     def get(self, request, format=None):
         if request.GET != {}:
-            recommendation = Insurance_recommendation.objects.filter(username=request.GET['username'])
+            recommendation = Insurance_recommendation.objects.filter(username=request.data['username'])
             serializer = Insurance_recommendation_serializer(recommendation, many=True)
             return Response(serializer.data)
         else :
@@ -23,7 +23,7 @@ class Insurance_recommendation_view(APIView):
         serializer = Insurance_recommendation_serializer(data=request.data)
         if serializer.is_valid():
 
-            user = request.GET.get('username')
+            user = request.data['username']
             past_appts = Patient_history.objects.filter(username=user)
             number_of_appts = len(past_appts)
             patients = Patient_profile.objects.filter(username=user)
@@ -31,10 +31,25 @@ class Insurance_recommendation_view(APIView):
 
             non_physicians = 0
 
+            lifetime = 0
+            medicare = 0
+
             for appt in past_appts:
-                doc = Doctor_profile.objects.filter(username=appt.doctor)
+                docs = Doctor_profile.objects.filter(username=appt.doctor)
+                doc = docs.first()
                 if doc.specialization != 'Physician':
                     non_physicians += 1
+
+                if doc.insurance_name == 'Medicare':
+                    medicare += 1
+                if doc.insurance_name == 'Lifetime':
+                    lifetime += 1
+
+            if medicare >= lifetime:
+                serializer.save(insurance_name='Medicare')
+            else:
+                serializer.save(insurance_name='Lifetime')
+
 
             score = 0
 
@@ -96,6 +111,7 @@ class Insurance_recommendation_view(APIView):
             elif score > 4:
                 plan = 'Platinum'
 
+        
             
         
             serializer.save(insurance_plan=plan)

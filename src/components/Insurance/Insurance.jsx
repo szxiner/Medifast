@@ -4,6 +4,7 @@ import _ from "lodash";
 
 import { Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
+import { connect } from "react-redux";
 
 import InsurancePlans from "./InsurancePlans";
 import InsuranceProvider from "./InsuranceProvider";
@@ -49,15 +50,122 @@ const styles = StyleSheet.create({
     marginBottom: "5%"
   }
 });
-export default class Insurance extends React.Component {
+
+const dummyPlans = [
+  {
+    name: "Standard",
+    price: "32.99",
+    recommended: false,
+    currentPlan: true,
+    info: [
+      { content: "Access to Network", help: "" },
+      { content: "$2500 Deductible", help: "" },
+      { content: "Full price primary care", help: "" },
+      { content: "Full price specialists", help: "" }
+    ]
+  },
+  {
+    name: "Gold",
+    price: "55.99",
+    recommended: true,
+    currentPlan: false,
+    info: [
+      { content: "Access to Network", help: "" },
+      { content: "$1500 Deductible", help: "" },
+      { content: "$40 Primary care before deductible", help: "" },
+      { content: "$80 Specialists before deductible", help: "" }
+    ]
+  },
+  {
+    name: "Platinum",
+    price: "99.99",
+    recommended: false,
+    currentPlan: false,
+    info: [
+      { content: "Access to Network", help: "" },
+      { content: "$1500 Deductible", help: "" },
+      { content: "$15 Primary care before deductible", help: "" },
+      { content: "$80 Specialists before deductible", help: "" }
+    ]
+  }
+];
+
+class Insurance extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      AllPlans: [],
+      Plans: [],
+      getplans: false,
+      thisplan: false,
+      recommendedplan: undefined
+    };
+  }
+  componentDidMount() {
+    const { auth } = this.props;
+    const { username } = auth.user;
+    console.log("am i mounting?");
+    console.log("is this a userrr", username);
+    axios.get("http://127.0.0.1:8000/insRec/details").then(res => {
+      //const list = _.filter(res.data, { company: "Medifast" });
+      this.setState({
+        AllPlans: res.data
+      });
+      this.setState({ getplans: true });
+
+      console.log("All Plans", this.state.AllPlans);
+      console.log("state of get plans", this.state.getplans);
+
+      const userplan = _.filter(this.state.AllPlans, {
+        company: "Medicare" // take value of users current insurance plan.
+      });
+      this.setState({ Plans: userplan });
+      console.log("so user plans areeee", userplan);
+    });
+
+    axios
+      .get(`http://127.0.0.1:8000/insRec/recommend?username=${username}`)
+      .then(res => {
+        if (res.status === 200) {
+          console.log(res.insurance_plan);
+          this.setState({ recommend: res.insurance_plan });
+          this.setState({ recommended: true });
+          this.setState({
+            recommendedplan: this.state.recommend.insurance_plan
+          });
+
+          console.log("recommend plan isss", this.state.recommend);
+          console.log("Im connected");
+        } else {
+          console.log(" No Recommendations");
+        }
+        // if (this.state.recommended) {
+        //   for (let i = 0; i < recommend.length; i++) {
+        //     if (
+        //       this.state.userplan.plan === this.state.recommend.insurance_plan
+        //     ) {
+        //       this.setState({ recommended: true });
+        //       this.state.userplan.push(this.state.recommend.insurance_plan);
+        //       this.setState(
+        //         (this.state.userplan.company = recommend.insurance_plan)
+        //       );
+        //     } else {
+        //       this.setState({ recommended: false });
+        //     }
+        //   }
+        //}
+        console.log(this.state.userplan.company, "updated user plannnn");
+      });
   }
 
-  componentDidMount() {}
-
   render() {
+    const { auth, currentUser, username } = this.props;
+    // let username;
+    // if (currentUser) {
+    //   username = currentUser.username;
+    // } else {
+    //   username = undefined;
+    // }
     return (
       <div className={css(styles.container)}>
         <Row style={{ width: "100%" }}>
@@ -69,7 +177,7 @@ export default class Insurance extends React.Component {
                   You can upgrade or downgrade at any time.
                 </div>
               </div>
-              <InsurancePlans />
+              <InsurancePlans plans={dummyPlans} recommended="standard" />
             </div>
           </Col>
           <Col span={8}>
@@ -82,3 +190,12 @@ export default class Insurance extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Insurance);
