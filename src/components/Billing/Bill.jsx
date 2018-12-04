@@ -73,7 +73,13 @@ export class Bill extends Component {
     };
 
     const onSuccess = payment => {
-      axios.post("/patient/bill", { ref_no: this.props.activeBill.id });
+      axios
+        .post("/patient/bill", {
+          ref_no: this.props.activeBill.id
+        })
+        .then(res => {
+          console.log(res.status);
+        });
       this.setState({ processing: true }, () => {
         sleep(5000).then(() => {
           this.setState({ paid: true, processing: false });

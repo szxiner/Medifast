@@ -9,6 +9,8 @@ from Doctor_profile.models import Booking, Doctor_profile
 from Doctor_profile.serializers import Bookings_serializer, Doctor_profile_serializer
 from django.http import HttpResponse
 from rest_framework import status
+import json
+
 import datetime
 import calendar
 
@@ -82,8 +84,10 @@ class Patient_booking_history(APIView):
             
     def post(self, request, format=None):
         todays_date = datetime.date.today()
-        if request.GET !={}:
-            booking = Booking.objects.get(ref_no=request.GET['ref_no'])
+        received_json_data = json.loads(request.body)
+        idNum = received_json_data['ref_no']
+        if idNum:
+            booking = Booking.objects.get(ref_no=idNum)
             booking.bill = 'P'
             booking.save()
             return HttpResponse('Success', status=status.HTTP_200_OK)

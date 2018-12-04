@@ -232,7 +232,6 @@ export default class InsuranceProfile extends React.Component {
         {donutChat && donutChat2 ? (
           <div>
             <Row>
-              <Col span={1} />
               <Col span={6}>
                 <div className={css(styles.numberStat)}>
                   <div className={css(styles.numTitle)}>Patient Numbers:</div>
@@ -254,7 +253,6 @@ export default class InsuranceProfile extends React.Component {
               </Col>
             </Row>
             <Row>
-              <Col span={1} />
               <Col span={17}>
                 <div className={css(styles.mainStat)}>
                   <Row>
