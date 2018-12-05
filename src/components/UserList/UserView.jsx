@@ -3,7 +3,6 @@ import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import UserList from "./UserList";
-import { Navbar, FormGroup, FormControl, Button } from "react-bootstrap";
 import { themeColor } from "../../theme/colors";
 
 const styles = StyleSheet.create({
@@ -16,10 +15,7 @@ const styles = StyleSheet.create({
     backgroundColor: themeColor.white,
     color: themeColor.aegean2,
     borderColor: themeColor.grey3,
-    borderRadius: 8,
-    "@media (max-width: 600px)": {
-      // TODO: Not responsive for mobile. Will Fix later
-    }
+    borderRadius: 8
   }
 });
 
@@ -27,6 +23,7 @@ class UserView extends React.Component {
   componentDidMount() {}
 
   render() {
+    console.log(this.props.auth);
     let userDisplay;
     try {
       const { auth } = this.props;
@@ -54,13 +51,14 @@ class UserView extends React.Component {
         console.error("User not find");
       }
     }
+    console.log(userDisplay, "userDisplay");
     return <div>{userDisplay} </div>;
   }
 }
 
-UserView.propTypes = {
-  auth: PropTypes.object.isRequired
-};
+// UserView.propTypes = {
+//   auth: PropTypes.object.isRequired
+// };
 
 const mapStateToProps = state => ({
   auth: state.auth
