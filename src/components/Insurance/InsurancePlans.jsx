@@ -108,6 +108,7 @@ class InsurancePlans extends React.Component {
     const { userType, currentUser, plans } = this.props;
     {
       console.log(plans, "this si plans");
+      console.log(plans.company, "this sis the companyyyyy");
     }
     let username;
     if (currentUser) {

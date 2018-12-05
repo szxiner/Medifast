@@ -5,7 +5,7 @@ import { StyleSheet, css } from "aphrodite";
 import { Icon, Button, Rate } from "antd";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Map from "../../common/Map";
+import Map1 from "../../common/Map1";
 import { themeColor } from "../../theme/colors";
 import MyCalendar from "./Calendar";
 
@@ -38,8 +38,9 @@ const styles = StyleSheet.create({
     marginLeft: "20%",
     marginRight: "20%",
     marginBottom: "1%",
-    width: "60%",
-    backgroundColor: themeColor.white
+    width: "40%",
+    backgroundColor: themeColor.white,
+    display: "center"
   },
   close: {
     right: 25,
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     position: "absolute"
   }
 });
-class DoctorModal extends React.Component {
+class DoctorModal_Appt extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,7 +88,7 @@ class DoctorModal extends React.Component {
     }
 
     return (
-      <div>
+      <div style={{ alignItems: "center" }}>
         <ReactModal
           isOpen={showModal}
           contentLabel="Doctor Detail"
@@ -117,13 +118,13 @@ class DoctorModal extends React.Component {
               <div>Insurance Company: {insurance}</div>
               <br />
               <div className={css(styles.map)}>
-                <Map
+                <Map1
                   lat={parseFloat(location[0])}
                   lng={parseFloat(location[1])}
                 />
               </div>
               <br />
-              {this.props.auth.user.type === "Patient" ? ( //button is being displayed after removing "showAppt &&" part from the condition
+              {showAppt && this.props.auth.user.type === "Patient" ? ( //button is being displayed after removing "showAppt &&" part from the condition
                 <Button
                   type="primary"
                   icon="calendar"
@@ -143,7 +144,7 @@ class DoctorModal extends React.Component {
   }
 }
 
-DoctorModal.propTypes = {
+DoctorModal_Appt.propTypes = {
   auth: PropTypes.object.isRequired
 };
 
@@ -154,4 +155,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {}
-)(DoctorModal);
+)(DoctorModal_Appt);

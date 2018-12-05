@@ -3,7 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, Rate, Divider } from "antd";
-// import { Grid, Row, Col } from "react-bootstrap";
+import { Label } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
 import doctor2 from "../../images/doctor2.svg";
@@ -12,6 +12,9 @@ import ReactModal from "react-modal";
 import { Skeleton, Switch, Card, Icon, Avatar, Row, Col } from "antd";
 import { themeColor } from "../../theme/colors";
 import doc from "./doc.png";
+import christina from "./christina.png";
+import adheel from "./adheel.png";
+import jackson from "./jackson.png";
 import ant from "./ant.css";
 import Map from "../../common/Map";
 import Badge from "../../components/Insurance/Badge";
@@ -69,13 +72,13 @@ const styles = StyleSheet.create({
     flexflow: "row wrap",
     //marginRight: "0px",
     justifyContent: "space-around",
-    padding: "50px",
+    //padding: "50px",
     paddingLeft: "20px",
-    paddingRight: "20px",
+    paddingRight: "10px",
     ":hover": {
       "-webkit-transform": "scale(1.05)",
-      " -ms-transform": "scale(1.05)",
-      transform: "scale(1.05)"
+      " -ms-transform": "scale(1.05)"
+      // transform: "scale(1.05)"
     }
   },
   flex: {
@@ -86,6 +89,20 @@ const styles = StyleSheet.create({
   docname: {
     fontFamily: "font-family: 'Source Sans Pro', sans-serif",
     fontSize: "14px"
+  },
+  ".label": {
+    fontSize: "50"
+  },
+  "ant-btn": {
+    //backgroundColor: "transparent",
+    //borderColor: "#d9d9d9",
+    //color: "white",
+    height: "40px",
+    padding: " 0 15px",
+    fontSize: "12px",
+    borderRadius: "4px"
+    //height: "25px",
+    //width: "100%"
   }
 });
 
@@ -175,7 +192,7 @@ class UserCardDoc extends React.Component {
             <div display="inline-block">
               <Card
                 style={{
-                  width: 500,
+                  width: 400,
                   marginTop: 20,
                   boxShadow:
                     "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
@@ -226,16 +243,22 @@ class UserCardDoc extends React.Component {
                             {address}
                           </Row> */}
                           </Row>
-                          <Row style={{ alignItems: "center" }}>
-                            <Button
-                              type="primary"
-                              icon="calendar"
-                              size="large"
-                              onClick={() => this.handleOpenModal()}
-                            >
-                              Book an Appointment
-                            </Button>
-                          </Row>
+                          {this.props.auth.user.type === "Patient" ? (
+                            <Row style={{ alignItems: "center" }}>
+                              &nbsp;
+                              <Button
+                                type="primary"
+                                icon="calendar"
+                                size="large"
+                                className={css(styles["ant-btn"])}
+                                onClick={() => this.handleOpenModal()}
+                              >
+                                Book an Appointment
+                              </Button>
+                            </Row>
+                          ) : (
+                            <div />
+                          )}
                         </Col>
                       </Row>
                       <Divider />
@@ -278,7 +301,13 @@ class UserCardDoc extends React.Component {
                           textAlign: "center"
                         }}
                       >
-                        <Badge content={insurance} />
+                        <Label
+                          bsStyle="warning"
+                          className={css(styles["label"])}
+                          className={css(styles["ant-btn"])}
+                        >
+                          {insurance}
+                        </Label>
                       </Row>
 
                       <Divider />

@@ -15,15 +15,6 @@ class Insurance_recommendation_view(generics.RetrieveUpdateDestroyAPIView):
     queryset = Insurance_recommendation.objects.all()
     serializer_class = Insurance_recommendation_serializer
     lookup_field = 'username'
-    '''
-    def get(self, request, format=None):
-        if request.GET != {}:
-            recommendation = Insurance_recommendation.objects.filter(username=request.GET['username'])
-            serializer = Insurance_recommendation_serializer(recommendation, many=True)
-            return Response(serializer.data)
-        else :
-            return Response(False, status=status.HTTP_400_BAD_REQUEST)
-    '''
 
     def post(self, request, username, format=None, ):
 
@@ -31,43 +22,50 @@ class Insurance_recommendation_view(generics.RetrieveUpdateDestroyAPIView):
         user = users.first()
         serializer = Insurance_recommendation_serializer(user, data=request.data, partial=True)
         if serializer.is_valid():
-
-            #user = request['username']
+            
+            #Get the past appts of this patient
             past_appts = Patient_history.objects.filter(username=username)
             number_of_appts = len(past_appts)
+            #Get the patient's profile
             patients = Patient_profile.objects.filter(username=username)
             patient = patients.first()
+            #Get the patient's current insurance info
+            patient_insurances = Insurance_details.objects.filter(username=username)
+            patient_insurance = patient_insurances.first()
+            current_plan = patient_insurance.plan
 
             non_physicians = 0
 
             lifetime = 0
             medicare = 0
+            recommended_company = ''
 
+            #For each appointment, check the doctor's specialization, and their accepted insurance
             for appt in past_appts:
                 docs = Doctor_profile.objects.filter(username=appt.doctor)
                 doc = docs.first()
                 if doc.specialization != 'Physician':
                     non_physicians += 1
-
                 if doc.insurance_name == 'Medicare':
                     medicare += 1
                 if doc.insurance_name == 'Lifetime':
                     lifetime += 1
 
+            #Find which company is accepted more by the patient's doctors
             if medicare >= lifetime:
                 serializer.save(insurance_name='Medicare')
+                recommended_company = 'Medicare'
             else:
                 serializer.save(insurance_name='Lifetime')
+                recommended_company = 'Lifetime'
 
 
             score = 0
+            ######Start calculation of score
 
             ###AGE
             try:
                 age = date.today() - patient.DOB
-
-                print(age)
-
 
                 if age <= 27:
                     score += 0.3
@@ -112,23 +110,25 @@ class Insurance_recommendation_view(generics.RetrieveUpdateDestroyAPIView):
             elif number_of_appts > 10:
                 score += 2
 
+            #####End calculation of score
 
+            ###Decide what plan to recommend based on score
             if score <= 2:
                 plan = 'Standard'
             elif score <= 4:
                 plan = 'Gold'
             elif score > 4:
                 plan = 'Platinum'
+        
 
-        
-            
-        
             serializer.save(insurance_plan=plan)
-            #serialized_data = serializer.validated_data
-            #serialized_data['insurance_plan'] = 'Platinum'
 
+            if plan != current_plan:
+                serializer.save(current_plan=False)
+            else:
+                serializer.save(current_plan=True)
+        
             serializer.save()
-            
 
             return Response(True, status=status.HTTP_201_CREATED)
         else:

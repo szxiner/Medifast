@@ -102,10 +102,12 @@ const styles = StyleSheet.create({
   },
   small_modal: {
     backgroundColor: themeColor.white,
-    position: "relative",
+    position: "center",
+    textAlign: "center",
+    alignItems: "center",
     borderRadius: 3,
     //borderColor: themeColor.grey0,
-    padding: 10,
+    //padding: 10,
     marginTop: "10%",
     //marginLeft: "10%",
     marginRight: "10%",
@@ -120,6 +122,10 @@ const styles = StyleSheet.create({
     marginBottom: "3%"
   },
   expanded: {
+    height: "auto",
+    paddingLeft: "10%"
+  },
+  expandedBigmodal: {
     height: "auto"
   },
   unexpanded: {
@@ -367,7 +373,16 @@ class PatientProfile extends React.Component {
         <div className={css(styles.flexColumn)}>
           <div style={{ flex: "1 1 250px", width: "700px" }}>
             <div className={css(styles.appointment)}>
-              <span style={{ fontWeight: "bold" }}>Upcoming Appointments:</span>
+              <span
+                style={{
+                  fontSize: "26px",
+                  fontFamily: "Crimson Text, serif",
+                  fontWeight: "500",
+                  fontWeight: "bold"
+                }}
+              >
+                Upcoming Appointments:
+              </span>
               <hr />
               {loading ? (
                 <List />
@@ -394,7 +409,16 @@ class PatientProfile extends React.Component {
           </div>
           <div style={{ flex: "1 1 250px", width: "700px" }}>
             <div className={css(styles.billing)}>
-              <span style={{ fontWeight: "bold" }}>Billing:</span>
+              <span
+                style={{
+                  fontSize: "26px",
+                  fontFamily: "Crimson Text, serif",
+                  fontWeight: "500",
+                  fontWeight: "bold"
+                }}
+              >
+                Billing:
+              </span>
               <hr />
               {loading ? (
                 <List />
@@ -491,7 +515,6 @@ class PatientProfile extends React.Component {
                 Medicare Standard
                 <br />
                 <br />
-                <br />
                 <Button
                   type="primary"
                   onClick={this.handleClickOpen}
@@ -510,7 +533,7 @@ class PatientProfile extends React.Component {
                   <div
                     className={
                       !this.state.set_ques
-                        ? css(styles.expanded)
+                        ? css(styles.expandedBigmodal)
                         : css(styles.unexpanded)
                     }
                   >
@@ -611,23 +634,27 @@ class PatientProfile extends React.Component {
                       </form>
                     </div>
                   </div>
-                  <div className={css(styles.small_modal)}>
-                    <div
-                      className={
-                        this.state.set_ques
-                          ? css(styles.expanded)
-                          : css(styles.unexpanded)
-                      }
-                    >
-                      <Alert
-                        message="Updated Security Questions."
-                        description="You can reset your forgotten password using these security questions. "
-                        type="success"
-                        showIcon
-                        fontSize="30"
-                      />
+                  {this.state.set_ques ? (
+                    <div className={css(styles.small_modal)}>
+                      <div
+                        className={
+                          this.state.set_ques
+                            ? css(styles.expanded)
+                            : css(styles.unexpanded)
+                        }
+                      >
+                        <Alert
+                          message="Updated Security Questions."
+                          description="You can reset your forgotten password using these security questions. "
+                          type="success"
+                          showIcon
+                          fontSize="30"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    ""
+                  )}
                 </Modal>
                 <br />
                 <Button
@@ -649,7 +676,7 @@ class PatientProfile extends React.Component {
                   <div
                     className={
                       !this.state.pwd_changed
-                        ? css(styles.expanded)
+                        ? css(styles.expandedBigmodal)
                         : css(styles.unexpanded)
                     }
                   >
@@ -718,23 +745,27 @@ class PatientProfile extends React.Component {
                       </form>
                     </div>
                   </div>
-                  <div className={css(styles.small_modal)}>
-                    <div
-                      className={
-                        this.state.pwd_changed
-                          ? css(styles.expanded)
-                          : css(styles.unexpanded)
-                      }
-                    >
-                      <Alert
-                        message="Password updated successfully!"
-                        description="Please use new password from next login"
-                        type="success"
-                        showIcon
-                        fontSize="30"
-                      />
+                  {this.state.pwd_changed ? (
+                    <div className={css(styles.small_modal)}>
+                      <div
+                        className={
+                          this.state.pwd_changed
+                            ? css(styles.expanded)
+                            : css(styles.unexpanded)
+                        }
+                      >
+                        <Alert
+                          message="Password updated successfully!"
+                          description="Please use new password from next login"
+                          type="success"
+                          showIcon
+                          fontSize="30"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    ""
+                  )}
                 </Modal>
               </div>
             </div>

@@ -16,9 +16,26 @@ const styles = StyleSheet.create({
     color: themeColor.red1
   },
   welcome: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 500,
     marginLeft: 40
+  },
+  form: {
+    margin: "auto",
+    marginTop: "5%",
+    width: "70%",
+    height: "90%",
+    backgroundColor: "#fff",
+    color: themeColor.aegean2,
+    borderColor: themeColor.grey3,
+    padding: 40,
+    // marginTop: "10%",
+    // marginLeft: "10%",
+    // marginRight: "10%",
+    // marginBottom: "10%",
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
   }
 });
 
@@ -33,7 +50,9 @@ class PatientProfileForm extends React.Component {
       dob: "",
       errorMsg: "",
       patient: undefined,
-      finished: false
+      finished: false,
+      insurance: "",
+      income: ""
     };
 
     this.onChange = this.onChange.bind(this);
@@ -50,7 +69,9 @@ class PatientProfileForm extends React.Component {
       First_name: this.state.firstName,
       Last_Name: this.state.lastName,
       gender: this.state.gender,
-      DOB: moment.utc(this.state.dob, "MM-DD-YYYY").format("YYYY-MM-DD")
+      DOB: moment.utc(this.state.dob, "MM-DD-YYYY").format("YYYY-MM-DD"),
+      income: this.state.income,
+      company: this.state.insurance
     };
     this.setState({ patient: patient });
     axios
@@ -78,8 +99,16 @@ class PatientProfileForm extends React.Component {
         {this.state.finished ? (
           <PatientProfile user={this.state.patient} />
         ) : (
-          <div>
-            <h1>Welcome to Medifast!</h1>
+          <div className={css(styles.form)}>
+            <h1
+              style={{
+                fontSize: "30px",
+                color: "#000"
+              }}
+            >
+              Welcome to Medifast!
+            </h1>
+            <br />
             <div className={css(styles.welcome)}>
               To get full service of our digital platform, please tell us a bit
               more about yourself!
@@ -131,6 +160,31 @@ class PatientProfileForm extends React.Component {
                   value={this.state.dob}
                   onChange={this.onChange}
                 />
+                <br />
+                <ControlLabel>Annual Income:</ControlLabel>
+                <FormControl
+                  componentClass="select"
+                  onChange={this.onChange}
+                  name="income"
+                >
+                  <option value="income">Select Annual Income</option>
+                  <option value="60000">Upto 60000</option>
+                  <option value="80000">Upto 80000</option>
+                  <option value="100000">Upto 100000</option>
+                  <option value="100000">Above 100000</option>
+                </FormControl>
+                <br />
+                <ControlLabel>Select Insurance Provider:</ControlLabel>
+
+                <FormControl
+                  componentClass="select"
+                  onChange={this.onChange}
+                  name="insurance"
+                >
+                  <option value="insurance">Select Insurance Provider</option>
+                  <option value="Medicare">Medicare</option>
+                  <option value="Humana">Humana</option>
+                </FormControl>
                 <br />
                 <br />
                 <Button name="Submit" type="submit" />
