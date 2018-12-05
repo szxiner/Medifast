@@ -152,7 +152,6 @@ class DashboardSideBar extends Component {
             <Tab tabFor="one">My Profile</Tab>
             <Tab tabFor="two">View Doctors </Tab>
             <Tab tabFor="three">View Patients</Tab>
-            <Tab tabFor="5">Search Doctors</Tab>
           </TabList>
           <TabPanel tabId="one" component={Profile} />
           <TabPanel tabId="two">
@@ -161,7 +160,6 @@ class DashboardSideBar extends Component {
           <TabPanel tabId="three">
             <UserList userType={"Doctor"} />;
           </TabPanel>
-          <TabPanel tabId="5" component={SearchDoctors} />
         </Tabs>
       );
   }
