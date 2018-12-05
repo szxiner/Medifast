@@ -95,7 +95,25 @@ class Billing extends React.Component {
   }
 
   onClick = () => {
-    this.setState({ activeBill: undefined });
+    this.setState({ activeBill: undefined, bills: [] });
+
+    const { auth } = this.props;
+    const { username } = auth.user;
+    axios.get(`/patient/bill?username=${username}`).then(res => {
+      let data = [];
+      _.forEach(res.data.charge_sheet, sheet => {
+        const charge = {
+          id: sheet[0],
+          doctor: sheet[1] + " " + sheet[2],
+          date: sheet[3],
+          amount: sheet[4],
+          oop: sheet[4] * 0.5,
+          status: sheet[5]
+        };
+        data = [...data, charge];
+      });
+      this.setState({ bills: data });
+    });
   };
 
   handleClick = bill => {

@@ -129,7 +129,8 @@ export class Register extends React.Component {
           .then(res => {
             if (res.status === 201) {
               this.props.storeUser(user);
-              this.props.history.push("/2fa");
+              // this.props.history.push("/2fa");
+              this.props.history.push("/dashboard");
             }
           })
           .catch(() => {

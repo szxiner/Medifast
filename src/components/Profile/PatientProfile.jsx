@@ -4,8 +4,10 @@ import axios from "axios";
 import moment from "moment";
 import { connect } from "react-redux";
 import { List } from "react-content-loader";
-import { Upload, message, Avatar, Button, Alert } from "antd";
+import { Upload, message, Avatar, Button, Alert, Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
+import { Doughnut } from "react-chartjs-2";
+
 import AppointmentCard from "../Appointment/AppointmentCard";
 
 import { FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
@@ -164,6 +166,10 @@ class PatientProfile extends React.Component {
 
     this.state = {
       nextAppointment: undefined,
+      bills: [],
+      total: 0,
+      paid: 0,
+      donut: {},
       loading: true,
       imageUrl: undefined,
       open: false,
@@ -209,17 +215,63 @@ class PatientProfile extends React.Component {
     const { username } = auth.user;
     axios.get("http://localhost:8000/doctor/bookings").then(res => {
       const list = _.filter(res.data, { patientusername: username });
+      // if (list.length !== 0) {
+      //   const sort = _.sortBy(list, o => {
+      //     return new moment(o.bdate);
+      //   });
+      //   this.setState({
+      //     nextAppointment: sort[0],
+      //     loading: false
+      //   });
+      // } else {
+      //   this.setState({ loading: false });
+      // }
       if (list.length !== 0) {
         const sort = _.sortBy(list, o => {
           return new moment(o.bdate);
         });
         this.setState({
-          nextAppointment: sort[0],
-          loading: false
+          nextAppointment: sort[0]
         });
       } else {
         this.setState({ loading: false });
       }
+    });
+    axios.get(`/patient/bill?username=${username}`).then(res => {
+      let data = [];
+      let total = 0;
+      let paid = 0;
+      _.forEach(res.data.charge_sheet, sheet => {
+        if (sheet[5] === "UP") {
+          const charge = {
+            id: sheet[0],
+            doctor: sheet[1] + " " + sheet[2],
+            date: sheet[3],
+            amount: sheet[4],
+            oop: sheet[4] * 0.5,
+            status: sheet[5]
+          };
+          data = [...data, charge];
+          paid = paid + sheet[4] * 0.5;
+        }
+        total = total + sheet[4] * 0.5;
+      });
+      const barData = {
+        labels: ["Paid", "Unpaid"],
+        datasets: [
+          {
+            data: [paid, total],
+            backgroundColor: ["#E3B505", "#2191FB"],
+            hoverBackgroundColor: ["#E3B505", "#2191FB"]
+          }
+        ]
+      };
+      this.setState(
+        { bills: data, donut: barData, total: total, paid: paid },
+        () => {
+          this.setState({ loading: false });
+        }
+      );
     });
   };
 
@@ -283,10 +335,6 @@ class PatientProfile extends React.Component {
     e.preventDefault();
     const { auth } = this.props;
     this.state.username = auth.user.username;
-    console.log(this.state.user, "user");
-    console.log(this.state.username, "username");
-    console.log(this.state.user, "this is user");
-    console.log(this.state.username, "this is username");
 
     this.setState({ password: this.state.password });
     if (this.state.password === "" || this.state.confirmPassword === "") {
@@ -302,9 +350,6 @@ class PatientProfile extends React.Component {
             password: this.state.password
           })
           .then(res => {
-            console.log(res.status);
-            console.log(this.state.password);
-            console.log(res.data.securityQ);
             if (res.status === 200) {
               console.log("success");
               this.setState({ show: false });
@@ -322,7 +367,7 @@ class PatientProfile extends React.Component {
 
   render() {
     const { user } = this.props;
-    const { loading, imageUrl } = this.state;
+    const { loading, imageUrl, donut, total, paid } = this.state;
     return (
       <div className={css(styles.flexBody)}>
         <div className={css(styles.flexColumn)}>
@@ -374,6 +419,60 @@ class PatientProfile extends React.Component {
               >
                 Billing:
               </span>
+              <hr />
+              {loading ? (
+                <List />
+              ) : (
+                <div>
+                  {this.state.bills.length !== 0 ? (
+                    <div>
+                      <Row>
+                        <Col span={12}>
+                          {donut ? (
+                            <div>
+                              <Doughnut
+                                width={250}
+                                height={250}
+                                options={{
+                                  maintainAspectRatio: false
+                                }}
+                                data={donut}
+                              />
+                            </div>
+                          ) : (
+                            <div />
+                          )}
+                        </Col>
+                        <Col>
+                          <div style={{ fontSize: 18, paddingTop: 60 }}>
+                            <div>
+                              You have <b>{this.state.bills.length}</b> open
+                              bills.
+                            </div>
+                            <br />
+                            <div>
+                              Total amount waiting for payment is $
+                              {total - paid}.00
+                            </div>
+                            <br />
+                            <div>
+                              Saved <b>${total}.00 </b>since you choose
+                              Medifast.
+                            </div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                  ) : (
+                    <div className={css(styles.healthy)}>
+                      <br />
+                      <span style={{ fontSize: 36 }}>👏</span>
+                      <br />
+                      <br />- No open bill found. -
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -399,14 +498,14 @@ class PatientProfile extends React.Component {
                 )}
                 <br />
                 <br />
-                <Upload
+                {/* <Upload
                   action="//jsonplaceholder.typicode.com/posts/"
                   showUploadList={false}
                   beforeUpload={beforeUpload}
                   onChange={this.handleChange}
                 >
                   <Button>Change Avatar</Button>
-                </Upload>
+                </Upload> */}
               </div>
               <div className={css(styles.profileInfo)}>
                 <span style={{ fontWeight: "bold" }}>Name: </span>
@@ -685,42 +784,3 @@ export default connect(
   mapStateToProps,
   {}
 )(PatientProfile);
-
-/* <Grid style={{ width: "100%" }}>
-<Row>
-  <Col xs={12} md={8}>
-    <h1>Welcome Back {user.First_name}</h1>
-    <br />
-    <div className={css(styles.patientInfo)}>
-      <div>
-        Name: {user.First_name} {user.Last_Name}
-      </div>
-      <div>Date of Birth: {user.DOB}</div>
-    </div>
-  </Col>
-  <Col xs={6} md={4}>
-    <img src={medical} width="80%" />
-  </Col>
-</Row>
-<Row>
-  {loading ? (
-    <List />
-  ) : (
-    <div>
-      {!!this.state.nextAppointment ? (
-        <div>
-          <hr />
-          <div className={css(styles.appt)}>
-            Your Upcoming Appointment:
-          </div>
-          <AppointmentCard appointment={this.state.nextAppointment} />
-        </div>
-      ) : (
-        <div className={css(styles.healthy)}>
-          - No appointment found. Stay healthy! -
-        </div>
-      )}
-    </div>
-  )}
-</Row>
-</Grid> */

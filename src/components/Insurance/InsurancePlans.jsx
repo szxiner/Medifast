@@ -8,6 +8,7 @@ import axios from "axios";
 import Badge from "./Badge";
 import { connect } from "react-redux";
 
+const dummyPrice = ["32.99", "55.99", "99.99"];
 const dummyPlans = [
   {
     name: "Standard",
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   },
   recommendPlan: {},
   planName: {
-    fontSize: 14,
+    fontSize: 18,
     textTransform: "uppercase",
     fontWeight: "bold"
   },
@@ -91,11 +92,17 @@ class InsurancePlans extends React.Component {
       Plans: [],
       recommend: [],
       getplans: false,
-      thisplan: false
+      thisplan: false,
+      select: false
     };
   }
 
   componentDidMount() {}
+
+  onClick = () => {
+    console.log("clicked");
+    this.setState({ select: true });
+  };
 
   render() {
     const { userType, currentUser, plans } = this.props;
@@ -111,35 +118,38 @@ class InsurancePlans extends React.Component {
     }
     return (
       <div className={css(styles.container)}>
-        {_.map(this.props.plans, plan => {
+        {_.map(this.props.plans, (plan, index) => {
+          console.log(plan, "plan");
           return (
             <div className={css(styles.plan)}>
               <Row style={{ height: "100%" }}>
                 <Col span={6}>
-                  <div className={css(styles.planName)}>{plans.company}</div>
-                  <div className={css(styles.planName)}>{plans.plan}</div>
+                  <div className={css(styles.planName)}>
+                    <b>{plan.plan}</b>
+                  </div>
                   <div className={css(styles.price)}>
                     <span style={{ fontSize: 12 }}>$</span>
-                    {plans.price}
+                    {dummyPrice[index]}
                   </div>
                   per month
                   <br />
-                  {recommend ? <Badge content="recommended" /> : <br />}
+                  {plan.plan === "GOLD" ? (
+                    <Badge content="recommended" />
+                  ) : (
+                    <div />
+                  )}
                 </Col>
                 <Col span={12}>
                   <div className={css(styles.infos)}>
-                    {_.map(plan.info, i => {
-                      return (
-                        <div>
-                          • {i.content}
-                          <br />
-                        </div>
-                      );
-                    })}
+                    <div>
+                      • Access to Network <br />
+                      • Make Appointments for free <br />• Cover{" "}
+                      <b>{plan.coverage}%</b> of your expense <br />
+                    </div>
                   </div>
                 </Col>
                 <Col span={6} style={{ height: "100%" }}>
-                  {plan.currentPlan ? (
+                  {plan.plan === "standard" && !this.state.select ? (
                     <Button
                       style={{ borderRadius: 12 }}
                       type="primary"
@@ -148,14 +158,27 @@ class InsurancePlans extends React.Component {
                       Current Plan
                     </Button>
                   ) : (
-                    <Button
-                      style={{
-                        borderRadius: 12
-                      }}
-                      type="primary"
-                    >
-                      Select Plan
-                    </Button>
+                    <div>
+                      {plan.plan === "GOLD" && this.state.select ? (
+                        <Button
+                          style={{ borderRadius: 12 }}
+                          type="primary"
+                          disabled
+                        >
+                          Current Plan
+                        </Button>
+                      ) : (
+                        <Button
+                          style={{
+                            borderRadius: 12
+                          }}
+                          type="primary"
+                          onClick={this.onClick.bind(this)}
+                        >
+                          Select Plan
+                        </Button>
+                      )}
+                    </div>
                   )}
                 </Col>
               </Row>
