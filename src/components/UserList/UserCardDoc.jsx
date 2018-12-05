@@ -97,7 +97,12 @@ const styles = StyleSheet.create({
     //backgroundColor: "transparent",
     //borderColor: "#d9d9d9",
     //color: "white",
-    height: "40px"
+    height: "40px",
+    padding: " 0 15px",
+    fontSize: "12px",
+    borderRadius: "4px"
+    //height: "25px",
+    //width: "100%"
   }
 });
 
