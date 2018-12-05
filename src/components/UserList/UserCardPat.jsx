@@ -71,6 +71,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     alignContent: "center"
+  },
+  "ant-btn": {
+    backgroundColor: "transparent",
+    borderColor: "#d9d9d9",
+    color: "white"
   }
 });
 
@@ -124,19 +129,28 @@ class UserCardPat extends React.Component {
             <Card
               style={{ width: 350, marginTop: 20 }}
               actions={[
-                <div style={{ display: "inline-block" }}>
-                  <Button
-                    shape="circle"
-                    icon="plus"
-                    onClick={() => this.handleOpenModal()}
-                  />
-                  <PatientModal
-                    showModal={this.state.showModal}
-                    handleCloseModal={this.handleCloseModal}
-                    activeProfile={currentUser.Last_Name}
-                    activeInfo={[currentUser]}
-                    className={css(styles.modal)}
-                  />
+                <div>
+                  {this.props.auth.user.type === "Doctor" ? (
+                    <div style={{ display: "inline-block" }}>
+                      <div>
+                        <Button
+                          shape="circle"
+                          icon="plus"
+                          className={css(styles["ant-btn"])}
+                          onClick={() => this.handleOpenModal()}
+                        />
+                        <PatientModal
+                          showModal={this.state.showModal}
+                          handleCloseModal={this.handleCloseModal}
+                          activeProfile={currentUser.Last_Name}
+                          activeInfo={[currentUser]}
+                          className={css(styles.modal)}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div />
+                  )}
                 </div>
               ]}
             >

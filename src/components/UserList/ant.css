@@ -67,10 +67,25 @@ btn-default:focus {
   padding-right: 10%;
 }
 
+.ant-card-actions {
+  border-top: 1px solid null;
+  background: null;
+  zoom: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(to top, #193768, #7499c9);
 
+  border-bottom: 1px solid null;
+}
 
 .innerComponent_1evxck6 {
   border-radius: 5px !important;
   margin: 24px !important;
   /* padding: 10%; */
 }
+
+/* .ant-btn {
+  background-color: transparent;
+  border-color: #d9d9d9;
+} */

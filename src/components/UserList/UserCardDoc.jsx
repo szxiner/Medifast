@@ -3,7 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, Rate, Divider } from "antd";
-// import { Grid, Row, Col } from "react-bootstrap";
+import { Label } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
 import doctor2 from "../../images/doctor2.svg";
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     paddingRight: "10px",
     ":hover": {
       "-webkit-transform": "scale(1.05)",
-      " -ms-transform": "scale(1.05)",
-      transform: "scale(1.05)"
+      " -ms-transform": "scale(1.05)"
+      // transform: "scale(1.05)"
     }
   },
   flex: {
@@ -89,6 +89,15 @@ const styles = StyleSheet.create({
   docname: {
     fontFamily: "font-family: 'Source Sans Pro', sans-serif",
     fontSize: "14px"
+  },
+  ".label": {
+    fontSize: "50"
+  },
+  "ant-btn": {
+    //backgroundColor: "transparent",
+    //borderColor: "#d9d9d9",
+    //color: "white",
+    height: "40px"
   }
 });
 
@@ -97,24 +106,7 @@ class UserCardDoc extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      appointment: false,
-      docimages: [
-        { adheel },
-        { christina },
-        { jackson },
-        { doc },
-        { doc },
-        { doc },
-        { doc },
-        { doc },
-        { doc },
-        { doc },
-        { doc },
-        { doc },
-        { doc },
-        { doc },
-        { doc }
-      ]
+      appointment: false
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -246,16 +238,22 @@ class UserCardDoc extends React.Component {
                             {address}
                           </Row> */}
                           </Row>
-                          <Row style={{ alignItems: "center" }}>
-                            <Button
-                              type="primary"
-                              icon="calendar"
-                              size="large"
-                              onClick={() => this.handleOpenModal()}
-                            >
-                              Book an Appointment
-                            </Button>
-                          </Row>
+                          {this.props.auth.user.type === "Patient" ? (
+                            <Row style={{ alignItems: "center" }}>
+                              &nbsp;
+                              <Button
+                                type="primary"
+                                icon="calendar"
+                                size="large"
+                                className={css(styles["ant-btn"])}
+                                onClick={() => this.handleOpenModal()}
+                              >
+                                Book an Appointment
+                              </Button>
+                            </Row>
+                          ) : (
+                            <div />
+                          )}
                         </Col>
                       </Row>
                       <Divider />
@@ -298,7 +296,13 @@ class UserCardDoc extends React.Component {
                           textAlign: "center"
                         }}
                       >
-                        <Badge content={insurance} />
+                        <Label
+                          bsStyle="warning"
+                          className={css(styles["label"])}
+                          className={css(styles["ant-btn"])}
+                        >
+                          {insurance}
+                        </Label>
                       </Row>
 
                       <Divider />

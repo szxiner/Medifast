@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 
 import WebSocketInstance from "./WebSocket";
 import MessageList from "./MessageList";
+import chatbackground from "./chatbackground.jpg";
 
 const { TextArea } = Input;
 
@@ -20,6 +21,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 12,
     right: 12
+  },
+  ".ant-drawer-body ": {
+    backgroundImage: "url('chatbackground.jpg')"
   }
 });
 

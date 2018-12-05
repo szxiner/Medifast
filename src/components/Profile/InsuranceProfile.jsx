@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
     font: "32px Arial, sans-serif"
   },
   numTitle: {
-    margin: "9%"
+    margin: "9%",
+    fontSize: "22"
   },
   apptTitle: {
     fontSize: 20,
@@ -235,7 +236,9 @@ export default class InsuranceProfile extends React.Component {
               <Col span={1} />
               <Col span={6}>
                 <div className={css(styles.numberStat)}>
-                  <div className={css(styles.numTitle)}>Patient Numbers:</div>
+                  <div className={css(styles.numTitle)}>
+                    Total number of Patients:
+                  </div>
                   <div className={css(styles.numberCirclePatient)}>
                     {patientNum}
                   </div>
@@ -243,7 +246,9 @@ export default class InsuranceProfile extends React.Component {
               </Col>
               <Col span={6}>
                 <div className={css(styles.numberStat)}>
-                  <div className={css(styles.numTitle)}>Doctor Numbers:</div>
+                  <div className={css(styles.numTitle)}>
+                    Total number of Doctors:
+                  </div>
                   <div className={css(styles.numberCircleDoc)}>{docNum}</div>
                 </div>
               </Col>
