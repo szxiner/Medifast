@@ -9,7 +9,7 @@ import { Grid, Row, Col } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
 import { List } from "react-content-loader";
 
-import DoctorModal from "../UserList/DoctorModal";
+import DoctorModal_Appt from "../UserList/DoctorModal_Appt";
 import PatientModal from "../UserList/PatientModal";
 import calendar from "../../images/calendar.svg";
 
@@ -215,7 +215,7 @@ class AppointmentCard extends React.Component {
                           </div>
                         </div>
                       </div>
-                      <DoctorModal
+                      <DoctorModal_Appt
                         showModal={this.state.showModal}
                         handleCloseModal={this.handleCloseModal}
                         activeInfo={[doctor]}

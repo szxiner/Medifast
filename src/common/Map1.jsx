@@ -9,7 +9,7 @@ import {
 import { Icon } from "antd";
 const google = window.google;
 
-export default class Map extends Component {
+export default class Map1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
