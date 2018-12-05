@@ -70,7 +70,7 @@ class PatientProfileForm extends React.Component {
       Last_Name: this.state.lastName,
       gender: this.state.gender,
       DOB: moment.utc(this.state.dob, "MM-DD-YYYY").format("YYYY-MM-DD"),
-      income: this.state.income,
+      salary: this.state.income,
       company: this.state.insurance
     };
     this.setState({ patient: patient });
