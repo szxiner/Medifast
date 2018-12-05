@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
       "url('https://images.unsplash.com/photo-1518242231892-d9404d5af8a1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5b022bbb5c2cc17e29d56b5b4e779993&auto=format&fit=crop&w=2686&q=80')",
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
-    backgroundPosition: "top",
+    backgroundPosition: "0% 15%",
     backgroundSize: "100% 35%",
     flex: 1,
     marginRight: "1%",
@@ -155,7 +155,7 @@ class Insurance extends React.Component {
                 </div>
               </div>
               <InsurancePlans
-                plans={this.state.AllPlans}
+                plans={_.filter(this.state.AllPlans, { company: "Medicare" })}
                 recommended={this.state.recommendedplan}
               />
             </div>

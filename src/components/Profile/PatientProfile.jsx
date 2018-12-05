@@ -209,13 +209,23 @@ class PatientProfile extends React.Component {
     const { username } = auth.user;
     axios.get("http://localhost:8000/doctor/bookings").then(res => {
       const list = _.filter(res.data, { patientusername: username });
+      // if (list.length !== 0) {
+      //   const sort = _.sortBy(list, o => {
+      //     return new moment(o.bdate);
+      //   });
+      //   this.setState({
+      //     nextAppointment: sort[0],
+      //     loading: false
+      //   });
+      // } else {
+      //   this.setState({ loading: false });
+      // }
       if (list.length !== 0) {
         const sort = _.sortBy(list, o => {
           return new moment(o.bdate);
         });
         this.setState({
-          nextAppointment: sort[0],
-          loading: false
+          nextAppointment: sort[0]
         });
       } else {
         this.setState({ loading: false });
@@ -250,7 +260,12 @@ class PatientProfile extends React.Component {
           }
         ]
       };
-      this.setState({ bills: data, donut: barData, total: total });
+      this.setState(
+        { bills: data, donut: barData, total: total, paid: paid },
+        () => {
+          this.setState({ loading: false });
+        }
+      );
     });
   };
 
@@ -346,7 +361,7 @@ class PatientProfile extends React.Component {
 
   render() {
     const { user } = this.props;
-    const { loading, imageUrl, donut, total } = this.state;
+    const { loading, imageUrl, donut, total, paid } = this.state;
     return (
       <div className={css(styles.flexBody)}>
         <div className={css(styles.flexColumn)}>
@@ -380,44 +395,58 @@ class PatientProfile extends React.Component {
           <div style={{ flex: "1 1 250px", width: "700px" }}>
             <div className={css(styles.billing)}>
               <span style={{ fontWeight: "bold" }}>Billing:</span>
-              {this.state.bills.length !== 0 ? (
-                <div>
-                  <Row>
-                    <Col span={12}>
-                      {donut ? (
-                        <div>
-                          <Doughnut
-                            width={250}
-                            height={250}
-                            options={{
-                              maintainAspectRatio: false
-                            }}
-                            data={donut}
-                          />
-                        </div>
-                      ) : (
-                        <div />
-                      )}
-                    </Col>
-                    <Col>
-                      <div style={{ fontSize: 18, paddingTop: 60 }}>
-                        <div>
-                          You have <b>{this.state.bills.length}</b> open bills.
-                        </div>
-                        <br />
-                        <div>
-                          Saved <b>${total} </b>since you choose Medifast.
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                </div>
+              <hr />
+              {loading ? (
+                <List />
               ) : (
-                <div className={css(styles.healthy)}>
-                  <br />
-                  <span style={{ fontSize: 36 }}>👏</span>
-                  <br />
-                  <br />- No open bill found. -
+                <div>
+                  {this.state.bills.length !== 0 ? (
+                    <div>
+                      <Row>
+                        <Col span={12}>
+                          {donut ? (
+                            <div>
+                              <Doughnut
+                                width={250}
+                                height={250}
+                                options={{
+                                  maintainAspectRatio: false
+                                }}
+                                data={donut}
+                              />
+                            </div>
+                          ) : (
+                            <div />
+                          )}
+                        </Col>
+                        <Col>
+                          <div style={{ fontSize: 18, paddingTop: 60 }}>
+                            <div>
+                              You have <b>{this.state.bills.length}</b> open
+                              bills.
+                            </div>
+                            <br />
+                            <div>
+                              Total amount waiting for payment is $
+                              {total - paid}.00
+                            </div>
+                            <br />
+                            <div>
+                              Saved <b>${total}.00 </b>since you choose
+                              Medifast.
+                            </div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                  ) : (
+                    <div className={css(styles.healthy)}>
+                      <br />
+                      <span style={{ fontSize: 36 }}>👏</span>
+                      <br />
+                      <br />- No open bill found. -
+                    </div>
+                  )}
                 </div>
               )}
             </div>
