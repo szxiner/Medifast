@@ -6,5 +6,5 @@ urlpatterns = [
     path('appointments', views.Doctor_appointment_view.as_view()),
     path('bookings', views.Doctor_bookings_view.as_view()),
     path('reviews', views.Doctor_reviews_view.as_view()),
-    
+    path('fapps', views.Doc_future_app.as_view()),
 ]

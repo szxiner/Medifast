@@ -152,11 +152,11 @@ function getBase64(img, callback) {
 function beforeUpload(file) {
   const isJPG = file.type === "image/jpeg";
   if (!isJPG) {
-    message.error("You can only upload JPG file!");
+    message.error("You can only upload JPG files!");
   }
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
+    message.error("Image must be smaller than 2MB!");
   }
   return isJPG && isLt2M;
 }
@@ -214,30 +214,32 @@ class PatientProfile extends React.Component {
   componentDidMount = () => {
     const { auth } = this.props;
     const { username } = auth.user;
-    axios.get("http://localhost:8000/doctor/bookings").then(res => {
-      const list = _.filter(res.data, { patientusername: username });
-      // if (list.length !== 0) {
-      //   const sort = _.sortBy(list, o => {
-      //     return new moment(o.bdate);
-      //   });
-      //   this.setState({
-      //     nextAppointment: sort[0],
-      //     loading: false
-      //   });
-      // } else {
-      //   this.setState({ loading: false });
-      // }
-      if (list.length !== 0) {
-        const sort = _.sortBy(list, o => {
-          return new moment(o.bdate);
-        });
-        this.setState({
-          nextAppointment: sort[0]
-        });
-      } else {
-        this.setState({ loading: false });
-      }
-    });
+    axios
+      .get(`http://localhost:8000/patient/fapps?patientusername=${username}`)
+      .then(res => {
+        // const list = _.filter(res.data, { patientusername: username });
+        // if (list.length !== 0) {
+        //   const sort = _.sortBy(list, o => {
+        //     return new moment(o.bdate);
+        //   });
+        //   this.setState({
+        //     nextAppointment: sort[0],
+        //     loading: false
+        //   });
+        // } else {
+        //   this.setState({ loading: false });
+        // }
+        if (res.data.length !== 0) {
+          const sort = _.sortBy(res.data, o => {
+            return new moment(o.bdate);
+          });
+          this.setState({
+            nextAppointment: sort[0]
+          });
+        } else {
+          this.setState({ loading: false });
+        }
+      });
     axios.get(`/patient/bill?username=${username}`).then(res => {
       let data = [];
       let total = 0;
@@ -405,7 +407,7 @@ class PatientProfile extends React.Component {
                       <br />
                       <span style={{ fontSize: 36 }}>👏</span>
                       <br />
-                      <br />- No appointment found. Stay healthy! -
+                      <br />- No appointments found. Stay healthy! -
                     </div>
                   )}
                 </div>
@@ -455,12 +457,11 @@ class PatientProfile extends React.Component {
                             </div>
                             <br />
                             <div>
-                              Total amount waiting for payment is{" "}
-                              <b>${total - paid}.00</b>
+                              Total amount unpaid <b>${total - paid}.00</b>
                             </div>
                             <br />
                             <div>
-                              Saved <b>${total}.00 </b>since you choose
+                              You have saved <b>${total}.00 </b>since joining
                               Medifast.
                             </div>
                           </div>
@@ -495,12 +496,16 @@ class PatientProfile extends React.Component {
                 >
                   My Profile
                 </div>
-                {!!imageUrl ? (
-                  // <Avatar src={this.props.user.username} size={128} />
-                  <Avatar src={require(`./${username}.png`)} size={128} />
-                ) : (
-                  <Avatar size={128} src={require(`./${username}.png`)} />
-                )}
+                <Avatar
+                  style={{
+                    fontSize: 48,
+                    backgroundColor: "#00a2ae",
+                    verticalAlign: "middle"
+                  }}
+                  size={128}
+                >
+                  {user.First_name.charAt(0)}
+                </Avatar>
                 <br />
                 <br />
                 {/* <Upload
@@ -650,7 +655,7 @@ class PatientProfile extends React.Component {
                       >
                         <Alert
                           message="Updated Security Questions."
-                          description="You can reset your forgotten password using these security questions. "
+                          description="You can reset your password using these security questions. "
                           type="success"
                           showIcon
                           fontSize="30"
@@ -761,7 +766,7 @@ class PatientProfile extends React.Component {
                       >
                         <Alert
                           message="Password updated successfully!"
-                          description="Please use new password from next login"
+                          description="Please use the new password for next login"
                           type="success"
                           showIcon
                           fontSize="30"

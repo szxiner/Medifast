@@ -84,8 +84,8 @@ export class Login extends React.Component {
       .post("http://127.0.0.1:8000/users-api/auth", user)
       .then(res => {
         if (res.status === 200) {
-          // this.props.history.push("/2fa");
-          this.props.history.push("/dashboard");
+          this.props.history.push("/2fa");
+          // this.props.history.push("/dashboard");
         }
       })
       .catch(() => {

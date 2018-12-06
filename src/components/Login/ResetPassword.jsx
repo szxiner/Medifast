@@ -111,7 +111,7 @@ export class ResetPassword extends React.Component {
     console.log(this.state.username);
 
     if (this.state.username === "") {
-      this.setState({ errorMsg_onSumbit1: "Please enter user name." });
+      this.setState({ errorMsg_onSumbit1: "Please enter your username." });
     }
 
     // this.props.authenticateUser(user);
@@ -339,11 +339,11 @@ export class ResetPassword extends React.Component {
                   >
                     <Alert bsStyle="info">
                       <strong>
-                        Password Reset Successful. Please login{" "}
+                        Password reset successful. Please login{" "}
                         <a href="/login" className={css(styles.a)}>
                           here
                         </a>{" "}
-                        with new password.
+                        with your new password.
                       </strong>
                     </Alert>
                   </div>

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginBottom: "10%"
   },
   appointment: {
-    height: "92%",
+    height: 670,
     width: "96%",
     margin: "2%",
     borderRadius: 16,
@@ -63,8 +63,18 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     display: "flex"
   },
+  plan: {
+    transition: "all 0.3s ease",
+    marginBottom: 8,
+    ":hover": {
+      "-webkit-transform": "scale(1.05)",
+      " -ms-transform": "scale(1.05)",
+      transform: "scale(1.05)"
+    }
+  },
   flexBody: {
-    display: "flex"
+    display: "flex",
+    justifyContent: "center"
   },
   header: {
     textAlign: "center",
@@ -138,11 +148,11 @@ function getBase64(img, callback) {
 function beforeUpload(file) {
   const isJPG = file.type === "image/jpeg";
   if (!isJPG) {
-    message.error("You can only upload JPG file!");
+    message.error("You can only upload JPG files!");
   }
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
+    message.error("Image must be smaller than 2MB!");
   }
   return isJPG && isLt2M;
 }
@@ -152,7 +162,7 @@ class DoctorProfile extends React.Component {
     super(props);
 
     this.state = {
-      nextAppointment: undefined,
+      nextAppointment: [],
       loading: true,
       open: false,
       securityAns: "",
@@ -196,20 +206,21 @@ class DoctorProfile extends React.Component {
   componentDidMount = () => {
     const { auth } = this.props;
     const { username } = auth.user;
-    axios.get("http://localhost:8000/doctor/bookings").then(res => {
-      const list = _.filter(res.data, { docusername: username });
-      if (list.length !== 0) {
-        const sort = _.sortBy(list, o => {
-          return new moment(o.bdate);
-        });
-        this.setState({
-          nextAppointment: sort[0],
-          loading: false
-        });
-      } else {
-        this.setState({ loading: false });
-      }
-    });
+    axios
+      .get(`http://localhost:8000/doctor/fapps?docusername=${username}`)
+      .then(res => {
+        if (res.data.length !== 0) {
+          const sort = _.sortBy(res.data, o => {
+            return new moment(o.bdate);
+          });
+          this.setState({
+            nextAppointment: _.slice(sort, 0, 5),
+            loading: false
+          });
+        } else {
+          this.setState({ loading: false });
+        }
+      });
   };
 
   onChange = e => {
@@ -319,41 +330,40 @@ class DoctorProfile extends React.Component {
     return (
       <div className={css(styles.flexBody)}>
         <div className={css(styles.flexColumn)}>
-          <div style={{ flex: "1 1 360px", width: "520px" }}>
+          <div style={{ flex: "1 1 360px", width: "700px" }}>
             <div className={css(styles.appointment)}>
               <span style={{ fontWeight: "bold" }}>Upcoming Appointments:</span>
               <hr />
               {loading ? (
-                <List />
+                <List style={{ height: "100px" }} />
               ) : (
                 <div>
-                  {!!this.state.nextAppointment ? (
+                  {this.state.nextAppointment !== [] ? (
                     <div>
-                      <AppointmentCard
-                        size="small"
-                        appointment={this.state.nextAppointment}
-                      />
+                      {_.map(this.state.nextAppointment, appt => {
+                        return (
+                          <div className={css(styles.plan)}>
+                            <AppointmentCard size="small" appointment={appt} />
+                          </div>
+                        );
+                      })}
                     </div>
                   ) : (
                     <div className={css(styles.healthy)}>
                       <br />
                       <span style={{ fontSize: 36 }}>👏</span>
                       <br />
-                      <br />- No appointment found. Stay healthy! -
+                      <br />- No appointments found. Stay healthy! -
                     </div>
                   )}
                 </div>
               )}
-            </div>
-          </div>
-          <div style={{ flex: "1 1 360px", width: "520px" }}>
-            <div className={css(styles.billing)}>
-              <span style={{ fontWeight: "bold" }}>Billing:</span>
+              <br />
             </div>
           </div>
         </div>
         <div className={css(styles.flexRow)}>
-          <div style={{ flex: "1 1 360px", width: "520px" }}>
+          <div style={{ flex: "1 1 360px", width: "700px" }}>
             <div className={css(styles.profile)}>
               <div className={css(styles.header)}>
                 <div
@@ -367,29 +377,33 @@ class DoctorProfile extends React.Component {
                 >
                   My Profile
                 </div>
-                {!!imageUrl ? (
-                  <Avatar src={imageUrl} size={128} />
-                ) : (
-                  <Avatar size={128} icon="user" />
-                )}
+                <Avatar
+                  style={{
+                    fontSize: 48,
+                    backgroundColor: "#00a2ae",
+                    verticalAlign: "middle"
+                  }}
+                  size={128}
+                >
+                  {user.First_name.charAt(0)}
+                </Avatar>
                 <br />
                 <br />
-                <Upload
+                {/* <Upload
                   action="//jsonplaceholder.typicode.com/posts/"
                   showUploadList={false}
                   beforeUpload={beforeUpload}
                   onChange={this.handleChange}
                 >
                   <Button>Change Avatar</Button>
-                </Upload>
+                </Upload> */}
               </div>
               <div className={css(styles.profileInfo)}>
                 <span style={{ fontWeight: "bold" }}>Name: </span>
                 Dr. {user.First_name} {user.Last_Name}
                 <br />
-                <span style={{ fontWeight: "bold" }}>Current Plan: </span>
+                <span style={{ fontWeight: "bold" }}>Support Plan: </span>
                 Medicare Standard
-                <br />
                 <br />
                 <br />
                 <Button
@@ -628,7 +642,7 @@ class DoctorProfile extends React.Component {
                     >
                       <Alert
                         message="Password updated successfully!"
-                        description="Please use new password from next login"
+                        description="Please use the new password for next login"
                         type="success"
                         showIcon
                         fontSize="30"

@@ -138,7 +138,7 @@ class Dashboard extends React.Component {
             icon="mail"
             onClick={this.showDrawer}
           >
-            Messages
+            Chat
           </Button>
         </div>
         <Drawer

@@ -85,7 +85,7 @@ export default class DoctorModal extends React.Component {
       <div>
         <ReactModal
           isOpen={showModal}
-          contentLabel="Doctor Detail"
+          contentLabel="Doctor Details"
           onRequestClose={handleCloseModal}
           className={css(styles.modal)}
         >

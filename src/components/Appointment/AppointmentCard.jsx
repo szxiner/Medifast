@@ -25,13 +25,19 @@ const weekdays = [
 ];
 const styles = StyleSheet.create({
   container: {
+    transition: "all 0.3s ease",
     width: "92%",
     backgroundImage: "linear-gradient(right, white 80%, #E9EBEC 20%)",
     borderRadius: 8,
     border: "1px solid",
     borderColor: "#E9EBEC",
     margin: "2%",
-    padding: "2%"
+    padding: "2%",
+    ":hover": {
+      "-webkit-transform": "scale(1.05)",
+      " -ms-transform": "scale(1.05)",
+      transform: "scale(1.05)"
+    }
   },
   containerSmall: {
     width: "100%",
@@ -133,7 +139,12 @@ class AppointmentCard extends React.Component {
             <Col xs={!size ? 3 : 0} md={!size ? 2 : 0}>
               {!size ? (
                 <div style={{ marginTop: "6%" }}>
-                  <img src={calendar} width="100%" />
+                  {!!patient ? (
+                    // <img src={calendar} width="50%" />
+                    <div />
+                  ) : (
+                    <img src={calendar} width="100%" />
+                  )}
                 </div>
               ) : (
                 <div />
@@ -231,7 +242,14 @@ class AppointmentCard extends React.Component {
                         Name: {patient.First_name} {patient.Last_Name}
                       </div>
                       <div>
-                        Time:
+                        Time:{" "}
+                        {
+                          weekdays[
+                            moment
+                              .utc(appointment.bdate, "YYYY-MM-DD")
+                              .weekday()
+                          ]
+                        }{" "}
                         {moment
                           .utc(appointment.bdate, "YYYY-MM-DD")
                           .format("MM-DD-YYYY")}{" "}
@@ -248,11 +266,12 @@ class AppointmentCard extends React.Component {
                       <div className={css(styles.modal)}>
                         <a onClick={() => this.handleOpenModal()}>
                           {!size ? (
-                            <Button type="primary" icon="car" size="large">
+                            <Button type="primary" icon="user" size="large">
                               View Medical History
                             </Button>
                           ) : (
-                            <Button type="primary" icon="plus" shape="circle" />
+                            // <Button type="primary" icon="plus" shape="circle" />
+                            <div />
                           )}
                         </a>
                       </div>

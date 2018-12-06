@@ -40,7 +40,7 @@ class InnerPaymentForm extends Component {
                   rules: [
                     {
                       required: true,
-                      message: "Please input your First Name!"
+                      message: "Please input your first name!"
                     }
                   ]
                 })(<Input placeholder="First Name" />)}
@@ -53,7 +53,7 @@ class InnerPaymentForm extends Component {
                   rules: [
                     {
                       required: true,
-                      message: "Please input your Last Name!"
+                      message: "Please input your last name!"
                     }
                   ]
                 })(<Input placeholder="Last Name" />)}
@@ -68,7 +68,7 @@ class InnerPaymentForm extends Component {
                   rules: [
                     {
                       required: true,
-                      message: "Please input your Street Address!"
+                      message: "Please input your street address!"
                     }
                   ]
                 })(<Input placeholder="542 W. 15th St" />)}
@@ -81,7 +81,7 @@ class InnerPaymentForm extends Component {
                   rules: [
                     {
                       required: true,
-                      message: "Please input your City!"
+                      message: "Please input your city!"
                     }
                   ]
                 })(<Input placeholder="New York" />)}
@@ -125,7 +125,7 @@ class InnerPaymentForm extends Component {
                   rules: [
                     {
                       required: true,
-                      message: "Please input your name on card!"
+                      message: "Please input the name on your card!"
                     }
                   ]
                 })(<Input placeholder="John Doe" />)}
@@ -168,12 +168,12 @@ class InnerPaymentForm extends Component {
             </Col>
             <Col span={2} />
             <Col span={4}>
-              <FormItem label="Expire date">
+              <FormItem label="Expiration date">
                 {getFieldDecorator("date", {
                   rules: [
                     {
                       required: true,
-                      message: "Please input the expire date!"
+                      message: "Please input the expiration date!"
                     }
                   ]
                 })(<Input placeholder="01/24" />)}

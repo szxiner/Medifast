@@ -87,11 +87,11 @@ export class Register extends React.Component {
       this.setState({ errorMsg: "Please complete all the fields." });
     } else if (this.state.username.length < 5) {
       this.setState({
-        errorMsg: "User name is too short, please try another user name."
+        errorMsg: "Username is too short, please try another username."
       });
     } else if (this.state.password.length < 6) {
       this.setState({
-        errorMsg: "Password need to be longer than 6 characters."
+        errorMsg: "Password needs to be longer than 6 characters."
       });
     } else {
       this.setState({ stageOne: false, errorMsg: "" });
@@ -130,15 +130,15 @@ export class Register extends React.Component {
           .then(res => {
             if (res.status === 201) {
               this.props.storeUser(user);
-              // this.props.history.push("/2fa");
-              this.props.history.push("/dashboard");
+              this.props.history.push("/2fa");
+              // this.props.history.push("/dashboard");
             }
           })
           .catch(() => {
-            this.setState({ errorMsg: "User Name already exists." });
+            this.setState({ errorMsg: "Username already exists." });
           });
       } else {
-        this.setState({ errorMsg: "Passwords does not match." });
+        this.setState({ errorMsg: "Passwords do not match." });
       }
     }
   };

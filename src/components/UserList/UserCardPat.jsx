@@ -192,7 +192,16 @@ class UserCardPat extends React.Component {
               <Meta
                 style={{ height: 165 }}
                 // avatar={
-                //   <Avatar style={{ width: 100, height: 120 }} src={doc} />
+                //   <Avatar
+                //     style={{
+                //       fontSize: 48,
+                //       backgroundColor: "#00a2ae",
+                //       verticalAlign: "middle"
+                //     }}
+                //     size={100}
+                //   >
+                //     {name.charAt(0)}
+                //   </Avatar>
                 // }
                 //title={name}
                 description={
@@ -200,9 +209,16 @@ class UserCardPat extends React.Component {
                     <Row>
                       <Col span={12}>
                         <Avatar
-                          style={{ width: 100, height: 120 }}
-                          src={require(`./doc.png`)}
-                        />
+                          style={{
+                            position: "relative",
+                            fontSize: 48,
+                            backgroundColor: "#00a2ae",
+                            verticalAlign: "middle"
+                          }}
+                          size={100}
+                        >
+                          {name.charAt(0)}
+                        </Avatar>
                       </Col>
                       <Col span={12}>
                         <Row

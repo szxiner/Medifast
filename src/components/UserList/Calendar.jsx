@@ -141,7 +141,7 @@ class MyCalendar extends React.Component {
         this.setState({ afterconfirm: true });
       } else {
         this.setState({
-          message: "An error occurs, please try again later."
+          message: "An error occurred, please try again later."
         });
       }
       console.log("afterconfirm variable in loo[", this.state.afterconfirm);
@@ -296,7 +296,7 @@ class MyCalendar extends React.Component {
               display: "inline-block"
             }}
           >
-            Your Appointment with Dr.{this.props.docname} has been booked. A
+            Your appointment with Dr.{this.props.docname} has been booked. A
             confirmation email has been sent.
           </p>
           <p style={{ fontSize: 30, textAlign: "center" }}>
@@ -337,7 +337,7 @@ class MyCalendar extends React.Component {
               color: "red"
             }}
           >
-            Please be 30 minutes prior to the appointment.
+            Please be 30 minutes early to your appointment.
           </p>
           {/* </p> */}
         </div>

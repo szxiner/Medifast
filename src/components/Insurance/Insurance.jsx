@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
     marginRight: "1%",
     padding: "4%",
     borderRadius: 8,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    height: 621
   },
   title: {
     fontSize: 28,
@@ -58,8 +59,8 @@ const dummyPlans = [
     recommended: false,
     currentPlan: true,
     info: [
-      { content: "Access to Network", help: "" },
       { content: "$2500 Deductible", help: "" },
+      { content: "Standard Rewards", help: "" },
       { content: "Full price primary care", help: "" },
       { content: "Full price specialists", help: "" }
     ]
@@ -70,8 +71,8 @@ const dummyPlans = [
     recommended: true,
     currentPlan: false,
     info: [
-      { content: "Access to Network", help: "" },
       { content: "$1500 Deductible", help: "" },
+      { content: "Golden Rewards", help: "" },
       { content: "$40 Primary care before deductible", help: "" },
       { content: "$80 Specialists before deductible", help: "" }
     ]
@@ -82,8 +83,8 @@ const dummyPlans = [
     recommended: false,
     currentPlan: false,
     info: [
-      { content: "Access to Network", help: "" },
       { content: "$1500 Deductible", help: "" },
+      { content: "Platinum Rewards", help: "" },
       { content: "$15 Primary care before deductible", help: "" },
       { content: "$80 Specialists before deductible", help: "" }
     ]

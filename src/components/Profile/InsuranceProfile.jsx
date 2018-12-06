@@ -16,13 +16,16 @@ const barData = {
       backgroundColor: "#2191FB",
       borderWidth: 1,
       hoverBackgroundColor: "#1C77CE",
-      data: [16, 1, 1]
+      data: [18, 3, 1]
     }
   ]
 };
 
 const styles = StyleSheet.create({
-  insuranceContainer: {},
+  flexBody: {
+    display: "flex",
+    justifyContent: "center"
+  },
   numberStat: {
     margin: 8,
     backgroundColor: "#fff",
@@ -229,14 +232,14 @@ export default class InsuranceProfile extends React.Component {
       donutChat2
     } = this.state;
     return (
-      <div className={css(styles.insuranceContainer)}>
+      <div className={css(styles.flexBody)}>
         {donutChat && donutChat2 ? (
-          <div>
+          <div style={{ width: "100%", paddingLeft: "110px" }}>
             <Row>
               <Col span={6}>
                 <div className={css(styles.numberStat)}>
                   <div className={css(styles.numTitle)}>
-                    Total number of Patients:
+                    Total number of patients:
                   </div>
                   <div className={css(styles.numberCirclePatient)}>
                     {patientNum}
@@ -246,14 +249,14 @@ export default class InsuranceProfile extends React.Component {
               <Col span={6}>
                 <div className={css(styles.numberStat)}>
                   <div className={css(styles.numTitle)}>
-                    Total number of Doctors:
+                    Total number of doctors:
                   </div>
                   <div className={css(styles.numberCircleDoc)}>{docNum}</div>
                 </div>
               </Col>
               <Col span={10}>
                 <div className={css(styles.welcome)}>
-                  <h1>Welcome Back to Medifast!</h1>
+                  <h1>Welcome back to Medifast!</h1>
                 </div>
               </Col>
             </Row>
@@ -264,7 +267,7 @@ export default class InsuranceProfile extends React.Component {
                     <Col span={11}>
                       <div>
                         <div className={css(styles.apptTitle)}>
-                          Appointments - Specialization by Counts:
+                          Appointments Based on Specialization:
                           <br />
                         </div>
                         {donutChat ? (
@@ -310,7 +313,7 @@ export default class InsuranceProfile extends React.Component {
                   <Row>
                     <div className={css(styles.bookingTotal)}>
                       <br />
-                      Total Booking Amount: <b>{bookingNum}</b>
+                      Total Number of Appointments: <b>{bookingNum}</b>
                       <br />
                     </div>
                   </Row>
