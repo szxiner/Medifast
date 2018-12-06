@@ -93,7 +93,7 @@ export default class EmailReset extends React.Component {
     console.log(this.state.username);
 
     if (this.state.username === "") {
-      this.setState({ errorMsg_onSumbit1: "Please enter user name." });
+      this.setState({ errorMsg_onSumbit1: "Please enter your username." });
     }
 
     // this.props.authenticateUser(user);
@@ -176,7 +176,7 @@ export default class EmailReset extends React.Component {
                 onChange={this.onChange}
               />
             </FormGroup>
-            <Button name="Send new password in e-mail" type="submit" />
+            <Button name="Send a new password through email" type="submit" />
             <br />
             <div className={css(styles.error)}>
               {this.state.errorMsg_onSumbit1}
@@ -188,13 +188,13 @@ export default class EmailReset extends React.Component {
             <div className={css(styles.resetmessage)}>
               <Alert bsStyle="warning">
                 <strong>
-                  A new password has been sent to registered email address.
+                  A new password has been sent to the registered email address.
                   Please login{" "}
                   <a href="/login" className={css(styles.a)}>
                     {" "}
                     here{" "}
                   </a>{" "}
-                  with new password.
+                  with your new password.
                 </strong>
               </Alert>
             </div>

@@ -100,7 +100,7 @@ export default class ResetOption extends React.Component {
               type="submit"
               onSubmit={this.onSubmit1}
             >
-              Reset to new password through Email
+              Reset password through Email
             </Button>
           </div>
         </form>
@@ -118,7 +118,7 @@ export default class ResetOption extends React.Component {
               type="submit"
               block
             >
-              Retrive old password using Security Question
+              Retrieve old password using security question
             </Button>
           </div>
         </form>

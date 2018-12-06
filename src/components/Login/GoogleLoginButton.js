@@ -38,7 +38,7 @@ const GoogleLoginButton = props => {
           return true;
         } else {
           //Return error message on login
-          this.setState({ errorMsg: "Username and password does not match" });
+          this.setState({ errorMsg: "Username and password do not match" });
         }
       });
     //Based on response, we either push to /2fa or complete registration

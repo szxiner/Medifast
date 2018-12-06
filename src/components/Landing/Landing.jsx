@@ -224,7 +224,7 @@ export default class Landing extends React.Component {
                     <div className={css(styles.subTitle)}>Our Plans</div>
                     <hr />
                     <div>
-                      Stay on top of your health with Medicare plans that may
+                      Stay on top of your health with insurance plans that 
                       include prescription, dental and vision coverage.
                     </div>
                   </div>
@@ -382,7 +382,7 @@ export default class Landing extends React.Component {
                       <div style={{ fontSize: 56, color: "#1D2F4B" }}>
                         10+ States
                       </div>
-                      Get covered where ever you are.
+                      Get covered wherever you are.
                       <Image src={map} style={{ width: 408, marginTop: 20 }} />
                     </div>
                   </Col>

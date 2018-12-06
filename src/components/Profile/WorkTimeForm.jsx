@@ -128,13 +128,13 @@ class WorkTimeForm extends React.Component {
       .then(res => {
         if (res.status === 201) {
           console.log(res);
-          this.setState({ errorMsg: " You are all set !", finished: true });
+          this.setState({ errorMsg: " You are all set!", finished: true });
           this.props.rerenderProfile(true);
         }
       })
       .catch(() => {
         this.setState({
-          errorMsg: " An error occurs, please try again later!"
+          errorMsg: " An error occurred, please try again later!"
         });
       });
   };
@@ -158,8 +158,8 @@ class WorkTimeForm extends React.Component {
               Welcome to Medifast!
             </h1>
             <div className={css(styles.instruction)}>
-              Please go ahead and add your work timings so that that patients
-              cans start booking appointments with you.
+              Please add your work time so that patients
+              may book appointments with you.
             </div>
             <div className="select">
               <div className={css(styles.questions)}>
@@ -188,7 +188,7 @@ class WorkTimeForm extends React.Component {
               {showSecondStep ? (
                 <div>
                   <div className={css(styles.questions)}>
-                    Please select your work timings.
+                    Please select your work times.
                   </div>
                   <Select
                     mode="multiple"
