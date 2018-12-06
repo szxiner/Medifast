@@ -11,6 +11,7 @@ import { themeColor } from "../../theme/colors";
 import doc from "./doc.png";
 import adheel from "./adheel.png";
 import jackson from "./jackson.png";
+import ant from "./ant.css";
 
 import Map from "../../common/Map";
 
@@ -101,7 +102,8 @@ const styles = StyleSheet.create({
     fontSize: "15px"
   },
   "ant-avatar-string": {
-    position: "relative",
+    position: "unset",
+    left: "unset"
   }
 });
 
