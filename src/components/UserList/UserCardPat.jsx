@@ -165,7 +165,7 @@ class UserCardPat extends React.Component {
         <div className={css(styles.flex)}>
           <div display="inline-block">
             <Card
-              style={{ width: 350, marginTop: 20 }}
+              style={{ width: 340, marginTop: 20 }}
               actions={[
                 <div>
                   {this.props.auth.user.type === "Doctor" ? (
@@ -215,7 +215,7 @@ class UserCardPat extends React.Component {
                           style={{
                             position: "relative",
                             fontSize: 48,
-                            backgroundColor: "#00a2ae",
+                            backgroundColor: "#1890ff",
                             verticalAlign: "middle"
                           }}
                           className={css(styles["ant-avatar-string"])}
