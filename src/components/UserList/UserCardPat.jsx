@@ -3,6 +3,8 @@ import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, Rate, Divider } from "antd";
+import moment from "moment";
+
 // import { Grid, Row, Col } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
 import PatientModal from "./PatientModal";
@@ -284,7 +286,7 @@ class UserCardPat extends React.Component {
                             color: "#505050"
                           }}
                         >
-                          Age: {dob}
+                          Age: {moment().diff(dob, "years")}
                         </Row>
                       </Col>
                     </Row>
