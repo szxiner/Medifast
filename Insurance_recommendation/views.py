@@ -32,7 +32,7 @@ class Insurance_recommendation_view(generics.RetrieveUpdateDestroyAPIView):
             #Get the patient's current insurance info
             patient_insurances = Insurance_details.objects.filter(username=username)
             patient_insurance = patient_insurances.first()
-            current_plan = patient_insurance.plan
+            patient_plan = patient_insurance.plan
 
             non_physicians = 0
 
@@ -120,20 +120,15 @@ class Insurance_recommendation_view(generics.RetrieveUpdateDestroyAPIView):
             elif score > 4:
                 plan = 'Platinum'
         
-
             serializer.save(insurance_plan=plan)
-
-            if plan != current_plan:
-                serializer.save(current_plan=False)
-            else:
-                serializer.save(current_plan=True)
-        
+            serializer.save(current_plan=patient_plan)
             serializer.save()
 
             return Response(True, status=status.HTTP_201_CREATED)
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 			
+            
 class Insurance_details_view(APIView):
     def get(self, request, format=None):
         details = Insurance_details.objects.all()
