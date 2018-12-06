@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
   },
   "ant-avatar-string": {
     position: "relative",
-    left: "0%"
   }
 });
 

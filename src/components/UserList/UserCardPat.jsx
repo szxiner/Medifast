@@ -107,6 +107,9 @@ const styles = StyleSheet.create({
     "-webkit-text-fill-color": "transparent",
     textTransform: "uppercase",
     fontSize: "18px"
+  },
+  "ant-avatar-string": {
+    position: "relative"
   }
 });
 
@@ -215,6 +218,7 @@ class UserCardPat extends React.Component {
                             backgroundColor: "#00a2ae",
                             verticalAlign: "middle"
                           }}
+                          className={css(styles["ant-avatar-string"])}
                           size={100}
                         >
                           {name.charAt(0)}
