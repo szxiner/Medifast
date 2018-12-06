@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
+import moment from "moment";
 
 import { Button, Row, Col } from "antd";
 import { StyleSheet, css } from "aphrodite";
@@ -49,7 +50,7 @@ class Billing extends React.Component {
         const charge = {
           id: sheet[0],
           doctor: sheet[1] + " " + sheet[2],
-          date: sheet[3],
+          date: moment.utc(sheet[3], "YYYY-MM-DD").format("MM-DD-YYYY"),
           amount: sheet[4],
           oop: sheet[4] * 0.5,
           status: sheet[5]
@@ -72,7 +73,7 @@ class Billing extends React.Component {
         const charge = {
           id: sheet[0],
           doctor: sheet[1] + " " + sheet[2],
-          date: sheet[3],
+          date: moment.utc(sheet[3], "YYYY-MM-DD").format("MM-DD-YYYY"),
           amount: sheet[4],
           oop: sheet[4] * 0.5,
           status: sheet[5]

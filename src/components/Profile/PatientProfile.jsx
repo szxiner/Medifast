@@ -213,30 +213,32 @@ class PatientProfile extends React.Component {
   componentDidMount = () => {
     const { auth } = this.props;
     const { username } = auth.user;
-    axios.get("http://localhost:8000/doctor/bookings").then(res => {
-      const list = _.filter(res.data, { patientusername: username });
-      // if (list.length !== 0) {
-      //   const sort = _.sortBy(list, o => {
-      //     return new moment(o.bdate);
-      //   });
-      //   this.setState({
-      //     nextAppointment: sort[0],
-      //     loading: false
-      //   });
-      // } else {
-      //   this.setState({ loading: false });
-      // }
-      if (list.length !== 0) {
-        const sort = _.sortBy(list, o => {
-          return new moment(o.bdate);
-        });
-        this.setState({
-          nextAppointment: sort[0]
-        });
-      } else {
-        this.setState({ loading: false });
-      }
-    });
+    axios
+      .get(`http://localhost:8000/patient/fapps?patientusername=${username}`)
+      .then(res => {
+        // const list = _.filter(res.data, { patientusername: username });
+        // if (list.length !== 0) {
+        //   const sort = _.sortBy(list, o => {
+        //     return new moment(o.bdate);
+        //   });
+        //   this.setState({
+        //     nextAppointment: sort[0],
+        //     loading: false
+        //   });
+        // } else {
+        //   this.setState({ loading: false });
+        // }
+        if (res.data.length !== 0) {
+          const sort = _.sortBy(res.data, o => {
+            return new moment(o.bdate);
+          });
+          this.setState({
+            nextAppointment: sort[0]
+          });
+        } else {
+          this.setState({ loading: false });
+        }
+      });
     axios.get(`/patient/bill?username=${username}`).then(res => {
       let data = [];
       let total = 0;

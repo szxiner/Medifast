@@ -16,13 +16,16 @@ const barData = {
       backgroundColor: "#2191FB",
       borderWidth: 1,
       hoverBackgroundColor: "#1C77CE",
-      data: [16, 1, 1]
+      data: [18, 3, 1]
     }
   ]
 };
 
 const styles = StyleSheet.create({
-  insuranceContainer: {},
+  flexBody: {
+    display: "flex",
+    justifyContent: "center"
+  },
   numberStat: {
     margin: 8,
     backgroundColor: "#fff",
@@ -229,7 +232,7 @@ export default class InsuranceProfile extends React.Component {
       donutChat2
     } = this.state;
     return (
-      <div className={css(styles.insuranceContainer)}>
+      <div className={css(styles.flexBody)}>
         {donutChat && donutChat2 ? (
           <div>
             <Row>

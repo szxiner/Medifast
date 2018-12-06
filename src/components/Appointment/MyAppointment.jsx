@@ -11,7 +11,8 @@ import AppointmentCard from "./AppointmentCard";
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%"
+    width: "90%",
+    marginLeft: "7%"
   },
   error: {
     width: "85%",
@@ -38,21 +39,42 @@ class MyAppointment extends React.Component {
   componentDidMount = () => {
     const { auth } = this.props;
     const { type, username } = auth.user;
-    axios.get("http://localhost:8000/doctor/bookings").then(res => {
-      let sort = [];
-      if (type === "Doctor") {
-        const list = _.filter(res.data, { docusername: username });
-        sort = _.sortBy(list, o => {
-          return new moment(o.bdate);
+    if (type === "Doctor") {
+      axios
+        .get(`http://localhost:8000/doctor/fapps?docusername=${username}`)
+        .then(res => {
+          let sort = [];
+          sort = _.sortBy(res.data, o => {
+            return new moment(o.bdate);
+          });
+          this.setState({ myAppts: sort });
         });
-      } else if (type === "Patient") {
-        const list = _.filter(res.data, { patientusername: username });
-        sort = _.sortBy(list, o => {
-          return new moment(o.bdate);
+    } else {
+      axios
+        .get(`http://localhost:8000/patient/fapps?patientusername=${username}`)
+        .then(res => {
+          let sort = [];
+          sort = _.sortBy(res.data, o => {
+            return new moment(o.bdate);
+          });
+          this.setState({ myAppts: sort });
         });
-      }
-      this.setState({ myAppts: sort });
-    });
+    }
+
+    // axios.get("http://localhost:8000/doctor/bookings").then(res => {
+    //   let sort = [];
+    //   if (type === "Doctor") {
+    //     const list = _.filter(res.data, { docusername: username });
+    //     sort = _.sortBy(list, o => {
+    //       return new moment(o.bdate);
+    //     });
+    //   } else if (type === "Patient") {
+    //     const list = _.filter(res.data, { patientusername: username });
+    //     sort = _.sortBy(list, o => {
+    //       return new moment(o.bdate);
+    //     });
+    //   }
+    // });
   };
 
   render() {

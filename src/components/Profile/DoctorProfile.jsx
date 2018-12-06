@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginBottom: "10%"
   },
   appointment: {
-    height: "92%",
+    height: 670,
     width: "96%",
     margin: "2%",
     borderRadius: 16,
@@ -63,8 +63,18 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     display: "flex"
   },
+  plan: {
+    transition: "all 0.3s ease",
+    marginBottom: 8,
+    ":hover": {
+      "-webkit-transform": "scale(1.05)",
+      " -ms-transform": "scale(1.05)",
+      transform: "scale(1.05)"
+    }
+  },
   flexBody: {
-    display: "flex"
+    display: "flex",
+    justifyContent: "center"
   },
   header: {
     textAlign: "center",
@@ -152,7 +162,7 @@ class DoctorProfile extends React.Component {
     super(props);
 
     this.state = {
-      nextAppointment: undefined,
+      nextAppointment: [],
       loading: true,
       open: false,
       securityAns: "",
@@ -196,20 +206,21 @@ class DoctorProfile extends React.Component {
   componentDidMount = () => {
     const { auth } = this.props;
     const { username } = auth.user;
-    axios.get("http://localhost:8000/doctor/bookings").then(res => {
-      const list = _.filter(res.data, { docusername: username });
-      if (list.length !== 0) {
-        const sort = _.sortBy(list, o => {
-          return new moment(o.bdate);
-        });
-        this.setState({
-          nextAppointment: sort[0],
-          loading: false
-        });
-      } else {
-        this.setState({ loading: false });
-      }
-    });
+    axios
+      .get(`http://localhost:8000/doctor/fapps?docusername=${username}`)
+      .then(res => {
+        if (res.data.length !== 0) {
+          const sort = _.sortBy(res.data, o => {
+            return new moment(o.bdate);
+          });
+          this.setState({
+            nextAppointment: _.slice(sort, 0, 5),
+            loading: false
+          });
+        } else {
+          this.setState({ loading: false });
+        }
+      });
   };
 
   onChange = e => {
@@ -319,20 +330,23 @@ class DoctorProfile extends React.Component {
     return (
       <div className={css(styles.flexBody)}>
         <div className={css(styles.flexColumn)}>
-          <div style={{ flex: "1 1 360px", width: "520px" }}>
+          <div style={{ flex: "1 1 360px", width: "700px" }}>
             <div className={css(styles.appointment)}>
               <span style={{ fontWeight: "bold" }}>Upcoming Appointments:</span>
               <hr />
               {loading ? (
-                <List />
+                <List style={{ height: "100px" }} />
               ) : (
                 <div>
-                  {!!this.state.nextAppointment ? (
+                  {this.state.nextAppointment !== [] ? (
                     <div>
-                      <AppointmentCard
-                        size="small"
-                        appointment={this.state.nextAppointment}
-                      />
+                      {_.map(this.state.nextAppointment, appt => {
+                        return (
+                          <div className={css(styles.plan)}>
+                            <AppointmentCard size="small" appointment={appt} />
+                          </div>
+                        );
+                      })}
                     </div>
                   ) : (
                     <div className={css(styles.healthy)}>
@@ -344,16 +358,12 @@ class DoctorProfile extends React.Component {
                   )}
                 </div>
               )}
-            </div>
-          </div>
-          <div style={{ flex: "1 1 360px", width: "520px" }}>
-            <div className={css(styles.billing)}>
-              <span style={{ fontWeight: "bold" }}>Billing:</span>
+              <br />
             </div>
           </div>
         </div>
         <div className={css(styles.flexRow)}>
-          <div style={{ flex: "1 1 360px", width: "520px" }}>
+          <div style={{ flex: "1 1 360px", width: "700px" }}>
             <div className={css(styles.profile)}>
               <div className={css(styles.header)}>
                 <div
@@ -387,9 +397,8 @@ class DoctorProfile extends React.Component {
                 <span style={{ fontWeight: "bold" }}>Name: </span>
                 Dr. {user.First_name} {user.Last_Name}
                 <br />
-                <span style={{ fontWeight: "bold" }}>Current Plan: </span>
+                <span style={{ fontWeight: "bold" }}>Support Plan: </span>
                 Medicare Standard
-                <br />
                 <br />
                 <br />
                 <Button

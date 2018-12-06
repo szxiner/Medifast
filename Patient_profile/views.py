@@ -128,3 +128,19 @@ def send_mail(request):
         return HttpResponse('Success', status=status.HTTP_200_OK)
     else:
         return HttpResponse('Failure', status=status.HTTP_400_BAD_REQUEST)
+
+class Pat_future_app(APIView):
+    def get(self, request, format=None):
+        if request.GET != {}:
+            appointments = Booking.objects.filter(patientusername=request.GET['patientusername'])
+            serializer = Bookings_serializer(appointments, many=True)
+            todays_date = datetime.date.today()
+            ref_no = []
+            for each in serializer.data:
+                if datetime.datetime.strptime(each['bdate'],'%Y-%m-%d').date() > todays_date:
+                    ref_no.append(each['ref_no'])
+            future_apps = Booking.objects.filter(ref_no__in=ref_no)
+            serializer = Bookings_serializer(future_apps, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(False, status=status.HTTP_400_BAD_REQUEST)

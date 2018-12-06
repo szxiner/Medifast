@@ -149,7 +149,7 @@ const mapParallax = [
     duration: 700,
     properties: [
       {
-        startValue: -800,
+        startValue: -600,
         endValue: 0,
         property: "translateX"
       },

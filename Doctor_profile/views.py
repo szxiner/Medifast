@@ -141,3 +141,19 @@ class Doctor_reviews_view(APIView):
             return Response(True, status=status.HTTP_201_CREATED)
         else:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
+
+class Doc_future_app(APIView):
+    def get(self, request, format=None):
+        if request.GET != {}:
+            appointments = Booking.objects.filter(docusername=request.GET['docusername'])
+            serializer = Bookings_serializer(appointments, many=True)
+            todays_date = datetime.date.today()
+            ref_no = []
+            for each in serializer.data:
+                if datetime.datetime.strptime(each['bdate'],'%Y-%m-%d').date() > todays_date:
+                    ref_no.append(each['ref_no'])
+            future_apps = Booking.objects.filter(ref_no__in=ref_no)
+            serializer = Bookings_serializer(future_apps, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(False, status=status.HTTP_400_BAD_REQUEST)
