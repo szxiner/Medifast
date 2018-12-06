@@ -3,7 +3,7 @@ import _ from "lodash";
 import { StyleSheet, css } from "aphrodite";
 import { Search } from "antd";
 import { themeColor } from "../../theme/colors";
-import { Input, Icon } from "antd";
+import { Input, Icon, Divider, Row } from "antd";
 import axios from "axios";
 import PatientModal from "./PatientModal";
 import UserList from "./UserList";
@@ -257,7 +257,7 @@ export default class SearchDoctors extends React.Component {
               paddingTop: "2%",
 
               height: "100%",
-              justifyContent: "center",
+              //justifyContent: "center",
               display: "flex"
             }}
           >
@@ -266,10 +266,11 @@ export default class SearchDoctors extends React.Component {
                 fontSize: 28,
                 fontFamily: "Crimson Text, serif",
                 fontWeight: 600,
-                marginTop: 8
+                marginTop: 8,
+                justifyContent: "center"
               }}
             >
-              Find doctors by name, specialty or practice focus area.{" "}
+              Find doctors by name, specialty or zip code.{" "}
             </h3>
             &nbsp; &nbsp;
             <form onSubmit={this.onSubmit}>
@@ -321,13 +322,7 @@ export default class SearchDoctors extends React.Component {
               </FormGroup>
             </form>
             <br />
-            {/* <div
-              style={{
-                alignItems: "center",
-                textAlign: "center"
-              }}
-            >
-              <h3
+            {/* <h3
                 style={{
                   display: "inline-block",
                   fontSize: 18
@@ -335,23 +330,31 @@ export default class SearchDoctors extends React.Component {
               >
                 Not sure which doctor you are looking for?
               </h3>
-              &nbsp; &nbsp;
-              <form
-                onSubmit={this.onSubmit2}
-                style={{ display: "inline-block" }}
-              >
-                <Button
-                  bsStyle="primary"
-                  type="submit"
+              &nbsp; &nbsp; */}
+            <div
+              style={{
+                //alignItems: "center",
+                textAlign: "center"
+              }}
+            >
+              <Divider type="vertical">OR</Divider>
+              &nbsp;&nbsp;
+              <div>
+                <form
                   onSubmit={this.onSubmit2}
-                  style={{ fontSize: "30" }}
+                  style={{ display: "inline-block" }}
                 >
-                  Show All Doctors{" "}
-                </Button>
-              </form>
+                  <Button
+                    bsStyle="primary"
+                    type="submit"
+                    onSubmit={this.onSubmit2}
+                    style={{ fontSize: "30", display: "inline-block" }}
+                  >
+                    Show All Doctors{" "}
+                  </Button>
+                </form>
+              </div>
             </div>
-          </div>
-        )  */}
           </div>
         ) : (
           ""
@@ -366,7 +369,6 @@ export default class SearchDoctors extends React.Component {
         >
           {this.state.show ? (
             <div>
-              {/* <h3>Available {viewType}s</h3> */}
               {_.map(this.state.searchList, user => {
                 return (
                   <UserCardDoc
@@ -380,6 +382,15 @@ export default class SearchDoctors extends React.Component {
           ) : (
             ""
           )}
+        </div>
+        <div
+          style={{
+            //paddingTop: "5%",
+            paddingLeft: "10%",
+            paddingRight: "5%",
+            paddingBottom: "2%"
+          }}
+        >
           {this.state.noresults ? (
             <div align="center">
               <p className={css(styles.p)}>
