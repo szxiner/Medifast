@@ -6,4 +6,5 @@ urlpatterns = [
     path('history', views.Patient_history_view.as_view()),
     path('bill', views.Patient_booking_history.as_view()),
     path('delete', views.delete_booking),
+	path('mail', views.send_mail),
 ]
