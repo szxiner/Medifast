@@ -498,8 +498,9 @@ class PatientProfile extends React.Component {
                 </div>
                 <Avatar
                   style={{
-                    fontSize: 48,
-                    backgroundColor: "#00a2ae",
+                    fontSize: 52,
+                    fontWeight: "bold",
+                    backgroundColor: "#8bc0f9",
                     verticalAlign: "middle"
                   }}
                   size={128}

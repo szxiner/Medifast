@@ -221,7 +221,7 @@ class UserCardDoc extends React.Component {
                           <Avatar
                             style={{
                               fontSize: 48,
-                              backgroundColor: "#00a2ae",
+                              backgroundColor: "#1890ff",
                               verticalAlign: "middle",
                               textAlign: "left"
                             }}

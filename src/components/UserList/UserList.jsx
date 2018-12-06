@@ -13,9 +13,12 @@ import UserCardPat from "./UserCardPat";
 const styles = StyleSheet.create({
   innerComponent: {
     borderRadius: 5,
-    margin: 18,
-    paddingLeft: 100,
-    marginLeft: 50
+    marginTop: 18,
+    // paddingLeft: 100,
+    // marginLeft: 50
+    width: "100%",
+    display: "flex",
+    justifyContent: "center"
     // background: themeColor.white
   },
   error: {
