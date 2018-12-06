@@ -12,6 +12,7 @@ import AppointmentCard from "../Appointment/AppointmentCard";
 
 import { FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
 import { themeColor } from "../../theme/colors";
+import bin123 from "./bin123.png";
 
 const styles = StyleSheet.create({
   patientInfo: {
@@ -368,6 +369,8 @@ class PatientProfile extends React.Component {
 
   render() {
     const { user } = this.props;
+    const username = user.username;
+    console.log("which user are youu?", this.props.user.username);
     const { loading, imageUrl, donut, total, paid } = this.state;
     return (
       <div className={css(styles.flexBody)}>
@@ -493,9 +496,10 @@ class PatientProfile extends React.Component {
                   My Profile
                 </div>
                 {!!imageUrl ? (
-                  <Avatar src={imageUrl} size={128} />
+                  // <Avatar src={this.props.user.username} size={128} />
+                  <Avatar src={require(`./${username}.png`)} size={128} />
                 ) : (
-                  <Avatar size={128} icon="user" />
+                  <Avatar size={128} src={require(`./${username}.png`)} />
                 )}
                 <br />
                 <br />

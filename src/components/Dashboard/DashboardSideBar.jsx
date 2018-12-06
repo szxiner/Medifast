@@ -139,7 +139,9 @@ class DashboardSideBar extends Component {
             <Tab tabFor="four">My Appointments</Tab>
           </TabList>
           <TabPanel tabId="one" component={Profile} />
-          <TabPanel tabId="two" component={UserView} />
+          <TabPanel tabId="two">
+            <UserList userType={"Doctor"} />
+          </TabPanel>
           <TabPanel tabId="four" component={MyAppointment} />
         </Tabs>
       );

@@ -13,6 +13,7 @@ import { Skeleton, Switch, Card, Icon, Avatar, Row, Col } from "antd";
 import { themeColor } from "../../theme/colors";
 import doc from "./doc.png";
 import ant from "./ant.css";
+import { Label } from "react-bootstrap";
 
 const { Meta } = Card;
 
@@ -74,8 +75,38 @@ const styles = StyleSheet.create({
   },
   "ant-btn": {
     backgroundColor: "transparent",
-    borderColor: "#d9d9d9",
-    color: "white"
+    borderColor: "#0496FF",
+    color: "#0496FF"
+  },
+  label: {
+    fontSize: "smaller"
+  },
+  planStandard: {
+    display: "inline-block",
+    fontWeight: "bold",
+    background: "-webkit-linear-gradient(#0F4700, #0f9b0f)",
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+    textTransform: "uppercase",
+    fontSize: "18px"
+  },
+  planGold: {
+    display: "inline-block",
+    fontWeight: "bold",
+    background: "-webkit-linear-gradient(#f12711, #f5af19)",
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+    textTransform: "uppercase",
+    fontSize: "18px"
+  },
+  planPlatinum: {
+    display: "inline-block",
+    fontWeight: "bold",
+    background: "-webkit-linear-gradient(#C04848, #480048)",
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+    textTransform: "uppercase",
+    fontSize: "18px"
   }
 });
 
@@ -104,13 +135,12 @@ class UserCardPat extends React.Component {
   }
 
   render() {
-    const { type, currentUser, activeInfo } = this.props;
+    const { type, currentUser, activeInfo, currentplan } = this.props;
     let activeProfile = currentUser.Last_Name;
     let star;
     let lastName;
     let location;
     let username;
-    let insurance;
 
     const name = currentUser.First_name + "  " + currentUser.Last_Name;
     const specialization = currentUser.specialization;
@@ -122,6 +152,11 @@ class UserCardPat extends React.Component {
       currentUser.state_name;
     const gender = currentUser.gender;
     const dob = currentUser.DOB;
+    const plan = currentUser.plan;
+    {
+      console.log("heyyyyyyy I'm  yourrr plaaannnn", plan);
+    }
+    console.log("heyyy im the current user", currentUser);
     return (
       <div className={css(styles.flexBody)}>
         <div className={css(styles.flex)}>
@@ -164,7 +199,10 @@ class UserCardPat extends React.Component {
                   <div>
                     <Row>
                       <Col span={12}>
-                        <Avatar style={{ width: 100, height: 120 }} src={doc} />
+                        <Avatar
+                          style={{ width: 100, height: 120 }}
+                          src={require(`./${doc}.png`)}
+                        />
                       </Col>
                       <Col span={12}>
                         <Row
@@ -175,6 +213,33 @@ class UserCardPat extends React.Component {
                           }}
                         >
                           {name}
+                        </Row>
+                        <Row>
+                          <p
+                            style={{
+                              display: "inline-block",
+                              color: "#000000",
+                              fontWeight: "400",
+                              fontSize: "20px",
+                              fontFamily: "Crimson Text, serif"
+                            }}
+                          >
+                            Plan:
+                          </p>
+                          &nbsp;
+                          <p
+                            className={
+                              plan === "standard"
+                                ? css(styles.planStandard)
+                                : plan === "gold"
+                                ? css(styles.planGold)
+                                : plan === "platinum"
+                                ? css(styles.planPlatinum)
+                                : ""
+                            }
+                          >
+                            {plan}
+                          </p>
                         </Row>
                         <Divider />
                         <Row
