@@ -297,7 +297,7 @@ class MyCalendar extends React.Component {
             }}
           >
             Your Appointment with Dr.{this.props.docname} has been booked. A
-            confirmation email has been sent to you.
+            confirmation email has been sent.
           </p>
           <p style={{ fontSize: 30, textAlign: "center" }}>
             <Icon
