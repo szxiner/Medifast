@@ -264,15 +264,13 @@ export default class Landing extends React.Component {
                         }}
                       />
                       <div className={css(styles.subTitle)}>
-                        We value your money
+                      We value your time and money
                       </div>
                       <hr />
                       <div>
-                        Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-                        venenatis vestibulum. Fusce dapibus, tellus ac cursus
-                        commodo, tortor mauris condimentum nibh, ut fermentum
-                        massa justo sit amet risus. Cras justo odio, dapibus ac
-                        facilisis.
+                      With features like insurance recommendation, live chat, 
+                      and quick claim approval, Medifast will provide the simplest
+                      and fastest solution for you to find the right health care.
                       </div>
                     </div>
                   </div>
@@ -312,8 +310,9 @@ export default class Landing extends React.Component {
                   maxWidth: "100%"
                 }}
               >
-                "Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-                venenatis vestibulum."
+               "Please help us help you. 
+                If you have any suggestions for our site,
+                email us at medifastiu@gmail.com"
               </div>
             </Plx>
             {/* Our Team */}
