@@ -210,9 +210,9 @@ class DoctorProfileForm extends React.Component {
                 </form>
               </div>
             ) : (
-              <div className={css(styles.form)}>
+              <div>
                 {" "}
-                <form>
+                <form className={css(styles.form)}>
                   <FormGroup>
                     <ControlLabel>Hospital/Clinic:</ControlLabel>
                     <FormControl

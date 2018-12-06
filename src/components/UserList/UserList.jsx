@@ -13,8 +13,9 @@ import UserCardPat from "./UserCardPat";
 const styles = StyleSheet.create({
   innerComponent: {
     borderRadius: 5,
-    margin: 24
-    // padding: 24
+    margin: 18,
+    paddingLeft: 100,
+    marginLeft: 50
     // background: themeColor.white
   },
   error: {
@@ -52,6 +53,29 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     color: themeColor.dark1
+  },
+  box: {
+    margin: "auto",
+    marginTop: "5%",
+    width: "70%",
+    height: "90%",
+    backgroundColor: "#fff",
+    color: themeColor.aegean2,
+    borderColor: themeColor.grey3,
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
+  },
+  error: {
+    width: "85%",
+    backgroundColor: themeColor.white,
+    borderRadius: 8,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingTop: 120,
+    paddingBottom: 120,
+    fontSize: 28,
+    margin: "5%"
   }
 });
 
@@ -65,7 +89,8 @@ class UserList extends React.Component {
       modal: false,
       activeProfile: null,
       activeInfo: [],
-      currentplan: ""
+      currentplan: "",
+      nopatients: false
     };
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -107,6 +132,8 @@ class UserList extends React.Component {
   componentDidMount() {
     const { userType, auth } = this.props;
     const { username, type } = auth.user;
+    const nopatients = false;
+
     if (userType === "Doctor") {
       if (type === "Doctor") {
         axios
@@ -115,6 +142,13 @@ class UserList extends React.Component {
             if (res.status === 200) {
               console.log(res.data);
               this.setState({ userList: res.data });
+              console.log("Am in in user list of doccc iffff");
+            }
+            if (res.data.length === 0) {
+              {
+                this.setState({ nopatients: true });
+              }
+              console.log("hey noo dataa", this.state.nopatients);
             }
           });
       } else {
@@ -122,15 +156,9 @@ class UserList extends React.Component {
           if (res.status === 200) {
             console.log(res.data);
             this.setState({ userList: res.data });
+            console.log("Am in in user list of doccc elseeee");
           }
         });
-        axios
-          .get(`http://127.0.0.1:8000/insRec/recommend/${username}`)
-          .then(res => {
-            if (res.status === 200) {
-              this.setState({ currentplan: res.data });
-            }
-          });
       }
     } else if (userType === "Patient") {
       axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
@@ -165,19 +193,36 @@ class UserList extends React.Component {
               </div>
             </div>
           ) : ( */}
-          <div>
-            {/* <h3>Available {viewType}s</h3> */}
-            {_.map(this.state.userList, user => {
-              return (
-                <UserCardPat
-                  type={"Patient"}
-                  currentUser={user}
-                  activeInfo={user}
-                  currentplan={currentplan}
+          {this.state.nopatients ? (
+            <div className={css(styles.box)}>
+              <div className={css(styles.error)}>
+                <Icon
+                  type="book"
+                  theme="outlined"
+                  style={{ display: "inline-block" }}
                 />
-              );
-            })}
-          </div>
+                <span style={{ marginLeft: 15 }}>
+                  <p style={{ display: "inline-block" }}>
+                    Patient details not available
+                  </p>
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div>
+              {/* <h3>Available {viewType}s</h3> */}
+              {_.map(this.state.userList, user => {
+                return (
+                  <UserCardPat
+                    type={"Doctor"}
+                    currentUser={user}
+                    activeInfo={user}
+                    currentplan={currentplan}
+                  />
+                );
+              })}
+            </div>
+          )}
           {/* )} */}
         </div>
       );
@@ -225,7 +270,13 @@ class UserList extends React.Component {
           <div>
             {/* <h3>Available {viewType}s</h3> */}
             {_.map(this.state.userList, user => {
-              return <UserCard type={"provider"} currentUser={user} />;
+              return (
+                <UserCardPat
+                  type={"provider"}
+                  currentUser={user}
+                  currentplan={currentplan}
+                />
+              );
             })}
           </div>
           )
