@@ -332,7 +332,7 @@ export default class InsuranceProfile extends React.Component {
                     <Col span={2} />
                     <Col span={10}>Standard: </Col>
                     <Col span={10}>
-                      <div style={{ textAlign: "right" }}>16</div>
+                      <div style={{ textAlign: "right" }}>18</div>
                     </Col>
                     <Col span={2} />
                   </Row>
@@ -342,7 +342,7 @@ export default class InsuranceProfile extends React.Component {
                     <Col span={2} />
                     <Col span={10}>Gold: </Col>
                     <Col span={10}>
-                      <div style={{ textAlign: "right" }}>1</div>
+                      <div style={{ textAlign: "right" }}>3</div>
                     </Col>
                     <Col span={2} />
                   </Row>
