@@ -377,21 +377,26 @@ class DoctorProfile extends React.Component {
                 >
                   My Profile
                 </div>
-                {!!imageUrl ? (
-                  <Avatar src={imageUrl} size={128} />
-                ) : (
-                  <Avatar size={128} icon="user" />
-                )}
+                <Avatar
+                  style={{
+                    fontSize: 48,
+                    backgroundColor: "#00a2ae",
+                    verticalAlign: "middle"
+                  }}
+                  size={128}
+                >
+                  {user.First_name.charAt(0)}
+                </Avatar>
                 <br />
                 <br />
-                <Upload
+                {/* <Upload
                   action="//jsonplaceholder.typicode.com/posts/"
                   showUploadList={false}
                   beforeUpload={beforeUpload}
                   onChange={this.handleChange}
                 >
                   <Button>Change Avatar</Button>
-                </Upload>
+                </Upload> */}
               </div>
               <div className={css(styles.profileInfo)}>
                 <span style={{ fontWeight: "bold" }}>Name: </span>

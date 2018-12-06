@@ -457,12 +457,11 @@ class PatientProfile extends React.Component {
                             </div>
                             <br />
                             <div>
-                              Total amount unpaid{" "}
-                              <b>${total - paid}.00</b>
+                              Total amount unpaid <b>${total - paid}.00</b>
                             </div>
                             <br />
                             <div>
-                              You have saved <b>${total}.00 </b>since joining 
+                              You have saved <b>${total}.00 </b>since joining
                               Medifast.
                             </div>
                           </div>
@@ -497,12 +496,16 @@ class PatientProfile extends React.Component {
                 >
                   My Profile
                 </div>
-                {!!imageUrl ? (
-                  // <Avatar src={this.props.user.username} size={128} />
-                  <Avatar src={require(`./bin123.png`)} size={128} />
-                ) : (
-                  <Avatar size={128} src={require(`./bin123.png`)} />
-                )}
+                <Avatar
+                  style={{
+                    fontSize: 48,
+                    backgroundColor: "#00a2ae",
+                    verticalAlign: "middle"
+                  }}
+                  size={128}
+                >
+                  {user.First_name.charAt(0)}
+                </Avatar>
                 <br />
                 <br />
                 {/* <Upload

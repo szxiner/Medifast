@@ -99,6 +99,10 @@ const styles = StyleSheet.create({
   },
   "ant-rate": {
     fontSize: "15px"
+  },
+  "ant-avatar-string": {
+    position: "relative",
+    left: "0%"
   }
 });
 
@@ -197,7 +201,16 @@ class UserCardDoc extends React.Component {
                 <Meta
                   style={{ height: "auto" }}
                   // avatar={
-                  //   <Avatar style={{ width: 100, height: 120 }} src={doc} />
+                  // <Avatar
+                  //   style={{
+                  //     fontSize: 48,
+                  //     backgroundColor: "#00a2ae",
+                  //     verticalAlign: "middle"
+                  //   }}
+                  //   size={100}
+                  // >
+                  //   {name.charAt(0)}
+                  // </Avatar>
                   // }
                   //title={name}
                   description={
@@ -206,11 +219,15 @@ class UserCardDoc extends React.Component {
                         <Col span={12}>
                           <Avatar
                             style={{
-                              width: 80,
-                              height: 100
+                              fontSize: 48,
+                              backgroundColor: "#00a2ae",
+                              verticalAlign: "middle"
                             }}
-                            src={this.state.username}
-                          />
+                            className={css(styles["ant-avatar-string"])}
+                            size={100}
+                          >
+                            {name.charAt(0)}
+                          </Avatar>
                         </Col>
                         <Col span={12}>
                           <Row
