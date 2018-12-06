@@ -256,11 +256,12 @@ class PatientProfile extends React.Component {
         }
         total = total + sheet[4] * 0.5;
       });
+      const unpaid = total - paid;
       const barData = {
         labels: ["Paid Amount", "Unpaid Amount"],
         datasets: [
           {
-            data: [paid, total],
+            data: [paid, unpaid],
             backgroundColor: ["#E3B505", "#2191FB"],
             hoverBackgroundColor: ["#E3B505", "#2191FB"]
           }
@@ -451,8 +452,8 @@ class PatientProfile extends React.Component {
                             </div>
                             <br />
                             <div>
-                              Total amount waiting for payment is $
-                              {total - paid}.00
+                              Total amount waiting for payment is{" "}
+                              <b>${total - paid}.00</b>
                             </div>
                             <br />
                             <div>

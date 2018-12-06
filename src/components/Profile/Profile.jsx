@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
     fontSize: 24,
     margin: "5%"
-  }
+  },
+  loading: { marginTop: 100, marginLeft: 400 }
 });
 
 class Profile extends React.Component {
@@ -52,7 +53,6 @@ class Profile extends React.Component {
 
   update = () => {
     this.setState();
-    console.log("UPDATE");
   };
 
   componentDidMount = () => {
@@ -107,7 +107,9 @@ class Profile extends React.Component {
     return (
       <div className={css(styles.container)}>
         {this.state.loading ? (
-          <List />
+          <div className={css(styles.loading)}>
+            <List />
+          </div>
         ) : (
           <div>
             {!!user ? (

@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     boxShadow:
       "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-    padding: "4% 2%",
+    padding: "2% 2%",
     textAlign: "center",
-    marginTop: "5%",
+    marginTop: "2%",
     ":hover": {
       "-webkit-transform": "scale(1.05)",
       " -ms-transform": "scale(1.05)",
@@ -106,10 +106,6 @@ class InsurancePlans extends React.Component {
 
   render() {
     const { userType, currentUser, plans } = this.props;
-    {
-      console.log(plans, "this si plans");
-      console.log(plans.company, "this sis the companyyyyy");
-    }
     let username;
     if (currentUser) {
       username = currentUser.username;

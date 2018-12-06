@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import { Button, Form, Input, Radio, Row, Col } from "antd";
+
+import visa from "./visa.svg";
+import master from "./master.svg";
+import discover from "./discover.svg";
+import ae from "./ae.svg";
+
 const FormItem = Form.Item;
 const formItemLayout = {
   labelCol: { span: 4 },
@@ -7,12 +13,17 @@ const formItemLayout = {
 };
 
 class InnerPaymentForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit();
 
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        this.props.onSubmit();
       }
     });
   };
@@ -122,9 +133,23 @@ class InnerPaymentForm extends Component {
             </Col>
             <Col span={2} />
             <Col span={10}>
-              <br />
-              <br />
-              <Radio>Same as your name</Radio>
+              <div style={{ marginTop: 8 }}>
+                <b>We accept:</b>
+                <Row>
+                  <Col span={6}>
+                    <img src={visa} width="80%" />
+                  </Col>
+                  <Col span={6}>
+                    <img src={master} width="80%" />
+                  </Col>
+                  <Col span={6}>
+                    <img src={discover} width="80%" />
+                  </Col>
+                  <Col span={6}>
+                    <img src={ae} width="80%" />
+                  </Col>
+                </Row>
+              </div>
             </Col>
             <Col span={2} />
           </Row>
@@ -138,7 +163,7 @@ class InnerPaymentForm extends Component {
                       message: "Please input your card number!"
                     }
                   ]
-                })(<Input placeholder="1111-2222-3333-4444" />)}
+                })(<Input placeholder="1111222233334444" />)}
               </FormItem>
             </Col>
             <Col span={2} />

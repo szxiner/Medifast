@@ -106,12 +106,14 @@ export default class BillingCard extends React.Component {
         <Row style={{ height: "100%" }}>
           <Col span={4} style={{ height: "100%" }}>
             <b>{date}</b>
-            <div>00{id}</div>
+            <div>Claim ID: 00{id}</div>
           </Col>
           <Col span={8}>
             <div className={css(styles.doctor)}>
               <div className={css(styles.doctorInit)}>{doctor.charAt(0)}</div>
-              <div className={css(styles.doctorName)}>{doctor}</div>
+              <div className={css(styles.doctorName)}>
+                <b>{doctor}</b>
+              </div>
             </div>
           </Col>
           <Col span={4} style={{ height: "100%" }}>

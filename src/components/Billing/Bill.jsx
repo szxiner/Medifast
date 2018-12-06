@@ -128,10 +128,8 @@ export class Bill extends Component {
               <br />
               <div>
                 <Row>
-                  <Col span={16}>
-                    <b>Total Charge:</b>
-                  </Col>
-                  <Col span={5}>
+                  <Col span={12}>Total Charge:</Col>
+                  <Col span={9}>
                     <div className={css(styles.amount)}>
                       $ {activeBill.amount.toFixed(2)}
                     </div>
@@ -140,10 +138,8 @@ export class Bill extends Component {
                 </Row>
                 <br />
                 <Row>
-                  <Col span={16}>
-                    <b>Insurance Deductible:</b>
-                  </Col>
-                  <Col span={5}>
+                  <Col span={12}>Insurance Deductible:</Col>
+                  <Col span={9}>
                     <div className={css(styles.amount)}>
                       - ${(activeBill.amount * 0.5).toFixed(2)}
                     </div>
@@ -152,10 +148,8 @@ export class Bill extends Component {
                 </Row>
                 <hr />
                 <Row>
-                  <Col span={16}>
-                    <b>Total Amount:</b>
-                  </Col>
-                  <Col span={5}>
+                  <Col span={12}>Total Amount:</Col>
+                  <Col span={9}>
                     <div className={css(styles.amount, styles.oop)}>
                       $ {activeBill.oop.toFixed(2)}
                     </div>
@@ -192,6 +186,7 @@ export class Bill extends Component {
                   style={{ size: "large" }}
                 />
               </div>
+              <br />
             </Col>
             <Col span={1} />
             <Col span={16}>
