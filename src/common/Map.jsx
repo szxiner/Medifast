@@ -100,7 +100,7 @@ export default class Map extends Component {
             <DoctorMap
               containerElement={
                 <div
-                  style={{ height: `${w || 180}px`, width: `${w || 180}px` }}
+                  style={{ height: `${w || 130}px`, width: `${w || 130}px` }}
                 />
               }
               mapElement={<div style={{ height: `100%` }} />}

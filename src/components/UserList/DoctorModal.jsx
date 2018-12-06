@@ -88,10 +88,10 @@ class DoctorModal extends React.Component {
             <Icon type="close" theme="outlined" />
           </a>
           <br />
-          <h3>You are booking an appointment with Dr. {lastName}</h3>
+          {/* <h3>You are booking an appointment with Dr. {lastName}</h3> */}
           <br />
           <div>
-            <MyCalendar username={username} />
+            <MyCalendar username={username} docname={lastName} />
           </div>
         </ReactModal>
       </div>

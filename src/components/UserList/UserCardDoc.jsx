@@ -5,21 +5,14 @@ import { connect } from "react-redux";
 import { Button, Rate, Divider } from "antd";
 import { Label } from "react-bootstrap";
 import DoctorModal from "./DoctorModal";
-import PatientModal from "./PatientModal";
-import doctor2 from "../../images/doctor2.svg";
-import userstyles from "./userstyles.css";
-import ReactModal from "react-modal";
-import { Skeleton, Switch, Card, Icon, Avatar, Row, Col } from "antd";
+
+import { Card, Icon, Avatar, Row, Col } from "antd";
 import { themeColor } from "../../theme/colors";
 import doc from "./doc.png";
-import christina from "./christina.png";
 import adheel from "./adheel.png";
 import jackson from "./jackson.png";
-import ant from "./ant.css";
+
 import Map from "../../common/Map";
-import Badge from "../../components/Insurance/Badge";
-import MyCalendar from "./Calendar";
-import axios from "axios";
 
 const { Meta } = Card;
 
@@ -74,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     //padding: "50px",
     paddingLeft: "20px",
-    paddingRight: "10px",
+    paddingRight: "20px",
     ":hover": {
       "-webkit-transform": "scale(1.05)",
       " -ms-transform": "scale(1.05)"
@@ -90,19 +83,22 @@ const styles = StyleSheet.create({
     fontFamily: "font-family: 'Source Sans Pro', sans-serif",
     fontSize: "14px"
   },
-  ".label": {
-    fontSize: "50"
+  label: {
+    fontSize: "larger"
   },
   "ant-btn": {
     //backgroundColor: "transparent",
     //borderColor: "#d9d9d9",
     //color: "white",
-    height: "40px",
-    padding: " 0 15px",
-    fontSize: "12px",
-    borderRadius: "4px"
+    // height: "20px",
+    padding: " 0 5px",
+    fontSize: "10px"
+    // borderRadius: "4px"
     //height: "25px",
-    //width: "100%"
+    //width: "auto"
+  },
+  "ant-rate": {
+    fontSize: "15px"
   }
 });
 
@@ -192,14 +188,14 @@ class UserCardDoc extends React.Component {
             <div display="inline-block">
               <Card
                 style={{
-                  width: 400,
+                  width: 320,
                   marginTop: 20,
                   boxShadow:
                     "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
                 }}
               >
                 <Meta
-                  style={{ height: 500 }}
+                  style={{ height: "auto" }}
                   // avatar={
                   //   <Avatar style={{ width: 100, height: 120 }} src={doc} />
                   // }
@@ -210,16 +206,16 @@ class UserCardDoc extends React.Component {
                         <Col span={12}>
                           <Avatar
                             style={{
-                              width: 100,
-                              height: 120
+                              width: 80,
+                              height: 100
                             }}
-                            src={doc}
+                            src={this.state.username}
                           />
                         </Col>
                         <Col span={12}>
                           <Row
                             style={{
-                              fontSize: "26px",
+                              fontSize: "22px",
                               fontFamily: "Crimson Text, serif",
                               fontWeight: "500"
                             }}
@@ -228,32 +224,29 @@ class UserCardDoc extends React.Component {
                           </Row>
                           <Row
                             style={{
-                              fontSize: "19px",
+                              fontSize: "14px",
                               fontFamily: "font-family: 'Muli', sans-serif  ",
                               color: "#505050"
                             }}
                           >
-                            <Rate disabled defaultValue={star} />
-                            {/* <Row
-                            style={{
-                              fontSize: "13px",
-                              fontFamily: "font-family: 'Muli', sans-serif  "
-                            }}
-                          >
-                            {address}
-                          </Row> */}
+                            <Rate
+                              className={css(styles["ant-rate"])}
+                              disabled
+                              defaultValue={star}
+                            />
                           </Row>
                           {this.props.auth.user.type === "Patient" ? (
                             <Row style={{ alignItems: "center" }}>
                               &nbsp;
+                              <br />
                               <Button
                                 type="primary"
                                 icon="calendar"
-                                size="large"
+                                size="small"
                                 className={css(styles["ant-btn"])}
                                 onClick={() => this.handleOpenModal()}
                               >
-                                Book an Appointment
+                                Book Appointment
                               </Button>
                             </Row>
                           ) : (
@@ -261,10 +254,10 @@ class UserCardDoc extends React.Component {
                           )}
                         </Col>
                       </Row>
-                      <Divider />
+                      <hr />
                       <Row
                         style={{
-                          fontSize: "19px",
+                          fontSize: "16px",
                           fontFamily: "font-family: 'Muli', sans-serif  ",
                           color: "#505050",
                           textAlign: "center"
@@ -275,7 +268,7 @@ class UserCardDoc extends React.Component {
                       </Row>
                       <Row
                         style={{
-                          fontSize: "19px",
+                          fontSize: "16px",
                           fontFamily: "font-family: 'Muli', sans-serif  ",
                           color: "#505050",
                           textAlign: "center"
@@ -283,28 +276,19 @@ class UserCardDoc extends React.Component {
                       >
                         {address}
                       </Row>
-                      {/* <Row
-                        style={{
-                          fontSize: "22px",
-                          fontFamily: "font-family: 'Muli', sans-serif  ",
-                          color: "#505050"
-                        }}
-                      >
-                        REVIEW: &nbsp; &nbsp;
-                        <Rate disabled defaultValue={star} />
-                      </Row> */}
+
                       <Row
                         style={{
-                          fontSize: "19px",
+                          fontSize: "26",
                           fontFamily: "font-family: 'Muli', sans-serif  ",
                           color: "#505050",
                           textAlign: "center"
                         }}
                       >
+                        <br />
                         <Label
                           bsStyle="warning"
                           className={css(styles["label"])}
-                          className={css(styles["ant-btn"])}
                         >
                           {insurance}
                         </Label>
@@ -324,7 +308,7 @@ class UserCardDoc extends React.Component {
                         <Col
                           // span={15}
                           style={{
-                            fontSize: "19px",
+                            fontSize: "14px",
                             fontFamily: "font-family: 'Muli', sans-serif  ",
                             color: "#505050",
                             textAlign: "center"

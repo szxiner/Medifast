@@ -5,7 +5,7 @@ from Patient_profile.models import Patient_profile
 from users.models import Account
 from users.serializers import AccountSerializer
 from .serializers import Doctor_profile_serializer,Doctor_appointment_serializer,Doctor_reviews_serializer,Bookings_serializer
-from Patient_profile.serializers import Patient_profile_serializer
+from Patient_profile.serializers import Patient_profile_serializer, Patient_history_serializer
 from rest_framework.response import Response
 from django.http import Http404
 from rest_framework import status
@@ -101,12 +101,14 @@ class Doctor_bookings_view(APIView):
             date = serializer.data['bdate']
             message = 'Congratulations! Your appointment is confirmed for ' + str(date) + ' at ' + str(time[0])
             profile = Account.objects.filter(username=request.data['docusername'])
-            D_serial = AccountSerializerr(profile, many=True)
+            D_serial = AccountSerializer(profile, many=True)
+            Doc = Doctor_profile.objects.filter(username=request.data['docusername'])
+            Doc_ser = Doctor_profile_serializer(Doc, many=True)
             patient = Account.objects.filter(username=request.data['patientusername'])
             P_serial = AccountSerializer(patient, many=True)
             email_id = [D_serial.data[0]['email'],P_serial.data[0]['email']]
             self.send_email(message,email_id)
-            history = {'username':request.data['patientusername'],'issue':request.data['issue'],'date':request.data['bdate'],'expenditure':D_serial.data[0]['hourly_charge'],'doctor':request.data['docusername']}
+            history = {'username':request.data['patientusername'],'issue':request.data['issue'],'date':request.data['bdate'],'expenditure':Doc_ser.data[0]['hourly_charge'],'doctor':request.data['docusername']}
             patient_history_serializer = Patient_history_serializer(data=history)
             if patient_history_serializer.is_valid():
                 patient_history_serializer.save()

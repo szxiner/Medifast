@@ -265,7 +265,8 @@ export default class SearchDoctors extends React.Component {
               style={{
                 fontSize: 28,
                 fontFamily: "Crimson Text, serif",
-                fontWeight: 600
+                fontWeight: 600,
+                marginTop: 8
               }}
             >
               Find doctors by name, specialty or practice focus area.{" "}

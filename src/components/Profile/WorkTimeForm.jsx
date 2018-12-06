@@ -37,7 +37,12 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 24,
     marginLeft: 28,
-    marginRight: 28
+    marginRight: 28,
+    background: "-webkit-linear-gradient(#833ab4, #fd1d1d,#FF0080)",
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+    //textTransform: "uppercase",
+    fontSize: "18px"
   },
   error: {
     fontWeight: 600,
@@ -45,7 +50,30 @@ const styles = StyleSheet.create({
     color: themeColor.red1
   },
   questions: {
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontSize: 16
+  },
+  form: {
+    margin: "auto",
+    marginTop: "5%",
+    width: "70%",
+    height: "90%",
+    backgroundColor: "#fff",
+    color: themeColor.aegean2,
+    borderColor: themeColor.grey3,
+    padding: 40,
+    // marginTop: "10%",
+    // marginLeft: "10%",
+    // marginRight: "10%",
+    // marginBottom: "10%",
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
+  },
+  "ant-btn-primary": {
+    color: "#fff",
+    backgroundColor: "#092e6b",
+    borderColor: "#092e6b"
   }
 });
 
@@ -120,15 +148,22 @@ class WorkTimeForm extends React.Component {
         {finished ? (
           <DoctorProfile user={this.props.user} />
         ) : (
-          <div>
-            <h1>Welcome to Medifast!</h1>
+          <div className={css(styles.form)}>
+            <h1
+              style={{
+                fontSize: "30px",
+                color: "#000"
+              }}
+            >
+              Welcome to Medifast!
+            </h1>
             <div className={css(styles.instruction)}>
-              Now, add your work time so future patients can make appointment
-              with you.
+              Please go ahead and add your work timings so that that patients
+              cans start booking appointments with you.
             </div>
             <div className="select">
               <div className={css(styles.questions)}>
-                What are your working days?
+                Please select your working days.
               </div>
               <Select
                 mode="multiple"
@@ -145,6 +180,7 @@ class WorkTimeForm extends React.Component {
                 block
                 onClick={this.onClickNext}
                 style={{ marginTop: 24, marginBottom: 24 }}
+                className={css(styles["ant-btn-primary"])}
               >
                 Next
               </Button>
@@ -152,7 +188,7 @@ class WorkTimeForm extends React.Component {
               {showSecondStep ? (
                 <div>
                   <div className={css(styles.questions)}>
-                    What are your working time?
+                    Please select your work timings.
                   </div>
                   <Select
                     mode="multiple"
@@ -169,6 +205,7 @@ class WorkTimeForm extends React.Component {
                     block
                     onClick={this.onClickSubmit}
                     style={{ marginTop: 24, marginBottom: 24 }}
+                    className={css(styles["ant-btn-primary"])}
                   >
                     Submit
                   </Button>
