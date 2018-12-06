@@ -107,7 +107,7 @@ class DoctorProfileForm extends React.Component {
       })
       .catch(() => {
         this.setState({
-          errorMsg: "An error occurs. Please try again later"
+          errorMsg: "An error occurred. Please try again later"
         });
       });
   };
@@ -161,7 +161,7 @@ class DoctorProfileForm extends React.Component {
                   Welcome to Medifast!
                 </h1>
                 <div className={css(styles.welcome)}>
-                  To get full service of our digital platform, please tell us a
+                  To get full service of our website, please tell us a
                   bit more about yourself!
                 </div>
                 <br />

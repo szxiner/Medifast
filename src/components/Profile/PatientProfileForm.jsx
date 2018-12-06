@@ -83,7 +83,7 @@ class PatientProfileForm extends React.Component {
         }
       })
       .catch(() => {
-        this.setState({ errorMsg: "An error occurs. Please try again later" });
+        this.setState({ errorMsg: "An error occurred. Please try again later" });
       });
   };
 
@@ -110,7 +110,7 @@ class PatientProfileForm extends React.Component {
             </h1>
             <br />
             <div className={css(styles.welcome)}>
-              To get full service of our digital platform, please tell us a bit
+              To get full service out of our website, please tell us a bit
               more about yourself!
             </div>
             <br />

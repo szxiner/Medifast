@@ -239,7 +239,7 @@ export default class InsuranceProfile extends React.Component {
               <Col span={6}>
                 <div className={css(styles.numberStat)}>
                   <div className={css(styles.numTitle)}>
-                    Total number of Patients:
+                    Total number of patients:
                   </div>
                   <div className={css(styles.numberCirclePatient)}>
                     {patientNum}
@@ -249,14 +249,14 @@ export default class InsuranceProfile extends React.Component {
               <Col span={6}>
                 <div className={css(styles.numberStat)}>
                   <div className={css(styles.numTitle)}>
-                    Total number of Doctors:
+                    Total number of doctors:
                   </div>
                   <div className={css(styles.numberCircleDoc)}>{docNum}</div>
                 </div>
               </Col>
               <Col span={10}>
                 <div className={css(styles.welcome)}>
-                  <h1>Welcome Back to Medifast!</h1>
+                  <h1>Welcome back to Medifast!</h1>
                 </div>
               </Col>
             </Row>

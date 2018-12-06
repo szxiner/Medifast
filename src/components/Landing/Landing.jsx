@@ -229,7 +229,7 @@ export default class Landing extends React.Component {
                     <div className={css(styles.subTitle)}>Our Plans</div>
                     <hr />
                     <div>
-                      Stay on top of your health with Medicare plans that may
+                      Stay on top of your health with insurance plans that 
                       include prescription, dental and vision coverage.
                     </div>
                   </div>
@@ -269,15 +269,13 @@ export default class Landing extends React.Component {
                         }}
                       />
                       <div className={css(styles.subTitle)}>
-                        We value your money
+                      We value your time and money
                       </div>
                       <hr />
                       <div>
-                        Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-                        venenatis vestibulum. Fusce dapibus, tellus ac cursus
-                        commodo, tortor mauris condimentum nibh, ut fermentum
-                        massa justo sit amet risus. Cras justo odio, dapibus ac
-                        facilisis.
+                      With features like insurance recommendation, live chat, 
+                      and quick claim approval, Medifast will provide the simplest
+                      and fastest solution for you to find the right health care.
                       </div>
                     </div>
                   </div>
@@ -317,8 +315,9 @@ export default class Landing extends React.Component {
                   maxWidth: "100%"
                 }}
               >
-                "Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-                venenatis vestibulum."
+               "Please help us help you. 
+                If you have any suggestions for our site,
+                email us at medifastiu@gmail.com"
               </div>
             </Plx>
             {/* Our Team */}
@@ -387,7 +386,7 @@ export default class Landing extends React.Component {
                       <div style={{ fontSize: 56, color: "#1D2F4B" }}>
                         10+ States
                       </div>
-                      Get covered where ever you are.
+                      Get covered wherever you are.
                       <Image src={map} style={{ width: 408, marginTop: 20 }} />
                     </div>
                   </Col>
