@@ -291,19 +291,19 @@ class MyCalendar extends React.Component {
           <p
             style={{
               fontFamily: "font-family: 'Muli', sans-serif",
-              fontSize: 22,
+              fontSize: 20,
               textAlign: "center",
               display: "inline-block"
             }}
           >
             Your appointment with Dr.{this.props.docname} has been booked. A
-            confirmation email has been sent to you.
+            confirmation email has been sent.
           </p>
           <p style={{ fontSize: 30, textAlign: "center" }}>
             <Icon
               type="check-circle"
               className={css(styles["ant-btn"])}
-              style={{ fontSize: 30, textAlign: "center" }}
+              style={{ fontSize: 30, width: "85%", textAlign: "center" }}
             />
           </p>
 
@@ -332,7 +332,7 @@ class MyCalendar extends React.Component {
           <p
             style={{
               fontFamily: "font-family: 'Muli', sans-serif",
-              fontSize: 12,
+              fontSize: 16,
               textAlign: "center",
               color: "red"
             }}

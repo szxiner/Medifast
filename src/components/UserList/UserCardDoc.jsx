@@ -11,6 +11,7 @@ import { themeColor } from "../../theme/colors";
 import doc from "./doc.png";
 import adheel from "./adheel.png";
 import jackson from "./jackson.png";
+import ant from "./ant.css";
 
 import Map from "../../common/Map";
 
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   },
   "ant-avatar-string": {
     position: "relative"
-    // transform: "scale(1) translateX(-50%)",
+    //transform: "scale(1) translateX(-50%)",
   }
 });
 

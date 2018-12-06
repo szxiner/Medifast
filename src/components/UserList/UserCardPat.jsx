@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
     fontSize: "18px"
   },
   "ant-avatar-string": {
-    position: "relative"
+    position: "relative",
+    left: "unset"
   }
 });
 

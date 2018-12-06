@@ -3,7 +3,7 @@ import _ from "lodash";
 import { StyleSheet, css } from "aphrodite";
 import { Search } from "antd";
 import { themeColor } from "../../theme/colors";
-import { Input, Icon } from "antd";
+import { Input, Icon, Divider, Row } from "antd";
 import axios from "axios";
 import PatientModal from "./PatientModal";
 import UserList from "./UserList";
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     margin: "auto",
     marginTop: "0%",
     width: "100%",
-    height: "150%",
+    height: "250%",
     //padding: 30,
     backgroundColor: "#F0F0F0",
     color: themeColor.aegean2,
@@ -251,30 +251,35 @@ export default class SearchDoctors extends React.Component {
     return (
       <div className={css(styles.boxnew)}>
         {this.state.searchbar ? (
-          <div
-            style={{
-              //textAlign: "center",
-              paddingTop: "2%",
-
-              height: "100%",
-              justifyContent: "center",
-              display: "flex"
-            }}
-          >
-            <h3
+          <div>
+            <div
               style={{
-                fontSize: 28,
-                fontFamily: "Crimson Text, serif",
-                fontWeight: 600,
-                marginTop: 8
+                //textAlign: "center",
+                paddingTop: "2%",
+
+                height: "100%",
+                justifyContent: "center",
+                display: "flex"
+                // flexWrap: "wrap",
+                // flexDirection: "column"
               }}
             >
-              Find doctors by name, specialty or practice focus area.{" "}
-            </h3>
-            &nbsp; &nbsp;
-            <form onSubmit={this.onSubmit}>
-              <FormGroup className={css(styles.FormGroup)}>
-                {/* <h2
+              <div>
+                <h3
+                  style={{
+                    fontSize: 28,
+                    fontFamily: "Crimson Text, serif",
+                    fontWeight: 600,
+                    marginTop: 8,
+                    justifyContent: "center"
+                  }}
+                >
+                  Find doctors by name, specialty or zip code.{" "}
+                </h3>
+                &nbsp; &nbsp;
+                <form onSubmit={this.onSubmit}>
+                  <FormGroup className={css(styles.FormGroup)}>
+                    {/* <h2
                   style={{
                     fontSize: 40,
                     textAlign: "center",
@@ -298,36 +303,31 @@ export default class SearchDoctors extends React.Component {
                 </h3>
                 <br /> */}
 
-                <InputGroup>
-                  <FormControl
-                    type="text"
-                    name="search"
-                    label="search"
-                    placeholder="Search"
-                    value={this.state.search}
-                    onChange={this.onChange}
-                    bsSize="large"
-                  />
-                  <InputGroup.Button bsSize="large">
-                    <Button
-                      bsStyle="primary"
-                      type={this.onSubmit}
-                      bsSize="large"
-                    >
-                      <Icon type="search" theme="outlined" />
-                    </Button>
-                  </InputGroup.Button>
-                </InputGroup>
-              </FormGroup>
-            </form>
-            <br />
-            {/* <div
-              style={{
-                alignItems: "center",
-                textAlign: "center"
-              }}
-            >
-              <h3
+                    <InputGroup>
+                      <FormControl
+                        type="text"
+                        name="search"
+                        label="search"
+                        placeholder="Search"
+                        value={this.state.search}
+                        onChange={this.onChange}
+                        bsSize="large"
+                      />
+                      <InputGroup.Button bsSize="large">
+                        <Button
+                          bsStyle="primary"
+                          type={this.onSubmit}
+                          bsSize="large"
+                        >
+                          <Icon type="search" theme="outlined" />
+                        </Button>
+                      </InputGroup.Button>
+                    </InputGroup>
+                  </FormGroup>
+                </form>
+              </div>
+              <br />
+              {/* <h3
                 style={{
                   display: "inline-block",
                   fontSize: 18
@@ -335,23 +335,31 @@ export default class SearchDoctors extends React.Component {
               >
                 Not sure which doctor you are looking for?
               </h3>
-              &nbsp; &nbsp;
-              <form
-                onSubmit={this.onSubmit2}
-                style={{ display: "inline-block" }}
-              >
-                <Button
-                  bsStyle="primary"
-                  type="submit"
-                  onSubmit={this.onSubmit2}
-                  style={{ fontSize: "30" }}
-                >
-                  Show All Doctors{" "}
-                </Button>
-              </form>
+              &nbsp; &nbsp; */}
             </div>
-          </div>
-        )  */}
+            <div
+              style={{
+                //alignItems: "center",
+                textAlign: "center"
+              }}
+            >
+              <br />
+              <div>
+                <form
+                  onSubmit={this.onSubmit2}
+                  style={{ display: "inline-block" }}
+                >
+                  <Button
+                    bsStyle="primary"
+                    type="submit"
+                    onSubmit={this.onSubmit2}
+                    style={{ fontSize: "30", display: "inline-block" }}
+                  >
+                    Show All Doctors{" "}
+                  </Button>
+                </form>
+              </div>
+            </div>
           </div>
         ) : (
           ""
@@ -366,7 +374,6 @@ export default class SearchDoctors extends React.Component {
         >
           {this.state.show ? (
             <div>
-              {/* <h3>Available {viewType}s</h3> */}
               {_.map(this.state.searchList, user => {
                 return (
                   <UserCardDoc
@@ -380,6 +387,15 @@ export default class SearchDoctors extends React.Component {
           ) : (
             ""
           )}
+        </div>
+        <div
+          style={{
+            //paddingTop: "5%",
+            paddingLeft: "10%",
+            paddingRight: "5%",
+            paddingBottom: "2%"
+          }}
+        >
           {this.state.noresults ? (
             <div align="center">
               <p className={css(styles.p)}>

@@ -15,7 +15,7 @@ import doctors from "../../images/doctors.png";
 import piggy from "../../images/piggy.png";
 import usmap from "./usmap.png";
 import map from "./map.jpg";
-
+import FooterBar from "../Footer/FooterBar.jsx";
 // TODO: CSS is a mess, fix it
 const styles = StyleSheet.create({
   indexButton: {
@@ -398,6 +398,7 @@ export default class Landing extends React.Component {
         <br />
         <br />
         <br />
+        <FooterBar />
       </div>
     );
   }
