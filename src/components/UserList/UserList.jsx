@@ -64,7 +64,8 @@ class UserList extends React.Component {
       userList: [],
       modal: false,
       activeProfile: null,
-      activeInfo: []
+      activeInfo: [],
+      currentplan: ""
     };
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -123,6 +124,13 @@ class UserList extends React.Component {
             this.setState({ userList: res.data });
           }
         });
+        axios
+          .get(`http://127.0.0.1:8000/insRec/recommend/${username}`)
+          .then(res => {
+            if (res.status === 200) {
+              this.setState({ currentplan: res.data });
+            }
+          });
       }
     } else if (userType === "Patient") {
       axios.get("http://127.0.0.1:8000/doctor/profile").then(res => {
@@ -134,7 +142,7 @@ class UserList extends React.Component {
   }
 
   render() {
-    const { userType } = this.props;
+    const { userType, currentplan } = this.props;
     let viewType;
     if (userType === "Doctor") {
       viewType = "Patient";
@@ -165,6 +173,7 @@ class UserList extends React.Component {
                   type={"Patient"}
                   currentUser={user}
                   activeInfo={user}
+                  currentplan={currentplan}
                 />
               );
             })}

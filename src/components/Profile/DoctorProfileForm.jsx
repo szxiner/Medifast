@@ -18,6 +18,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 500,
     marginLeft: 40
+  },
+  form: {
+    margin: "auto",
+    marginTop: "5%",
+    width: "70%",
+    height: "90%",
+    backgroundColor: "#fff",
+    color: themeColor.aegean2,
+    borderColor: themeColor.grey3,
+    padding: 40,
+    // marginTop: "10%",
+    // marginLeft: "10%",
+    // marginRight: "10%",
+    // marginBottom: "10%",
+    "@media (max-width: 600px)": {
+      // TODO: Not responsive for mobile. Will Fix later
+    }
+  },
+  "ant-btn-primary": {
+    color: "#fff",
+    backgroundColor: "#092e6b",
+    borderColor: "#092e6b"
   }
 });
 
@@ -129,8 +151,15 @@ class DoctorProfileForm extends React.Component {
         {!this.state.stageTwo ? (
           <div>
             {!this.state.stageAddress ? (
-              <div>
-                <h1>Welcome to Medifast!</h1>
+              <div className={css(styles.form)}>
+                <h1
+                  style={{
+                    fontSize: "30px",
+                    color: "#000"
+                  }}
+                >
+                  Welcome to Medifast!
+                </h1>
                 <div className={css(styles.welcome)}>
                   To get full service of our digital platform, please tell us a
                   bit more about yourself!
@@ -173,6 +202,7 @@ class DoctorProfileForm extends React.Component {
                       block
                       onClick={this.onClick}
                       style={{ marginTop: 24, marginBottom: 24 }}
+                      className={css(styles["ant-btn-primary"])}
                     >
                       Next
                     </Button>
@@ -180,7 +210,8 @@ class DoctorProfileForm extends React.Component {
                 </form>
               </div>
             ) : (
-              <div>
+              <div className={css(styles.form)}>
+                {" "}
                 <form>
                   <FormGroup>
                     <ControlLabel>Hospital/Clinic:</ControlLabel>
@@ -248,6 +279,7 @@ class DoctorProfileForm extends React.Component {
                       block
                       onClick={this.onSubmit}
                       style={{ marginTop: 24, marginBottom: 24 }}
+                      className={css(styles["ant-btn-primary"])}
                     >
                       Submit
                     </Button>

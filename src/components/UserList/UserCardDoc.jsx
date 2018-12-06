@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
     fontFamily: "font-family: 'Source Sans Pro', sans-serif",
     fontSize: "14px"
   },
-  ".label": {
-    fontSize: "50"
+  label: {
+    fontSize: "larger"
   },
   "ant-btn": {
     //backgroundColor: "transparent",
@@ -295,16 +295,16 @@ class UserCardDoc extends React.Component {
                       </Row> */}
                       <Row
                         style={{
-                          fontSize: "19px",
+                          fontSize: "26",
                           fontFamily: "font-family: 'Muli', sans-serif  ",
                           color: "#505050",
                           textAlign: "center"
                         }}
                       >
+                        <br />
                         <Label
                           bsStyle="warning"
                           className={css(styles["label"])}
-                          className={css(styles["ant-btn"])}
                         >
                           {insurance}
                         </Label>

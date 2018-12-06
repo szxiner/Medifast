@@ -104,13 +104,12 @@ class UserCardPat extends React.Component {
   }
 
   render() {
-    const { type, currentUser, activeInfo } = this.props;
+    const { type, currentUser, activeInfo, currentplan } = this.props;
     let activeProfile = currentUser.Last_Name;
     let star;
     let lastName;
     let location;
     let username;
-    let insurance;
 
     const name = currentUser.First_name + "  " + currentUser.Last_Name;
     const specialization = currentUser.specialization;
@@ -122,6 +121,7 @@ class UserCardPat extends React.Component {
       currentUser.state_name;
     const gender = currentUser.gender;
     const dob = currentUser.DOB;
+    let insurance = this.props.currentplan;
     return (
       <div className={css(styles.flexBody)}>
         <div className={css(styles.flex)}>
@@ -195,6 +195,15 @@ class UserCardPat extends React.Component {
                           }}
                         >
                           Age: {dob}
+                        </Row>
+                        <Row
+                          style={{
+                            fontSize: "16px",
+                            fontFamily: "font-family: 'Muli', sans-serif  ",
+                            color: "#505050"
+                          }}
+                        >
+                          {insurance}
                         </Row>
                       </Col>
                     </Row>
