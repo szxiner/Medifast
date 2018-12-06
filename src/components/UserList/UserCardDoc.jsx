@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     fontSize: "15px"
   },
   "ant-avatar-string": {
-    position: "relative",
+    position: "relative"
+    // transform: "scale(1) translateX(-50%)",
   }
 });
 
@@ -220,12 +221,17 @@ class UserCardDoc extends React.Component {
                             style={{
                               fontSize: 48,
                               backgroundColor: "#00a2ae",
-                              verticalAlign: "middle"
+                              verticalAlign: "middle",
+                              textAlign: "left"
                             }}
                             className={css(styles["ant-avatar-string"])}
                             size={100}
                           >
-                            {name.charAt(0)}
+                            <div
+                              style={{ transform: "scale(1) translateX(-50%)" }}
+                            >
+                              {name.charAt(0)}
+                            </div>
                           </Avatar>
                         </Col>
                         <Col span={12}>
