@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     borderColor: themeColor.grey0,
     padding: 40,
     marginTop: "1%",
-    marginLeft: "20%",
+    marginLeft: "30%",
     marginRight: "20%",
     marginBottom: "1%",
     width: "40%",

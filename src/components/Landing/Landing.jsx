@@ -28,6 +28,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontWeight: 500
   },
+  flexBody: {
+    display: "flex",
+    //marginRight: "0px"
+    justifyContent: "center"
+  },
   index: {
     display: "flex",
     margin: "auto",
@@ -350,8 +355,8 @@ export default class Landing extends React.Component {
               <div
                 style={{
                   backgroundColor: "#fff",
-                  marginLeft: 80,
-                  width: 1250,
+                  // marginLeft: 80,
+                  width: "100%",
                   height: 520
                 }}
               >

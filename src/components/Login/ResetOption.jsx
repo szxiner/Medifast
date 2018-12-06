@@ -11,6 +11,8 @@ import { themeColor } from "../../theme/colors";
 import { SecondaryThemeColor } from "../../theme/secondaryColor";
 import { Button } from "react-bootstrap";
 
+import LandingNavbar from "../Layout/LandingNavbar";
+
 const styles = StyleSheet.create({
   box: {
     margin: "auto",
@@ -88,40 +90,43 @@ export default class ResetOption extends React.Component {
 
   render() {
     return (
-      <div className={css(styles.box)}>
-        <h1 className={css(styles.logo)}>Medifast</h1>
-        <br />
-        <form onSubmit={this.onSubmit1}>
-          <div className="wellStyles">
-            <Button
-              bsStyle="primary"
-              bsSize="large"
-              block
-              type="submit"
-              onSubmit={this.onSubmit1}
-            >
-              Reset to new password through Email
-            </Button>
-          </div>
-        </form>
-        <br />
-        <p align="center" fontWeight="700">
-          OR
-        </p>
-        <br />
-        <form onSubmit={this.onSubmit2}>
-          <div className="wellStyles">
-            <Button
-              bsStyle="primary"
-              bsSize="large"
-              onSubmit={this.onSubmit1}
-              type="submit"
-              block
-            >
-              Retrive old password using Security Question
-            </Button>
-          </div>
-        </form>
+      <div>
+        <LandingNavbar />
+        <div className={css(styles.box)}>
+          <h1 className={css(styles.logo)}>Medifast</h1>
+          <br />
+          <form onSubmit={this.onSubmit1}>
+            <div className="wellStyles">
+              <Button
+                bsStyle="primary"
+                bsSize="large"
+                block
+                type="submit"
+                onSubmit={this.onSubmit1}
+              >
+                Reset to new password through Email
+              </Button>
+            </div>
+          </form>
+          <br />
+          <p align="center" fontWeight="700">
+            OR
+          </p>
+          <br />
+          <form onSubmit={this.onSubmit2}>
+            <div className="wellStyles">
+              <Button
+                bsStyle="primary"
+                bsSize="large"
+                onSubmit={this.onSubmit1}
+                type="submit"
+                block
+              >
+                Retrive old password using Security Question
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

@@ -97,7 +97,11 @@ class Billing extends React.Component {
       <div className={css(styles.container)}>
         <div className={css(styles.title)}>
           <Row>
-            <Col span={23}>Claims</Col>
+            <Col span={23}>
+              <div style={{ fontFamily: "Crimson Text, serif", fontSize: 28 }}>
+                Claims
+              </div>
+            </Col>
             <Col span={1}>
               <Button onClick={this.onClick} shape="circle" icon="redo" />
             </Col>

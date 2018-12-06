@@ -234,7 +234,7 @@ export default class InsuranceProfile extends React.Component {
     return (
       <div className={css(styles.flexBody)}>
         {donutChat && donutChat2 ? (
-          <div>
+          <div style={{ width: "100%", paddingLeft: "110px" }}>
             <Row>
               <Col span={6}>
                 <div className={css(styles.numberStat)}>
@@ -267,7 +267,7 @@ export default class InsuranceProfile extends React.Component {
                     <Col span={11}>
                       <div>
                         <div className={css(styles.apptTitle)}>
-                          Appointments - Specialization by Counts:
+                          Appointments Based on Specialization:
                           <br />
                         </div>
                         {donutChat ? (
@@ -313,7 +313,7 @@ export default class InsuranceProfile extends React.Component {
                   <Row>
                     <div className={css(styles.bookingTotal)}>
                       <br />
-                      Total Booking Amount: <b>{bookingNum}</b>
+                      Total Number of Appointments: <b>{bookingNum}</b>
                       <br />
                     </div>
                   </Row>

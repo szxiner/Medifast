@@ -201,7 +201,7 @@ class UserCardPat extends React.Component {
                       <Col span={12}>
                         <Avatar
                           style={{ width: 100, height: 120 }}
-                          src={require(`./${doc}.png`)}
+                          src={require(`./doc.png`)}
                         />
                       </Col>
                       <Col span={12}>

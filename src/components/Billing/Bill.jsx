@@ -162,7 +162,7 @@ export class Bill extends Component {
               <div className={styles.payMethod}>
                 <Button
                   style={{
-                    width: "95%",
+                    width: "89%",
                     borderRadius: 22,
                     height: 45,
                     fontWeight: "bold"

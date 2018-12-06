@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
     marginRight: "1%",
     padding: "4%",
     borderRadius: 8,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    height: 621
   },
   title: {
     fontSize: 28,

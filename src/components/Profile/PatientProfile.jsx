@@ -499,9 +499,9 @@ class PatientProfile extends React.Component {
                 </div>
                 {!!imageUrl ? (
                   // <Avatar src={this.props.user.username} size={128} />
-                  <Avatar src={require(`./${username}.png`)} size={128} />
+                  <Avatar src={require(`./bin123.png`)} size={128} />
                 ) : (
-                  <Avatar size={128} src={require(`./${username}.png`)} />
+                  <Avatar size={128} src={require(`./bin123.png`)} />
                 )}
                 <br />
                 <br />
