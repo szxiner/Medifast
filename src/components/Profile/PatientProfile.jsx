@@ -257,7 +257,7 @@ class PatientProfile extends React.Component {
         total = total + sheet[4] * 0.5;
       });
       const barData = {
-        labels: ["Paid", "Unpaid"],
+        labels: ["Paid Amount", "Unpaid Amount"],
         datasets: [
           {
             data: [paid, total],
@@ -383,7 +383,8 @@ class PatientProfile extends React.Component {
               >
                 Upcoming Appointments:
               </span>
-              <hr />
+              <br />
+              <br />
               {loading ? (
                 <List />
               ) : (
@@ -419,7 +420,6 @@ class PatientProfile extends React.Component {
               >
                 Billing:
               </span>
-              <hr />
               {loading ? (
                 <List />
               ) : (

@@ -13,6 +13,7 @@ import {
   Col
 } from "react-bootstrap";
 import { Radio } from "antd";
+import LandingNavbar from "../Layout/LandingNavbar";
 
 import coffee from "./coffee.png";
 import Button from "../../common/Button";
@@ -153,140 +154,143 @@ export class Register extends React.Component {
   render() {
     const { stageOne } = this.state;
     return (
-      <div className={css(styles.box)}>
-        <Grid style={{ width: "100%" }}>
-          <Row bsStyle="visibleMdBlock" className="show-grid">
-            <Col xs={6} md={5} style={{ padding: 0 }}>
-              <div className={css(styles.img)}>
-                <img src={coffee} width="100%" height="100%" />
-              </div>
-            </Col>
-            <Col xs={12} md={7}>
-              <div className={css(styles.register)}>
-                <h1
-                  style={{
-                    fontSize: 60,
-                    textAlign: "center",
-                    color: "#000"
-                  }}
-                >
-                  Medifast
-                </h1>
-                <br />
-                <div>
-                  {stageOne ? (
-                    <div>
-                      <form onSubmit={this.nextPage}>
-                        <FormGroup>
-                          <ControlLabel>Username:</ControlLabel>
-                          <FormControl
-                            className={css(styles.inputBox)}
-                            type="text"
-                            name="username"
-                            label="Username"
-                            placeholder="Username"
-                            value={this.state.username}
-                            onChange={this.onChange}
-                          />
-                          <br />
-                          <ControlLabel>Password:</ControlLabel>
-                          <FormControl
-                            className={css(styles.inputBox)}
-                            type="password"
-                            name="password"
-                            label="Password"
-                            placeholder="Password"
-                            value={this.state.password}
-                            onChange={this.onChange}
-                          />
-                          <br />
-                          <ControlLabel>Confirm Password:</ControlLabel>
-                          <FormControl
-                            className={css(styles.inputBox)}
-                            type="password"
-                            name="confirmPassword"
-                            label="Confirm Password"
-                            placeholder="Confirm Password"
-                            value={this.state.confirmPassword}
-                            onChange={this.onChange}
-                          />
-                          <br />
-                        </FormGroup>
-                        <div className={css(styles.error)}>
-                          {this.state.errorMsg}
-                        </div>
-                        <Button name="Next" type="submit" />
-                      </form>
-                    </div>
-                  ) : (
-                    <div>
-                      <form onSubmit={this.onSubmit}>
-                        <FormGroup>
-                          <ControlLabel>You are a:</ControlLabel>
-                          <br />
-                          <RadioGroup
-                            style={{
-                              marginTop: 8,
-                              marginBottom: 16,
-                              width: "100%"
-                            }}
-                            name="typeOfUser"
-                            onChange={this.onChange}
-                            defaultValue=""
-                          >
-                            <RadioButton value="Doctor">Doctor</RadioButton>
-                            <RadioButton value="Patient">Patient</RadioButton>
-                            <RadioButton value="Insurance">
-                              Insurance Officer
-                            </RadioButton>
-                          </RadioGroup>
-                          <br />
-                          <ControlLabel>Email:</ControlLabel>
-                          <FormControl
-                            className={css(styles.inputBox)}
-                            type="email"
-                            label="Email address"
-                            name="email"
-                            placeholder="Enter email"
-                            value={this.state.email}
-                            onChange={this.onChange}
-                          />
-                          <br />
-                          <ControlLabel>Phone Number:</ControlLabel>
-                          <FormControl
-                            className={css(styles.inputBox)}
-                            type="number"
-                            //type="text"
-                            //pattern="[0-9]*"
-                            label="Phone Number"
-                            name="phone_number"
-                            placeholder="Enter your phone number"
-                            value={this.state.phone_number}
-                            maxLength="10"
-                            onChange={this.onChange}
-                            //onChange={this.onChange}
-                            //onChange={event => this.setState({ phone_number: event.target.value.replace(/\D/, '') })}
-                          />
-                          <br />
+      <div>
+        <LandingNavbar />
+        <div className={css(styles.box)}>
+          <Grid style={{ width: "100%" }}>
+            <Row bsStyle="visibleMdBlock" className="show-grid">
+              <Col xs={6} md={5} style={{ padding: 0 }}>
+                <div className={css(styles.img)}>
+                  <img src={coffee} width="100%" height="100%" />
+                </div>
+              </Col>
+              <Col xs={12} md={7}>
+                <div className={css(styles.register)}>
+                  <h1
+                    style={{
+                      fontSize: 60,
+                      textAlign: "center",
+                      color: "#000"
+                    }}
+                  >
+                    Medifast
+                  </h1>
+                  <br />
+                  <div>
+                    {stageOne ? (
+                      <div>
+                        <form onSubmit={this.nextPage}>
+                          <FormGroup>
+                            <ControlLabel>Username:</ControlLabel>
+                            <FormControl
+                              className={css(styles.inputBox)}
+                              type="text"
+                              name="username"
+                              label="Username"
+                              placeholder="Username"
+                              value={this.state.username}
+                              onChange={this.onChange}
+                            />
+                            <br />
+                            <ControlLabel>Password:</ControlLabel>
+                            <FormControl
+                              className={css(styles.inputBox)}
+                              type="password"
+                              name="password"
+                              label="Password"
+                              placeholder="Password"
+                              value={this.state.password}
+                              onChange={this.onChange}
+                            />
+                            <br />
+                            <ControlLabel>Confirm Password:</ControlLabel>
+                            <FormControl
+                              className={css(styles.inputBox)}
+                              type="password"
+                              name="confirmPassword"
+                              label="Confirm Password"
+                              placeholder="Confirm Password"
+                              value={this.state.confirmPassword}
+                              onChange={this.onChange}
+                            />
+                            <br />
+                          </FormGroup>
                           <div className={css(styles.error)}>
                             {this.state.errorMsg}
                           </div>
-                          <Button name="Sign Up" type="submit" />
-                        </FormGroup>
-                      </form>
-                    </div>
-                  )}
+                          <Button name="Next" type="submit" />
+                        </form>
+                      </div>
+                    ) : (
+                      <div>
+                        <form onSubmit={this.onSubmit}>
+                          <FormGroup>
+                            <ControlLabel>You are a:</ControlLabel>
+                            <br />
+                            <RadioGroup
+                              style={{
+                                marginTop: 8,
+                                marginBottom: 16,
+                                width: "100%"
+                              }}
+                              name="typeOfUser"
+                              onChange={this.onChange}
+                              defaultValue=""
+                            >
+                              <RadioButton value="Doctor">Doctor</RadioButton>
+                              <RadioButton value="Patient">Patient</RadioButton>
+                              <RadioButton value="Insurance">
+                                Insurance Officer
+                              </RadioButton>
+                            </RadioGroup>
+                            <br />
+                            <ControlLabel>Email:</ControlLabel>
+                            <FormControl
+                              className={css(styles.inputBox)}
+                              type="email"
+                              label="Email address"
+                              name="email"
+                              placeholder="Enter email"
+                              value={this.state.email}
+                              onChange={this.onChange}
+                            />
+                            <br />
+                            <ControlLabel>Phone Number:</ControlLabel>
+                            <FormControl
+                              className={css(styles.inputBox)}
+                              type="number"
+                              //type="text"
+                              //pattern="[0-9]*"
+                              label="Phone Number"
+                              name="phone_number"
+                              placeholder="Enter your phone number"
+                              value={this.state.phone_number}
+                              maxLength="10"
+                              onChange={this.onChange}
+                              //onChange={this.onChange}
+                              //onChange={event => this.setState({ phone_number: event.target.value.replace(/\D/, '') })}
+                            />
+                            <br />
+                            <div className={css(styles.error)}>
+                              {this.state.errorMsg}
+                            </div>
+                            <Button name="Sign Up" type="submit" />
+                          </FormGroup>
+                        </form>
+                      </div>
+                    )}
+                  </div>
+                  <br />
+                  <br />
+                  <div style={{ bottom: 0, textAlign: "center" }}>
+                    Already have an account?
+                    <a href="/Login"> Sign in.</a>
+                  </div>
                 </div>
-                <br />
-                <br />
-                <div style={{ bottom: 0, textAlign: "center" }}>
-                  Already have an account?
-                  <a href="/Login"> Sign in.</a>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Grid>
+              </Col>
+            </Row>
+          </Grid>
+        </div>
       </div>
     );
   }

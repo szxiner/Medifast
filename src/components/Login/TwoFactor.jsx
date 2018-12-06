@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
+import LandingNavbar from "../Layout/LandingNavbar";
+
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 import { authUser } from "../../actions/authActions";
@@ -70,27 +72,31 @@ export class Register extends React.Component {
 
   render() {
     return (
-      <div className={css(styles.box)}>
-        <h1 className={css(styles.logo)}>Medifast</h1>
-        <br />
-        {/*TODO: Create global form*/}
-        <form onSubmit={this.onSubmit}>
-          <FormGroup>
-            <ControlLabel>Enter Authy token:</ControlLabel>
-            <FormControl
-              className={css(styles.inputBox)}
-              type="number"
-              name="token"
-              label="token"
-              placeholder="token"
-              value={this.state.token}
-              onChange={this.onChange}
-            />
-            <br />
-            <Button name="Submit" type="submit" />
-          </FormGroup>
-        </form>
-        <div className={css(styles.error)}>{this.state.errorMsg}</div>
+      <div>
+        <LandingNavbar isAuth={true} />
+
+        <div className={css(styles.box)}>
+          <h1 className={css(styles.logo)}>Medifast</h1>
+          <br />
+          {/*TODO: Create global form*/}
+          <form onSubmit={this.onSubmit}>
+            <FormGroup>
+              <ControlLabel>Enter Authy token:</ControlLabel>
+              <FormControl
+                className={css(styles.inputBox)}
+                type="number"
+                name="token"
+                label="token"
+                placeholder="token"
+                value={this.state.token}
+                onChange={this.onChange}
+              />
+              <br />
+              <Button name="Submit" type="submit" />
+            </FormGroup>
+          </form>
+          <div className={css(styles.error)}>{this.state.errorMsg}</div>
+        </div>
       </div>
     );
   }

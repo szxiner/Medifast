@@ -6,6 +6,7 @@ import { StyleSheet, css } from "aphrodite";
 import { connect } from "react-redux";
 import { FormGroup, FormControl, Grid, Row, Col } from "react-bootstrap";
 
+import LandingNavbar from "../Layout/LandingNavbar";
 import Button from "../../common/Button";
 import GoogleLoginButton from "./GoogleLoginButton";
 import holdhand from "./holdhand.png";
@@ -108,77 +109,83 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div className={css(styles.box)}>
-        <Grid style={{ width: "100%" }}>
-          <Row bsStyle="visibleMdBlock" className="show-grid">
-            <Col xs={12} md={7}>
-              <div className={css(styles.login)}>
-                <h1
-                  style={{
-                    fontSize: 60,
-                    textAlign: "center",
-                    color: "#000"
-                  }}
-                >
-                  Medifast
-                </h1>
-                <br />
-                <GoogleLoginButton history={this.props.history} />
-                <hr />
-                <form onSubmit={this.onSubmit}>
-                  <FormGroup>
-                    <label>Username:</label>
-                    <FormControl
-                      className={css(styles.inputBox)}
-                      type="text"
-                      name="username"
-                      label="Username"
-                      placeholder="Username"
-                      value={this.state.username}
-                      onChange={this.onChange}
-                    />
-                    <br />
-                    <label>Password:</label>
-                    <FormControl
-                      className={css(styles.inputBox)}
-                      type="password"
-                      name="password"
-                      label="Password"
-                      placeholder="Password"
-                      value={this.state.password}
-                      onChange={this.onChange}
-                    />
-                    <br />
-                    <div className={css(styles.error)}>
-                      {this.state.errorMsg}
-                    </div>
-
-                    <Col xs={10} md={6}>
-                      <div align="Left" className={css(styles.forgotpassword)}>
-                        <a href="/ResetOption">Forgot Password?</a>
+      <div>
+        <LandingNavbar />
+        <div className={css(styles.box)}>
+          <Grid style={{ width: "100%" }}>
+            <Row bsStyle="visibleMdBlock" className="show-grid">
+              <Col xs={12} md={7}>
+                <div className={css(styles.login)}>
+                  <h1
+                    style={{
+                      fontSize: 60,
+                      textAlign: "center",
+                      color: "#000"
+                    }}
+                  >
+                    Medifast
+                  </h1>
+                  <br />
+                  <GoogleLoginButton history={this.props.history} />
+                  <hr />
+                  <form onSubmit={this.onSubmit}>
+                    <FormGroup>
+                      <label>Username:</label>
+                      <FormControl
+                        className={css(styles.inputBox)}
+                        type="text"
+                        name="username"
+                        label="Username"
+                        placeholder="Username"
+                        value={this.state.username}
+                        onChange={this.onChange}
+                      />
+                      <br />
+                      <label>Password:</label>
+                      <FormControl
+                        className={css(styles.inputBox)}
+                        type="password"
+                        name="password"
+                        label="Password"
+                        placeholder="Password"
+                        value={this.state.password}
+                        onChange={this.onChange}
+                      />
+                      <br />
+                      <div className={css(styles.error)}>
+                        {this.state.errorMsg}
                       </div>
-                    </Col>
-                    <Col xs={10} md={6}>
-                      <Button name="Log in" type="submit" />
-                    </Col>
-                  </FormGroup>
-                </form>
-                <br />
-                <br />
-                <br />
-                <div style={{ bottom: 0, textAlign: "center" }}>
-                  Do not have an account?
-                  <a href="/Register"> Sign up.</a>
+
+                      <Col xs={10} md={6}>
+                        <div
+                          align="Left"
+                          className={css(styles.forgotpassword)}
+                        >
+                          <a href="/ResetOption">Forgot Password?</a>
+                        </div>
+                      </Col>
+                      <Col xs={10} md={6}>
+                        <Button name="Log in" type="submit" />
+                      </Col>
+                    </FormGroup>
+                  </form>
+                  <br />
+                  <br />
+                  <br />
+                  <div style={{ bottom: 0, textAlign: "center" }}>
+                    Do not have an account?
+                    <a href="/Register"> Sign up.</a>
+                  </div>
                 </div>
-              </div>
-            </Col>
-            <Col xs={6} md={5}>
-              <div className={css(styles.img)}>
-                <img src={holdhand} width="105%" height="100%" />
-              </div>
-            </Col>
-          </Row>
-        </Grid>
+              </Col>
+              <Col xs={6} md={5}>
+                <div className={css(styles.img)}>
+                  <img src={holdhand} width="105%" height="100%" />
+                </div>
+              </Col>
+            </Row>
+          </Grid>
+        </div>
       </div>
     );
   }

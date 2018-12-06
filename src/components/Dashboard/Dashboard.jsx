@@ -9,14 +9,18 @@ import { connect } from "react-redux";
 
 import Chat from "../Chat/Chat";
 import DashboardSideBar from "./DashboardSideBar";
-
+import LandingNavbar from "../Layout/LandingNavbar";
 const Search = Input.Search;
 
 const styles = StyleSheet.create({
   chat: {
-    position: "absolute",
+    position: "fixed",
     right: 40,
     bottom: 40
+  },
+  container: {
+    position: "relative",
+    height: "100%"
   }
 });
 class Dashboard extends React.Component {
@@ -124,7 +128,8 @@ class Dashboard extends React.Component {
     } = this.state;
     console.log("userList", userList);
     return (
-      <div>
+      <div className={css(styles.container)}>
+        <LandingNavbar isAuth={true} />
         <DashboardSideBar />
         <div className={css(styles.chat)}>
           <Button

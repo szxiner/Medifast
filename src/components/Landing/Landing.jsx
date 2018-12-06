@@ -5,13 +5,16 @@ import { Grid, Row, Col, Image } from "react-bootstrap";
 import Plx from "react-plx";
 
 import { themeColor } from "../../theme/colors";
+
+import LandingNavbar from "../Layout/LandingNavbar";
 import "react-animated-slider/build/horizontal.css";
-// import "normalize.css/normalize.css";
 import "./slider-animations.css";
 import "./style.css";
 import smile from "../../images/smile.png";
 import doctors from "../../images/doctors.png";
 import piggy from "../../images/piggy.png";
+import usmap from "./usmap.png";
+import map from "./map.jpg";
 
 // TODO: CSS is a mess, fix it
 const styles = StyleSheet.create({
@@ -140,6 +143,25 @@ const titleParallax = [
   }
 ];
 
+const mapParallax = [
+  {
+    start: 1000,
+    duration: 700,
+    properties: [
+      {
+        startValue: -800,
+        endValue: 0,
+        property: "translateX"
+      },
+      {
+        startValue: 0.3,
+        endValue: 1,
+        property: "opacity"
+      }
+    ]
+  }
+];
+
 const content = [
   {
     title: "Medifast",
@@ -168,6 +190,7 @@ export default class Landing extends React.Component {
   render() {
     return (
       <div>
+        <LandingNavbar />
         <Slider className="slider-wrapper" autoplay="6000">
           {content.map((item, index) => (
             <div
@@ -270,7 +293,7 @@ export default class Landing extends React.Component {
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
           >
-            <polygon fill="#f4f5f5" points="0,0 100,0 100,100" />
+            <polygon fill="#DEE1E3" points="0,0 100,0 100,100" />
           </svg>
           <div>
             <br />
@@ -308,9 +331,69 @@ export default class Landing extends React.Component {
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
           >
-            <polygon fill="#f4f5f5" points="0,0 0,100 100,100" />
+            <polygon fill="#DEE1E3" points="0,0 0,100 100,100" />
           </svg>
         </div>
+
+        <Plx className="TitleParallax" parallaxData={mapParallax}>
+          <div
+            style={{
+              marginTop: 48,
+              textAlign: "center",
+              color: "#304B5C",
+              fontWeight: "bold",
+              fontSize: 24,
+              maxWidth: "100%"
+            }}
+          >
+            <Grid style={{ width: "100%" }}>
+              <div
+                style={{
+                  backgroundColor: "#fff",
+                  marginLeft: 80,
+                  width: 1250,
+                  height: 520
+                }}
+              >
+                <Row>
+                  <Col xs={10} md={7}>
+                    <div
+                      style={{
+                        marginLeft: 22,
+                        height: 520
+                      }}
+                    >
+                      <Image
+                        src={usmap}
+                        style={{ width: 750, marginLeft: 10, marginTop: 20 }}
+                      />
+                    </div>
+                  </Col>
+                  <Col xs={8} md={5}>
+                    <div
+                      style={{
+                        marginLeft: 50,
+                        height: 520,
+                        backgroundColor: "#ABC3C4",
+                        lineHeight: "60px"
+                      }}
+                    >
+                      Insurance and Doctor avaliable in <br />
+                      <div style={{ fontSize: 56, color: "#1D2F4B" }}>
+                        10+ States
+                      </div>
+                      Get covered where ever you are.
+                      <Image src={map} style={{ width: 408, marginTop: 20 }} />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </Grid>
+          </div>
+        </Plx>
+        <br />
+        <br />
+        <br />
       </div>
     );
   }
