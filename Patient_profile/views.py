@@ -7,6 +7,8 @@ from django.http import Http404
 from rest_framework import status
 from Doctor_profile.models import Booking, Doctor_profile
 from Doctor_profile.serializers import Bookings_serializer, Doctor_profile_serializer
+from users.models import Account
+from users.serializers import AccountSerializer
 from django.http import HttpResponse
 from rest_framework import status
 import json
@@ -101,6 +103,28 @@ def delete_booking(request):
         appointment = Booking.objects.filter(ref_no=request.GET['ref_no'])
         serializer = Bookings_serializer(appointment, many=True)
         appointment.delete()
+        return HttpResponse('Success', status=status.HTTP_200_OK)
+    else:
+        return HttpResponse('Failure', status=status.HTTP_400_BAD_REQUEST)
+		
+def send_mail(request):
+    if request.GET != {}:
+        profile = Account.objects.filter(username=request.GET['username'])
+        user_ser = AccountSerializer(profile, many=True)
+        email = user_ser.data[0]['email']
+        subject = 'Insurance Plan Changed'
+        To_list = ['medifastiu@gmail.com']
+        To_list.append(email)
+        message = 'This is to notify that your insurance plan has been changed to ' + request.GET['plan'] + ' as per your request.'
+        from_email = 'medifastiu@gmail.com'
+        server = smtplib.SMTP('smtp.gmail.com:587')
+        EMAIL_HOST_PASSWORD = 'Group3=best22'
+        server.ehlo()
+        server.starttls()
+        server.login(from_email,EMAIL_HOST_PASSWORD)
+        msg = 'Subject: {}\n\n{}'.format(subject,message)
+        server.sendmail(from_email,To_list,msg)
+        server.quit()
         return HttpResponse('Success', status=status.HTTP_200_OK)
     else:
         return HttpResponse('Failure', status=status.HTTP_400_BAD_REQUEST)
