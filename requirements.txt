@@ -99,7 +99,7 @@ pip==9.0.1
 prometheus-client==0.3.1
 prompt-toolkit==1.0.15
 psycopg2-binary==2.7.5
-Pygments==2.2.0
+Pygments==2.7.4
 PyHamcrest==1.9.0
 pylint==2.1.1
 pyparsing==2.2.0
